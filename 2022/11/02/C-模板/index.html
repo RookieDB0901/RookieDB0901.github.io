@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>C++模板 | DB的空间</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基本语法以置换函数为例： 12345678&#x2F;&#x2F;使用模板必须确定数据类型T，并能够推导出一致的类型template&lt;class T&gt;void mySwap(T&amp; a, T&amp; b)&amp;#123;	T temp &#x3D; a;	a &#x3D; b;	b &#x3D; temp;&amp;#125; 调用方式：  自动类型推导：mySwap(a, b); 显示指定类型：mySwap&lt;int&gt;(a,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++模板">
+<meta property="og:url" content="https://rookiedb.github.io/2022/11/02/C-%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="DB的空间">
+<meta property="og:description" content="基本语法以置换函数为例： 12345678&#x2F;&#x2F;使用模板必须确定数据类型T，并能够推导出一致的类型template&lt;class T&gt;void mySwap(T&amp; a, T&amp; b)&amp;#123;	T temp &#x3D; a;	a &#x3D; b;	b &#x3D; temp;&amp;#125; 调用方式：  自动类型推导：mySwap(a, b); 显示指定类型：mySwap&lt;int&gt;(a,">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-02T04:51:27.000Z">
+<meta property="article:modified_time" content="2022-11-02T08:23:28.982Z">
+<meta property="article:author" content="Rookie DB">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="notes">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="DB的空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+
+  
+<script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+
+  
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/"></a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-C-模板" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/02/C-%E6%A8%A1%E6%9D%BF/" class="article-date">
+  	<time datetime="2022-11-02T04:51:27.000Z" itemprop="datePublished">2022-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++模板
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+	</div>
+
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>以置换函数为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用模板必须确定数据类型T，并能够推导出一致的类型</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T&amp; a, T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用方式：</p>
+<ul>
+<li>自动类型推导：<code>mySwap(a, b);</code></li>
+<li>显示指定类型：<code>mySwap&lt;int&gt;(a, b);</code></li>
+</ul>
+<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2><p>在调用函数时，若实参与形参数据类型不一致，实参根据形参类型进行转化（如char类型转化成对应的ASCII码）<br>普通函数&amp;显示指定类型模板函数会发生隐式类型转换<br>自动类型推导不会发生，会报错</p>
+<h2 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h2><ul>
+<li>优先调用普通函数</li>
+<li>可以通过空模板参数列表强制调用函数模板 <code>myPrint&lt;&gt;(a,b);</code></li>
+<li>函数模板可以发生重载</li>
+<li>如果函数模板更好匹配，优先调用模板<br> 比如函数模板不用发生隐式类型转换，而普通函数需要</li>
+<li>提供了函数模板，最好不要再提供普通函数</li>
+</ul>
+<h2 id="具体化"><a href="#具体化" class="headerlink" title="具体化"></a>具体化</h2><p>模板的通用性不是万能的，如以下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a==b) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果传入的a和b是一个类，就无法实现了。<br>可以通过具体化实现自定义类型的通用化 ：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(person &amp;p1, person &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.name==p2.name &amp;&amp; p1.age==p2.age) return1;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><h3 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h3><p>template后面加类，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, calss AgeType&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Person</span>(NameType name, AgeType age)</span><br><span class="line">        &#123;</span><br><span class="line">                m_Name = name;</span><br><span class="line">                m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">        NameType m_Name;</span><br><span class="line">        AgeType m_Age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>调用：<code>Person&lt;string, int&gt; p1(&quot;name&quot;,age);</code></p>
+<h3 id="类模板注意事项"><a href="#类模板注意事项" class="headerlink" title="类模板注意事项"></a>类模板注意事项</h3><ol>
+<li>类模板无法自动类型推导</li>
+<li>类模板参数列表可以有默认参数，如：<code>template&lt;class NameType, calss AgeType = int&gt;</code></li>
+<li>类模板成员函数在调用时才会创建</li>
+</ol>
+<h3 id="类模板对象作函数参数"><a href="#类模板对象作函数参数" class="headerlink" title="类模板对象作函数参数"></a>类模板对象作函数参数</h3><ol>
+<li>指定传入类型：<code>void 函数名(类名&lt;数据类型1, 数据类型2&gt;&amp;对象名)</code></li>
+<li>参数模板化：<code>template&lt;class T1, class T2&gt;</code></li>
+<li>整个类模板化<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="类模板的继承"><a href="#类模板的继承" class="headerlink" title="类模板的继承"></a>类模板的继承</h3><ol>
+<li>如果父类是类模板，子类继承时需要给定T类型，如：<code>calss son: public Base&lt;int&gt;</code></li>
+<li>如果想灵活指定父类T类型，子类也需要写成类模板<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, calss T2&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">son</span>: <span class="keyword">public</span> Base&lt;T2&gt;</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="类模板成员函数类外实现"><a href="#类模板成员函数类外实现" class="headerlink" title="类模板成员函数类外实现"></a>类模板成员函数类外实现</h3><p>以构造函数为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt; <span class="comment">//需要加上模板参数列表</span></span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类模板分文件编写"><a href="#类模板分文件编写" class="headerlink" title="类模板分文件编写"></a>类模板分文件编写</h3><ul>
+<li>问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到</li>
+<li>解决：<br>方式1：直接包含.cpp源文件<br>方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/11/02/C-String%E5%AE%B9%E5%99%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          C++ string容器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++文件操作</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-right">
+        &copy; 2022 Rookie DB
+      </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

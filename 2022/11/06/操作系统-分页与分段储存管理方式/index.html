@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>操作系统-分页与分段储存管理方式 | DB的空间</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内存的连续分配方式都存在明显缺陷，如果允许将一个进程分散地装入到许多不相邻的分区中，便可充分地利用内存，从而产生非连续分配方式。非连续分配：为用户进程分配的可以是一些分散的内存空间。 基本分页存储管理思想：把内存分为一个个相等的小分区，再按照分区大小把进程拆分成一个个小部分。  每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； 每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统-分页与分段储存管理方式">
+<meta property="og:url" content="https://rookiedb.github.io/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="DB的空间">
+<meta property="og:description" content="内存的连续分配方式都存在明显缺陷，如果允许将一个进程分散地装入到许多不相邻的分区中，便可充分地利用内存，从而产生非连续分配方式。非连续分配：为用户进程分配的可以是一些分散的内存空间。 基本分页存储管理思想：把内存分为一个个相等的小分区，再按照分区大小把进程拆分成一个个小部分。  每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； 每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-06T07:59:47.000Z">
+<meta property="article:modified_time" content="2022-11-06T11:51:01.613Z">
+<meta property="article:author" content="Rookie DB">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="内存">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="DB的空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+
+  
+<script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+
+  
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/"></a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-操作系统-分页与分段储存管理方式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/" class="article-date">
+  	<time datetime="2022-11-06T07:59:47.000Z" itemprop="datePublished">2022-11-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      操作系统-分页与分段储存管理方式
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+	</div>
+
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>内存的连续分配方式都存在明显缺陷，如果允许将一个进程<strong>分散地</strong>装入到许多<strong>不相邻</strong>的分区中，便可充分地利用内存，从而产生非连续分配方式。<br><strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的</strong>内存空间。</p>
+<h1 id="基本分页存储管理"><a href="#基本分页存储管理" class="headerlink" title="基本分页存储管理"></a>基本分页存储管理</h1><p>思想：把内存分为一个个<strong>相等的</strong>小分区，再按照分区大小把进程拆分成一个个小部分。</p>
+<ul>
+<li>每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”；</li>
+<li>每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”、“物理块号”；</li>
+<li>每个用户进程拆分成的部分称为“页”、“页面”，页面与页框一一对应，页面编号称为“页号”；</li>
+<li>进程的最后一个页面小于页框，会产生<strong>内部碎片</strong>；</li>
+</ul>
+<h2 id="页表与页表项"><a href="#页表与页表项" class="headerlink" title="页表与页表项"></a>页表与页表项</h2><p>为了能知道进程的每个页面在内存中存放的位置，操作系统要为每个进程建立一张<strong>页表</strong>。</p>
+<ul>
+<li>一个进程对应一张页表；</li>
+<li><strong>页表项</strong>：进程的每一页对应一个页表项，每个页表项由<strong>页号</strong>和<strong>块号</strong>组成；</li>
+<li>页表记录<strong>进程页面</strong>（页号，连续）和<strong>实际存放的内存块</strong>（块号，非连续）之间的对应关系；</li>
+<li>各页表项会<strong>按顺序连续地</strong>存放在内存中（因此页号是<strong>隐含的</strong>，只需要存放块号的空间），实际中通常使一个页框放入<strong>整数个</strong>页表项；</li>
+</ul>
+<h2 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h2><p>逻辑地址由页号+页内偏移量组成。假如由32个二进制位表示逻辑地址，页面大小为4KB，则前20位表示页号，后12位表示页内偏移量（2^12B&#x3D;4KB），且最多有2^20个页面。<br>逻辑地址转换成物理地址：</p>
+<ul>
+<li>根据逻辑地址计算<strong>页号</strong>（逻辑地址&#x2F;页面长度）、<strong>页内偏移量</strong>（逻辑地址%页面长度）；<br>-页号合法性检查（与页表长度对比）；<br>-根据页表起始地址、页号找到对应<strong>页表项</strong>；</li>
+<li>根据页表项记录的<strong>内存块号</strong>、页内偏移量得到物理地址；</li>
+<li>访问内存单元；</li>
+</ul>
+<h2 id="两级页表"><a href="#两级页表" class="headerlink" title="两级页表"></a>两级页表</h2><p>页表必须连续存放，在单级页表中，当页表很大时，需要占用很多个连续的页框。<br>可以将页表再分页，形成<strong>两级页表</strong>或<strong>多级页表</strong>（为页表建立页表）。</p>
+<ul>
+<li>逻辑地址结构：一级页号+二级页号+页面偏移量；</li>
+<li>页目录表、外层页表、顶级页表；<br><strong>两级页表的地址转换</strong></li>
+<li>根据逻辑地址得到一级页号、二级页号、页面偏移量</li>
+<li>从PCB中读出页目录表始址，根据一级页号查找页目录表，找到下一级页表在内存中的存放位置；</li>
+<li>根据二级页号查表，找到最终想访问的内存块号；</li>
+<li>结合页内偏移量得到物理地址；</li>
+</ul>
+<h1 id="基本分段存储管理"><a href="#基本分段存储管理" class="headerlink" title="基本分段存储管理"></a>基本分段存储管理</h1><p>分段：将地址空间按<strong>程序自身的逻辑关系</strong>划分为若干个段，每段从0开始编址。每个段在内存中占据<strong>连续空间</strong>，但各段之间可以<strong>不相邻</strong>。<br>逻辑地址：段号（段名）+段内地址（段内偏移量）</p>
+<ul>
+<li>段号的位数决定了每个进程可以分几个段；</li>
+<li>段内地址位数决定了每个段的最大长度是多少；</li>
+</ul>
+<h2 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h2><ul>
+<li>每个段对应一个段表项，记录了该段在内存中的起始位置（基址）、段的长度；</li>
+<li>各个段表项的长度是相同的，段号是隐含的；</li>
+</ul>
+<h2 id="地址转换-1"><a href="#地址转换-1" class="headerlink" title="地址转换"></a>地址转换</h2><ul>
+<li>由逻辑地址得到段号、段内地址；</li>
+<li>段号与<strong>段表寄存器</strong>中的段表长度比较，检查是否越界；</li>
+<li>由段表始址、段号找到对应段表项；</li>
+<li>根据段表中记录的段长，检查段内地址是否越界；</li>
+<li>由段表中记录的基址、段内地址得到物理地址；</li>
+<li>访问内存单元；</li>
+</ul>
+<h2 id="分段、分页管理的比较"><a href="#分段、分页管理的比较" class="headerlink" title="分段、分页管理的比较"></a>分段、分页管理的比较</h2><table>
+   <tr>
+      <td>分页管理</td>
+      <td>分段管理</td>
+   </tr>
+   <tr>
+      <td>页是信息的物理单位</td>
+      <td>段是信息的逻辑单位</td>
+   </tr>
+   <tr>
+      <td>分页对用户不可见</td>
+      <td>分段对用户可见</td>
+   </tr>
+   <tr>
+      <td>页的大小固定</td>
+      <td>段的大小决定于用户编写的程序</td>
+   </tr>
+   <tr>
+      <td>地址空间一维</td>
+      <td>地址空间二维</td>
+   </tr>
+   <tr>
+      <td>空间利用率高，不会产生外部碎片</td>
+      <td>会产生外部碎片</td>
+   </tr>
+   <tr>
+      <td colspan="2" style="text-align:center">分段更容易实现信息的共享和保护</td>
+   </tr>
+   <tr>
+      <td colspan="2" style="text-align:center">访问一个逻辑地址都需要两次访存</td>
+   </tr>
+</table>
+
+<h1 id="段页式管理方式"><a href="#段页式管理方式" class="headerlink" title="段页式管理方式"></a>段页式管理方式</h1><p>段页式管理：将进程<strong>按逻辑模块</strong>分段，再将各段分页，再将内存空间分为<strong>大小相同</strong>的内存块。<br>逻辑地址：段号+页号+页内偏移量</p>
+<h2 id="段表、页表"><a href="#段表、页表" class="headerlink" title="段表、页表"></a>段表、页表</h2><ul>
+<li>每个段对应一个段表项，由段号（隐含）、页表长度、页表存放块号组成；</li>
+<li>每个页面对应一个页表项，每个页表项由页号（隐含）、页面存放的内存块号组成</li>
+</ul>
+<h2 id="地址变换"><a href="#地址变换" class="headerlink" title="地址变换"></a>地址变换</h2><ul>
+<li>由逻辑地址得到段号、页号、页面偏移量；</li>
+<li>段号与段表寄存器中的段长度比较，检查是否越界；</li>
+<li>由段表始址、段号找到对应的段表项；</li>
+<li>根据段表中记录的页表长度，检查页号是否越界；</li>
+<li>由段表中的页表地址、页号查询页表，找到对应页表项；</li>
+<li>由页面存放的内存块号、页内偏移量得到最终的物理地址；</li>
+<li>访问目标单元；</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          操作系统-虚拟内存
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++ map容器</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-right">
+        &copy; 2022 Rookie DB
+      </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
