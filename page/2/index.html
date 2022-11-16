@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 11.67px;">计算机网络</a>
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a>
 					</div>
 				</section>
 				
@@ -153,6 +153,154 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-操作系统-虚拟内存" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" class="article-date">
+  	<time datetime="2022-11-06T11:52:35.000Z" itemprop="datePublished">2022-11-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">
+        操作系统-虚拟内存
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>传统存储方式特点</p>
+<ul>
+<li><strong>一次性</strong>：作业必须一次性全部装入内存后才能开始运行；</li>
+<li><strong>驻留性</strong>：一旦作业装入内存，就会一直驻留在内存中，直至作业结束；<br>局部性原理</li>
+<li><strong>时间局部性</strong></li>
+<li><strong>空间局部性</strong></li>
+</ul>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><ul>
+<li>基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序；</li>
+<li>在程序执行过程中，当<strong>访问的信息不在内存</strong>时，由操作系统负责将所需信息<strong>调入内存</strong>，然后继续执行程序；（<strong>请求调页&#x2F;请求调段</strong>）</li>
+<li>若<strong>内存空间不够</strong>，由操作系统负责将内存中<strong>暂时用不到的信息</strong>换到外存；（<strong>页面置换&#x2F;段置换</strong>）</li>
+</ul>
+<h4 id="虚拟内存容量"><a href="#虚拟内存容量" class="headerlink" title="虚拟内存容量"></a>虚拟内存容量</h4><p>虚拟内存最大容量：由计算机地址结构（CPU寻址范围决定），如32位计算机地址结构：2^32B&#x3D;4GB；<br>虚拟内存实际容量：min（内外存容量之和，CPU寻址范围）；</p>
+<h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><ul>
+<li>多次性；</li>
+<li>对换性；</li>
+<li>虚拟性；</li>
+</ul>
+<h2 id="请求分页管理方式"><a href="#请求分页管理方式" class="headerlink" title="请求分页管理方式"></a>请求分页管理方式</h2><h4 id="请求页表"><a href="#请求页表" class="headerlink" title="请求页表"></a>请求页表</h4><ul>
+<li>内存块号</li>
+<li>状态栏：表示页面是否已在内存中；</li>
+<li>访问字段：记录最近被访问过几次，或记录上次访问的时间，供置换算法选择换出页面时参考；</li>
+<li>修改位：表示页面调入内存后是否被修改过；</li>
+<li>外存地址：页面在外存中存放的位置；</li>
+</ul>
+<h4 id="缺页中断机构"><a href="#缺页中断机构" class="headerlink" title="缺页中断机构"></a>缺页中断机构</h4><ul>
+<li>在请求分页系统中，当访问的页面不在内存（状态位为0）时，便产生一个缺页中断，由操作系统的缺页中断处理程序处理中断。</li>
+<li>此时缺页的进程阻塞，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。</li>
+<li>如果内存中有空闲块，则为进程分配一个空闲块，将所缺页面装入，并修改相应页表项；</li>
+<li>如果内存中没有空闲块，则由页面置换算法选择一个页面淘汰，若该页面被修改过则需写回外存；</li>
+</ul>
+<h4 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h4><ul>
+<li>找到页表项时需检查页面是否在内存中；</li>
+<li>若页面不在内存中，需请求调页；</li>
+<li>如内存空间不够，需换出页面；</li>
+<li>页面调入内存后，需要修改相应页表项；</li>
+</ul>
+<h2 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h2><p>追求更小的缺页率（缺页次数&#x2F;访问次数）。</p>
+<h4 id="最佳置换算法"><a href="#最佳置换算法" class="headerlink" title="最佳置换算法"></a>最佳置换算法</h4><p>每次选择以后永不使用，或长时间内不再被访问的页面淘汰，保证最低缺页率。<br>操作系统无法预判，所以无法实现。</p>
+<h4 id="先进先出置换算法（FIFO）"><a href="#先进先出置换算法（FIFO）" class="headerlink" title="先进先出置换算法（FIFO）"></a>先进先出置换算法（FIFO）</h4><p>每次淘汰<strong>最早进入内存</strong>的页面。FIFO会产生Belady异常。<br><strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增。</p>
+<h4 id="最近最久未使用置换算法（LRU）"><a href="#最近最久未使用置换算法（LRU）" class="headerlink" title="最近最久未使用置换算法（LRU）"></a>最近最久未使用置换算法（LRU）</h4><p>每次淘汰<strong>最近最久未使用</strong>的页面。用访问字段记录上次被访问以来经历的时间t。<br>性能好，但实现困难、开销大。</p>
+<h4 id="时钟置换算法（CLOCK）"><a href="#时钟置换算法（CLOCK）" class="headerlink" title="时钟置换算法（CLOCK）"></a>时钟置换算法（CLOCK）</h4><p><strong>简单的CLOCK算法</strong>：</p>
+<ul>
+<li>为每个页面设置一个访问位，通过链接指针链接成一个<strong>循环队列</strong>；</li>
+<li>一个页面被访问时，访问位设为1；</li>
+<li>需要淘汰一个页面时，按队列顺序检查访问位，访问位为0则换出，访问位为1则设为0；<br>简单的CLOCK算法仅考虑一个页面最近是否被访问过。事实上，只有被修改过的淘汰页面才需要写回外存，因此没有被修改过的页面应该优先淘汰，避免I&#x2F;O操作。<br><strong>改进型的时钟置换算法</strong>：<br>-用（访问为，修改位）表示各页面状态；</li>
+<li>第一轮：扫描找到第一个（0,0）页面用于替换，不修改任何标志位；</li>
+<li>第二轮：若第一轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换，并将扫描过的访问位设为0；</li>
+<li>第三轮：若第二轮扫描失败，则继续扫描查找第一个（0,0）的帧用于替换，不修改任何标志位；</li>
+<li>第四轮：若第三轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换；</li>
+</ul>
+<h2 id="页面分配策略"><a href="#页面分配策略" class="headerlink" title="页面分配策略"></a>页面分配策略</h2><p>驻留集：指请求分页存储管理中给进程分配的物理块的集合。<br>采用了虚拟存储技术的系统中，驻留集一般<strong>小于</strong>进程总大小。</p>
+<ul>
+<li>驻留集太小，换页频繁，开销大；</li>
+<li>驻留集太大，并发度小，资源利用率低；<br>固定分配 VS 可变分配：驻留集大小是否可变；<br>局部置换 VS 全局置换：是否可以将其他进程的物理块换出；</li>
+<li>固定分配局部置换：很难在刚开始就为每个进程分配合理的物理块数量，灵活性差；</li>
+<li>可变分配全局置换：部分进程物理块被减少，导致缺页率过高；</li>
+<li>可变分配局部置换：根据缺页的频率来动态调整进程物理块；</li>
+</ul>
+<h4 id="何时调入页面"><a href="#何时调入页面" class="headerlink" title="何时调入页面"></a>何时调入页面</h4><ul>
+<li>预调页策略：进程运行前预测不久之后可能访问到的页面，用于<strong>首次调入</strong>，由程序员指出；</li>
+<li>请求调页策略：进程<strong>运行期间</strong>发现缺页才将所缺页面调入内存，需要频繁的I&#x2F;O操作；</li>
+</ul>
+<h4 id="从何处调入页面"><a href="#从何处调入页面" class="headerlink" title="从何处调入页面"></a>从何处调入页面</h4><p>外存分为文件区和对换区。</p>
+<table>
+<thead>
+<tr>
+<th align="center">对换区</th>
+<th align="center">文件区</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">读写速度快</td>
+<td align="center">读写速度慢</td>
+</tr>
+<tr>
+<td align="center">连续分配</td>
+<td align="center">离散分配</td>
+</tr>
+<tr>
+<td align="center">一般空间较小</td>
+<td align="center">一般空间较大</td>
+</tr>
+</tbody></table>
+<ul>
+<li>对换区空间充足：进程运行前相关数据复制到对换区，页面调入、调出都在内存和对换区进行；</li>
+<li>对换区空间不足：不会被修改的数据直接从文件区调入；</li>
+<li>UNIX方式：运行之前进程相关数据全部放在文件区，运行时内存换出的页面写回对换区；</li>
+</ul>
+<h4 id="工作集"><a href="#工作集" class="headerlink" title="工作集"></a>工作集</h4><p><strong>抖动（颠簸）现象</strong>：刚刚换出&#x2F;换入的页面马上又要换入&#x2F;换出，频繁缺页。<br>工作集：在某段时间间隔里（窗口尺寸），进程实际访问页面的集合。<br>一般驻留集大小不能小于工作集大小，否则容易频繁缺页。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-操作系统-分页与分段储存管理方式" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -919,69 +1067,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">文件操作</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-C-类和对象-多态" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/11/01/C-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/" class="article-date">
-  	<time datetime="2022-11-01T13:23:54.000Z" itemprop="datePublished">2022-11-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/01/C-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/">
-        C++类和对象-多态
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="分类："><a href="#分类：" class="headerlink" title="分类："></a>分类：</h2><p>静态多态：重载（早绑定，编译阶段确定函数地址）<br>动态多态：派生类和虚函数实现运行时多态（晚绑定，运行阶段确定函数地址）</p>
-<h2 id="虚函数："><a href="#虚函数：" class="headerlink" title="虚函数："></a>虚函数：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RNG</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">FW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;RNG不行&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiaoHu</span>: <span class="keyword">public</span> RNG</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">FW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Xiaohu不行&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(RNG&amp; rng)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	rng.<span class="built_in">FW</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test_vir</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	XiaoHu LYH;</span><br><span class="line">	<span class="built_in">print</span>(LYH); <span class="comment">//输出&quot;Xiaohu不行&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="多态好处："><a href="#多态好处：" class="headerlink" title="多态好处："></a>多态好处：</h2><p>1、组织结构清晰<br>2、可读性强<br>3、利于前期和后期拓展以及维护</p>
-<h2 id="纯虚函数和抽象类："><a href="#纯虚函数和抽象类：" class="headerlink" title="纯虚函数和抽象类："></a>纯虚函数和抽象类：</h2><p>父类中的虚函数一般无意义，所以可以简写成纯虚函数<br>带纯虚函数的类称为抽象类<br>语法：<code>virtual 返回值类型 函数名 (参数列表) = 0</code><br>特点：无法实例化对象</p>
-<h2 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h2><p>如果子类中有属性开辟到堆区，父类指针释放时无法调用到子类的析构代码<br>因此，需要将父类的析构函数改为虚析构<br>特点：<br>1、可以解决父类指针释放子类对象<br>2、需要有具体的函数实现<br>纯虚析构需要定义，也需要实现</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/class/" rel="tag">class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
 	</div>
 
       
