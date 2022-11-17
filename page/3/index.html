@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a>
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.57px;">c++</a> <a href="/tags/class/" style="font-size: 12.86px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.43px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 15.71px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14.29px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 17.14px;">计算机网络</a>
 					</div>
 				</section>
 				
@@ -153,6 +153,222 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-C-模板" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/02/C-%E6%A8%A1%E6%9D%BF/" class="article-date">
+  	<time datetime="2022-11-02T04:51:27.000Z" itemprop="datePublished">2022-11-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/02/C-%E6%A8%A1%E6%9D%BF/">
+        C++模板
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>以置换函数为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用模板必须确定数据类型T，并能够推导出一致的类型</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T&amp; a, T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用方式：</p>
+<ul>
+<li>自动类型推导：<code>mySwap(a, b);</code></li>
+<li>显示指定类型：<code>mySwap&lt;int&gt;(a, b);</code></li>
+</ul>
+<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2><p>在调用函数时，若实参与形参数据类型不一致，实参根据形参类型进行转化（如char类型转化成对应的ASCII码）<br>普通函数&amp;显示指定类型模板函数会发生隐式类型转换<br>自动类型推导不会发生，会报错</p>
+<h2 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h2><ul>
+<li>优先调用普通函数</li>
+<li>可以通过空模板参数列表强制调用函数模板 <code>myPrint&lt;&gt;(a,b);</code></li>
+<li>函数模板可以发生重载</li>
+<li>如果函数模板更好匹配，优先调用模板<br> 比如函数模板不用发生隐式类型转换，而普通函数需要</li>
+<li>提供了函数模板，最好不要再提供普通函数</li>
+</ul>
+<h2 id="具体化"><a href="#具体化" class="headerlink" title="具体化"></a>具体化</h2><p>模板的通用性不是万能的，如以下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a==b) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果传入的a和b是一个类，就无法实现了。<br>可以通过具体化实现自定义类型的通用化 ：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(person &amp;p1, person &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.name==p2.name &amp;&amp; p1.age==p2.age) return1;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><h3 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h3><p>template后面加类，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, calss AgeType&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Person</span>(NameType name, AgeType age)</span><br><span class="line">        &#123;</span><br><span class="line">                m_Name = name;</span><br><span class="line">                m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">        NameType m_Name;</span><br><span class="line">        AgeType m_Age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>调用：<code>Person&lt;string, int&gt; p1(&quot;name&quot;,age);</code></p>
+<h3 id="类模板注意事项"><a href="#类模板注意事项" class="headerlink" title="类模板注意事项"></a>类模板注意事项</h3><ol>
+<li>类模板无法自动类型推导</li>
+<li>类模板参数列表可以有默认参数，如：<code>template&lt;class NameType, calss AgeType = int&gt;</code></li>
+<li>类模板成员函数在调用时才会创建</li>
+</ol>
+<h3 id="类模板对象作函数参数"><a href="#类模板对象作函数参数" class="headerlink" title="类模板对象作函数参数"></a>类模板对象作函数参数</h3><ol>
+<li>指定传入类型：<code>void 函数名(类名&lt;数据类型1, 数据类型2&gt;&amp;对象名)</code></li>
+<li>参数模板化：<code>template&lt;class T1, class T2&gt;</code></li>
+<li>整个类模板化<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="类模板的继承"><a href="#类模板的继承" class="headerlink" title="类模板的继承"></a>类模板的继承</h3><ol>
+<li>如果父类是类模板，子类继承时需要给定T类型，如：<code>calss son: public Base&lt;int&gt;</code></li>
+<li>如果想灵活指定父类T类型，子类也需要写成类模板<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, calss T2&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">son</span>: <span class="keyword">public</span> Base&lt;T2&gt;</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="类模板成员函数类外实现"><a href="#类模板成员函数类外实现" class="headerlink" title="类模板成员函数类外实现"></a>类模板成员函数类外实现</h3><p>以构造函数为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt; <span class="comment">//需要加上模板参数列表</span></span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类模板分文件编写"><a href="#类模板分文件编写" class="headerlink" title="类模板分文件编写"></a>类模板分文件编写</h3><ul>
+<li>问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到</li>
+<li>解决：<br>方式1：直接包含.cpp源文件<br>方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-C-文件操作" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="article-date">
+  	<time datetime="2022-11-01T14:21:03.000Z" itemprop="datePublished">2022-11-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+        C++文件操作
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文件分类</p>
+<ul>
+<li>文本文件：ASCII码存储</li>
+<li>二进制文件：二进制存储</li>
+</ul>
+<p>操作文件三大类：<br>-ofstream：写<br>-ifstream：读<br>-fstream：读写</p>
+<h2 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h2><ul>
+<li>需包含头文件<code>#include&lt;fstream&gt;</code></li>
+<li>创建流对象<code>ofstream ofs;</code></li>
+<li>打开文件<code>ofs.open(&quot;文件路径&quot;,&quot;打开方式&quot;);</code></li>
+<li>写数据<code>ofs&lt;&lt;&quot;写入的数据&quot;;</code></li>
+<li>关闭文件<code>ofs.close();</code></li>
+</ul>
+<p>文件打开方式：</p>
+<table>
+<thead>
+<tr>
+<th align="left">打开方式</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ios::in</td>
+<td align="left">读文件</td>
+</tr>
+<tr>
+<td align="left">ios::out</td>
+<td align="left">写文件</td>
+</tr>
+<tr>
+<td align="left">ios::ate</td>
+<td align="left">初始位置为文件尾</td>
+</tr>
+<tr>
+<td align="left">ios::app</td>
+<td align="left">追加方式写</td>
+</tr>
+<tr>
+<td align="left">ios::trunc</td>
+<td align="left">先删除，再创建</td>
+</tr>
+<tr>
+<td align="left">ios::binary</td>
+<td align="left">二进制方式写</td>
+</tr>
+<tr>
+<td align="left">可以使用</td>
+<td align="left">用多种方式打开：&#96;&#96;ios::in</td>
+</tr>
+</tbody></table>
+<h2 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h2><ul>
+<li>需包含头文件<code>#include&lt;fstream&gt;</code></li>
+<li>创建流对象<code>ifstream ifs;</code></li>
+<li>打开文件<code>ifs.open(&quot;文件路径&quot;,&quot;打开方式&quot;);</code></li>
+<li>读数据<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+-关闭文件<code>ifs.close();</code></li>
+</ul>
+<h2 id="二进制文件读写"><a href="#二进制文件读写" class="headerlink" title="二进制文件读写"></a>二进制文件读写</h2><p>写文件：<br><code>ofs.write((const char *)&amp;p, sizeof(p));</code><br>读文件：<br><code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">文件操作</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-C-类和对象-多态" class="article article-type-post" itemscope itemprop="blogPost">
   

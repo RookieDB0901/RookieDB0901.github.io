@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a>
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.57px;">c++</a> <a href="/tags/class/" style="font-size: 12.86px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.43px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 15.71px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14.29px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 17.14px;">计算机网络</a>
 					</div>
 				</section>
 				
@@ -153,6 +153,298 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-磁盘" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/08/%E7%A3%81%E7%9B%98/" class="article-date">
+  	<time datetime="2022-11-08T08:07:33.000Z" itemprop="datePublished">2022-11-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/08/%E7%A3%81%E7%9B%98/">
+        操作系统-磁盘
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>磁盘的表面由一些磁性物质组成，可以记录二进制数据。磁盘的表面被划分成一个个磁道，一个磁道又被分成一个个扇区，每个扇区就是一个<strong>磁盘块</strong>。</p>
+<ul>
+<li>地址形式：可以用（柱面号、盘面号、扇区号）来定位一个磁盘块。在读取地址连续的磁盘块时，（柱面号，盘面号，扇区号）的写法能减少磁头移动；</li>
+<li>根据<strong>磁头是否可移动</strong>可分为固定头磁盘和移动头磁盘；</li>
+<li>根据<strong>盘片是否可换</strong>可分为固定盘磁盘和可换盘磁盘；</li>
+</ul>
+<h2 id="一、磁盘调度算法"><a href="#一、磁盘调度算法" class="headerlink" title="一、磁盘调度算法"></a>一、磁盘调度算法</h2><p>一次磁盘读&#x2F;写操作时间分为三部分：</p>
+<ul>
+<li>寻找时间：启动磁臂、移动磁头所花的时间；</li>
+<li>延迟时间：将目标扇区转到磁头下面所花的时间；</li>
+<li>传输时间：读&#x2F;写数据花费的时间；</li>
+</ul>
+<p>磁盘调度算法通过减少<strong>寻找时间</strong>来提高效率。</p>
+<h4 id="1-先来先服务（FCFS）"><a href="#1-先来先服务（FCFS）" class="headerlink" title="1. 先来先服务（FCFS）"></a>1. 先来先服务（FCFS）</h4><ul>
+<li>按访问请求到达的先后顺序进行处理；</li>
+</ul>
+<h4 id="2-最短寻找时间优先（SSTF）"><a href="#2-最短寻找时间优先（SSTF）" class="headerlink" title="2. 最短寻找时间优先（SSTF）"></a>2. 最短寻找时间优先（SSTF）</h4><ul>
+<li>每次都优先响应距离磁头最近的磁道访问请求；</li>
+<li>贪心思想，无法保证整体最优；</li>
+<li>可能导致饥饿；</li>
+</ul>
+<h4 id="3-扫描算法（SCAN）"><a href="#3-扫描算法（SCAN）" class="headerlink" title="3. 扫描算法（SCAN）"></a>3. 扫描算法（SCAN）</h4><ul>
+<li>只有磁头移到最边缘磁道才会改变方向；</li>
+<li>对各个位置磁道响应频率不均匀；</li>
+</ul>
+<h4 id="4-循环扫描算法（C-SCAN）"><a href="#4-循环扫描算法（C-SCAN）" class="headerlink" title="4. 循环扫描算法（C-SCAN）"></a>4. 循环扫描算法（C-SCAN）</h4><ul>
+<li>磁头只在朝一个方向移动时才会响应请求；</li>
+</ul>
+<h4 id="5-LOOK和C-LOOK"><a href="#5-LOOK和C-LOOK" class="headerlink" title="5.LOOK和C-LOOK"></a>5.LOOK和C-LOOK</h4><ul>
+<li>LOOK算法是SCAN的改进，只要磁头移动方向上不再有请求就改变方向；</li>
+<li>C-LOOK算法是C-SCAN的改进；</li>
+</ul>
+<h2 id="二、减少延迟时间的方法"><a href="#二、减少延迟时间的方法" class="headerlink" title="二、减少延迟时间的方法"></a>二、减少延迟时间的方法</h2><p><strong>交替编号</strong>：让编号相邻的扇区物理上不相邻；</p>
+<ul>
+<li>物理相邻的两个扇区无法连续读取；<br><strong>错位命名</strong>：让相邻盘面的扇区编号错位；</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-操作系统-文件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/" class="article-date">
+  	<time datetime="2022-11-07T16:09:52.000Z" itemprop="datePublished">2022-11-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/">
+        操作系统-文件
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>文件是一组有意义的信息&#x2F;数据集合。</p>
+<h2 id="一、文件的逻辑结构"><a href="#一、文件的逻辑结构" class="headerlink" title="一、文件的逻辑结构"></a>一、文件的逻辑结构</h2><ul>
+<li>逻辑结构：在<strong>用户</strong>看来，文件内部的数据应该是如何组织起来的。</li>
+<li>物理结构：在<strong>操作系统</strong>看来，文件的数据是如何存放在外存的。</li>
+<li>无结构文件： 文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。</li>
+<li>有结构文件：由一组相似的记录组成，又称“记录式文件”<br>以下介绍三种有结构文件。</li>
+</ul>
+<h4 id="1-顺序文件"><a href="#1-顺序文件" class="headerlink" title="1. 顺序文件"></a>1. 顺序文件</h4><p>文件中的记录一个接一个地顺序排列（逻辑上）。各个记录在物理上可以<strong>顺序存储</strong>或<strong>链式存储</strong>。</p>
+<ul>
+<li>串结构：记录顺序与关键字无关。</li>
+<li>顺序结构：记录按关键字顺序排列。<br>链式存储：无法实现随机存取，每次只能从第一个记录开始依次往后查找。<br>顺序存储（顺序文件一般指顺序存储的文件）：</li>
+<li>可变长记录无法实现随机存取；</li>
+<li>定长记录可以随机存取，记录长度为L，则第i个记录存放的相对位置是i*L；<br>-采用顺序结构的定长记录，还可以快速找到某关键字对应的记录；</li>
+</ul>
+<h4 id="2-索引文件"><a href="#2-索引文件" class="headerlink" title="2.  索引文件"></a>2.  索引文件</h4><ul>
+<li>建立一张索引表，每条记录对应一个索引项；</li>
+<li>索引表本身是定长记录的顺序文件，因此可以快速找到第i个记录对应的索引项；</li>
+<li>若索引表按关键字顺序排列，则可支持<strong>快速检索</strong>；</li>
+<li>解决了顺序文件不方便增删记录的问题，同时让不定长记录文件实现随机存取，但索引表可能占据很多空间；</li>
+</ul>
+<h4 id="3-索引顺序文件"><a href="#3-索引顺序文件" class="headerlink" title="3. 索引顺序文件"></a>3. 索引顺序文件</h4><p>为文件建立一张索引表，<strong>每组记录</strong>对应一个索引表项。</p>
+<h2 id="二、文件目录"><a href="#二、文件目录" class="headerlink" title="二、文件目录"></a>二、文件目录</h2><h4 id="1-文件控制块"><a href="#1-文件控制块" class="headerlink" title="1. 文件控制块"></a>1. 文件控制块</h4><p>文件控制块（FCB）：目录文件（可理解成文件夹）中的一条记录就是一个文件控制块。包含了：</p>
+<ul>
+<li>文件的基本信息：文件名、物理地址、逻辑地址、物理结构等；</li>
+<li>存取控制信息：是否可读&#x2F;可写、禁止访问的用户名单等；</li>
+<li>使用信息：文件的建立时间、修改时间等；<br>FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用户程序）可以实现“按名存取”。<br>对目录的操作：搜索、创建文件、删除文件、显示文件、修改文件。</li>
+</ul>
+<h4 id="2-目录结构"><a href="#2-目录结构" class="headerlink" title="2. 目录结构"></a>2. 目录结构</h4><p><strong>单级目录结构</strong>：整个系统只建立一张目录表，每个文件占一个目录项；<br><strong>两级目录结构</strong>：分为主文件目录（MFD）和用户文件目录（UFD）；</p>
+<ul>
+<li>主文件目录记录用户名及相应用户文件存放文字；</li>
+<li>用户不能对自己的文件进行分类，缺乏灵活性；<br><strong>多级目录结构（树形目录结构）</strong></li>
+<li>相对路径 VS 绝对路径；</li>
+<li>不便于实现<strong>文件的共享</strong>；<br><strong>无环图目录结构</strong>：在树形目录结构基础上，增加一些指向同一节点的有向边，形成有向无环图。</li>
+<li>为共享结点设置共享计数器，计数器为0才删除结点；</li>
+<li>可以更方便地实现多个用户间的文件共享；</li>
+</ul>
+<h4 id="3-索引节点（FCB的改进）"><a href="#3-索引节点（FCB的改进）" class="headerlink" title="3. 索引节点（FCB的改进）"></a>3. 索引节点（FCB的改进）</h4><p>对目录表进行瘦身，保留文件名+索引结点指针信息，其他描述信息全都放到指针指向的地址；</p>
+<ul>
+<li>减小了目录表所占空间；</li>
+<li>提高了检索效率（一个磁盘块可以放入更多FCB，启动磁盘次数减少）；</li>
+</ul>
+<h2 id="三、文件的物理结构"><a href="#三、文件的物理结构" class="headerlink" title="三、文件的物理结构"></a>三、文件的物理结构</h2><p>该部分探讨文件数据应该怎么存放在外存中，可以理解成文件分配方式问题。<br>和内存分页类似，磁盘中存储单元也会被分为一个个“块&#x2F;磁盘块&#x2F;物理块”。很多操作系统中，磁盘块的大小与内存块、页面的大小<strong>相同</strong>。</p>
+<ul>
+<li>文件的逻辑地址也可以表示为（逻辑块号，块内地址）；、</li>
+<li>操作系统为文件分配存储空间以块为单位；</li>
+<li>操作系统负责从逻辑地址到物理地址的映射；<br>这里介绍<strong>连续分配</strong>、<strong>链接分配</strong>、<strong>索引分配</strong>三种分配方式：</li>
+</ul>
+<h4 id="1-连续分配"><a href="#1-连续分配" class="headerlink" title="1.连续分配"></a>1.连续分配</h4><p>连续分配要求每个文件在磁盘上占有一组连续的块。<br>文件目录记录文件存放的<strong>起始块号</strong>和<strong>长度</strong>。</p>
+<ul>
+<li>物理块号&#x3D;起始块号+逻辑块号；<br><strong>优点：</strong></li>
+<li>支持<strong>顺序访问</strong>和<strong>随机访问</strong>（直接访问）；</li>
+<li>在<strong>顺序读&#x2F;写</strong>时速度最快；<br><strong>缺点：</strong></li>
+<li>不方便扩展；</li>
+<li>存储空间利用率低，会产生难以利用的磁盘碎片；<br>地址转换方式：</li>
+</ul>
+<h4 id="2-链接分配"><a href="#2-链接分配" class="headerlink" title="2.链接分配"></a>2.链接分配</h4><p><strong>隐式链接</strong>：文件中除最后一个磁盘块，每个磁盘块都会保存指向下一个磁盘块的指针。</p>
+<ul>
+<li>只支持顺序访问，不支持随机访问；</li>
+<li>拓展方便；</li>
+<li>磁盘利用率高；<br><strong>显示链接</strong>：把用于链接文件各物理块的指针显示地存放在一张表中，即文件分配表（FAT）；</li>
+<li>FAT中，每个物理块号都记录下一块的地址；</li>
+<li>每个磁盘仅设置一张FAT，开机时将FAT读入内存；</li>
+<li>每个文件的起始块号记录在目录项中；<br><strong>优点：</strong></li>
+<li>支持顺序访问，也支持随机访问（查询FAT表不需要读磁盘）；</li>
+<li>不会产生外部碎片，也方便拓展；<br><strong>缺点：</strong></li>
+<li>文件分配表需要占据一定存储空间；</li>
+</ul>
+<h4 id="3-索引分配"><a href="#3-索引分配" class="headerlink" title="3.索引分配"></a>3.索引分配</h4><p>为<strong>每个文件</strong>建立一张索引表，索引表中记录了文件各个逻辑块对应的物理块（类似于页表）；</p>
+<ul>
+<li>索引表存放的磁盘称为<strong>索引块</strong>，文件数据存放的磁盘成为<strong>数据块</strong>；</li>
+<li>FCB中记录索引块地址；</li>
+<li>支持随机访问、容易拓展；<br>当一个磁盘块装不下整张索引表，可以采取以下三种解决方式：</li>
+<li>链接方案：多个索引块链接起来存放；</li>
+<li>多层索引：类似于多级页表，为索引表建立索引表，除了顶级索引表都可以离散存放；</li>
+<li>混合索引：顶级索引表中，既包含直接地址索引，又包含间接索引，使得对于小文件来说，访问一个数据块所需的读磁盘次数更少（<strong>为什么小文件需要多层索引？</strong>）；</li>
+</ul>
+<h2 id="四、文件存储空间管理"><a href="#四、文件存储空间管理" class="headerlink" title="四、文件存储空间管理"></a>四、文件存储空间管理</h2><p>对磁盘空闲空间的管理。 </p>
+<h4 id="1-存储空间的划分和初始块"><a href="#1-存储空间的划分和初始块" class="headerlink" title="1. 存储空间的划分和初始块"></a>1. 存储空间的划分和初始块</h4><p>物理磁盘划分为一个个文件卷（C盘、D盘、E盘等）；<br>各个文件卷分为目录区（存放FCB、用于存储磁盘空间管理的信息）、文件区（存放文件数据）；</p>
+<p>加下来介绍4种存储空间管理方法：</p>
+<h4 id="2-空闲表法"><a href="#2-空闲表法" class="headerlink" title="2. 空闲表法"></a>2. 空闲表法</h4><p>记录每个空闲区间的起始位置和长度。</p>
+<ul>
+<li>适用于连续分配方式；</li>
+<li>可采用首次适应、最佳适应、最坏适应等算法为文件分配区间；</li>
+</ul>
+<h4 id="3-空闲链表法"><a href="#3-空闲链表法" class="headerlink" title="3. 空闲链表法"></a>3. 空闲链表法</h4><p><strong>空闲盘块链</strong>：以盘块为单位组成一条空闲链；</p>
+<ul>
+<li>空闲盘块存储这下一个空闲盘块的指针；</li>
+<li>操作系统保存着链头、链尾指针；<br><strong>空闲盘区链</strong>：以盘区为单位组成一条空闲链；</li>
+<li>操作系统保存着链头、链尾指针；</li>
+<li>空闲盘区中的第一个盘块记录了盘区的长度、下一个盘区的指针；</li>
+<li>离散分配、连续分配都适用，为一个文件分配多个盘块时效率更高；</li>
+</ul>
+<h4 id="4-位示图法"><a href="#4-位示图法" class="headerlink" title="4. 位示图法"></a>4. 位示图法</h4><p>每个二进制位对应一个盘块，位示图一般用连续的“字”表示，用（字号，位号）对应一个盘块。</p>
+<ul>
+<li>字号i &#x3D; b&#x2F;n，位号j &#x3D; b%n，n表示字长，b表示盘块号；</li>
+<li>注意盘块号、字号、位号从0开始还是从1开始；</li>
+</ul>
+<h4 id="5-成组链接法"><a href="#5-成组链接法" class="headerlink" title="5. 成组链接法"></a>5. 成组链接法</h4><p>文件卷的目录区设置一个磁盘块为“超级块”。</p>
+<ul>
+<li>超级块记录下一组空闲盘块数、每个空闲盘块号；</li>
+<li>系统启动时超级块读入内存，并随着磁盘的超级块更新；</li>
+<li>超级块的第一个磁盘块存放了下一组的信息；</li>
+<li>适用于大型操作系统；</li>
+</ul>
+<h2 id="五、文件的基本操作"><a href="#五、文件的基本操作" class="headerlink" title="五、文件的基本操作"></a>五、文件的基本操作</h2><p><strong>创建文件</strong>（creat系统调用）：</p>
+<ul>
+<li>在外存中找到文件所需空间；</li>
+<li>创建该文件对应的目录项；<br><strong>删除文件</strong>（delete系统调用）：</li>
+<li>找到文件名对应的目录项；</li>
+<li>回收文件占用的磁盘块；</li>
+<li>删除文件对应的目录项；<br><strong>打开文件</strong>（open系统调用）：</li>
+<li>找到文件名对应的目录项；</li>
+<li>将目录项复制到内存的“打开文件表”中，并将打开文件表的索引号返回给用户；</li>
+<li>每个进程有自己的打开文件表，系统也有一张总的打开文件表；</li>
+<li>进程打开文件表特有属性：读写指针、访问权限（是否只读）；</li>
+<li>系统打开文件表特有属性：打开计数器；<br><strong>关闭文件</strong>（close系统调用）：</li>
+<li>将进程的打开文件表相应表项删除；</li>
+<li>回收分配给该文件的内存空间等资源；</li>
+<li>系统打开文件表打开计数器-1，若count为0则删除对应表项；<br><strong>读文件</strong>（read系统调用）：</li>
+<li>根据读指针、读入数据量、内存位置将文件数据从外存读入内存；<br><strong>写文件</strong>（write系统调用）：</li>
+<li>根据读指针、读入数据量、内存位置将文件数据从内存写出外存；</li>
+</ul>
+<h2 id="六、文件共享和文件保护"><a href="#六、文件共享和文件保护" class="headerlink" title="六、文件共享和文件保护"></a>六、文件共享和文件保护</h2><h4 id="1-文件共享"><a href="#1-文件共享" class="headerlink" title="1. 文件共享"></a>1. 文件共享</h4><p>基于<strong>索引节点</strong>的共享方式（硬链接）：</p>
+<ul>
+<li>每个用户的目录项指向同一个索引结点；</li>
+<li>索引结点中有链接技术count；</li>
+<li>某用户删除文件时只删除目录项，count–，只有count&#x3D;&#x3D;0才删除文件数据；<br>基于<strong>符号链接</strong>的共享方式（软链接）:</li>
+<li>在一个link型文件（如快捷方式）记录共享文件存放路径；</li>
+<li>软连接访问共享文件需要查询多级目录，需要多次I&#x2F;O操作，访问速度慢；</li>
+</ul>
+<h4 id="2-文件保护"><a href="#2-文件保护" class="headerlink" title="2. 文件保护"></a>2. 文件保护</h4><p><strong>口令保护</strong>：</p>
+<ul>
+<li>为文件设置一个口令，用户访问时需提供口令；</li>
+<li>开销小，但口令需存放系统中，不太安全；<br><strong>加密保护</strong>：</li>
+<li>用一个密码对文件加密（如异或加密），需要提供相同密码才能正确解密；</li>
+<li>安全性高，但加密解密需耗时；<br><strong>访问控制</strong>：</li>
+<li>用访问控制表（ACL）记录不同用户的访问权限；</li>
+<li>对文件访问类型可以分为：读&#x2F;写&#x2F;执行&#x2F;删除 等；</li>
+<li>实现灵活，可以实现复杂的文件保护功能；</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6/" rel="tag">文件</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-操作系统-虚拟内存" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -851,222 +1143,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/" rel="tag">string</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-C-模板" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/11/02/C-%E6%A8%A1%E6%9D%BF/" class="article-date">
-  	<time datetime="2022-11-02T04:51:27.000Z" itemprop="datePublished">2022-11-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/02/C-%E6%A8%A1%E6%9D%BF/">
-        C++模板
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>以置换函数为例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用模板必须确定数据类型T，并能够推导出一致的类型</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T&amp; a, T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用方式：</p>
-<ul>
-<li>自动类型推导：<code>mySwap(a, b);</code></li>
-<li>显示指定类型：<code>mySwap&lt;int&gt;(a, b);</code></li>
-</ul>
-<h2 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h2><p>在调用函数时，若实参与形参数据类型不一致，实参根据形参类型进行转化（如char类型转化成对应的ASCII码）<br>普通函数&amp;显示指定类型模板函数会发生隐式类型转换<br>自动类型推导不会发生，会报错</p>
-<h2 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h2><ul>
-<li>优先调用普通函数</li>
-<li>可以通过空模板参数列表强制调用函数模板 <code>myPrint&lt;&gt;(a,b);</code></li>
-<li>函数模板可以发生重载</li>
-<li>如果函数模板更好匹配，优先调用模板<br> 比如函数模板不用发生隐式类型转换，而普通函数需要</li>
-<li>提供了函数模板，最好不要再提供普通函数</li>
-</ul>
-<h2 id="具体化"><a href="#具体化" class="headerlink" title="具体化"></a>具体化</h2><p>模板的通用性不是万能的，如以下代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a==b) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果传入的a和b是一个类，就无法实现了。<br>可以通过具体化实现自定义类型的通用化 ：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(person &amp;p1, person &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.name==p2.name &amp;&amp; p1.age==p2.age) return1;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><h3 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h3><p>template后面加类，如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, calss AgeType&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Person</span>(NameType name, AgeType age)</span><br><span class="line">        &#123;</span><br><span class="line">                m_Name = name;</span><br><span class="line">                m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">        NameType m_Name;</span><br><span class="line">        AgeType m_Age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>调用：<code>Person&lt;string, int&gt; p1(&quot;name&quot;,age);</code></p>
-<h3 id="类模板注意事项"><a href="#类模板注意事项" class="headerlink" title="类模板注意事项"></a>类模板注意事项</h3><ol>
-<li>类模板无法自动类型推导</li>
-<li>类模板参数列表可以有默认参数，如：<code>template&lt;class NameType, calss AgeType = int&gt;</code></li>
-<li>类模板成员函数在调用时才会创建</li>
-</ol>
-<h3 id="类模板对象作函数参数"><a href="#类模板对象作函数参数" class="headerlink" title="类模板对象作函数参数"></a>类模板对象作函数参数</h3><ol>
-<li>指定传入类型：<code>void 函数名(类名&lt;数据类型1, 数据类型2&gt;&amp;对象名)</code></li>
-<li>参数模板化：<code>template&lt;class T1, class T2&gt;</code></li>
-<li>整个类模板化<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="类模板的继承"><a href="#类模板的继承" class="headerlink" title="类模板的继承"></a>类模板的继承</h3><ol>
-<li>如果父类是类模板，子类继承时需要给定T类型，如：<code>calss son: public Base&lt;int&gt;</code></li>
-<li>如果想灵活指定父类T类型，子类也需要写成类模板<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, calss T2&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">son</span>: <span class="keyword">public</span> Base&lt;T2&gt;</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="类模板成员函数类外实现"><a href="#类模板成员函数类外实现" class="headerlink" title="类模板成员函数类外实现"></a>类模板成员函数类外实现</h3><p>以构造函数为例：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt; <span class="comment">//需要加上模板参数列表</span></span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="类模板分文件编写"><a href="#类模板分文件编写" class="headerlink" title="类模板分文件编写"></a>类模板分文件编写</h3><ul>
-<li>问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到</li>
-<li>解决：<br>方式1：直接包含.cpp源文件<br>方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-C-文件操作" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="article-date">
-  	<time datetime="2022-11-01T14:21:03.000Z" itemprop="datePublished">2022-11-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
-        C++文件操作
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>文件分类</p>
-<ul>
-<li>文本文件：ASCII码存储</li>
-<li>二进制文件：二进制存储</li>
-</ul>
-<p>操作文件三大类：<br>-ofstream：写<br>-ifstream：读<br>-fstream：读写</p>
-<h2 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h2><ul>
-<li>需包含头文件<code>#include&lt;fstream&gt;</code></li>
-<li>创建流对象<code>ofstream ofs;</code></li>
-<li>打开文件<code>ofs.open(&quot;文件路径&quot;,&quot;打开方式&quot;);</code></li>
-<li>写数据<code>ofs&lt;&lt;&quot;写入的数据&quot;;</code></li>
-<li>关闭文件<code>ofs.close();</code></li>
-</ul>
-<p>文件打开方式：</p>
-<table>
-<thead>
-<tr>
-<th align="left">打开方式</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">ios::in</td>
-<td align="left">读文件</td>
-</tr>
-<tr>
-<td align="left">ios::out</td>
-<td align="left">写文件</td>
-</tr>
-<tr>
-<td align="left">ios::ate</td>
-<td align="left">初始位置为文件尾</td>
-</tr>
-<tr>
-<td align="left">ios::app</td>
-<td align="left">追加方式写</td>
-</tr>
-<tr>
-<td align="left">ios::trunc</td>
-<td align="left">先删除，再创建</td>
-</tr>
-<tr>
-<td align="left">ios::binary</td>
-<td align="left">二进制方式写</td>
-</tr>
-<tr>
-<td align="left">可以使用</td>
-<td align="left">用多种方式打开：&#96;&#96;ios::in</td>
-</tr>
-</tbody></table>
-<h2 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h2><ul>
-<li>需包含头文件<code>#include&lt;fstream&gt;</code></li>
-<li>创建流对象<code>ifstream ifs;</code></li>
-<li>打开文件<code>ifs.open(&quot;文件路径&quot;,&quot;打开方式&quot;);</code></li>
-<li>读数据<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
--关闭文件<code>ifs.close();</code></li>
-</ul>
-<h2 id="二进制文件读写"><a href="#二进制文件读写" class="headerlink" title="二进制文件读写"></a>二进制文件读写</h2><p>写文件：<br><code>ofs.write((const char *)&amp;p, sizeof(p));</code><br>读文件：<br><code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag">文件操作</a></li></ul>
 	</div>
 
       

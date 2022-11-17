@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.33px;">c++</a> <a href="/tags/class/" style="font-size: 13.33px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.67px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 16.67px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 13.33px;">计算机网络</a>
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.57px;">c++</a> <a href="/tags/class/" style="font-size: 12.86px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.43px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 15.71px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14.29px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 17.14px;">计算机网络</a>
 					</div>
 				</section>
 				
@@ -153,6 +153,271 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-计算机网络-应用层" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/" class="article-date">
+  	<time datetime="2022-11-16T14:58:26.000Z" itemprop="datePublished">2022-11-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/">
+        计算机网络-应用层
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应用层是计算机网路体系结构的最顶层，是设计和建立计算机网络的最终目的，也是计算机网络中发展最快的部分。<br>客户&#x2F;服务器方式（C&#x2F;S方式）</p>
+<ul>
+<li>客户和服务器指通信中所涉及的两个应用进程；</li>
+<li>描述进程之间服务和被服务的关系；</li>
+<li>基于C&#x2F;S方式的应用服务通常是<strong>服务集中型</strong>的，如WWW、电子邮件、FTP等；<br>对等方式（P2P方式）</li>
+<li>没有固定的服务请求者和服务提供者，对等方之间直接通信；</li>
+<li>基于P2P的应用是<strong>服务分散型</strong>的，如P2P文件共享、即时通信、P2P流媒体、分布式存储等；</li>
+<li>P2P最突出的特性之一是<strong>可扩展性</strong>，系统性能不会因规模的增大而降低；</li>
+</ul>
+<h2 id="一、动态主机配置协议DHCO"><a href="#一、动态主机配置协议DHCO" class="headerlink" title="一、动态主机配置协议DHCO"></a>一、动态主机配置协议DHCO</h2><p>DHCP提供了<strong>即插即用连网</strong>的机制，允许一台计算机加入新网络时可<strong>自动获取IP地址</strong>等网络配置信息而不用手工参与。<br>工作过程</p>
+<ul>
+<li>DHCP客户广播发送<strong>DHCP发现报文</strong>（封装DHCP客户端MAC地址、事物ID等内容），源IP地址为0.0.0.0；</li>
+<li>DHCP服务器根据DHCP发现报文内封装的DHCP客户端MAC地址查找数据库，若有针对该MAC地址的配置信息（IP地址、子网掩码、地址租期、默认网关、DNS服务器等）则用这些信息构建并<strong>广播发送DHCP提供报文</strong>，没有则用默认配置信息；</li>
+<li>DHCP客户根据报文中的事务ID判断是否接收，若接收则广播发送<strong>DHCP请求报文</strong>（封装DHCP客户端MAC地址、事物ID、接受的租约中的IP地址、DHCP服务器端IP地址）；</li>
+<li>DHCP服务器广播发送<strong>DHCP确认报文</strong>；</li>
+<li>租用期过了一半后，客户向服务器发送DHCP请求报文，服务器发送反馈；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/DHCP.jpg" alt="DHCP"><br>使用<strong>DHCP中继代理</strong>（给路由器配置DHCP服务器的IP地址）可以不用在每个网络上都设置一个DHCP服务器。</li>
+</ul>
+<h2 id="二、域名系统DNS"><a href="#二、域名系统DNS" class="headerlink" title="二、域名系统DNS"></a>二、域名系统DNS</h2><p>域名系统DNS是因特网使用的命名系统，用来把便于人们记忆的具有特定含义的主机名转化为便于机器处理的IP地址。<br>因特网采用<strong>层次树状结构的域名结构</strong>：······.三级域名.二级域名.顶级域名。</p>
+<ul>
+<li>顶级域名TLD分为国家顶级域名nTLD、通用顶级域名gTLD、反向域arpa；<br>域名和IP地址的映射关系必须保存在域名服务器中，供所有其他应用查询。DNS使用<strong>分布在各地</strong>的域名服务器来实现域名到IP地址的转换。</li>
+<li>域名服务器可分为根域名服务器、顶级域名服务器、权限域名服务器、本地域名服务器；<br>域名解析过程查找方式：<strong>递归查询</strong>和<strong>迭代查询</strong>；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B.jpg" alt="域名解析过程"><br>域名服务器中广泛使用了<strong>高速缓存</strong>，同来存放最近查询过的域名以及从何处获得域名映射信息的记录，以提高DNS查询效率。</li>
+<li>域名服务器应为每项内容设置计时器并删除超过合理时间的项；</li>
+<li>用户主机中也很需要高速缓存；</li>
+</ul>
+<h2 id="三、文件传输协议FTP"><a href="#三、文件传输协议FTP" class="headerlink" title="三、文件传输协议FTP"></a>三、文件传输协议FTP</h2><p>文件传送协议FTP是因特网上使用得最广泛的文件传送协议。</p>
+<ul>
+<li>提高交互式的访问，允许客户指明文件的类型、格式、存取权限；</li>
+<li>屏蔽了各计算机系统的细节，适合在各异构网络中任意计算机之间传送文件；<br>基本工作原理：</li>
+<li>FTP客户和服务器之间要建立以下两个并行的TCP连接：</li>
+<li>①控制连接，整个会话期间一直打开，用于传送FTP相关控制命令；</li>
+<li>②数据连接，用于文件传输，每次文件传输时才建立，传输结束就关闭；</li>
+<li>默认情况下，FTP使用TCP21端口进行控制连接，TCP20端口进行数据连接。但是TCP20端口建立数据连接与传输模式有关，主动方式使用TCP20端口，被动方式由服务器和客户端自行协商决定；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/FTP.jpg" alt="FTP"></li>
+</ul>
+<h2 id="四、电子邮件"><a href="#四、电子邮件" class="headerlink" title="四、电子邮件"></a>四、电子邮件</h2><p>电子邮件采用C&#x2F;S方式。三个组成构件：<strong>用户代理、邮件服务器</strong>，以及电子邮件所需要的<strong>协议</strong>。</p>
+<ul>
+<li>用户代理是用户与电子邮件系统的接口，又称<strong>电子邮件客户端软件</strong>；</li>
+<li>邮件服务器是电子邮件系统的基础设施，因特网上所有的ISP都要邮件服务器，其功能是<strong>发送和接收邮件</strong>，同时还要负责维护用户的邮箱；</li>
+<li>协议包括邮件<strong>发送协议</strong>（如SMTP）和<strong>读取协议</strong>（如POP3）；</li>
+</ul>
+<h4 id="邮件发送协议"><a href="#邮件发送协议" class="headerlink" title="邮件发送协议"></a>邮件发送协议</h4><p>常用的邮件发送协议是<strong>简单邮件传送协议SMTP</strong>；</p>
+<ul>
+<li>基于TCP连接，端口号25；</li>
+<li>只能传送ASCII码文本；</li>
+<li>用于用户代理向邮件服务器发送邮件以及邮件服务器之间的邮件发送；<br>为解决SMTP传送非ASCII码文本的问题，提出了<strong>多用途因特网邮件扩展MIME</strong>；</li>
+</ul>
+<h4 id="邮件读取协议"><a href="#邮件读取协议" class="headerlink" title="邮件读取协议"></a>邮件读取协议</h4><p>常用的邮件读取协议有<strong>邮局协议POP3</strong>和<strong>因特网邮件访问协议IMAP</strong>；</p>
+<ul>
+<li>邮局协议POP3：非常简单、功能有限，不允许用户在邮件服务器上管理自己的邮件；</li>
+<li>因特网邮件访问协议IMAP：用户在自己的计算机上就可以操控邮件服务器的中的邮箱，IMAP是一个联机协议；</li>
+<li>POP3和IMAP4都采用<strong>基于TCP连接的C&#x2F;S方式</strong>，端口号分别为110和143；</li>
+</ul>
+<h4 id="基于万维网的电子邮件"><a href="#基于万维网的电子邮件" class="headerlink" title="基于万维网的电子邮件"></a>基于万维网的电子邮件</h4><p>通过浏览器登录<strong>邮件服务器万维网网站</strong>就可以撰写、收发、阅读和管理电子邮件，这种工作模式与IMAP很类似。<br>用户浏览器与邮件服务器网站之间使用<strong>HTTP协议</strong>，邮件服务器之间使用<strong>SMTP协议</strong>。</p>
+<h2 id="五、万维网WWW"><a href="#五、万维网WWW" class="headerlink" title="五、万维网WWW"></a>五、万维网WWW</h2><p>万维网是一个大规模的、联机式的信息储藏所，是运行在因特网上的一个<strong>分布式应用</strong>。</p>
+<ul>
+<li>万维网利用网页之间的超链接</li>
+<li>万维网使用<strong>统一资源定位符URL</strong>来指明因特网上任何种类“资源”的位置；</li>
+</ul>
+<h4 id="万维网文档"><a href="#万维网文档" class="headerlink" title="万维网文档"></a>万维网文档</h4><p>超文本标记语言HTML，使用多种标签来描述网页的结构和内容。<br>层叠样式表CSS，从审美角度来描述网页的样式。<br>脚本语言Javascript控制网页的行为。</p>
+<h4 id="超文本传输协议HTTP"><a href="#超文本传输协议HTTP" class="headerlink" title="超文本传输协议HTTP"></a>超文本传输协议HTTP</h4><p>定义了浏览器（即万维网客户进程）怎样向万维网服务器请求万维网文档，以及万维网服务器怎样把万维网文档传送给浏览器。</p>
+<ul>
+<li>HTTP&#x2F;1.0采用<strong>非连续连接</strong>方式，每次浏览器要请求一个文件都要与服务器建立TCP连接（80端口），收到响应后立即关闭连接；</li>
+<li>HTTP&#x2F;1.1采用<strong>持续连接</strong>方式，万维网服务器在发送响应后仍然保持连接，以便传送后续HTTP请求和响应报文。为了进一步提高效率，还可采用<strong>流水线</strong>方式，浏览器在收到响应报文前就可连续发送多个请求报文；<br>HTTP有两类报文：<strong>请求报文</strong>和<strong>响应报文</strong></li>
+<li>报文中的每个字段都是一些ASCII码串，并且每个字段的长度都是不确定的；</li>
+</ul>
+<h4 id="Cookie和缓存机制"><a href="#Cookie和缓存机制" class="headerlink" title="Cookie和缓存机制"></a>Cookie和缓存机制</h4><p>Cookie提高一种机制使得万维网服务器能够记住用户，而无需用户主动提供用户标识信息。Cookie是一种对无状态的HTTP进行<strong>状态化</strong>的技术。<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/Cookie.jpg" alt="Cookie"></p>
+<p>在万维网中还可以使用<strong>缓存机制</strong>以提高万维网的效率，万维网缓存又称为<strong>Web缓存</strong>，可位于客户机上，也可位于中间系统上（又称为代理服务器）</p>
+<ul>
+<li>Web缓存把最近的一些请求和响应暂存在本地磁盘中,当新请求到达时,若发现其与暂存的请求相同,就返回暂存的响应，而不需要按URL地址再次去因特网访问该资源；</li>
+<li>原始服务器会为每个响应对象设定<strong>修改时间字段</strong>和<strong>有效日期字段</strong>，代理服务器调用Web缓存时会询问原始服务器是否过期；</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-计算机网络-运输层" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/" class="article-date">
+  	<time datetime="2022-11-16T12:56:28.000Z" itemprop="datePublished">2022-11-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/">
+        计算机网络-运输层
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>计算机网络中进行通信的真正实体是<strong>位于通信两端主机中的进程</strong>，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。</p>
+<ul>
+<li>因特网的运输层为应用层提供了<strong>面向连接的TCP</strong>和<strong>无连接的UDP</strong>两种不同的运输协议；</li>
+</ul>
+<h2 id="一、端口号、复用和分用"><a href="#一、端口号、复用和分用" class="headerlink" title="一、端口号、复用和分用"></a>一、端口号、复用和分用</h2><p>端口号：TCP&#x2F;IP体系的运输层使用端口号来区分应用层的不同应用进程。</p>
+<ul>
+<li>端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号；</li>
+<li>端口号只具有本地意义；<br>复用和分用：</li>
+<li>发送方：UDP复用&#x2F;TCP复用、IP复用；</li>
+<li>接收方：IP分用、UDP分用&#x2F;TCP分用；</li>
+</ul>
+<h2 id="二、UDP和TCP的对比"><a href="#二、UDP和TCP的对比" class="headerlink" title="二、UDP和TCP的对比"></a>二、UDP和TCP的对比</h2><p><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/%E5%AF%B9%E6%AF%94.jpg" alt="UDP和TCP的对比"></p>
+<h2 id="三、TCP的流量控制和拥塞控制"><a href="#三、TCP的流量控制和拥塞控制" class="headerlink" title="三、TCP的流量控制和拥塞控制"></a>三、TCP的流量控制和拥塞控制</h2><h4 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h4><p>如果发送方数据发送速度过快，接收方可能来不及接收，造成数据丢失，这时需要采用流量控制。<br>利用<strong>滑动窗口</strong>机制可以很方便地在TCP连接上实现对发送方的流量控制：</p>
+<ul>
+<li>TCP接收方利用自己接收窗口的大小来限制发送方发送窗口的大小；</li>
+<li>TCP发送方收到接收方的零窗口通知后，启动<strong>持续计时器</strong>，持续计时器超时后发送<strong>零窗口探测报文</strong>。</li>
+</ul>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><p>某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变差，称为<strong>拥塞</strong>。<br>TCP采用了四种拥塞控制算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。</p>
+<ul>
+<li>发送方维护<strong>拥塞窗口cwnd</strong>变量：其值取决于网络的拥塞程度（当发生超时重传，则视为发生网络拥塞），并动态变化，发送方将拥塞窗口作为发送窗口swnd；</li>
+<li>维护一个慢开始门限ssthresh：cwnd&lt;ssthresh使用慢开始算法，cwnd&gt;ssthresh时改用拥塞避免算法；</li>
+<li><strong>慢开始</strong>：cwnd初始值为1，发送方每收到一个确认报文段，将cwnd加1，cwnd呈指数增长；</li>
+<li><strong>拥塞避免</strong>：每个传输轮次结束后，cwnd加1，cwnd呈线性增长；</li>
+<li>当遇到拥塞（超时重传），则ssthresh重置为当前cwnd的一半，cwnd减少为1，重新开始执行慢开始算法；</li>
+<li><strong>快重传</strong>：超时重传不一定由网络拥塞导致，<strong>错误启动慢开始算法</strong>，降低传输效率。快重传要求接收方收到数据<strong>立刻发送确认</strong>（包括失序报文段），发送方一旦收到<strong>3个连续的重复确认</strong>就将相应报文段<strong>立即重传</strong>，而<strong>不用等超时重传计时器超时</strong>。</li>
+<li><strong>快恢复</strong>：发送方收到3个重复确认，不启动慢开始算法，而是将ssthresh和cwnd调整为当前cwnd的一半，并开始执行拥塞避免算法；</li>
+</ul>
+<h2 id="四、TCP超时重传时间的选择"><a href="#四、TCP超时重传时间的选择" class="headerlink" title="四、TCP超时重传时间的选择"></a>四、TCP超时重传时间的选择</h2><p>超时重传时间RTO的选择是TCP最复杂的问题之一。<br><strong>加权平均往返时间RTTs</strong>：</p>
+<ul>
+<li>RTTs1 &#x3D; RTT1；</li>
+<li>新的RTTs &#x3D; (1-α) × 旧的RTTs + α × 新的RTT样本（指数平滑法）</li>
+<li>已成为建议标准的α取值为0.125；<br><strong>超时重传时间RTO</strong>：</li>
+<li>应略大于加权平均往返时间RTTs；</li>
+<li>RFC6298建议使用的RTO &#x3D; RTTs + 4 × RTTd，RTTd1 &#x3D; RTT1 ÷ 2，新的RTTd &#x3D; (1-β) x 旧的RTTd + β × |RTTs - 新的RTT样本|，β建议值为0.25；</li>
+<li>只要报文段重传了，就不采用其往返时间RTT样本，并把RTO增大一些（如×2）；</li>
+</ul>
+<h2 id="五、TCP可靠传输的实现"><a href="#五、TCP可靠传输的实现" class="headerlink" title="五、TCP可靠传输的实现"></a>五、TCP可靠传输的实现</h2><p>TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输。</p>
+<ul>
+<li>确认报文段包含接收窗口大小和希望接收到的起始字段，发送方据此构建发送窗口；</li>
+<li>发送方在未收到接收方的确认时，可将发送窗口内还未发送的数据全部发送出去；</li>
+<li>接收方只接收序号落入发送窗口内的数据；</li>
+<li>TCP通常将不按序到达的数据先临时存放在接收窗口中，等字节流缺少的字节收到后，再按序交付用户进程；</li>
+<li>TCP要求接收方必须有累积确认和捎带确认机制，不应过分推迟发送确认；</li>
+<li>TCP通信是全双工通信；</li>
+</ul>
+<h2 id="六、TCP的运输连接管理"><a href="#六、TCP的运输连接管理" class="headerlink" title="六、TCP的运输连接管理"></a>六、TCP的运输连接管理</h2><p>TCP运输连接有三个阶段：</p>
+<ul>
+<li>“三报文握手”建立TCP连接；</li>
+<li>“四报文挥手”释放TCP连接；</li>
+</ul>
+<h4 id="TCP的连接建立"><a href="#TCP的连接建立" class="headerlink" title="TCP的连接建立"></a>TCP的连接建立</h4><p>TCP连接建立要解决以下三个问题：</p>
+<ul>
+<li>使TCP双方能够确知对方的存在；</li>
+<li>使TCP双方能够协商一些参数（如窗口最大值）；</li>
+<li>使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配；<br>“三报文握手”过程：</li>
+<li>TCP服务器进程创建传输控制块，进入监听状态；</li>
+<li>TCP客户进程创建传输控制块，向TCP服务进程发送<strong>TCP连接请求报文段</strong>（SYN&#x3D;1，seq&#x3D;x，不能携带数据且需要消耗掉一个序号），进入同步已发送状态；（一握手）</li>
+<li>TCP服务器进程发送<strong>TCP连接请求确认报文段</strong>（SYN&#x3D;1，ACK&#x3D;1，seq&#x3D;y，ack&#x3D;x+1，不能携带数据且需要消耗掉一个序号），进入同步已接收状态；（二握手）</li>
+<li>TCP客户进程发送一个<strong>普通的TCP确认报文段</strong>（ACK&#x3D;1，seq&#x3D;x+1，ack&#x3D;y+1，可携带数据，若未携带数据则不消耗序号），进入连接已建立状态；（三握手）</li>
+<li>TCP服务器进程进入连接已建立状态；</li>
+<li>若改为两挥手，则可能因TCP连接请求超时重传导致错误；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/%E4%B8%89%E6%8A%A5%E6%96%87%E6%8F%A1%E6%89%8B.jpg" alt="三报文握手"></li>
+</ul>
+<h4 id="TCP的连接释放"><a href="#TCP的连接释放" class="headerlink" title="TCP的连接释放"></a>TCP的连接释放</h4><p>“四报文挥手”过程：</p>
+<ul>
+<li>TCP客户进程发送<strong>TCP连接释放报文段</strong>（FIN&#x3D;1，ACK&#x3D;1，seq&#x3D;u，ack&#x3D;v，不携带数据也要消耗掉一个序号），并进入终止等待1状态；</li>
+<li>TCP服务器进程发送一个<strong>普通的TCP确认报文段</strong>（ACK&#x3D;1，seq&#x3D;v，ack&#x3D;u+1），并进入关闭等待状态（未传输完的数据会继续传输，持续一段时间）；</li>
+<li>TCP客户进程收到后进入终止等待2状态；</li>
+<li>TCP服务器进程数据发送完后，发送<strong>TCP释放报文段</strong>（FIN&#x3D;1，ACK&#x3D;1，seq&#x3D;w，ack&#x3D;u+1），并进入最后确认状态；</li>
+<li>TCP用户进程发送<strong>普通的TCP确认报文段</strong>（ACK&#x3D;1,seq&#x3D;u+1，ack&#x3D;w+1），并进入时间等待状态;</li>
+<li>TCP服务器进程进入关闭状态；</li>
+<li>TCP客户进程在2MSL（MSL为最长报文段寿命，建议值为2min，一般更小）的时间后进入关闭状态；<br><strong>保活计时器</strong>：TCP服务器进程每收到一次数据，就重新设置并启动保活计时器（2小时），保活计时器到时后，TCP服务器进程发送一个<strong>探测报文段</strong>，并每隔75秒发送一次。若连续10个探测报文段未被响应，则TCP服务器进程关闭连接。<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/%E5%9B%9B%E6%8A%A5%E6%96%87%E6%8C%A5%E6%89%8B.jpg" alt="四报文挥手"></li>
+</ul>
+<h2 id="七、TCP报文段的首部格式"><a href="#七、TCP报文段的首部格式" class="headerlink" title="七、TCP报文段的首部格式"></a>七、TCP报文段的首部格式</h2><p><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/TCP%E9%A6%96%E9%83%A8.jpg" alt="TCP报文段首部格式"><br>序号：指出本TCP报文段数据载荷的第一个字节的序号（循环）。<br>确认号：指出期望收到<strong>对方</strong>下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认，只有ACK&#x3D;1才有效；<br>数据偏移：即首部长度，指出TCP报文段的数据载荷部分的起始处距离TCP报文段起始处有多远，取值为首部字节数&#x2F;4；<br>保留：保留今后使用，置为0；<br>SYN：在TCP<strong>连接建立时</strong>用来同步序号；<br>FIN：用来释放TCP连接；<br>RST：用来复位TCP连接，RST&#x3D;1时表明连接出现异常，需要释放并重新建立连接；<br>PSH：PSH&#x3D;1时，接收方会将该报文段尽快上交应用进程；<br>窗口：本报文段发送方的接收窗口；<br>校验和：检查TCP报文段（首部+数据载荷）是否出现误码；<br>紧急指针：URG&#x3D;1时才有效，用来指明紧急数据的长度，紧急数据可插队到发送缓存的最前面；<br>选项：用来增加TCP功能：</p>
+<ul>
+<li>最大报文段长度MSS选项：数据载荷部分最大长度；</li>
+<li>窗口扩大选项：为了扩大窗口（提高吞吐率）；</li>
+<li>时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；</li>
+<li>选择确认选项：实现选择确认功能；</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-计算机网络-网络层" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -547,6 +812,10 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+	</div>
+
       
 
       
@@ -594,10 +863,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: 计算机网络-物理层<br>date: 2022-11-12 16:02:30<br>tags: [计算机网络,notes]<br>math: true</p>
-<hr>
-<p>物理层考虑怎样才能在连接各计算机的<strong>传输媒体</strong>上传输<strong>数据比特流</strong>。<br><strong>传输媒体</strong>：</p>
+        <p>物理层考虑怎样才能在连接各计算机的<strong>传输媒体</strong>上传输<strong>数据比特流</strong>。<br><strong>传输媒体</strong>：</p>
 <ul>
 <li>导引型传输媒体：双绞线、同轴电缆、光纤</li>
 <li>非导引型传输媒体：微波通信<br><strong>物理层协议主要任务</strong>：</li>
@@ -664,6 +930,10 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+	</div>
+
       
 
       
@@ -1223,298 +1493,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-磁盘" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/11/08/%E7%A3%81%E7%9B%98/" class="article-date">
-  	<time datetime="2022-11-08T08:07:33.000Z" itemprop="datePublished">2022-11-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/08/%E7%A3%81%E7%9B%98/">
-        操作系统-磁盘
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>磁盘的表面由一些磁性物质组成，可以记录二进制数据。磁盘的表面被划分成一个个磁道，一个磁道又被分成一个个扇区，每个扇区就是一个<strong>磁盘块</strong>。</p>
-<ul>
-<li>地址形式：可以用（柱面号、盘面号、扇区号）来定位一个磁盘块。在读取地址连续的磁盘块时，（柱面号，盘面号，扇区号）的写法能减少磁头移动；</li>
-<li>根据<strong>磁头是否可移动</strong>可分为固定头磁盘和移动头磁盘；</li>
-<li>根据<strong>盘片是否可换</strong>可分为固定盘磁盘和可换盘磁盘；</li>
-</ul>
-<h2 id="一、磁盘调度算法"><a href="#一、磁盘调度算法" class="headerlink" title="一、磁盘调度算法"></a>一、磁盘调度算法</h2><p>一次磁盘读&#x2F;写操作时间分为三部分：</p>
-<ul>
-<li>寻找时间：启动磁臂、移动磁头所花的时间；</li>
-<li>延迟时间：将目标扇区转到磁头下面所花的时间；</li>
-<li>传输时间：读&#x2F;写数据花费的时间；</li>
-</ul>
-<p>磁盘调度算法通过减少<strong>寻找时间</strong>来提高效率。</p>
-<h4 id="1-先来先服务（FCFS）"><a href="#1-先来先服务（FCFS）" class="headerlink" title="1. 先来先服务（FCFS）"></a>1. 先来先服务（FCFS）</h4><ul>
-<li>按访问请求到达的先后顺序进行处理；</li>
-</ul>
-<h4 id="2-最短寻找时间优先（SSTF）"><a href="#2-最短寻找时间优先（SSTF）" class="headerlink" title="2. 最短寻找时间优先（SSTF）"></a>2. 最短寻找时间优先（SSTF）</h4><ul>
-<li>每次都优先响应距离磁头最近的磁道访问请求；</li>
-<li>贪心思想，无法保证整体最优；</li>
-<li>可能导致饥饿；</li>
-</ul>
-<h4 id="3-扫描算法（SCAN）"><a href="#3-扫描算法（SCAN）" class="headerlink" title="3. 扫描算法（SCAN）"></a>3. 扫描算法（SCAN）</h4><ul>
-<li>只有磁头移到最边缘磁道才会改变方向；</li>
-<li>对各个位置磁道响应频率不均匀；</li>
-</ul>
-<h4 id="4-循环扫描算法（C-SCAN）"><a href="#4-循环扫描算法（C-SCAN）" class="headerlink" title="4. 循环扫描算法（C-SCAN）"></a>4. 循环扫描算法（C-SCAN）</h4><ul>
-<li>磁头只在朝一个方向移动时才会响应请求；</li>
-</ul>
-<h4 id="5-LOOK和C-LOOK"><a href="#5-LOOK和C-LOOK" class="headerlink" title="5.LOOK和C-LOOK"></a>5.LOOK和C-LOOK</h4><ul>
-<li>LOOK算法是SCAN的改进，只要磁头移动方向上不再有请求就改变方向；</li>
-<li>C-LOOK算法是C-SCAN的改进；</li>
-</ul>
-<h2 id="二、减少延迟时间的方法"><a href="#二、减少延迟时间的方法" class="headerlink" title="二、减少延迟时间的方法"></a>二、减少延迟时间的方法</h2><p><strong>交替编号</strong>：让编号相邻的扇区物理上不相邻；</p>
-<ul>
-<li>物理相邻的两个扇区无法连续读取；<br><strong>错位命名</strong>：让相邻盘面的扇区编号错位；</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-操作系统-文件" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/" class="article-date">
-  	<time datetime="2022-11-07T16:09:52.000Z" itemprop="datePublished">2022-11-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/">
-        操作系统-文件
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>文件是一组有意义的信息&#x2F;数据集合。</p>
-<h2 id="一、文件的逻辑结构"><a href="#一、文件的逻辑结构" class="headerlink" title="一、文件的逻辑结构"></a>一、文件的逻辑结构</h2><ul>
-<li>逻辑结构：在<strong>用户</strong>看来，文件内部的数据应该是如何组织起来的。</li>
-<li>物理结构：在<strong>操作系统</strong>看来，文件的数据是如何存放在外存的。</li>
-<li>无结构文件： 文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。</li>
-<li>有结构文件：由一组相似的记录组成，又称“记录式文件”<br>以下介绍三种有结构文件。</li>
-</ul>
-<h4 id="1-顺序文件"><a href="#1-顺序文件" class="headerlink" title="1. 顺序文件"></a>1. 顺序文件</h4><p>文件中的记录一个接一个地顺序排列（逻辑上）。各个记录在物理上可以<strong>顺序存储</strong>或<strong>链式存储</strong>。</p>
-<ul>
-<li>串结构：记录顺序与关键字无关。</li>
-<li>顺序结构：记录按关键字顺序排列。<br>链式存储：无法实现随机存取，每次只能从第一个记录开始依次往后查找。<br>顺序存储（顺序文件一般指顺序存储的文件）：</li>
-<li>可变长记录无法实现随机存取；</li>
-<li>定长记录可以随机存取，记录长度为L，则第i个记录存放的相对位置是i*L；<br>-采用顺序结构的定长记录，还可以快速找到某关键字对应的记录；</li>
-</ul>
-<h4 id="2-索引文件"><a href="#2-索引文件" class="headerlink" title="2.  索引文件"></a>2.  索引文件</h4><ul>
-<li>建立一张索引表，每条记录对应一个索引项；</li>
-<li>索引表本身是定长记录的顺序文件，因此可以快速找到第i个记录对应的索引项；</li>
-<li>若索引表按关键字顺序排列，则可支持<strong>快速检索</strong>；</li>
-<li>解决了顺序文件不方便增删记录的问题，同时让不定长记录文件实现随机存取，但索引表可能占据很多空间；</li>
-</ul>
-<h4 id="3-索引顺序文件"><a href="#3-索引顺序文件" class="headerlink" title="3. 索引顺序文件"></a>3. 索引顺序文件</h4><p>为文件建立一张索引表，<strong>每组记录</strong>对应一个索引表项。</p>
-<h2 id="二、文件目录"><a href="#二、文件目录" class="headerlink" title="二、文件目录"></a>二、文件目录</h2><h4 id="1-文件控制块"><a href="#1-文件控制块" class="headerlink" title="1. 文件控制块"></a>1. 文件控制块</h4><p>文件控制块（FCB）：目录文件（可理解成文件夹）中的一条记录就是一个文件控制块。包含了：</p>
-<ul>
-<li>文件的基本信息：文件名、物理地址、逻辑地址、物理结构等；</li>
-<li>存取控制信息：是否可读&#x2F;可写、禁止访问的用户名单等；</li>
-<li>使用信息：文件的建立时间、修改时间等；<br>FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用户程序）可以实现“按名存取”。<br>对目录的操作：搜索、创建文件、删除文件、显示文件、修改文件。</li>
-</ul>
-<h4 id="2-目录结构"><a href="#2-目录结构" class="headerlink" title="2. 目录结构"></a>2. 目录结构</h4><p><strong>单级目录结构</strong>：整个系统只建立一张目录表，每个文件占一个目录项；<br><strong>两级目录结构</strong>：分为主文件目录（MFD）和用户文件目录（UFD）；</p>
-<ul>
-<li>主文件目录记录用户名及相应用户文件存放文字；</li>
-<li>用户不能对自己的文件进行分类，缺乏灵活性；<br><strong>多级目录结构（树形目录结构）</strong></li>
-<li>相对路径 VS 绝对路径；</li>
-<li>不便于实现<strong>文件的共享</strong>；<br><strong>无环图目录结构</strong>：在树形目录结构基础上，增加一些指向同一节点的有向边，形成有向无环图。</li>
-<li>为共享结点设置共享计数器，计数器为0才删除结点；</li>
-<li>可以更方便地实现多个用户间的文件共享；</li>
-</ul>
-<h4 id="3-索引节点（FCB的改进）"><a href="#3-索引节点（FCB的改进）" class="headerlink" title="3. 索引节点（FCB的改进）"></a>3. 索引节点（FCB的改进）</h4><p>对目录表进行瘦身，保留文件名+索引结点指针信息，其他描述信息全都放到指针指向的地址；</p>
-<ul>
-<li>减小了目录表所占空间；</li>
-<li>提高了检索效率（一个磁盘块可以放入更多FCB，启动磁盘次数减少）；</li>
-</ul>
-<h2 id="三、文件的物理结构"><a href="#三、文件的物理结构" class="headerlink" title="三、文件的物理结构"></a>三、文件的物理结构</h2><p>该部分探讨文件数据应该怎么存放在外存中，可以理解成文件分配方式问题。<br>和内存分页类似，磁盘中存储单元也会被分为一个个“块&#x2F;磁盘块&#x2F;物理块”。很多操作系统中，磁盘块的大小与内存块、页面的大小<strong>相同</strong>。</p>
-<ul>
-<li>文件的逻辑地址也可以表示为（逻辑块号，块内地址）；、</li>
-<li>操作系统为文件分配存储空间以块为单位；</li>
-<li>操作系统负责从逻辑地址到物理地址的映射；<br>这里介绍<strong>连续分配</strong>、<strong>链接分配</strong>、<strong>索引分配</strong>三种分配方式：</li>
-</ul>
-<h4 id="1-连续分配"><a href="#1-连续分配" class="headerlink" title="1.连续分配"></a>1.连续分配</h4><p>连续分配要求每个文件在磁盘上占有一组连续的块。<br>文件目录记录文件存放的<strong>起始块号</strong>和<strong>长度</strong>。</p>
-<ul>
-<li>物理块号&#x3D;起始块号+逻辑块号；<br><strong>优点：</strong></li>
-<li>支持<strong>顺序访问</strong>和<strong>随机访问</strong>（直接访问）；</li>
-<li>在<strong>顺序读&#x2F;写</strong>时速度最快；<br><strong>缺点：</strong></li>
-<li>不方便扩展；</li>
-<li>存储空间利用率低，会产生难以利用的磁盘碎片；<br>地址转换方式：</li>
-</ul>
-<h4 id="2-链接分配"><a href="#2-链接分配" class="headerlink" title="2.链接分配"></a>2.链接分配</h4><p><strong>隐式链接</strong>：文件中除最后一个磁盘块，每个磁盘块都会保存指向下一个磁盘块的指针。</p>
-<ul>
-<li>只支持顺序访问，不支持随机访问；</li>
-<li>拓展方便；</li>
-<li>磁盘利用率高；<br><strong>显示链接</strong>：把用于链接文件各物理块的指针显示地存放在一张表中，即文件分配表（FAT）；</li>
-<li>FAT中，每个物理块号都记录下一块的地址；</li>
-<li>每个磁盘仅设置一张FAT，开机时将FAT读入内存；</li>
-<li>每个文件的起始块号记录在目录项中；<br><strong>优点：</strong></li>
-<li>支持顺序访问，也支持随机访问（查询FAT表不需要读磁盘）；</li>
-<li>不会产生外部碎片，也方便拓展；<br><strong>缺点：</strong></li>
-<li>文件分配表需要占据一定存储空间；</li>
-</ul>
-<h4 id="3-索引分配"><a href="#3-索引分配" class="headerlink" title="3.索引分配"></a>3.索引分配</h4><p>为<strong>每个文件</strong>建立一张索引表，索引表中记录了文件各个逻辑块对应的物理块（类似于页表）；</p>
-<ul>
-<li>索引表存放的磁盘称为<strong>索引块</strong>，文件数据存放的磁盘成为<strong>数据块</strong>；</li>
-<li>FCB中记录索引块地址；</li>
-<li>支持随机访问、容易拓展；<br>当一个磁盘块装不下整张索引表，可以采取以下三种解决方式：</li>
-<li>链接方案：多个索引块链接起来存放；</li>
-<li>多层索引：类似于多级页表，为索引表建立索引表，除了顶级索引表都可以离散存放；</li>
-<li>混合索引：顶级索引表中，既包含直接地址索引，又包含间接索引，使得对于小文件来说，访问一个数据块所需的读磁盘次数更少（<strong>为什么小文件需要多层索引？</strong>）；</li>
-</ul>
-<h2 id="四、文件存储空间管理"><a href="#四、文件存储空间管理" class="headerlink" title="四、文件存储空间管理"></a>四、文件存储空间管理</h2><p>对磁盘空闲空间的管理。 </p>
-<h4 id="1-存储空间的划分和初始块"><a href="#1-存储空间的划分和初始块" class="headerlink" title="1. 存储空间的划分和初始块"></a>1. 存储空间的划分和初始块</h4><p>物理磁盘划分为一个个文件卷（C盘、D盘、E盘等）；<br>各个文件卷分为目录区（存放FCB、用于存储磁盘空间管理的信息）、文件区（存放文件数据）；</p>
-<p>加下来介绍4种存储空间管理方法：</p>
-<h4 id="2-空闲表法"><a href="#2-空闲表法" class="headerlink" title="2. 空闲表法"></a>2. 空闲表法</h4><p>记录每个空闲区间的起始位置和长度。</p>
-<ul>
-<li>适用于连续分配方式；</li>
-<li>可采用首次适应、最佳适应、最坏适应等算法为文件分配区间；</li>
-</ul>
-<h4 id="3-空闲链表法"><a href="#3-空闲链表法" class="headerlink" title="3. 空闲链表法"></a>3. 空闲链表法</h4><p><strong>空闲盘块链</strong>：以盘块为单位组成一条空闲链；</p>
-<ul>
-<li>空闲盘块存储这下一个空闲盘块的指针；</li>
-<li>操作系统保存着链头、链尾指针；<br><strong>空闲盘区链</strong>：以盘区为单位组成一条空闲链；</li>
-<li>操作系统保存着链头、链尾指针；</li>
-<li>空闲盘区中的第一个盘块记录了盘区的长度、下一个盘区的指针；</li>
-<li>离散分配、连续分配都适用，为一个文件分配多个盘块时效率更高；</li>
-</ul>
-<h4 id="4-位示图法"><a href="#4-位示图法" class="headerlink" title="4. 位示图法"></a>4. 位示图法</h4><p>每个二进制位对应一个盘块，位示图一般用连续的“字”表示，用（字号，位号）对应一个盘块。</p>
-<ul>
-<li>字号i &#x3D; b&#x2F;n，位号j &#x3D; b%n，n表示字长，b表示盘块号；</li>
-<li>注意盘块号、字号、位号从0开始还是从1开始；</li>
-</ul>
-<h4 id="5-成组链接法"><a href="#5-成组链接法" class="headerlink" title="5. 成组链接法"></a>5. 成组链接法</h4><p>文件卷的目录区设置一个磁盘块为“超级块”。</p>
-<ul>
-<li>超级块记录下一组空闲盘块数、每个空闲盘块号；</li>
-<li>系统启动时超级块读入内存，并随着磁盘的超级块更新；</li>
-<li>超级块的第一个磁盘块存放了下一组的信息；</li>
-<li>适用于大型操作系统；</li>
-</ul>
-<h2 id="五、文件的基本操作"><a href="#五、文件的基本操作" class="headerlink" title="五、文件的基本操作"></a>五、文件的基本操作</h2><p><strong>创建文件</strong>（creat系统调用）：</p>
-<ul>
-<li>在外存中找到文件所需空间；</li>
-<li>创建该文件对应的目录项；<br><strong>删除文件</strong>（delete系统调用）：</li>
-<li>找到文件名对应的目录项；</li>
-<li>回收文件占用的磁盘块；</li>
-<li>删除文件对应的目录项；<br><strong>打开文件</strong>（open系统调用）：</li>
-<li>找到文件名对应的目录项；</li>
-<li>将目录项复制到内存的“打开文件表”中，并将打开文件表的索引号返回给用户；</li>
-<li>每个进程有自己的打开文件表，系统也有一张总的打开文件表；</li>
-<li>进程打开文件表特有属性：读写指针、访问权限（是否只读）；</li>
-<li>系统打开文件表特有属性：打开计数器；<br><strong>关闭文件</strong>（close系统调用）：</li>
-<li>将进程的打开文件表相应表项删除；</li>
-<li>回收分配给该文件的内存空间等资源；</li>
-<li>系统打开文件表打开计数器-1，若count为0则删除对应表项；<br><strong>读文件</strong>（read系统调用）：</li>
-<li>根据读指针、读入数据量、内存位置将文件数据从外存读入内存；<br><strong>写文件</strong>（write系统调用）：</li>
-<li>根据读指针、读入数据量、内存位置将文件数据从内存写出外存；</li>
-</ul>
-<h2 id="六、文件共享和文件保护"><a href="#六、文件共享和文件保护" class="headerlink" title="六、文件共享和文件保护"></a>六、文件共享和文件保护</h2><h4 id="1-文件共享"><a href="#1-文件共享" class="headerlink" title="1. 文件共享"></a>1. 文件共享</h4><p>基于<strong>索引节点</strong>的共享方式（硬链接）：</p>
-<ul>
-<li>每个用户的目录项指向同一个索引结点；</li>
-<li>索引结点中有链接技术count；</li>
-<li>某用户删除文件时只删除目录项，count–，只有count&#x3D;&#x3D;0才删除文件数据；<br>基于<strong>符号链接</strong>的共享方式（软链接）:</li>
-<li>在一个link型文件（如快捷方式）记录共享文件存放路径；</li>
-<li>软连接访问共享文件需要查询多级目录，需要多次I&#x2F;O操作，访问速度慢；</li>
-</ul>
-<h4 id="2-文件保护"><a href="#2-文件保护" class="headerlink" title="2. 文件保护"></a>2. 文件保护</h4><p><strong>口令保护</strong>：</p>
-<ul>
-<li>为文件设置一个口令，用户访问时需提供口令；</li>
-<li>开销小，但口令需存放系统中，不太安全；<br><strong>加密保护</strong>：</li>
-<li>用一个密码对文件加密（如异或加密），需要提供相同密码才能正确解密；</li>
-<li>安全性高，但加密解密需耗时；<br><strong>访问控制</strong>：</li>
-<li>用访问控制表（ACL）记录不同用户的访问权限；</li>
-<li>对文件访问类型可以分为：读&#x2F;写&#x2F;执行&#x2F;删除 等；</li>
-<li>实现灵活，可以实现复杂的文件保护功能；</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E4%BB%B6/" rel="tag">文件</a></li></ul>
 	</div>
 
       

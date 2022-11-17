@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机网络-应用层 | DB的空间</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="应用层是计算机网路体系结构的最顶层，是设计和建立计算机网络的最终目的，也是计算机网络中发展最快的部分。客户&#x2F;服务器方式（C&#x2F;S方式）  客户和服务器指通信中所涉及的两个应用进程； 描述进程之间服务和被服务的关系； 基于C&#x2F;S方式的应用服务通常是服务集中型的，如WWW、电子邮件、FTP等；对等方式（P2P方式） 没有固定的服务请求者和服务提供者，对等方之间直接通信； 基">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-应用层">
+<meta property="og:url" content="https://rookiedb.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/index.html">
+<meta property="og:site_name" content="DB的空间">
+<meta property="og:description" content="应用层是计算机网路体系结构的最顶层，是设计和建立计算机网络的最终目的，也是计算机网络中发展最快的部分。客户&#x2F;服务器方式（C&#x2F;S方式）  客户和服务器指通信中所涉及的两个应用进程； 描述进程之间服务和被服务的关系； 基于C&#x2F;S方式的应用服务通常是服务集中型的，如WWW、电子邮件、FTP等；对等方式（P2P方式） 没有固定的服务请求者和服务提供者，对等方之间直接通信； 基">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://rookiedb.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/DHCP.jpg">
+<meta property="og:image" content="https://rookiedb.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B.jpg">
+<meta property="og:image" content="https://rookiedb.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/FTP.jpg">
+<meta property="og:image" content="https://rookiedb.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/Cookie.jpg">
+<meta property="article:published_time" content="2022-11-16T14:58:26.000Z">
+<meta property="article:modified_time" content="2022-11-17T05:46:19.265Z">
+<meta property="article:author" content="Rookie DB">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rookiedb.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/DHCP.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="DB的空间" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+
+  
+<script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+
+  
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/"></a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/c/" style="font-size: 18.57px;">c++</a> <a href="/tags/class/" style="font-size: 12.86px;">class</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/notes/" style="font-size: 20px;">notes</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/vector/" style="font-size: 10px;">vector</a> <a href="/tags/%E5%86%85%E5%AD%98/" style="font-size: 11.43px;">内存</a> <a href="/tags/%E5%AE%B9%E5%99%A8/" style="font-size: 15.71px;">容器</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14.29px;">操作系统</a> <a href="/tags/%E6%96%87%E4%BB%B6/" style="font-size: 10px;">文件</a> <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" style="font-size: 10px;">文件操作</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 17.14px;">计算机网络</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author"></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-计算机网络-应用层" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/" class="article-date">
+  	<time datetime="2022-11-16T14:58:26.000Z" itemprop="datePublished">2022-11-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机网络-应用层
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+	</div>
+
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应用层是计算机网路体系结构的最顶层，是设计和建立计算机网络的最终目的，也是计算机网络中发展最快的部分。<br>客户&#x2F;服务器方式（C&#x2F;S方式）</p>
+<ul>
+<li>客户和服务器指通信中所涉及的两个应用进程；</li>
+<li>描述进程之间服务和被服务的关系；</li>
+<li>基于C&#x2F;S方式的应用服务通常是<strong>服务集中型</strong>的，如WWW、电子邮件、FTP等；<br>对等方式（P2P方式）</li>
+<li>没有固定的服务请求者和服务提供者，对等方之间直接通信；</li>
+<li>基于P2P的应用是<strong>服务分散型</strong>的，如P2P文件共享、即时通信、P2P流媒体、分布式存储等；</li>
+<li>P2P最突出的特性之一是<strong>可扩展性</strong>，系统性能不会因规模的增大而降低；</li>
+</ul>
+<h2 id="一、动态主机配置协议DHCO"><a href="#一、动态主机配置协议DHCO" class="headerlink" title="一、动态主机配置协议DHCO"></a>一、动态主机配置协议DHCO</h2><p>DHCP提供了<strong>即插即用连网</strong>的机制，允许一台计算机加入新网络时可<strong>自动获取IP地址</strong>等网络配置信息而不用手工参与。<br>工作过程</p>
+<ul>
+<li>DHCP客户广播发送<strong>DHCP发现报文</strong>（封装DHCP客户端MAC地址、事物ID等内容），源IP地址为0.0.0.0；</li>
+<li>DHCP服务器根据DHCP发现报文内封装的DHCP客户端MAC地址查找数据库，若有针对该MAC地址的配置信息（IP地址、子网掩码、地址租期、默认网关、DNS服务器等）则用这些信息构建并<strong>广播发送DHCP提供报文</strong>，没有则用默认配置信息；</li>
+<li>DHCP客户根据报文中的事务ID判断是否接收，若接收则广播发送<strong>DHCP请求报文</strong>（封装DHCP客户端MAC地址、事物ID、接受的租约中的IP地址、DHCP服务器端IP地址）；</li>
+<li>DHCP服务器广播发送<strong>DHCP确认报文</strong>；</li>
+<li>租用期过了一半后，客户向服务器发送DHCP请求报文，服务器发送反馈；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/DHCP.jpg" alt="DHCP"><br>使用<strong>DHCP中继代理</strong>（给路由器配置DHCP服务器的IP地址）可以不用在每个网络上都设置一个DHCP服务器。</li>
+</ul>
+<h2 id="二、域名系统DNS"><a href="#二、域名系统DNS" class="headerlink" title="二、域名系统DNS"></a>二、域名系统DNS</h2><p>域名系统DNS是因特网使用的命名系统，用来把便于人们记忆的具有特定含义的主机名转化为便于机器处理的IP地址。<br>因特网采用<strong>层次树状结构的域名结构</strong>：······.三级域名.二级域名.顶级域名。</p>
+<ul>
+<li>顶级域名TLD分为国家顶级域名nTLD、通用顶级域名gTLD、反向域arpa；<br>域名和IP地址的映射关系必须保存在域名服务器中，供所有其他应用查询。DNS使用<strong>分布在各地</strong>的域名服务器来实现域名到IP地址的转换。</li>
+<li>域名服务器可分为根域名服务器、顶级域名服务器、权限域名服务器、本地域名服务器；<br>域名解析过程查找方式：<strong>递归查询</strong>和<strong>迭代查询</strong>；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B.jpg" alt="域名解析过程"><br>域名服务器中广泛使用了<strong>高速缓存</strong>，同来存放最近查询过的域名以及从何处获得域名映射信息的记录，以提高DNS查询效率。</li>
+<li>域名服务器应为每项内容设置计时器并删除超过合理时间的项；</li>
+<li>用户主机中也很需要高速缓存；</li>
+</ul>
+<h2 id="三、文件传输协议FTP"><a href="#三、文件传输协议FTP" class="headerlink" title="三、文件传输协议FTP"></a>三、文件传输协议FTP</h2><p>文件传送协议FTP是因特网上使用得最广泛的文件传送协议。</p>
+<ul>
+<li>提高交互式的访问，允许客户指明文件的类型、格式、存取权限；</li>
+<li>屏蔽了各计算机系统的细节，适合在各异构网络中任意计算机之间传送文件；<br>基本工作原理：</li>
+<li>FTP客户和服务器之间要建立以下两个并行的TCP连接：</li>
+<li>①控制连接，整个会话期间一直打开，用于传送FTP相关控制命令；</li>
+<li>②数据连接，用于文件传输，每次文件传输时才建立，传输结束就关闭；</li>
+<li>默认情况下，FTP使用TCP21端口进行控制连接，TCP20端口进行数据连接。但是TCP20端口建立数据连接与传输模式有关，主动方式使用TCP20端口，被动方式由服务器和客户端自行协商决定；<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/FTP.jpg" alt="FTP"></li>
+</ul>
+<h2 id="四、电子邮件"><a href="#四、电子邮件" class="headerlink" title="四、电子邮件"></a>四、电子邮件</h2><p>电子邮件采用C&#x2F;S方式。三个组成构件：<strong>用户代理、邮件服务器</strong>，以及电子邮件所需要的<strong>协议</strong>。</p>
+<ul>
+<li>用户代理是用户与电子邮件系统的接口，又称<strong>电子邮件客户端软件</strong>；</li>
+<li>邮件服务器是电子邮件系统的基础设施，因特网上所有的ISP都要邮件服务器，其功能是<strong>发送和接收邮件</strong>，同时还要负责维护用户的邮箱；</li>
+<li>协议包括邮件<strong>发送协议</strong>（如SMTP）和<strong>读取协议</strong>（如POP3）；</li>
+</ul>
+<h4 id="邮件发送协议"><a href="#邮件发送协议" class="headerlink" title="邮件发送协议"></a>邮件发送协议</h4><p>常用的邮件发送协议是<strong>简单邮件传送协议SMTP</strong>；</p>
+<ul>
+<li>基于TCP连接，端口号25；</li>
+<li>只能传送ASCII码文本；</li>
+<li>用于用户代理向邮件服务器发送邮件以及邮件服务器之间的邮件发送；<br>为解决SMTP传送非ASCII码文本的问题，提出了<strong>多用途因特网邮件扩展MIME</strong>；</li>
+</ul>
+<h4 id="邮件读取协议"><a href="#邮件读取协议" class="headerlink" title="邮件读取协议"></a>邮件读取协议</h4><p>常用的邮件读取协议有<strong>邮局协议POP3</strong>和<strong>因特网邮件访问协议IMAP</strong>；</p>
+<ul>
+<li>邮局协议POP3：非常简单、功能有限，不允许用户在邮件服务器上管理自己的邮件；</li>
+<li>因特网邮件访问协议IMAP：用户在自己的计算机上就可以操控邮件服务器的中的邮箱，IMAP是一个联机协议；</li>
+<li>POP3和IMAP4都采用<strong>基于TCP连接的C&#x2F;S方式</strong>，端口号分别为110和143；</li>
+</ul>
+<h4 id="基于万维网的电子邮件"><a href="#基于万维网的电子邮件" class="headerlink" title="基于万维网的电子邮件"></a>基于万维网的电子邮件</h4><p>通过浏览器登录<strong>邮件服务器万维网网站</strong>就可以撰写、收发、阅读和管理电子邮件，这种工作模式与IMAP很类似。<br>用户浏览器与邮件服务器网站之间使用<strong>HTTP协议</strong>，邮件服务器之间使用<strong>SMTP协议</strong>。</p>
+<h2 id="五、万维网WWW"><a href="#五、万维网WWW" class="headerlink" title="五、万维网WWW"></a>五、万维网WWW</h2><p>万维网是一个大规模的、联机式的信息储藏所，是运行在因特网上的一个<strong>分布式应用</strong>。</p>
+<ul>
+<li>万维网利用网页之间的超链接</li>
+<li>万维网使用<strong>统一资源定位符URL</strong>来指明因特网上任何种类“资源”的位置；</li>
+</ul>
+<h4 id="万维网文档"><a href="#万维网文档" class="headerlink" title="万维网文档"></a>万维网文档</h4><p>超文本标记语言HTML，使用多种标签来描述网页的结构和内容。<br>层叠样式表CSS，从审美角度来描述网页的样式。<br>脚本语言Javascript控制网页的行为。</p>
+<h4 id="超文本传输协议HTTP"><a href="#超文本传输协议HTTP" class="headerlink" title="超文本传输协议HTTP"></a>超文本传输协议HTTP</h4><p>定义了浏览器（即万维网客户进程）怎样向万维网服务器请求万维网文档，以及万维网服务器怎样把万维网文档传送给浏览器。</p>
+<ul>
+<li>HTTP&#x2F;1.0采用<strong>非连续连接</strong>方式，每次浏览器要请求一个文件都要与服务器建立TCP连接（80端口），收到响应后立即关闭连接；</li>
+<li>HTTP&#x2F;1.1采用<strong>持续连接</strong>方式，万维网服务器在发送响应后仍然保持连接，以便传送后续HTTP请求和响应报文。为了进一步提高效率，还可采用<strong>流水线</strong>方式，浏览器在收到响应报文前就可连续发送多个请求报文；<br>HTTP有两类报文：<strong>请求报文</strong>和<strong>响应报文</strong></li>
+<li>报文中的每个字段都是一些ASCII码串，并且每个字段的长度都是不确定的；</li>
+</ul>
+<h4 id="Cookie和缓存机制"><a href="#Cookie和缓存机制" class="headerlink" title="Cookie和缓存机制"></a>Cookie和缓存机制</h4><p>Cookie提高一种机制使得万维网服务器能够记住用户，而无需用户主动提供用户标识信息。Cookie是一种对无状态的HTTP进行<strong>状态化</strong>的技术。<br><img src="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/Cookie.jpg" alt="Cookie"></p>
+<p>在万维网中还可以使用<strong>缓存机制</strong>以提高万维网的效率，万维网缓存又称为<strong>Web缓存</strong>，可位于客户机上，也可位于中间系统上（又称为代理服务器）</p>
+<ul>
+<li>Web缓存把最近的一些请求和响应暂存在本地磁盘中,当新请求到达时,若发现其与暂存的请求相同,就返回暂存的响应，而不需要按URL地址再次去因特网访问该资源；</li>
+<li>原始服务器会为每个响应对象设定<strong>修改时间字段</strong>和<strong>有效日期字段</strong>，代理服务器调用Web缓存时会询问原始服务器是否过期；</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">计算机网络-运输层</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-right">
+        &copy; 2022 Rookie DB
+      </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>
