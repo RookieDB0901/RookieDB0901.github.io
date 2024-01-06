@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。 - 点分十进制表示方法：XXX.XXX.XXX.XXX； ## 一、历史发展 #### 1. 分类编制的IPv4地址 分类： - A类：0开头，8位网络号+24位主机号 - B类：10开头，16位网络号+16位主机号 - C类：110开头，24位网络号+8位主机号 - D类：1110开头，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-网络层">
+<meta property="og:url" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。 - 点分十进制表示方法：XXX.XXX.XXX.XXX； ## 一、历史发展 #### 1. 分类编制的IPv4地址 分类： - A类：0开头，8位网络号+24位主机号 - B类：10开头，16位网络号+16位主机号 - C类：110开头，24位网络号+8位主机号 - D类：1110开头，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%A6%96%E9%83%A8.jpg">
+<meta property="article:published_time" content="2022-11-16T05:44:41.000Z">
+<meta property="article:modified_time" content="2022-11-16T12:53:10.481Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/IP%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%A6%96%E9%83%A8.jpg">
+
+
+<link rel="canonical" href="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/","path":"2022/11/16/计算机网络-网络层/","title":"计算机网络-网络层"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机网络-网络层 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机网络-网络层 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络-网络层
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-16 13:44:41 / Modified: 20:53:10" itemprop="dateCreated datePublished" datetime="2022-11-16T13:44:41+08:00">2022-11-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。
+- 点分十进制表示方法：XXX.XXX.XXX.XXX； ## 一、历史发展 #### 1.
+分类编制的IPv4地址 分类： - A类：0开头，8位网络号+24位主机号 -
+B类：10开头，16位网络号+16位主机号 - C类：110开头，24位网络号+8位主机号
+- D类：1110开头，多播地址 - E类：1111开头，保留 注意事项： - 只有A； -
+主机号为“全0”的地址是<strong>网络地址</strong>，主机号为“全1”的地址是<strong>广播地址</strong>，
+不能分配给主机或路由器的各接口； -
+A类网络号0和127不可分配给主机或路由器的各接口； #### 2.
+划分子网的IPv4地址
+为新增网络申请新的网络号会浪费大量IP地址，借用主机号的一定位数来作为<strong>子网号</strong>，区分不同子网，以减少IP地址的浪费。
+-
+<strong>子网掩码</strong>：使用连续的比特1来对应网络号和子网号，连续的比特0来对应主机号。
+-
+将<strong>划分子网的IPv4地址</strong>与其相应的<strong>子网掩码</strong>进行逻辑<strong>与运算</strong>就可得到IPv4地址所在子网的网络地址；
+-
+可划分的子网数量由子网号位数决定，每个子网可分配的IP地址数量由主机号位数决定；
+#### 3. 无分类编制的IPv4地址
+无分类域间路由选择CIDR：消除了传统A/B/C类地址以及划分子网的概念。 -
+使用“斜线记法”，即在IPv4地址后面加上斜线“/”，在斜线后面写上网络前缀所占的比特数量；
+路由聚合（构造超网）：找共同前缀 -
+网络前缀越长，地址块越小，路由越具体； -
+<strong>最长前缀匹配</strong>：若路由器查表转发分组时发现有多条路可选，则选择网络前缀最长的那条；
+## 二、IPv4地址的应用 #### 1. IPv4地址的应用规划
+定长的子网掩码FLSM：使用<strong>同一个子网掩码</strong>来划分子网，所有子网的网络前缀长度一致，会造成IP地址的浪费。
+变长的子网掩码VLSM：使用<strong>不同的子网掩码</strong>来划分子网，每个子网所分配的IP地址数量可以不同，更加灵活。
+#### 2. IP数据报的发送和转发过程 主机发送IP数据报： -
+首先判断目的主机是否与自己在同一个网络（子网掩码）； -
+若在同一个网络，则直接交付，否则通过所在网络的默认网关（路由器）转发；
+路由器转发IP数据报： - 首先检查IP数据报首部是否出错； -
+根据IP数据报的目的地址在路由表中查找匹配的条目并通过相应接口转发； -
+路由表：记录各接口网络地址及子网掩码，若子网掩码和目的地址相与等于对应网络地址，则通过相应接口转发；
+#### 3. 静态路由配置与路由环路问题
+静态路由配置：用户或网络管理员使用路由i去相关指令给路由器人工配置路由表。一般用于小规模网络。
+-
+静态路由配置：目的网络+下一跳+类型（记录要到达目的网络下一跳需要转发到哪里）；
+-
+<strong>默认路由</strong>：因特网中网络众多，可以添加目的网络地址0.0.0.0（视为网络前缀长度为0的网络地址），没有记录的网络地址都将从这里转发；
+-
+<strong>特定主机路由</strong>：将特定主机的IP地址设为目的网络（视为网络前缀为32的网络地址）；
+- 转发时优先选择网络前缀最长的； 静态路由配置可能导致路由环路问题： -
+配置错误：会导致死循环，可以设置生存时间TTL字段； -
+聚合了不存在的网络：目的网络中实际IP地址数量小于最大IP地址数量，有部分IP地址不存在但会错误转发，可以添加黑洞路由解决；
+- 网络故障：可以将故障的IP地址设为黑洞路由； ## 三、路由选择协议
+动态路由选择：路由器通过<strong>路由选择协议</strong>自动获取路由信息。
+- 复杂开销大，能适应不同的网络状态，适用于大规模网络； -
+特点：自适应、分布式、分层次。
+分层次：内部网关协议IGP（IRP）和外部网关协议EGP（ERP）； <img
+src="路由选择协议.jpg" alt="路由选择协议" /> 路由器的基本结构: -
+<strong>路由表</strong>：收到<strong>路由报文</strong>后，会将信息记录到路由表中；
+- 根据路由表得到易于查找的<strong>转发表</strong>； -
+收到<strong>数据分组</strong>后，则根据转发表查表转发； -
+<strong>路由选择处理机</strong>存储路由表，还会周期性地给其他路由器发送自己所知道的路由信息；
+- 缓存区：输入/输出缓冲区用来暂存分组； #### 1. RIP
+RIP要求自治系统AS内的每一个路由器都要维护从它自己到AS内其他每一个网络的距离记录。
+-
+基于距离向量，使用“跳数”来衡量距离，距离等于16相当于不可达，因此只适用于小型互联网；
+-
+RIP认为好的路由就是“距离短”的路由，即通过路由器数量最少的路由（不考虑传输速率）。
+-
+当到达同一目的网络有多条距离相等的路由时，可以进行<strong>等价负载均衡</strong>；
+RIP基本工作过程： -
+刚开始工作时，进知道自己到<strong>直连网络</strong>的距离为1； -
+每个路由器仅和相邻路由器<strong>周期性地交换并更新路由信息</strong>； -
+若干次交换更新后，每个路由器都知道<strong>到达本AS内各网络的最短距离</strong>和<strong>下一跳地址</strong>，称为“收敛”；
+RIP存在<strong>“坏消息传播得慢”</strong>的问题，可能导致<strong>路由环路</strong>。可以采用以下方法缓解：
+- 限制最大路径距离为15； -
+<strong>触发更新</strong>：当路由表发生变化就立即发送更新报文； -
+<strong>水平分割</strong>：让路由器记录收到某特定路由信息的接口，而不让同一路由信息再通过此接口反方向传送；
+#### 2.开放最短路径优先OSPF
+OSPF基于<strong>链路状态</strong>（即本路由器都和哪些路由器相邻以及相应链路的“代价”），使用了Dijkstra提出的最短路径算法<strong>SPF</strong>。
+- “代价”用来表示费用、距离、时延、带宽等； -
+每个使用OSPF的路由器都会产生<strong>链路状态通告LSA</strong>，包含<strong>直连网络的状态信息</strong>和<strong>邻居路由器的状态信息</strong>，并有一个“链路状态数据库LSDB”用于存储LSA；
+-
+LSA被封装在<strong>链路状态更新分组LSU</strong>中，采用<strong>洪泛法</strong>发送；
+- 各路由器的LSDB最终将达到一致； -
+各路由器基于LSDB进行<strong>最短路径优先SPF</strong>计算，构建各自的路由表；
+OSPF有以下五种分组类型： - 问候分组：用来发现和维护邻居路由器的可达性；
+- 数据库描述分组：发送给邻居路由器； -
+链路状态请求分组：发现链路状态缺失时向邻居路由器发送； -
+链路状态更新分组：洪泛发送； -
+链路状态确认分组：对链路状态更新分组的确认；
+OSPF在多点接入网络中路由器邻居关系的建立： -
+选举指定路由器DR和备用的指定路由器BDR； -
+所有的非DR/BDR只与DR/BDR建立邻居关系，非DR/BDR之间通过DR/BDR交换信息；
+为了使OSPF能够用于规模很大的网络，OSPF把一个自治系统再划分为若干个更小的范围，叫做<strong>区域</strong>。
+- 减少了整个网络上的通信量； #### 3. 边界网关协议BGP
+用于自治系统<strong>之间</strong>的路由选择，工作原理如下： -
+再配置BGP时，每个自治系统的管理员选择至少一个路由器作为该自治系统的<strong>“BGP发言人”</strong>；
+-
+不同自治系统的发言人通过建立<strong>TCP连接</strong>交换路由信息，使用TCP连接交换路由信息的两个BGP发言人称为对方的邻站或对等站；
+-
+BGP发言人交换<strong>网络可达性</strong>的信息，并根据所采用的策略从收到的路由信息中找出到达各自治系统<strong>较好的路由</strong>，即构造不存在贿赂的自治系统连通图（树形结构）；
+BGP-4有以下四种报文： -
+OPEN报文：用来与相邻的另一个BGP发言人<strong>建立关系</strong>； -
+UPDATE报文：用来发送<strong>通过某一路由的信息</strong>，以及列出要撤销的多条路由；
+- KEEPALIVE报文：周期性地证实<strong>邻站的连通性</strong>； -
+NOTIFICATION报文：发送<strong>检测到的错误</strong>； ##
+四、IPv4数据报的首部格式 <img src="IP数据报首部.jpg"
+alt="IP数据报首部" /> 版本字段：表示IP协议版本，如IPv4；
+首部长度：取值为首部长度字节数/4；
+区分服务字段：根据不同取值获得不一样的服务质量，一般不用；
+总长度：IP数据报的字节数（包含首部）；
+标识：属于同一个数据报的各分片数据报具有相同标识（按计数器）；
+标志：3个比特，DF位表示允许分片，MF位表示后面是否还有分片，保留位为0；
+片偏移：分片数据报的数据载荷部分从原数据报的第几个字节开始（字节位置除以8，第一个分片为0）；
+生存时间TTL：每一跳-1，归零后丢弃，防止死循环；
+协议：表明数据部分是何种协议数据单元（如TCP、UDP、ISPF、IPv6）；
+首部检验和：用来检测首部在传输过程是否出现差错；
+可选字段：用来支持排错、测量及安全等措施，很少使用； ##
+五、网际控制报文协议
+为了更有效地转发IP数据报和提高交付成功的机会，在网际层使用了网际控制报文协议ICMP。
+-
+主机或路由器使用ICMP来发送<strong>差错报告报文</strong>和<strong>询问报文</strong>；
+- ICMP报文被封装在<strong>IP数据报</strong>中发送；
+ICMP差错报告报文共有五种： -
+终点不可达：当路由器或主机不能交付数据报时，就像源点发送终点不可达报文；
+-
+源点抑制：当路由器或主机由于拥塞而丢弃数据报时，就向源点发送源点抑制报文；
+- 时间超过：生存时间TTL字段减到0时发送； -
+参数问题：通过首部检验和字段发现首部字段出现误码时发送； -
+改变路由（重定向）：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发给另外的路由器；
+ICMP询问报文有以下两种： -
+回送请求和回答：用来<strong>测试目的站是否可达</strong>及了解有关状态；
+-
+时间戳请求和回答：请某个主机或路由器回答当前的日期和时间，用来进行时钟同步和测量时间；
+ICMP应用举例 - 分组网间探测PING：用来测试主机或路由器之间的连通性； -
+跟踪路由：用来测试IP数据报从源主机到达目的主机要经过哪些路由； ##
+六、虚拟专用网VPN和网络地址转换NAT
+<strong>虚拟专用网VPN</strong>：利用因特网作为本机构各专用网之间的通信载体。
+- 各主机地址使用私有地址（只能作为本地地址）； - 加密并通过路由器发送；
+-
+同一机构不同部门的内部网络构成的虚拟专用网称为内联网VPN，有时某些外部机构参加进来，称为外联网VPN；
+<strong>网络地址转换NAT</strong>：使用NAT路由器将私有地址转换成全球IP地址，缓解IPv4地址空间即将耗尽的问题。
+- 使用私有地址的主机发送IP数据报； -
+NAT路由器修改IP数据报的IP地址为全球IP地址； -
+记录私有地址和全球IP地址的对应关系，并转发IP数据报； -
+一个NAT路由器可连接多台主机； -
+NAT路由器接收外部发来的数据报，并根据转换表转发给主机； -
+可以利用运输层的端口号和IP地址一起进行转换，这样<strong>一个全球IP地址</strong>就可以使<strong>多个拥有本地地址的主机</strong>同时和因特网上的主机进行通信，称为<strong>网络地址与端口号转换NAPT</strong>；</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/" title="计算机网络-网络层">http://example.com/2022/11/16/计算机网络-网络层/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E9%93%BE%E8%B7%AF%E5%B1%82/" rel="prev" title="计算机网络-链路层">
+                  <i class="fa fa-angle-left"></i> 计算机网络-链路层
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/" rel="next" title="计算机网络-运输层">
+                  计算机网络-运输层 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

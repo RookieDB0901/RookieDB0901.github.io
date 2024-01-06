@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Linux命令格式：command [-options] [parameter] command：命令本身 - -options：命令选项，可通过选项控制命令的行为细节； - parameter：命令参数，多数用于命令的指向目标等； ## 命令 #### ls命令 作用：列出目录下的内容 语法细节： ls [-a -l -h] [Linux路径] - [Linux路径]默认为HOME目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux-命令">
+<meta property="og:url" content="http://example.com/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="Linux命令格式：command [-options] [parameter] command：命令本身 - -options：命令选项，可通过选项控制命令的行为细节； - parameter：命令参数，多数用于命令的指向目标等； ## 命令 #### ls命令 作用：列出目录下的内容 语法细节： ls [-a -l -h] [Linux路径] - [Linux路径]默认为HOME目">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-11T13:09:43.000Z">
+<meta property="article:modified_time" content="2022-11-12T07:10:02.413Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/","path":"2022/11/11/Linux-命令/","title":"Linux-命令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux-命令 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Linux-命令 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux-命令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-11 21:09:43" itemprop="dateCreated datePublished" datetime="2022-11-11T21:09:43+08:00">2022-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-12 15:10:02" itemprop="dateModified" datetime="2022-11-12T15:10:02+08:00">2022-11-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Linux命令格式：<code>command [-options] [parameter]</code>
+command：命令本身 -
+-options：命令选项，可通过选项控制命令的<strong>行为细节</strong>； -
+parameter：命令参数，多数用于命令的<strong>指向目标</strong>等； ## 命令
+#### ls命令 作用：列出目录下的内容 语法细节：
+<code>ls [-a -l -h] [Linux路径]</code> -
+[Linux路径]默认为HOME目录，即：/home/用户名； -
+-a表示all，即列出全部文件（包括隐藏的文件/文件夹）； -
+-l表示以<strong>列表</strong>（竖向排列）的形式展示内容，并展示更多信息；
+- -h以更加人性化的方式显示文件的大小单位（使用-h必须使用-l）； ####
+cd-pw命令 cd：切换工作目录 - 语法：<code>cd [Linux路径]</code>； -
+无选项，默认参数为HOME； pwd：展示当前工作目录路径 - 无选项且无参数；
+#### mkdir命令 作用：创建新的目录（文件夹）。
+语法：<code>mkdir [-p] Linux路径</code> -
+参数必填，即要创建的文件夹路径； -
+-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录； -
+创建文件夹需要修改权限，否则只能在HOME内操作； #### touch、cat、more命令
+touch：创建文件 - 语法 <code>touch Linux路径</code> -
+touch命令无选项，参数必填，表示要创建的文件路径 cat：查看文件内容 -
+语法：<code>cat Linux路径</code> more ：查看文件内容 -
+语法：<code>more Linux路径</code>； -
+cat直接将内容全部显示出来，more支持翻页（空格翻页）； -
+翻页界面按q退出； #### cp、mv、rm命令 cp：复制文件、文件夹 -
+语法：<code>cp [-r] 参数1 参数2</code>； - -r可选，用于复制文件夹； -
+参数1表示被复制的文件，参数2表示复制去的地方； mv：移动文件、文件夹 -
+语法：<code>mv 参数1 参数2</code>； -
+参数1表示被移动的文件，参数2表示移动去的地方； -
+<code>mv test2.txt test3.txt</code>可起到改名作用； rm：删除文件、文件夹
+- 语法：<code>rm [-r -f] 参数1 参数2 ...... 参数N</code>； -
+-r用于删除文件夹； - -f表示强制删除（不会弹出提示）； - 参数1 参数2
+...... 参数N表示要删除的文件； - rm支持通配符“<em>”; #### grep、wc命令
+grep：从文件中通过关键字过滤文件行 -
+语法：<code>grep [-n] 关键字 文件路径</code> -
+选项-n可选，表示在结果中显示匹配的行的行号； -
+关键字表示过滤的关键字，带空格时需用双引号包围； -
+文件路径可使用<strong>管道符</strong>获取；
+wc：统计文件的行数、单词数量等； - 语法：wc [-c -m -l -w] 文件路径 -
+-c表示统计<strong>bytes数量</strong>，-m表示统计<strong>字符数量</strong>，-l表示统计<strong>行数</strong>，-w表示统计<strong>单词数</strong>；
+- 文件路径可使用<strong>管道符</strong>获取 #### which、find命令
+which：查看命令的<strong>程序文件</strong>存放位置 -
+语法：<code>which 要查找的命令</code>，如<code>which cd</code>；
+find：搜索指定文件 -
+语法一：<code>find 起始路径 -name "被查找文件名"</code>； -
+语法二：<code>find 起始路径 -size -10k</code>查找小于10KB的文件，+10k可以查找大于10KB的；
+- 文件名支持通配符模糊匹配； #### echo、tail命令
+echo：在命令行输出指定内容 -
+语法：<code>echo 输出的内容</code>，如<code>echo "hello world!"</code>；
+tail：可以查看文件尾部内容，追踪文件的最新更改 -
+语法：<code>tail [-f -num] Linux路径</code>； - -f表示持续追踪； -
+-num表示查看尾部多少行，默认为10； ## 特殊符号
+<strong>特殊路径符</strong> -
+“.”表示当前目录，如<code>cd ./Desktop</code>； -
+“..”表示上一级目录，如<code>cd ../..</code>表示切换到上二级目录； -
+“~”表示HOME目录，比如<code>cd ~</code>表示切换到HOME目录；
+<strong>通配符</strong> - “</em>”表示通配符，即匹配任意内容（包括空）；
+-
+如test<em>表示匹配所有以test开头的内容，</em>test*表示匹配所有包含test的内容；
+<strong>管道符</strong> -“|”表示将左边命令的结果作为右边的输入（参数）；
+- 可以嵌套； <strong>重定向符</strong> -
+“&gt;”将左侧命令的结果<strong>覆盖</strong>写入到符号右侧文件中； -
+“&gt;&gt;”将左侧命令的结果<strong>追加</strong>写入到符号右侧文件中； -
+如<code>ls &gt;&gt; test.txt</code>，可以将ls的输出结果追加写入test.txt中；</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/" title="Linux-命令">http://example.com/2022/11/11/Linux-命令/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="prev" title="计算机网络体系结构">
+                  <i class="fa fa-angle-left"></i> 计算机网络体系结构
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%89%A9%E7%90%86%E5%B1%82-1/" rel="next" title="计算机网络-物理层">
+                  计算机网络-物理层 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

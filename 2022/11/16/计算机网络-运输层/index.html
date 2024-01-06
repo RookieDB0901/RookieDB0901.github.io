@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="计算机网络中进行通信的真正实体是位于通信两端主机中的进程，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。 - 因特网的运输层为应用层提供了面向连接的TCP和无连接的UDP两种不同的运输协议； ## 一、端口号、复用和分用 端口号：TCP&#x2F;IP体系的运输层使用端口号来区分应用层的不同应用进程。 - 端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-运输层">
+<meta property="og:url" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="计算机网络中进行通信的真正实体是位于通信两端主机中的进程，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。 - 因特网的运输层为应用层提供了面向连接的TCP和无连接的UDP两种不同的运输协议； ## 一、端口号、复用和分用 端口号：TCP&#x2F;IP体系的运输层使用端口号来区分应用层的不同应用进程。 - 端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号；">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/%E5%9B%9B%E6%8A%A5%E6%96%87%E6%8C%A5%E6%89%8B.jpg">
+<meta property="og:image" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/TCP%E9%A6%96%E9%83%A8.jpg">
+<meta property="article:published_time" content="2022-11-16T12:56:28.000Z">
+<meta property="article:modified_time" content="2022-11-16T14:56:23.508Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/%E5%9B%9B%E6%8A%A5%E6%96%87%E6%8C%A5%E6%89%8B.jpg">
+
+
+<link rel="canonical" href="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/","path":"2022/11/16/计算机网络-运输层/","title":"计算机网络-运输层"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机网络-运输层 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机网络-运输层 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络-运输层
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-16 20:56:28 / Modified: 22:56:23" itemprop="dateCreated datePublished" datetime="2022-11-16T20:56:28+08:00">2022-11-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>计算机网络中进行通信的真正实体是<strong>位于通信两端主机中的进程</strong>，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。
+-
+因特网的运输层为应用层提供了<strong>面向连接的TCP</strong>和<strong>无连接的UDP</strong>两种不同的运输协议；
+## 一、端口号、复用和分用
+端口号：TCP/IP体系的运输层使用端口号来区分应用层的不同应用进程。 -
+端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号； -
+端口号只具有本地意义； 复用和分用： - 发送方：UDP复用/TCP复用、IP复用；
+- 接收方：IP分用、UDP分用/TCP分用； ## 二、UDP和TCP的对比 <img
+src="对比.jpg" alt="UDP和TCP的对比" /> ## 三、TCP的流量控制和拥塞控制
+#### 流量控制
+如果发送方数据发送速度过快，接收方可能来不及接收，造成数据丢失，这时需要采用流量控制。
+利用<strong>滑动窗口</strong>机制可以很方便地在TCP连接上实现对发送方的流量控制：
+- TCP接收方利用自己接收窗口的大小来限制发送方发送窗口的大小； -
+TCP发送方收到接收方的零窗口通知后，启动<strong>持续计时器</strong>，持续计时器超时后发送<strong>零窗口探测报文</strong>。
+#### 拥塞控制
+某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变差，称为<strong>拥塞</strong>。
+TCP采用了四种拥塞控制算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。
+-
+发送方维护<strong>拥塞窗口cwnd</strong>变量：其值取决于网络的拥塞程度（当发生超时重传，则视为发生网络拥塞），并动态变化，发送方将拥塞窗口作为发送窗口swnd；
+-
+维护一个慢开始门限ssthresh：cwnd&lt;ssthresh使用慢开始算法，cwnd&gt;ssthresh时改用拥塞避免算法；
+-
+<strong>慢开始</strong>：cwnd初始值为1，发送方每收到一个确认报文段，将cwnd加1，cwnd呈指数增长；
+-
+<strong>拥塞避免</strong>：每个传输轮次结束后，cwnd加1，cwnd呈线性增长；
+-
+当遇到拥塞（超时重传），则ssthresh重置为当前cwnd的一半，cwnd减少为1，重新开始执行慢开始算法；
+-
+<strong>快重传</strong>：超时重传不一定由网络拥塞导致，<strong>错误启动慢开始算法</strong>，降低传输效率。快重传要求接收方收到数据<strong>立刻发送确认</strong>（包括失序报文段），发送方一旦收到<strong>3个连续的重复确认</strong>就将相应报文段<strong>立即重传</strong>，而<strong>不用等超时重传计时器超时</strong>。
+-
+<strong>快恢复</strong>：发送方收到3个重复确认，不启动慢开始算法，而是将ssthresh和cwnd调整为当前cwnd的一半，并开始执行拥塞避免算法；
+## 四、TCP超时重传时间的选择
+超时重传时间RTO的选择是TCP最复杂的问题之一。
+<strong>加权平均往返时间RTTs</strong>： - RTTs1 = RTT1； - 新的RTTs =
+(1-α) × 旧的RTTs + α × 新的RTT样本（指数平滑法） -
+已成为建议标准的α取值为0.125； <strong>超时重传时间RTO</strong>： -
+应略大于加权平均往返时间RTTs； - RFC6298建议使用的RTO = RTTs + 4 ×
+RTTd，RTTd1 = RTT1 ÷ 2，新的RTTd = (1-β) x 旧的RTTd + β × |RTTs -
+新的RTT样本|，β建议值为0.25； -
+只要报文段重传了，就不采用其往返时间RTT样本，并把RTO增大一些（如×2）；
+## 五、TCP可靠传输的实现
+TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输。 -
+确认报文段包含接收窗口大小和希望接收到的起始字段，发送方据此构建发送窗口；
+-
+发送方在未收到接收方的确认时，可将发送窗口内还未发送的数据全部发送出去；
+- 接收方只接收序号落入发送窗口内的数据； -
+TCP通常将不按序到达的数据先临时存放在接收窗口中，等字节流缺少的字节收到后，再按序交付用户进程；
+- TCP要求接收方必须有累积确认和捎带确认机制，不应过分推迟发送确认； -
+TCP通信是全双工通信； ## 六、TCP的运输连接管理 TCP运输连接有三个阶段： -
+“三报文握手”建立TCP连接； - “四报文挥手”释放TCP连接； #### TCP的连接建立
+TCP连接建立要解决以下三个问题： - 使TCP双方能够确知对方的存在； -
+使TCP双方能够协商一些参数（如窗口最大值）； -
+使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配；
+“三报文握手”过程： - TCP服务器进程创建传输控制块，进入监听状态； -
+TCP客户进程创建传输控制块，向TCP服务进程发送<strong>TCP连接请求报文段</strong>（SYN=1，seq=x，不能携带数据且需要消耗掉一个序号），进入同步已发送状态；（一握手）
+-
+TCP服务器进程发送<strong>TCP连接请求确认报文段</strong>（SYN=1，ACK=1，seq=y，ack=x+1，不能携带数据且需要消耗掉一个序号），进入同步已接收状态；（二握手）
+-
+TCP客户进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=x+1，ack=y+1，可携带数据，若未携带数据则不消耗序号），进入连接已建立状态；（三握手）
+- TCP服务器进程进入连接已建立状态； -
+若改为两挥手，则可能因TCP连接请求超时重传导致错误； <img
+src="三报文握手.jpg" alt="三报文握手" /> #### TCP的连接释放
+“四报文挥手”过程： -
+TCP客户进程发送<strong>TCP连接释放报文段</strong>（FIN=1，ACK=1，seq=u，ack=v，不携带数据也要消耗掉一个序号），并进入终止等待1状态；
+-
+TCP服务器进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=v，ack=u+1），并进入关闭等待状态（未传输完的数据会继续传输，持续一段时间）；
+- TCP客户进程收到后进入终止等待2状态； -
+TCP服务器进程数据发送完后，发送<strong>TCP释放报文段</strong>（FIN=1，ACK=1，seq=w，ack=u+1），并进入最后确认状态；
+-
+TCP用户进程发送<strong>普通的TCP确认报文段</strong>（ACK=1,seq=u+1，ack=w+1），并进入时间等待状态;
+- TCP服务器进程进入关闭状态； -
+TCP客户进程在2MSL（MSL为最长报文段寿命，建议值为2min，一般更小）的时间后进入关闭状态；
+<strong>保活计时器</strong>：TCP服务器进程每收到一次数据，就重新设置并启动保活计时器（2小时），保活计时器到时后，TCP服务器进程发送一个<strong>探测报文段</strong>，并每隔75秒发送一次。若连续10个探测报文段未被响应，则TCP服务器进程关闭连接。
+<img src="四报文挥手.jpg" alt="四报文挥手" /> ## 七、TCP报文段的首部格式
+<img src="TCP首部.jpg" alt="TCP报文段首部格式" />
+序号：指出本TCP报文段数据载荷的第一个字节的序号（循环）。
+确认号：指出期望收到<strong>对方</strong>下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认，只有ACK=1才有效；
+数据偏移：即首部长度，指出TCP报文段的数据载荷部分的起始处距离TCP报文段起始处有多远，取值为首部字节数/4；
+保留：保留今后使用，置为0；
+SYN：在TCP<strong>连接建立时</strong>用来同步序号；
+FIN：用来释放TCP连接；
+RST：用来复位TCP连接，RST=1时表明连接出现异常，需要释放并重新建立连接；
+PSH：PSH=1时，接收方会将该报文段尽快上交应用进程；
+窗口：本报文段发送方的接收窗口；
+校验和：检查TCP报文段（首部+数据载荷）是否出现误码；
+紧急指针：URG=1时才有效，用来指明紧急数据的长度，紧急数据可插队到发送缓存的最前面；
+选项：用来增加TCP功能： - 最大报文段长度MSS选项：数据载荷部分最大长度；
+- 窗口扩大选项：为了扩大窗口（提高吞吐率）； -
+时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；
+- 选择确认选项：实现选择确认功能；</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/" title="计算机网络-运输层">http://example.com/2022/11/16/计算机网络-运输层/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/" rel="prev" title="计算机网络-网络层">
+                  <i class="fa fa-angle-left"></i> 计算机网络-网络层
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/" rel="next" title="计算机网络-应用层">
+                  计算机网络-应用层 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

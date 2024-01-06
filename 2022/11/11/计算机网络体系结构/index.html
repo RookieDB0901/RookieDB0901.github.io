@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、常见的计算机网络体系结构 OSI体系结构（法律上的国际标准） - 应用层、表示层、会话层、运输层、网络层、数据链路层、物理层 TCP&#x2F;IP体系结构（事实上的国际标准） - 应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP - 网络接口层 原理体系结构 - 应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ## 二、计算机网络体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络体系结构">
+<meta property="og:url" content="http://example.com/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="一、常见的计算机网络体系结构 OSI体系结构（法律上的国际标准） - 应用层、表示层、会话层、运输层、网络层、数据链路层、物理层 TCP&#x2F;IP体系结构（事实上的国际标准） - 应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP - 网络接口层 原理体系结构 - 应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ## 二、计算机网络体">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-11T07:25:33.000Z">
+<meta property="article:modified_time" content="2022-11-11T08:13:20.421Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/","path":"2022/11/11/计算机网络体系结构/","title":"计算机网络体系结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机网络体系结构 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%B8%B8%E8%A7%81%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">一、常见的计算机网络体系结构</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机网络体系结构 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络体系结构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-11 15:25:33 / Modified: 16:13:20" itemprop="dateCreated datePublished" datetime="2022-11-11T15:25:33+08:00">2022-11-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
+<p><strong>OSI体系结构（法律上的国际标准）</strong> -
+应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
+<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
+应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
+网络接口层 <strong>原理体系结构</strong> -
+应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
+二、计算机网络体系结构分层
+<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
+物理接口 - 信号
+<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
+- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
+如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
+<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
+如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
+路由器如何转发分组，如何进行路由选择
+<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
+如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
+<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
+- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
+任何可发送或接受信息的硬件或软件进程。 -
+对等实体：接受双方相同层次中的实体 #### 协议
+控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
+- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
+同步：定义收发双方的时序关系； #### 服务
+<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
+- 协议是水平的，服务是垂直的；
+<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
+- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
+运输层：端口号
+<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
+<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
+应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
+- 链路层：帧 - 物理层：比特流
+<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
+多个SDU可以合成为一个PDU；</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" title="计算机网络体系结构">http://example.com/2022/11/11/计算机网络体系结构/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" rel="prev" title="计算机网络性能指标">
+                  <i class="fa fa-angle-left"></i> 计算机网络性能指标
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/" rel="next" title="Linux-命令">
+                  Linux-命令 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="I&#x2F;O设备：将数据输入&#x2F;输出计算机的外部设备。 - 按使用特性可分为人机交互类设备、存储设备、网络通信设备； - 按传输速率可分为低速设备、中速设备、高速设备； - 按信息交换的单位可分为块设备、字符设备； I&#x2F;O分为软件层和硬件层，软件层次从上至下可分为用户层软件、设备独立性软件、设备驱动软件、中断处理程序，每层会利用下层提供的服务，实现某些功能，并屏蔽实现的具体细节，向高层提供服务（封">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统-I&#x2F;O">
+<meta property="og:url" content="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="I&#x2F;O设备：将数据输入&#x2F;输出计算机的外部设备。 - 按使用特性可分为人机交互类设备、存储设备、网络通信设备； - 按传输速率可分为低速设备、中速设备、高速设备； - 按信息交换的单位可分为块设备、字符设备； I&#x2F;O分为软件层和硬件层，软件层次从上至下可分为用户层软件、设备独立性软件、设备驱动软件、中断处理程序，每层会利用下层提供的服务，实现某些功能，并屏蔽实现的具体细节，向高层提供服务（封">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-08T15:44:22.000Z">
+<meta property="article:modified_time" content="2022-11-08T17:55:57.786Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/","path":"2022/11/08/操作系统-I-O/","title":"操作系统-I/O"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统-I/O | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">五、缓冲区管理</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统-I/O | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统-I/O
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-08 23:44:22" itemprop="dateCreated datePublished" datetime="2022-11-08T23:44:22+08:00">2022-11-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-09 01:55:57" itemprop="dateModified" datetime="2022-11-09T01:55:57+08:00">2022-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>I/O设备：将数据输入/输出计算机的外部设备。 -
+按使用特性可分为人机交互类设备、存储设备、网络通信设备； -
+按传输速率可分为低速设备、中速设备、高速设备； -
+按信息交换的单位可分为块设备、字符设备；
+I/O分为<strong>软件层</strong>和<strong>硬件层</strong>，软件层次从上至下可分为<strong>用户层软件、设备独立性软件、设备驱动软件、中断处理程序</strong>，每层会利用下层提供的服务，实现某些功能，并屏蔽实现的具体细节，向高层提供服务（封装）。
+## 一、IO控制器 I/O设备的电子部分，用于实现对I/O设备的控制。 #### 1.
+主要功能 - 接受和识别CPU发出的指令（控制寄存器）； -
+向CPU报告设备的状态（状态寄存器）； -
+数据交换，暂存输入/输出的数据（数据寄存器）； -
+地址识别（由I/O逻辑实现）； #### 2. 组成 -
+CPU和控制器之间的接口（实现控制器和CPU之间的通信）； -
+I/O逻辑（负责识别CPU发出的命令，并向设备发出命令）； -
+控制器和设备之间的接口（实现控制器和设备之间的通信）； #### 3.
+寄存器编址方式 <strong>内存映射I/O</strong>： -
+控制器中的寄存器和内存统一编址； -
+可以采用对内存进行操作的指令来对控制器进行操作；
+<strong>寄存器独立编址</strong>： - 控制器中的寄存器独立编址； -
+需要设置专门的指令来操作控制器； ## 二、I/O控制方式
+用什么方式来控制I/O设备的数据读/写。 #### 1. 程序直接控制方式 -
+CPU干预频率高（等待IO完成过程需要不断轮询检查）； -
+每次数据传送单位为一个字； - 实现简单，但CPU利用率低； #### 2.
+中断驱动方式 -
+CPU发出I/O命令后可以做其他事，本次I/O完成后设备控制器发出中断信号； -
+CPU干预频率较低； - 每次数据传送单位为一个字； - CPU利用率明显
+提升，但频繁中断会消耗大量CPU时间； #### 3. DMA方式
+直接存储器存取，主要用于块设备的I/O控制。 - 数据传送单位是“块”； -
+仅在传送一个或多个<strong>连续</strong>数据块的开始和结束时，才需要CPU干预；
+- I/O设备和内存间的数据传输不需要经过CPU； #### 4. 通道控制方式
+CPU发出I/O命令后可以做其他事，通道会执行通道程序以完成I/O，完成后通道向CPU发出中断信号。
+- CPU干预频率极低； - 每次读写一组数据块； - 实现复杂，需要专门的硬件；
+## 三、假脱机技术
+<strong>用户层软件</strong>：实现与用户交互的接口，向上提供方便易用的库函数。
+假脱机技术又称SPOOLing技术，在用户层软件实现，是用软件的方式模拟脱机技术，达成脱离主机控制进行输入/输出的目的。
+-
+<strong>输入井</strong>和<strong>输出井</strong>：在磁盘中申请的临时存放输入/输出数据的空间；
+-
+<strong>输入进程</strong>和<strong>输出进程</strong>：设备数据与输入/输出井的数据交互进程；
+-
+<strong>输入缓冲区</strong>和<strong>输出缓冲区</strong>：内存中的缓冲区，输入/输出时的中转站；
+## 四、设备的分配与回收
+<strong>设备独立性软件</strong>：负责I/O调度、设备保护、设备分配与回收、缓冲区管理等；
+#### 1. 设备分配时应考虑的因素 <strong>设备的固有属性</strong> -
+独占设备、共享设备、虚拟设备； <strong>设备分配算法</strong> -
+先来先服务、优先级高者优先、短任务有限等等；
+<strong>设备分配中的安全性</strong> -
+安全分配方式：为进程分配一个I/O设备后就将进程阻塞； - 不安全分配方式；
+#### 2. 静态分配和动态分配
+静态分配：进程运行前为其分配全部所需资源，运行接收后归还；
+动态分配：进程运行过程中动态申请资源； #### 3.设备分配管理中的数据结构
+<strong>设备控制表（DCT）</strong>：系统为每个设备配置一张DCT，用于记录设备情况；
+- 设备类型（打印机/扫描仪/键盘...）； - 设备标识符（物理设备名）； -
+设备状态（空闲/忙碌/故障...）； -
+指向设备控制器的指针（每个设备由一个控制器控制）； -
+重复执行次数或时间（多次操作不成功后认为本次I/O失败）； -
+设备队列的队首指针（指向正在等待该设备的进程队列，队列由进程PCB组成）；
+<strong>控制器控制表（COCT）</strong>：每个设备控制器对应一张COCT，操作系统根据COCT的信息对控制器进行操作和管理；
+- 控制器标识符、控制器状态、指向通道表的指针、控制器队列队首/尾指针；
+<strong>通道控制板（CHCT）</strong>：每个通道对应一张CHCT，操作系统根据CHCT的信息对通道进行操作和管理；
+- 标识符、状态、与通道连接的控制器表首址、通道队列队首/队尾指针；
+<strong>系统设备表（SDT）</strong>：记录了系统中全部设备情况，每个设备对应一个表目；
+#### 4. 设备分配的步骤 -
+根据进程请求的<strong>物理设备名</strong>查找SDT； -
+根据SAT找到DCT，若忙碌则将进程PCB挂到设备等待队列； -
+根据DCT找到COCT，若控制器忙碌则挂到控制器等待队列； -
+根据COCT找到CHCT，若通道忙碌则搞到通道等等队列； -
+可以建立逻辑设备名和物理设备名的映射机制，用户编程时只需提高逻辑设备名。</p>
+<h2 id="五缓冲区管理">五、缓冲区管理</h2>
+<p>缓冲区是一个存储区域，可以由专门的硬件寄存器组成，也可利用内存作为缓冲区（常用）。
+<strong>作用：</strong> - 缓和CPU与I/O设备速度不匹配的矛盾； -
+减少对CPU的中断频率，放宽对CPU中断响应时间的限制； -
+解决数据粒度不匹配的问题； - 提高CPU与I/O设备之间的并行性； #### 1.
+单缓冲 在主存中为用户进程分配一个缓冲区（一个块）。 -
+缓冲区数据非空时不能冲入数据，缓冲区为空时，需要充满才能把数据传出；
+#### 2. 双缓冲 在主存中为用户进程分配两个缓冲区。 #### 3. 循环缓冲
+多个缓冲区链接成循环队列，in指针指向第一个缓冲区，out指针指向第一个满缓冲区；
+#### 4. 缓冲池 由系统中共用的缓冲区组成。 -
+按<strong>使用状况</strong>分为空缓存队列、装满输入数据的缓冲队列、装满输出数据的缓冲队列；
+-
+按实际功能不同设置四种工作缓冲区：用于收容输入数据的工作缓冲区（hin）、用于收容输出数据的工作缓冲区（hout）、用于提取输入数据的工作缓冲（cin）、用于提取输出数据的工作缓冲区（cout）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/" title="操作系统-I&#x2F;O">http://example.com/2022/11/08/操作系统-I-O/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/08/%E7%A3%81%E7%9B%98/" rel="prev" title="操作系统-磁盘">
+                  <i class="fa fa-angle-left"></i> 操作系统-磁盘
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2/" rel="next" title="计算机网络-电路交换、分组交换、报文交换">
+                  计算机网络-电路交换、分组交换、报文交换 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

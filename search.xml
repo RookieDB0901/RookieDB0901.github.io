@@ -1,0 +1,1700 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>C++类和对象-构造函数与析构函数</title>
+    <url>/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="构造函数与析构函数">构造函数与析构函数</h2>
+<p>构造函数形式为与类同名，用于初始化对象；
+析构函数形式为~类名()，用于清理对象 ## 默认构造函数
+默认构造函数没有参数，若没有自定义构造函数，则类自动提供一个空的默认构造函数。
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">person</span>()</span><br><span class="line">&#123;</span><br><span class="line">	m_age = <span class="number">0</span>;</span><br><span class="line">	m_height = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 自定义构造函数
+通过自定义构造函数来初始化对象，可以提供参数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">person</span>(<span class="type">int</span> a, <span class="type">int</span> height)<span class="comment">//构造函数，实例化时自动调用，用于初始化  普通&amp;拷贝，无参&amp;有参。</span></span><br><span class="line">&#123;</span><br><span class="line">	m_age = a;</span><br><span class="line">	m_height = <span class="keyword">new</span> <span class="built_in">int</span>(height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+也可简写：<code>peoson(int a,int b):m_age(a),m_height(b)&#123;&#125;</code> ##
+拷贝构造函数 编译器默认提供，但若有属性在堆区则需要深拷贝 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">person</span>(<span class="type">const</span> person&amp; p)<span class="comment">//拷贝构造函数(默认提供)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//深拷贝(在堆区重新申请空间，进行拷贝操作，有属性在堆区开辟时需使用)</span></span><br><span class="line">	m_height = <span class="keyword">new</span> <span class="built_in">int</span>(*p.m_height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+使用深拷贝需要自定义析构函数进行清理 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">~<span class="built_in">person</span>()<span class="comment">//析构函数，对象销毁前自动调用，用于清理（默认提供）</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (m_height != <span class="literal">NULL</span>)<span class="comment">//深拷贝析构</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_height;</span><br><span class="line">		m_height = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>class</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++类和对象-重载运算符</title>
+    <url>/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+    <content><![CDATA[<p>运算符重载：采用operator对运算符进行重新定义，本文将对+、++、&lt;&lt;、=、==进行示例，其余运算符可推。
+## 重载加号运算符 加号运算符可以采用成员函数、全局函数两种方式重载。
+成员函数重载+： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person &amp;per)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = <span class="keyword">this</span>-&gt;m_A + per.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 全局函数重载+： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person&amp; p1, person&amp; p2)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = p1.m_A + p2.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+重载递增运算符 在C++中，++符号位于变量前和变量后含义不同，因此需要区分。
+成员函数重载前置++： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>++()<span class="comment">//前置返回引用才能嵌套</span></span><br><span class="line">&#123;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 成员函数重载后置++： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>++(<span class="type">int</span>)<span class="comment">//后置需要占位参数</span></span><br><span class="line">&#123;</span><br><span class="line">	person temp = *<span class="keyword">this</span>;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+重载左移运算符
+类变量不可直接输出，通过重载左移运算符可直接通过cout输出对象：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;cout, person5 p) <span class="comment">//返回引用</span></span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; p.m_A;</span><br><span class="line">	<span class="keyword">return</span> cout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载赋值运算符
+编译器提供的=只能进行浅拷贝，如果需要深拷贝则需要重载=运算符：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>=(person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//判断是否有属性在堆区，有则清干净</span></span><br><span class="line">	<span class="keyword">if</span> (m_Age != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_Age;</span><br><span class="line">		m_Age = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//深拷贝</span></span><br><span class="line">	m_Age = <span class="keyword">new</span> <span class="built_in">int</span>(*p.m_Age);</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载关系运算符 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>==(person p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (p.m_Name == m_Name &amp;&amp; p.m_Age == m_Age) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 仿函数
+可以通过重载()来产生仿函数，譬如： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(string str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; str &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+可通过<code>变量名("输出内容");</code>来输出字符串。
+仿函数的应用非常灵活，在此无法一一列举。</p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>class</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++内存模型与引用</title>
+    <url>/2022/11/01/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="内存四区">内存四区</h2>
+<p>程序运行前就存在：代码区、全局区 程序运行后存在：栈区、堆区
+<strong>代码区</strong>：存放cpu执行的机器指令，共享的、只读的
+<strong>全局区</strong>：存放全局变量、静态变量、字符串常量，程序结束后系统自动释放
+<strong>栈区</strong>：存放函数参数、局部变量等，函数执行完后自动释放
+<strong>堆区</strong>：程序员分配释放，若不释放程序结束后系统自动释放。一般用new开辟,用delete释放：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">delete</span> p;</span><br><span class="line"><span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];  <span class="comment">//创建数组</span></span><br><span class="line"><span class="keyword">delete</span>[] arr;  </span><br></pre></td></tr></table></figure> ## 引用 采用 &amp;来生成一个引用 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> &amp;b = num;  <span class="comment">//引用必须初始化，且地址不可再更改</span></span><br></pre></td></tr></table></figure>
+常量引用：用来修饰形参，防止误操作 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; ref = num;  <span class="comment">//ref的值不可修改</span></span><br></pre></td></tr></table></figure>
+引用作参数，可修改实参： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>&amp; a, <span class="type">int</span>&amp; b)</span><span class="comment">//引用作参数，可修改实参</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ string容器</title>
+    <url>/2022/11/02/C-String%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>string是C++风格的字符串，本质上是个类 ## string构造函数
+构造函数原型： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span>(); <span class="comment">//创建一个空的字符串 例如: string str;</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">const</span> <span class="type">char</span>* s); <span class="comment">//使用字符串s初始化</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">const</span> string&amp; str); <span class="comment">//使用一个string对象初始化另一个string对象</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">int</span> n, <span class="type">char</span> c); <span class="comment">//使用n个字符c初始化</span></span><br></pre></td></tr></table></figure> ## string赋值操作 赋值函数原型：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">const</span> <span class="type">char</span>* s); <span class="comment">//char*类型字符串 赋值给当前的字符串</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">const</span> string &amp;s); <span class="comment">//把字符串s赋给当前的字符串</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">char</span> c); <span class="comment">//字符赋值给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>; <span class="comment">//把字符串s赋给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> n)</span></span>; <span class="comment">//把字符串s的前n个字符赋给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>; <span class="comment">//把字符串s赋给当前字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> c)</span></span>; <span class="comment">//用n个字符c赋给当前字符串</span></span><br></pre></td></tr></table></figure> ## string字符串拼接 用于在字符串末尾拼接字符串
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> <span class="type">char</span>* str); <span class="comment">//重载+=操作符</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> <span class="type">char</span> c); <span class="comment">//重载+=操作符</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> string&amp; str); <span class="comment">//重载+=操作符</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>; <span class="comment">//把字符串s连接到当前字符串结尾</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> n)</span></span>; <span class="comment">//把字符串s的前n个字符连接到当前字符串结尾</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>; <span class="comment">//同operator+=(const string&amp; str)</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> string &amp;s, <span class="type">int</span> pos, <span class="type">int</span> n)</span></span>; <span class="comment">//字符串s中从pos开始的n个字符连接到字符串结尾</span></span><br></pre></td></tr></table></figure> ## string查找和替换 查找：查找指定字符串是否存在
+替换：在指定的位置替换字符串 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找str第一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找s第一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos, <span class="type">int</span> n)</span> <span class="type">const</span></span>; <span class="comment">//从pos位置查找s的前n个字符第一次位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span> c, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找字符c第一次出现位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">int</span> pos = npos)</span> <span class="type">const</span></span>; <span class="comment">//查找str最后一次位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos = npos)</span> <span class="type">const</span></span>; <span class="comment">//查找s最后一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos, <span class="type">int</span> n)</span> <span class="type">const</span></span>; <span class="comment">//从pos查找s的前n个字符最后一次位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span> c, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找字符c最后一次出现位置</span></span><br><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n, <span class="type">const</span> string&amp; str)</span></span>; <span class="comment">//替换从pos开始n个字符为字符串str</span></span><br><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n,<span class="type">const</span> <span class="type">char</span>* s)</span></span>; <span class="comment">//替换从pos开始的n个字符为字符串s</span></span><br></pre></td></tr></table></figure> ## string字符串比较
+字符串之间通过ASCII码比较，一般用于比较是否相等 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> string &amp;s)</span> <span class="type">const</span></span>; <span class="comment">//与字符串s比较</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span> <span class="type">const</span></span>; <span class="comment">//与字符串s比较</span></span><br></pre></td></tr></table></figure> ##
+字符串存取 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span>&amp; <span class="keyword">operator</span>[](<span class="type">int</span> n); <span class="comment">//通过[]方式取字符</span></span><br><span class="line"><span class="function"><span class="type">char</span>&amp; <span class="title">at</span><span class="params">(<span class="type">int</span> n)</span></span>; <span class="comment">//通过at方法获取字符</span></span><br></pre></td></tr></table></figure> ## string插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">const</span> <span class="type">char</span>* s)</span></span>; <span class="comment">//插入字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">const</span> string&amp; str)</span></span>; <span class="comment">//插入字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n, <span class="type">char</span> c)</span></span>; <span class="comment">//在指定位置插入n个字符c</span></span><br><span class="line"><span class="function">string&amp; <span class="title">erase</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n = npos)</span></span>; <span class="comment">//删除从Pos开始的n个字符</span></span><br></pre></td></tr></table></figure> ## string子串
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">substr</span><span class="params">(<span class="type">int</span> pos = <span class="number">0</span>, <span class="type">int</span> n = npos)</span> <span class="type">const</span></span>; <span class="comment">//返回由pos开始的n个字符组成的字符串</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+        <tag>string</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ list容器</title>
+    <url>/2022/11/02/C-list%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>list：链表 链表的组成：链表由一系列结点组成
+结点的组成：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域
+STL中的链表是一个双向循环链表 list的优点： -
+采用动态存储分配，不会造成内存浪费和溢出 -
+链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素
+list的缺点： - 链表灵活，但是空间(指针域) 和 时间（遍历）额外耗费较大
+List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的
+## list构造函数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">list&lt;T&gt; lst; <span class="comment">//list采用采用模板类实现,对象的默认构造形式：</span></span><br><span class="line"><span class="built_in">list</span>(beg,end); <span class="comment">//构造函数将[beg, end)区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(n,elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(<span class="type">const</span> list &amp;lst); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## list赋值和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br><span class="line">list&amp; <span class="keyword">operator</span>=(<span class="type">const</span> list &amp;lst); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">swap</span>(lst); <span class="comment">//将lst与本身的元素互换。</span></span><br></pre></td></tr></table></figure> ##
+list大小操作 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">resize</span>(num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br></pre></td></tr></table></figure> ## list插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(elem);<span class="comment">//在容器尾部加入一个元素</span></span><br><span class="line"><span class="built_in">pop_back</span>();<span class="comment">//删除容器中最后一个元素</span></span><br><span class="line"><span class="built_in">push_front</span>(elem);<span class="comment">//在容器开头插入一个元素</span></span><br><span class="line"><span class="built_in">pop_front</span>();<span class="comment">//从容器开头移除第一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(pos,elem);<span class="comment">//在pos位置插elem元素的拷贝，返回新数据的位置。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,n,elem);<span class="comment">//在pos位置插入n个elem数据，无返回值。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,beg,end);<span class="comment">//在pos位置插入[beg,end)区间的数据，无返回值。</span></span><br><span class="line"><span class="built_in">clear</span>();<span class="comment">//移除容器的所有数据</span></span><br><span class="line"><span class="built_in">erase</span>(beg,end);<span class="comment">//删除[beg,end)区间的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">erase</span>(pos);<span class="comment">//删除pos位置的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">remove</span>(elem);<span class="comment">//删除容器中所有与elem值匹配的元素。</span></span><br></pre></td></tr></table></figure> ##
+list数据存取 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素。</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素。</span></span><br></pre></td></tr></table></figure> ## list反转和排序 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">reverse</span>(); <span class="comment">//反转链表</span></span><br><span class="line"><span class="built_in">sort</span>(); <span class="comment">//链表排序</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ map容器</title>
+    <url>/2022/11/03/C-map&amp;multimap%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
+map中所有元素都是pair -
+pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
+所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
+map和multimap区别： - map不允许容器中有重复key值元素 -
+multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
+map大小和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
+map查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
+map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ stack&amp;queue容器函数</title>
+    <url>/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>stack：栈 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">stack&lt;T&gt; stk; <span class="comment">//stack采用模板类实现， stack对象的默认构造形式</span></span><br><span class="line"><span class="built_in">stack</span>(<span class="type">const</span> stack &amp;stk); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">stack&amp; <span class="keyword">operator</span>=(<span class="type">const</span> stack &amp;stk); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//向栈顶添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从栈顶移除第一个元素</span></span><br><span class="line"><span class="built_in">top</span>(); <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure> queue：队列 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">queue&lt;T&gt; que; <span class="comment">//queue采用模板类实现，queue对象的默认构造形式</span></span><br><span class="line"><span class="built_in">queue</span>(<span class="type">const</span> queue &amp;que); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> queue &amp;que); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//往队尾添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从队头移除第一个元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ vector容器</title>
+    <url>/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即：
+-
+vector并不会在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间
+- vector容器的迭代器是支持随机访问的迭代器 ## vecotr构造函数
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">vector&lt;T&gt; v; <span class="comment">//采用模板实现类实现，默认构造函数</span></span><br><span class="line"><span class="built_in">vector</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>()); <span class="comment">//将v[begin(), end())区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(n, elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(<span class="type">const</span> vector &amp;vec); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## vector赋值 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">vector&amp; <span class="keyword">operator</span>=(<span class="type">const</span> vector &amp;vec); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br></pre></td></tr></table></figure> ## vector容量和大小
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">capacity</span>(); <span class="comment">//容器的容量</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除</span></span><br></pre></td></tr></table></figure> ## vector插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(ele); <span class="comment">//尾部插入元素ele</span></span><br><span class="line"><span class="built_in">pop_back</span>(); <span class="comment">//删除最后一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, ele); <span class="comment">//迭代器指向位置pos插入元素ele</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, <span class="type">int</span> count,ele); <span class="comment">//迭代器指向位置pos插入count个元素ele</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator pos); <span class="comment">//删除迭代器指向的元素</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator start, const_iterator end); <span class="comment">//删除迭代器从start到end之间的元素</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//删除容器中所有元素</span></span><br></pre></td></tr></table></figure> ## vector数据存取
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">at</span>(<span class="type">int</span> idx); <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="keyword">operator</span>[]; <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回容器中第一个数据元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回容器中最后一个数据元素</span></span><br></pre></td></tr></table></figure> ## vector预留空间 预留空间可减少动态扩展容量时的扩展次数
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">reserve</span>(<span class="type">int</span> len); <span class="comment">//容器预留len个元素长度，预留位置不初始化，元素不可访问。</span></span><br></pre></td></tr></table></figure> ## vector互换容器
+swap可以使两个容器互换，可以达到实用的收缩内存效果 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">swap</span>(vec); <span class="comment">// 将vec与本身的元素互换</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+        <tag>vector</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ set容器</title>
+    <url>/2022/11/02/C-set&amp;multiset%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用二叉树实现。
+set和multiset区别： - set不可以插入重复数据，而multiset可以 -
+set插入数据的同时会返回插入结果，表示插入是否成功 -
+multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">set&lt;T&gt; st; <span class="comment">//默认构造函数：</span></span><br><span class="line"><span class="built_in">set</span>(<span class="type">const</span> set &amp;st); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">set&amp; <span class="keyword">operator</span>=(<span class="type">const</span> set &amp;st); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">## set大小和交换</span><br><span class="line">``` C++</span><br><span class="line">size(); //返回容器中元素的数目</span><br><span class="line">empty(); //判断容器是否为空</span><br><span class="line">swap(st); //交换两个集合容器</span><br></pre></td></tr></table></figure> ## set插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(elem); <span class="comment">//删除容器中值为elem的元素。</span></span><br></pre></td></tr></table></figure> ##
+set查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## pair对组创建
+成对出现的数据，利用对组可以返回两个数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">pair&lt;type, type&gt; <span class="title">p</span> <span class="params">( value1, value2 )</span></span>;</span><br><span class="line">pair&lt;type, type&gt; p = <span class="built_in">make_pair</span>( value1, value2 );</span><br></pre></td></tr></table></figure> ## set容器排序
+set容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++文件操作</title>
+    <url>/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>文件分类 - 文本文件：ASCII码存储 - 二进制文件：二进制存储</p>
+<p>操作文件三大类： -ofstream：写 -ifstream：读 -fstream：读写 ## 写文件
+- 需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ofstream ofs;</code> -
+打开文件<code>ofs.open("文件路径","打开方式");</code> -
+写数据<code>ofs&lt;&lt;"写入的数据";</code> -
+关闭文件<code>ofs.close();</code></p>
+<p>文件打开方式： |打开方式|作用| |:---|:---| |ios::in|读文件|
+|ios::out|写文件| |ios::ate|初始位置为文件尾| |ios::app|追加方式写|
+|ios::trunc|先删除，再创建| |ios::binary|二进制方式写|
+可以使用|用多种方式打开：<code>ios::in|ios::out</code> ## 读文件 -
+需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ifstream ifs;</code> -
+打开文件<code>ifs.open("文件路径","打开方式");</code> - 读数据
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -关闭文件<code>ifs.close();</code></p>
+<h2 id="二进制文件读写">二进制文件读写</h2>
+<p>写文件： <code>ofs.write((const char *)&amp;p, sizeof(p));</code>
+读文件： <code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>文件操作</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++类和对象-多态</title>
+    <url>/2022/11/01/C-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/</url>
+    <content><![CDATA[<h2 id="分类">分类：</h2>
+<p>静态多态：重载（早绑定，编译阶段确定函数地址）
+动态多态：派生类和虚函数实现运行时多态（晚绑定，运行阶段确定函数地址）
+## 虚函数： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RNG</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">FW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;RNG不行&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiaoHu</span>: <span class="keyword">public</span> RNG</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">FW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Xiaohu不行&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(RNG&amp; rng)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	rng.<span class="built_in">FW</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test_vir</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	XiaoHu LYH;</span><br><span class="line">	<span class="built_in">print</span>(LYH); <span class="comment">//输出&quot;Xiaohu不行&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 多态好处： 1、组织结构清晰 2、可读性强
+3、利于前期和后期拓展以及维护 ## 纯虚函数和抽象类：
+父类中的虚函数一般无意义，所以可以简写成纯虚函数
+带纯虚函数的类称为抽象类
+语法：<code>virtual 返回值类型 函数名 (参数列表) = 0</code>
+特点：无法实例化对象 ## 虚析构和纯虚析构
+如果子类中有属性开辟到堆区，父类指针释放时无法调用到子类的析构代码
+因此，需要将父类的析构函数改为虚析构 特点：
+1、可以解决父类指针释放子类对象 2、需要有具体的函数实现
+纯虚析构需要定义，也需要实现</p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>class</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++模板</title>
+    <url>/2022/11/02/C-%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<h2 id="基本语法">基本语法</h2>
+<p>以置换函数为例： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用模板必须确定数据类型T，并能够推导出一致的类型</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T&amp; a, T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 调用方式： -
+自动类型推导：<code>mySwap(a, b);</code> -
+显示指定类型：<code>mySwap&lt;int&gt;(a, b);</code> ## 隐式类型转换
+在调用函数时，若实参与形参数据类型不一致，实参根据形参类型进行转化（如char类型转化成对应的ASCII码）
+普通函数&amp;显示指定类型模板函数会发生隐式类型转换
+自动类型推导不会发生，会报错 ## 调用规则 - 优先调用普通函数 -
+可以通过空模板参数列表强制调用函数模板
+<code>myPrint&lt;&gt;(a,b);</code> - 函数模板可以发生重载 -
+如果函数模板更好匹配，优先调用模板
+比如函数模板不用发生隐式类型转换，而普通函数需要 -
+提供了函数模板，最好不要再提供普通函数 ## 具体化
+模板的通用性不是万能的，如以下代码： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a==b) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+如果传入的a和b是一个类，就无法实现了。
+可以通过具体化实现自定义类型的通用化 ： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(person &amp;p1, person &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.name==p2.name &amp;&amp; p1.age==p2.age) return1;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 类模板 ###
+基本语法 template后面加类，如： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, calss AgeType&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Person</span>(NameType name, AgeType age)</span><br><span class="line">        &#123;</span><br><span class="line">                m_Name = name;</span><br><span class="line">                m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">        NameType m_Name;</span><br><span class="line">        AgeType m_Age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+调用：<code>Person&lt;string, int&gt; p1("name",age);</code> ###
+类模板注意事项 1. 类模板无法自动类型推导 2.
+类模板参数列表可以有默认参数，如：<code>template&lt;class NameType, calss AgeType = int&gt;</code>
+3. 类模板成员函数在调用时才会创建 ### 类模板对象作函数参数 1.
+指定传入类型：<code>void 函数名(类名&lt;数据类型1, 数据类型2&gt;&amp;对象名)</code>
+2. 参数模板化：<code>template&lt;class T1, class T2&gt;</code> 3.
+整个类模板化 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ### 类模板的继承 1.
+如果父类是类模板，子类继承时需要给定T类型，如：<code>calss son: public Base&lt;int&gt;</code>
+2. 如果想灵活指定父类T类型，子类也需要写成类模板 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, calss T2&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">son</span>: <span class="keyword">public</span> Base&lt;T2&gt;</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> ###
+类模板成员函数类外实现 以构造函数为例： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt; <span class="comment">//需要加上模板参数列表</span></span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ###
+类模板分文件编写 -
+问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到 -
+解决： 方式1：直接包含.cpp源文件
+方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAVA-API</title>
+    <url>/2022/11/18/JAVA-API/</url>
+    <content><![CDATA[<p>API：应用程序编程接口 - java
+api：JDK提供的各种功能的类，可以直接调用，如：Scanner； -
+API文档：可以查找API；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux-命令</title>
+    <url>/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p>Linux命令格式：<code>command [-options] [parameter]</code>
+command：命令本身 -
+-options：命令选项，可通过选项控制命令的<strong>行为细节</strong>； -
+parameter：命令参数，多数用于命令的<strong>指向目标</strong>等； ## 命令
+#### ls命令 作用：列出目录下的内容 语法细节：
+<code>ls [-a -l -h] [Linux路径]</code> -
+[Linux路径]默认为HOME目录，即：/home/用户名； -
+-a表示all，即列出全部文件（包括隐藏的文件/文件夹）； -
+-l表示以<strong>列表</strong>（竖向排列）的形式展示内容，并展示更多信息；
+- -h以更加人性化的方式显示文件的大小单位（使用-h必须使用-l）； ####
+cd-pw命令 cd：切换工作目录 - 语法：<code>cd [Linux路径]</code>； -
+无选项，默认参数为HOME； pwd：展示当前工作目录路径 - 无选项且无参数；
+#### mkdir命令 作用：创建新的目录（文件夹）。
+语法：<code>mkdir [-p] Linux路径</code> -
+参数必填，即要创建的文件夹路径； -
+-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录； -
+创建文件夹需要修改权限，否则只能在HOME内操作； #### touch、cat、more命令
+touch：创建文件 - 语法 <code>touch Linux路径</code> -
+touch命令无选项，参数必填，表示要创建的文件路径 cat：查看文件内容 -
+语法：<code>cat Linux路径</code> more ：查看文件内容 -
+语法：<code>more Linux路径</code>； -
+cat直接将内容全部显示出来，more支持翻页（空格翻页）； -
+翻页界面按q退出； #### cp、mv、rm命令 cp：复制文件、文件夹 -
+语法：<code>cp [-r] 参数1 参数2</code>； - -r可选，用于复制文件夹； -
+参数1表示被复制的文件，参数2表示复制去的地方； mv：移动文件、文件夹 -
+语法：<code>mv 参数1 参数2</code>； -
+参数1表示被移动的文件，参数2表示移动去的地方； -
+<code>mv test2.txt test3.txt</code>可起到改名作用； rm：删除文件、文件夹
+- 语法：<code>rm [-r -f] 参数1 参数2 ...... 参数N</code>； -
+-r用于删除文件夹； - -f表示强制删除（不会弹出提示）； - 参数1 参数2
+...... 参数N表示要删除的文件； - rm支持通配符“<em>”; #### grep、wc命令
+grep：从文件中通过关键字过滤文件行 -
+语法：<code>grep [-n] 关键字 文件路径</code> -
+选项-n可选，表示在结果中显示匹配的行的行号； -
+关键字表示过滤的关键字，带空格时需用双引号包围； -
+文件路径可使用<strong>管道符</strong>获取；
+wc：统计文件的行数、单词数量等； - 语法：wc [-c -m -l -w] 文件路径 -
+-c表示统计<strong>bytes数量</strong>，-m表示统计<strong>字符数量</strong>，-l表示统计<strong>行数</strong>，-w表示统计<strong>单词数</strong>；
+- 文件路径可使用<strong>管道符</strong>获取 #### which、find命令
+which：查看命令的<strong>程序文件</strong>存放位置 -
+语法：<code>which 要查找的命令</code>，如<code>which cd</code>；
+find：搜索指定文件 -
+语法一：<code>find 起始路径 -name "被查找文件名"</code>； -
+语法二：<code>find 起始路径 -size -10k</code>查找小于10KB的文件，+10k可以查找大于10KB的；
+- 文件名支持通配符模糊匹配； #### echo、tail命令
+echo：在命令行输出指定内容 -
+语法：<code>echo 输出的内容</code>，如<code>echo "hello world!"</code>；
+tail：可以查看文件尾部内容，追踪文件的最新更改 -
+语法：<code>tail [-f -num] Linux路径</code>； - -f表示持续追踪； -
+-num表示查看尾部多少行，默认为10； ## 特殊符号
+<strong>特殊路径符</strong> -
+“.”表示当前目录，如<code>cd ./Desktop</code>； -
+“..”表示上一级目录，如<code>cd ../..</code>表示切换到上二级目录； -
+“~”表示HOME目录，比如<code>cd ~</code>表示切换到HOME目录；
+<strong>通配符</strong> - “</em>”表示通配符，即匹配任意内容（包括空）；
+-
+如test<em>表示匹配所有以test开头的内容，</em>test*表示匹配所有包含test的内容；
+<strong>管道符</strong> -“|”表示将左边命令的结果作为右边的输入（参数）；
+- 可以嵌套； <strong>重定向符</strong> -
+“&gt;”将左侧命令的结果<strong>覆盖</strong>写入到符号右侧文件中； -
+“&gt;&gt;”将左侧命令的结果<strong>追加</strong>写入到符号右侧文件中； -
+如<code>ls &gt;&gt; test.txt</code>，可以将ls的输出结果追加写入test.txt中；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown的书写</title>
+    <url>/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/</url>
+    <content><![CDATA[<h3 id="标题">标题</h3>
+<p>#表示一级标题，##表示二级标题</p>
+<h3 id="代码块">代码块</h3>
+<p>代码块用三个反引号```括起来，譬如： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">``` c++</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="表格">表格</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|姓名|年龄|成绩|         //用 | 分隔</span><br><span class="line">|:---|---:|:---:|            //：表示文字位置</span><br><span class="line">|张三|19|60|              </span><br></pre></td></tr></table></figure>
+<h3 id="分割线">分割线</h3>
+<p>三条短横<code>---</code>代表分割线</p>
+<h3 id="超链接">超链接</h3>
+<p><a href="url">链接描述</a>，如： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[百度](https://baidu.com)</span><br></pre></td></tr></table></figure></p>
+<h3 id="字体">字体</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*斜体*</span><br><span class="line"> **加粗**</span><br><span class="line"> ``行内代码`` </span><br><span class="line">&lt;u&gt;下划线&lt;/u&gt; </span><br></pre></td></tr></table></figure>
+<h3 id="插入图片">插入图片</h3>
+<figure>
+<img src="图片base64编码" alt="图片" />
+<figcaption aria-hidden="true">图片</figcaption>
+</figure>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAVA基础语法</title>
+    <url>/2022/11/18/JAVA%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="零输入输出">零、输入输出</h2>
+<p>输出： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;Hello World&quot;</span>); <span class="comment">//输入sout可以自动弹出</span></span><br></pre></td></tr></table></figure> 输入： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner();</span><br></pre></td></tr></table></figure> ## 一、变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+## 二、运算符 +、-、*、/、%、++、--、&lt;&lt;、&gt;&gt;作用同C++；
+关系运算符同C++； 三元运算符同C++； #### “+”运算符 字符串相加：
+“+”会将两个字符串拼接，其他类型和字符串相加也会<strong>直接拼接</strong>：
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;123&quot;</span>+<span class="number">123</span>); <span class="comment">//输出123123</span></span><br></pre></td></tr></table></figure> 连续进行“＋”操作时，从左到右执行： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">1</span>+<span class="number">2</span>+<span class="string">&quot;123&quot;</span>); <span class="comment">//输出3123</span></span><br></pre></td></tr></table></figure>
+字符相加：ASCII码相加 #### 逻辑运算符 与：&amp; 或：| 异或：^ 非：！
+短路运算符&amp;&amp;和||： - &amp;和|会判断对前后语句的正误都进行判断；
+-
+使用&amp;&amp;，当前面语句为FALSE，则<strong>不会对第二个语句进行判断</strong>，直接返回FALSE；
+#### 左移/右移运算符 &lt;&lt;、&gt;&gt;将将二进制数进行左移/右移
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">200</span>；</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> a &lt;&lt; <span class="number">2</span>; <span class="comment">//b=800</span></span><br><span class="line"><span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> a &gt;&gt; <span class="number">2</span>; <span class="comment">//c=50</span></span><br></pre></td></tr></table></figure> ## 三、隐式转换和强制转换
+取值范围：byte&lt;short&lt;int&lt;long&lt;float&lt;double #### 隐式转换
+隐式转换：取值范围小的变成取值范围大的（自动类型提升）； <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>; </span><br><span class="line"><span class="type">double</span> <span class="variable">b</span> <span class="operator">=</span> a; <span class="comment">//b完成了隐式转换</span></span><br></pre></td></tr></table></figure>
+byte、short、char在进行运算时都会自动转为int。 #### 强制转换
+强制转换：可以将取值范围大的变成取值范围小的； 格式：目标数据类型 变量名
+= (目标数据类型)被强转的数据; <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">300</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> (<span class="type">int</span>)a; <span class="comment">//强制转换</span></span><br></pre></td></tr></table></figure> ## 三、流程控制语句 ####
+分支结构 if语句： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//if (关系表达式) &#123;语句体;&#125; else &#123;语句体&#125;</span></span><br><span class="line"><span class="keyword">if</span> (a &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        a--;</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        a++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> switch语句： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (a)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期六&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期日&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>: <span class="comment">//以上情况都不是</span></span><br><span class="line">        System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//case穿透：</span></span><br><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line"><span class="keyword">switch</span> (num)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期六&quot;</span>); <span class="comment">//没有break语句，输出星期六后继续往下执行</span></span><br><span class="line"><span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期日&quot;</span>);<span class="comment">//输出星期日</span></span><br><span class="line">        <span class="keyword">break</span>;<span class="comment">//跳出switch语句</span></span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//用-&gt;可以不用break：</span></span><br><span class="line"><span class="keyword">switch</span> (num)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span> -&gt; System.out.println(<span class="string">&quot;星期六&quot;</span>); <span class="comment">//输出星期六并跳出</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span> -&gt; System.out.println(<span class="string">&quot;星期日&quot;</span>);</span><br><span class="line">    <span class="keyword">default</span> -&gt; System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> #### 循环结构
+基本同C++ ## 四、数组 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>[] array = &#123;<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>&#125;;<span class="comment">//创建int数组并初始化，数组为引用数据类型（存储地址值），数组长度为3且不再变化；</span></span><br><span class="line">System.out.println(array);<span class="comment">//会输出数组的内存地址[I@xxxxxxxx，指向堆内存</span></span><br><span class="line">System.out.println(array.length);<span class="comment">//输出数组的长度3</span></span><br><span class="line"><span class="comment">//遍历数组：</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++) &#123;&#125; <span class="comment">//输入array.fori可快速弹出</span></span><br><span class="line">String[] arr = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">50</span>]; <span class="comment">//创建长度50的字符串数组，默认初始值为null；</span></span><br></pre></td></tr></table></figure> ## 五、方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;<span class="comment">//返回两个参数相加的结果</span></span><br></pre></td></tr></table></figure>
+Java方法也可以重载。 ## 六、面向对象 测试类：带main方法的类
+Javabean类：用来描述一类事物，不写main方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">        string m_name;</span><br><span class="line">        <span class="type">int</span> m_age;<span class="comment">//定义成员变量</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print_name</span><span class="params">()</span> &#123; System.out.println(<span class="built_in">this</span>.m_name);&#125;<span class="comment">//定义成员函数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();<span class="comment">//定义对象：类名 对象名 = new 类名();</span></span><br></pre></td></tr></table></figure>
+一个java文件可以定义多个类，且只能一个是public修饰，public修饰的类名必须成为代码文件名，因此一个文件一般只定义一个class类。
+封装：变量修饰为private，再通过public的方法调用； 成员变量与局部变量： -
+就近原则：若没有声明，优先认为age是局部变量； -
+可以使用this.age调用成员变量； 构造方法：与C++基本一致 -
+利用ptg可以快速生成javabean类 ## 七、字符串
+常用内容：String、StringBuilder、StringBuffer、Pattern、Matcher
+字符串内容在创建后就不能改变，但可以改变字符串变量指向的字符串； ####
+String构造方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1.直接赋值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">//2.使用new</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>()；</span><br><span class="line"><span class="comment">//3.传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(orginal:<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="comment">//4.传递一个字符数组，根据字符数组内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(chs);</span><br><span class="line"><span class="comment">//5.传递一个字节数组，根据字节数组内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">byte</span>[] bytes = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">s5</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bytes);</span><br></pre></td></tr></table></figure> #### 常用方法 字符串比较： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">result1</span> <span class="operator">=</span> (s1==s2); <span class="comment">//false，==比较的是地址</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">result2</span> <span class="operator">=</span> s1.equals(s2); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+StringBuilder：可以看作一个容器，创建之后里面的内容是<strong>可变的</strong>。
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;abc&quot;</span>);<span class="comment">//创建对象</span></span><br><span class="line">sb.append(<span class="number">1</span>);<span class="comment">//添加元素，sb值为abc1</span></span><br><span class="line">sb.reverse();<span class="comment">//反转，sb值为1cba；</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> sb.length();/获取长度，len值为<span class="number">3</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sb.toString();<span class="comment">//变成字符串</span></span><br></pre></td></tr></table></figure> StringJoiner <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringJoiner</span> <span class="variable">sj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringJoiner</span>(<span class="string">&quot;,&quot;</span>,<span class="string">&quot;[&quot;</span>,<span class="string">&quot;]&quot;</span>);<span class="comment">//指定,为间隔符号,[]为开始结束符号</span></span><br><span class="line">sj.add(<span class="string">&quot;aaa&quot;</span>).add(<span class="string">&quot;bbb&quot;</span>).add(<span class="string">&quot;ccc&quot;</span>);<span class="comment">//[aaa,bbb,ccc]，add参数只能是字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sj.toString;</span><br></pre></td></tr></table></figure> ## 八、集合ArrayList
+ArrayList类似vector，只能存放引用变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();<span class="comment">//创建字符串集合</span></span><br><span class="line">list.add(<span class="string">&quot;abc&quot;</span>);<span class="comment">//添加</span></span><br><span class="line">list.add(<span class="string">&quot;bbb&quot;</span>);</span><br><span class="line">list.remove(<span class="string">&quot;abc&quot;</span>);<span class="comment">//删除</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> list.remove(<span class="number">0</span>);<span class="comment">//删除第一个数据，并将其赋值给str</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> list.set(<span class="number">0</span>, <span class="string">&quot;ccc&quot;</span>);<span class="comment">//修改第一个数据为ccc并将修改前的数据返回</span></span><br><span class="line">String.get(<span class="number">0</span>);<span class="comment">//返回第1个数据</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> list.size();<span class="comment">//返回长度</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-I/O</title>
+    <url>/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/</url>
+    <content><![CDATA[<p>I/O设备：将数据输入/输出计算机的外部设备。 -
+按使用特性可分为人机交互类设备、存储设备、网络通信设备； -
+按传输速率可分为低速设备、中速设备、高速设备； -
+按信息交换的单位可分为块设备、字符设备；
+I/O分为<strong>软件层</strong>和<strong>硬件层</strong>，软件层次从上至下可分为<strong>用户层软件、设备独立性软件、设备驱动软件、中断处理程序</strong>，每层会利用下层提供的服务，实现某些功能，并屏蔽实现的具体细节，向高层提供服务（封装）。
+## 一、IO控制器 I/O设备的电子部分，用于实现对I/O设备的控制。 #### 1.
+主要功能 - 接受和识别CPU发出的指令（控制寄存器）； -
+向CPU报告设备的状态（状态寄存器）； -
+数据交换，暂存输入/输出的数据（数据寄存器）； -
+地址识别（由I/O逻辑实现）； #### 2. 组成 -
+CPU和控制器之间的接口（实现控制器和CPU之间的通信）； -
+I/O逻辑（负责识别CPU发出的命令，并向设备发出命令）； -
+控制器和设备之间的接口（实现控制器和设备之间的通信）； #### 3.
+寄存器编址方式 <strong>内存映射I/O</strong>： -
+控制器中的寄存器和内存统一编址； -
+可以采用对内存进行操作的指令来对控制器进行操作；
+<strong>寄存器独立编址</strong>： - 控制器中的寄存器独立编址； -
+需要设置专门的指令来操作控制器； ## 二、I/O控制方式
+用什么方式来控制I/O设备的数据读/写。 #### 1. 程序直接控制方式 -
+CPU干预频率高（等待IO完成过程需要不断轮询检查）； -
+每次数据传送单位为一个字； - 实现简单，但CPU利用率低； #### 2.
+中断驱动方式 -
+CPU发出I/O命令后可以做其他事，本次I/O完成后设备控制器发出中断信号； -
+CPU干预频率较低； - 每次数据传送单位为一个字； - CPU利用率明显
+提升，但频繁中断会消耗大量CPU时间； #### 3. DMA方式
+直接存储器存取，主要用于块设备的I/O控制。 - 数据传送单位是“块”； -
+仅在传送一个或多个<strong>连续</strong>数据块的开始和结束时，才需要CPU干预；
+- I/O设备和内存间的数据传输不需要经过CPU； #### 4. 通道控制方式
+CPU发出I/O命令后可以做其他事，通道会执行通道程序以完成I/O，完成后通道向CPU发出中断信号。
+- CPU干预频率极低； - 每次读写一组数据块； - 实现复杂，需要专门的硬件；
+## 三、假脱机技术
+<strong>用户层软件</strong>：实现与用户交互的接口，向上提供方便易用的库函数。
+假脱机技术又称SPOOLing技术，在用户层软件实现，是用软件的方式模拟脱机技术，达成脱离主机控制进行输入/输出的目的。
+-
+<strong>输入井</strong>和<strong>输出井</strong>：在磁盘中申请的临时存放输入/输出数据的空间；
+-
+<strong>输入进程</strong>和<strong>输出进程</strong>：设备数据与输入/输出井的数据交互进程；
+-
+<strong>输入缓冲区</strong>和<strong>输出缓冲区</strong>：内存中的缓冲区，输入/输出时的中转站；
+## 四、设备的分配与回收
+<strong>设备独立性软件</strong>：负责I/O调度、设备保护、设备分配与回收、缓冲区管理等；
+#### 1. 设备分配时应考虑的因素 <strong>设备的固有属性</strong> -
+独占设备、共享设备、虚拟设备； <strong>设备分配算法</strong> -
+先来先服务、优先级高者优先、短任务有限等等；
+<strong>设备分配中的安全性</strong> -
+安全分配方式：为进程分配一个I/O设备后就将进程阻塞； - 不安全分配方式；
+#### 2. 静态分配和动态分配
+静态分配：进程运行前为其分配全部所需资源，运行接收后归还；
+动态分配：进程运行过程中动态申请资源； #### 3.设备分配管理中的数据结构
+<strong>设备控制表（DCT）</strong>：系统为每个设备配置一张DCT，用于记录设备情况；
+- 设备类型（打印机/扫描仪/键盘...）； - 设备标识符（物理设备名）； -
+设备状态（空闲/忙碌/故障...）； -
+指向设备控制器的指针（每个设备由一个控制器控制）； -
+重复执行次数或时间（多次操作不成功后认为本次I/O失败）； -
+设备队列的队首指针（指向正在等待该设备的进程队列，队列由进程PCB组成）；
+<strong>控制器控制表（COCT）</strong>：每个设备控制器对应一张COCT，操作系统根据COCT的信息对控制器进行操作和管理；
+- 控制器标识符、控制器状态、指向通道表的指针、控制器队列队首/尾指针；
+<strong>通道控制板（CHCT）</strong>：每个通道对应一张CHCT，操作系统根据CHCT的信息对通道进行操作和管理；
+- 标识符、状态、与通道连接的控制器表首址、通道队列队首/队尾指针；
+<strong>系统设备表（SDT）</strong>：记录了系统中全部设备情况，每个设备对应一个表目；
+#### 4. 设备分配的步骤 -
+根据进程请求的<strong>物理设备名</strong>查找SDT； -
+根据SAT找到DCT，若忙碌则将进程PCB挂到设备等待队列； -
+根据DCT找到COCT，若控制器忙碌则挂到控制器等待队列； -
+根据COCT找到CHCT，若通道忙碌则搞到通道等等队列； -
+可以建立逻辑设备名和物理设备名的映射机制，用户编程时只需提高逻辑设备名。</p>
+<h2 id="五缓冲区管理">五、缓冲区管理</h2>
+<p>缓冲区是一个存储区域，可以由专门的硬件寄存器组成，也可利用内存作为缓冲区（常用）。
+<strong>作用：</strong> - 缓和CPU与I/O设备速度不匹配的矛盾； -
+减少对CPU的中断频率，放宽对CPU中断响应时间的限制； -
+解决数据粒度不匹配的问题； - 提高CPU与I/O设备之间的并行性； #### 1.
+单缓冲 在主存中为用户进程分配一个缓冲区（一个块）。 -
+缓冲区数据非空时不能冲入数据，缓冲区为空时，需要充满才能把数据传出；
+#### 2. 双缓冲 在主存中为用户进程分配两个缓冲区。 #### 3. 循环缓冲
+多个缓冲区链接成循环队列，in指针指向第一个缓冲区，out指针指向第一个满缓冲区；
+#### 4. 缓冲池 由系统中共用的缓冲区组成。 -
+按<strong>使用状况</strong>分为空缓存队列、装满输入数据的缓冲队列、装满输出数据的缓冲队列；
+-
+按实际功能不同设置四种工作缓冲区：用于收容输入数据的工作缓冲区（hin）、用于收容输出数据的工作缓冲区（hout）、用于提取输入数据的工作缓冲（cin）、用于提取输出数据的工作缓冲区（cout）</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++指针</title>
+    <url>/2022/11/01/%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[<h2 id="一定义">一、定义</h2>
+<p>指针：用来存放<strong>变量地址</strong>（起始地址）的变量（间接访问）。
+引用操作符&amp;：获取一个变量的地址值；
+解引用操作符*：获取一个地址对应的数据； <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> *i_pointer = &amp;i; <span class="comment">//定义一个指针变量，32位下占4字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i); <span class="comment">//直接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, *i_pointer); <span class="comment">//间接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i_pointer); <span class="comment">//输出i所在的地址</span></span><br></pre></td></tr></table></figure> ## 二、使用场景
+### 1.传递 函数定义时使用变量地址： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">void</span>(<span class="type">int</span> *j)</span><br><span class="line">&#123;</span><br><span class="line">      *j = <span class="number">5</span>; <span class="comment">//*j等价于变量i</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+函数调用时传递变量地址： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">change</span>(&amp;i); <span class="comment">//j=&amp;i</span></span><br></pre></td></tr></table></figure> ### 2.偏移
+根据指针加减偏移量形成新的地址 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;<span class="comment">//数组名a存储了其起始地址</span></span><br><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p = a;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,*(p+i)); <span class="comment">//输出a[i]的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+数组名作为实参传递给子函数时，弱化为指针 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">change</span><span class="params">(<span class="type">char</span> *d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     *d = <span class="string">&#x27;H&#x27;</span>;</span><br><span class="line">      d[<span class="number">1</span>] = <span class="string">&#x27;E&#x27;</span>;</span><br><span class="line">      *(d+<span class="number">2</span>) = <span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="type">char</span> c[<span class="number">10</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">      <span class="built_in">change</span>(c); <span class="comment">//变为HELlo</span></span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+三、指针与动态内存申请malloc C头文件：stdlib.h <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> size=<span class="number">20</span>; <span class="comment">//需要申请的字节数</span></span><br><span class="line"><span class="type">char</span> *p;</span><br><span class="line">p = (<span class="type">char</span>*)<span class="built_in">malloc</span>(size); <span class="comment">//在堆区申请20字节空间，malloc返回无类型指针void*，需要强制转换</span></span><br><span class="line"><span class="built_in">strcpy</span>(p,<span class="string">&quot;malloc success&quot;</span>);</span><br><span class="line"><span class="built_in">puts</span>(p); <span class="comment">//输出malloc success</span></span><br><span class="line"><span class="built_in">free</span>(p); <span class="comment">//用完记得释放</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-文件</title>
+    <url>/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>文件是一组有意义的信息/数据集合。 ## 一、文件的逻辑结构 -
+逻辑结构：在<strong>用户</strong>看来，文件内部的数据应该是如何组织起来的。
+-
+物理结构：在<strong>操作系统</strong>看来，文件的数据是如何存放在外存的。
+- 无结构文件：
+文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。 -
+有结构文件：由一组相似的记录组成，又称“记录式文件”
+以下介绍三种有结构文件。 #### 1. 顺序文件
+文件中的记录一个接一个地顺序排列（逻辑上）。各个记录在物理上可以<strong>顺序存储</strong>或<strong>链式存储</strong>。
+- 串结构：记录顺序与关键字无关。 - 顺序结构：记录按关键字顺序排列。
+链式存储：无法实现随机存取，每次只能从第一个记录开始依次往后查找。
+顺序存储（顺序文件一般指顺序存储的文件）： -
+可变长记录无法实现随机存取； -
+定长记录可以随机存取，记录长度为L，则第i个记录存放的相对位置是i*L；
+-采用顺序结构的定长记录，还可以快速找到某关键字对应的记录； #### 2.
+索引文件 - 建立一张索引表，每条记录对应一个索引项； -
+索引表本身是定长记录的顺序文件，因此可以快速找到第i个记录对应的索引项；
+- 若索引表按关键字顺序排列，则可支持<strong>快速检索</strong>； -
+解决了顺序文件不方便增删记录的问题，同时让不定长记录文件实现随机存取，但索引表可能占据很多空间；
+#### 3. 索引顺序文件
+为文件建立一张索引表，<strong>每组记录</strong>对应一个索引表项。 ##
+二、文件目录 #### 1. 文件控制块
+文件控制块（FCB）：目录文件（可理解成文件夹）中的一条记录就是一个文件控制块。包含了：
+- 文件的基本信息：文件名、物理地址、逻辑地址、物理结构等； -
+存取控制信息：是否可读/可写、禁止访问的用户名单等； -
+使用信息：文件的建立时间、修改时间等；
+FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用户程序）可以实现“按名存取”。
+对目录的操作：搜索、创建文件、删除文件、显示文件、修改文件。 #### 2.
+目录结构
+<strong>单级目录结构</strong>：整个系统只建立一张目录表，每个文件占一个目录项；
+<strong>两级目录结构</strong>：分为主文件目录（MFD）和用户文件目录（UFD）；
+- 主文件目录记录用户名及相应用户文件存放文字； -
+用户不能对自己的文件进行分类，缺乏灵活性；
+<strong>多级目录结构（树形目录结构）</strong> - 相对路径 VS 绝对路径； -
+不便于实现<strong>文件的共享</strong>；
+<strong>无环图目录结构</strong>：在树形目录结构基础上，增加一些指向同一节点的有向边，形成有向无环图。
+- 为共享结点设置共享计数器，计数器为0才删除结点； -
+可以更方便地实现多个用户间的文件共享； #### 3. 索引节点（FCB的改进）
+对目录表进行瘦身，保留文件名+索引结点指针信息，其他描述信息全都放到指针指向的地址；
+- 减小了目录表所占空间； -
+提高了检索效率（一个磁盘块可以放入更多FCB，启动磁盘次数减少）； ##
+三、文件的物理结构
+该部分探讨文件数据应该怎么存放在外存中，可以理解成文件分配方式问题。
+和内存分页类似，磁盘中存储单元也会被分为一个个“块/磁盘块/物理块”。很多操作系统中，磁盘块的大小与内存块、页面的大小<strong>相同</strong>。
+- 文件的逻辑地址也可以表示为（逻辑块号，块内地址）；、 -
+操作系统为文件分配存储空间以块为单位； -
+操作系统负责从逻辑地址到物理地址的映射；
+这里介绍<strong>连续分配</strong>、<strong>链接分配</strong>、<strong>索引分配</strong>三种分配方式：
+#### 1.连续分配 连续分配要求每个文件在磁盘上占有一组连续的块。
+文件目录记录文件存放的<strong>起始块号</strong>和<strong>长度</strong>。
+- 物理块号=起始块号+逻辑块号； <strong>优点：</strong> -
+支持<strong>顺序访问</strong>和<strong>随机访问</strong>（直接访问）； -
+在<strong>顺序读/写</strong>时速度最快； <strong>缺点：</strong> -
+不方便扩展； - 存储空间利用率低，会产生难以利用的磁盘碎片；
+地址转换方式： #### 2.链接分配
+<strong>隐式链接</strong>：文件中除最后一个磁盘块，每个磁盘块都会保存指向下一个磁盘块的指针。
+- 只支持顺序访问，不支持随机访问； - 拓展方便； - 磁盘利用率高；
+<strong>显示链接</strong>：把用于链接文件各物理块的指针显示地存放在一张表中，即文件分配表（FAT）；
+- FAT中，每个物理块号都记录下一块的地址； -
+每个磁盘仅设置一张FAT，开机时将FAT读入内存； -
+每个文件的起始块号记录在目录项中； <strong>优点：</strong> -
+支持顺序访问，也支持随机访问（查询FAT表不需要读磁盘）； -
+不会产生外部碎片，也方便拓展； <strong>缺点：</strong> -
+文件分配表需要占据一定存储空间； #### 3.索引分配
+为<strong>每个文件</strong>建立一张索引表，索引表中记录了文件各个逻辑块对应的物理块（类似于页表）；
+-
+索引表存放的磁盘称为<strong>索引块</strong>，文件数据存放的磁盘成为<strong>数据块</strong>；
+- FCB中记录索引块地址； - 支持随机访问、容易拓展；
+当一个磁盘块装不下整张索引表，可以采取以下三种解决方式： -
+链接方案：多个索引块链接起来存放； -
+多层索引：类似于多级页表，为索引表建立索引表，除了顶级索引表都可以离散存放；
+-
+混合索引：顶级索引表中，既包含直接地址索引，又包含间接索引，使得对于小文件来说，访问一个数据块所需的读磁盘次数更少（<strong>为什么小文件需要多层索引？</strong>）；
+## 四、文件存储空间管理 对磁盘空闲空间的管理。 #### 1.
+存储空间的划分和初始块 物理磁盘划分为一个个文件卷（C盘、D盘、E盘等）；
+各个文件卷分为目录区（存放FCB、用于存储磁盘空间管理的信息）、文件区（存放文件数据）；</p>
+<p>加下来介绍4种存储空间管理方法： #### 2. 空闲表法
+记录每个空闲区间的起始位置和长度。 - 适用于连续分配方式； -
+可采用首次适应、最佳适应、最坏适应等算法为文件分配区间； #### 3.
+空闲链表法 <strong>空闲盘块链</strong>：以盘块为单位组成一条空闲链； -
+空闲盘块存储这下一个空闲盘块的指针； - 操作系统保存着链头、链尾指针；
+<strong>空闲盘区链</strong>：以盘区为单位组成一条空闲链； -
+操作系统保存着链头、链尾指针； -
+空闲盘区中的第一个盘块记录了盘区的长度、下一个盘区的指针； -
+离散分配、连续分配都适用，为一个文件分配多个盘块时效率更高； #### 4.
+位示图法
+每个二进制位对应一个盘块，位示图一般用连续的“字”表示，用（字号，位号）对应一个盘块。
+- 字号i = b/n，位号j = b%n，n表示字长，b表示盘块号； -
+注意盘块号、字号、位号从0开始还是从1开始； #### 5. 成组链接法
+文件卷的目录区设置一个磁盘块为“超级块”。 -
+超级块记录下一组空闲盘块数、每个空闲盘块号； -
+系统启动时超级块读入内存，并随着磁盘的超级块更新； -
+超级块的第一个磁盘块存放了下一组的信息； - 适用于大型操作系统；</p>
+<h2 id="五文件的基本操作">五、文件的基本操作</h2>
+<p><strong>创建文件</strong>（creat系统调用）： -
+在外存中找到文件所需空间； - 创建该文件对应的目录项；
+<strong>删除文件</strong>（delete系统调用）： - 找到文件名对应的目录项；
+- 回收文件占用的磁盘块； - 删除文件对应的目录项；
+<strong>打开文件</strong>（open系统调用）： - 找到文件名对应的目录项； -
+将目录项复制到内存的“打开文件表”中，并将打开文件表的索引号返回给用户； -
+每个进程有自己的打开文件表，系统也有一张总的打开文件表； -
+进程打开文件表特有属性：读写指针、访问权限（是否只读）； -
+系统打开文件表特有属性：打开计数器；
+<strong>关闭文件</strong>（close系统调用）： -
+将进程的打开文件表相应表项删除； - 回收分配给该文件的内存空间等资源； -
+系统打开文件表打开计数器-1，若count为0则删除对应表项；
+<strong>读文件</strong>（read系统调用）： -
+根据读指针、读入数据量、内存位置将文件数据从外存读入内存；
+<strong>写文件</strong>（write系统调用）： -
+根据读指针、读入数据量、内存位置将文件数据从内存写出外存； ##
+六、文件共享和文件保护 #### 1. 文件共享
+基于<strong>索引节点</strong>的共享方式（硬链接）： -
+每个用户的目录项指向同一个索引结点； - 索引结点中有链接技术count； -
+某用户删除文件时只删除目录项，count--，只有count==0才删除文件数据；
+基于<strong>符号链接</strong>的共享方式（软链接）: -
+在一个link型文件（如快捷方式）记录共享文件存放路径； -
+软连接访问共享文件需要查询多级目录，需要多次I/O操作，访问速度慢； ####
+2. 文件保护 <strong>口令保护</strong>： -
+为文件设置一个口令，用户访问时需提供口令； -
+开销小，但口令需存放系统中，不太安全； <strong>加密保护</strong>： -
+用一个密码对文件加密（如异或加密），需要提供相同密码才能正确解密； -
+安全性高，但加密解密需耗时； <strong>访问控制</strong>： -
+用访问控制表（ACL）记录不同用户的访问权限； -
+对文件访问类型可以分为：读/写/执行/删除 等； -
+实现灵活，可以实现复杂的文件保护功能；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+        <tag>文件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-分页与分段储存管理方式</title>
+    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[内存的连续分配方式都存在明显缺陷，如果允许将一个进程<strong>分散地</strong>装入到许多<strong>不相邻</strong>的分区中，便可充分地利用内存，从而产生非连续分配方式。
+<strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的</strong>内存空间。
+# 基本分页存储管理
+思想：把内存分为一个个<strong>相等的</strong>小分区，再按照分区大小把进程拆分成一个个小部分。
+- 每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； -
+每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”、“物理块号”； -
+每个用户进程拆分成的部分称为“页”、“页面”，页面与页框一一对应，页面编号称为“页号”；
+- 进程的最后一个页面小于页框，会产生<strong>内部碎片</strong>； ##
+页表与页表项
+为了能知道进程的每个页面在内存中存放的位置，操作系统要为每个进程建立一张<strong>页表</strong>。
+- 一个进程对应一张页表； -
+<strong>页表项</strong>：进程的每一页对应一个页表项，每个页表项由<strong>页号</strong>和<strong>块号</strong>组成；
+-
+页表记录<strong>进程页面</strong>（页号，连续）和<strong>实际存放的内存块</strong>（块号，非连续）之间的对应关系；
+-
+各页表项会<strong>按顺序连续地</strong>存放在内存中（因此页号是<strong>隐含的</strong>，只需要存放块号的空间），实际中通常使一个页框放入<strong>整数个</strong>页表项；
+## 地址转换
+逻辑地址由页号+页内偏移量组成。假如由32个二进制位表示逻辑地址，页面大小为4KB，则前20位表示页号，后12位表示页内偏移量（2<sup>12B=4KB），且最多有2</sup>20个页面。
+逻辑地址转换成物理地址： -
+根据逻辑地址计算<strong>页号</strong>（逻辑地址/页面长度）、<strong>页内偏移量</strong>（逻辑地址%页面长度）；
+-页号合法性检查（与页表长度对比）；
+-根据页表起始地址、页号找到对应<strong>页表项</strong>； -
+根据页表项记录的<strong>内存块号</strong>、页内偏移量得到物理地址； -
+访问内存单元； ## 两级页表
+页表必须连续存放，在单级页表中，当页表很大时，需要占用很多个连续的页框。
+可以将页表再分页，形成<strong>两级页表</strong>或<strong>多级页表</strong>（为页表建立页表）。
+- 逻辑地址结构：一级页号+二级页号+页面偏移量； -
+页目录表、外层页表、顶级页表； <strong>两级页表的地址转换</strong> -
+根据逻辑地址得到一级页号、二级页号、页面偏移量 -
+从PCB中读出页目录表始址，根据一级页号查找页目录表，找到下一级页表在内存中的存放位置；
+- 根据二级页号查表，找到最终想访问的内存块号； -
+结合页内偏移量得到物理地址； # 基本分段存储管理
+分段：将地址空间按<strong>程序自身的逻辑关系</strong>划分为若干个段，每段从0开始编址。每个段在内存中占据<strong>连续空间</strong>，但各段之间可以<strong>不相邻</strong>。
+逻辑地址：段号（段名）+段内地址（段内偏移量） -
+段号的位数决定了每个进程可以分几个段； -
+段内地址位数决定了每个段的最大长度是多少； ## 段表 -
+每个段对应一个段表项，记录了该段在内存中的起始位置（基址）、段的长度； -
+各个段表项的长度是相同的，段号是隐含的； ## 地址转换 -
+由逻辑地址得到段号、段内地址； -
+段号与<strong>段表寄存器</strong>中的段表长度比较，检查是否越界； -
+由段表始址、段号找到对应段表项； -
+根据段表中记录的段长，检查段内地址是否越界； -
+由段表中记录的基址、段内地址得到物理地址； - 访问内存单元； ##
+分段、分页管理的比较
+<table>
+<tr>
+<td>
+分页管理
+</td>
+<td>
+分段管理
+</td>
+</tr>
+<tr>
+<td>
+页是信息的物理单位
+</td>
+<td>
+段是信息的逻辑单位
+</td>
+</tr>
+<tr>
+<td>
+分页对用户不可见
+</td>
+<td>
+分段对用户可见
+</td>
+</tr>
+<tr>
+<td>
+页的大小固定
+</td>
+<td>
+段的大小决定于用户编写的程序
+</td>
+</tr>
+<tr>
+<td>
+地址空间一维
+</td>
+<td>
+地址空间二维
+</td>
+</tr>
+<tr>
+<td>
+空间利用率高，不会产生外部碎片
+</td>
+<td>
+会产生外部碎片
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+分段更容易实现信息的共享和保护
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+访问一个逻辑地址都需要两次访存
+</td>
+</tr>
+</table>
+<h1 id="段页式管理方式">段页式管理方式</h1>
+<p>段页式管理：将进程<strong>按逻辑模块</strong>分段，再将各段分页，再将内存空间分为<strong>大小相同</strong>的内存块。
+逻辑地址：段号+页号+页内偏移量 ## 段表、页表 -
+每个段对应一个段表项，由段号（隐含）、页表长度、页表存放块号组成； -
+每个页面对应一个页表项，每个页表项由页号（隐含）、页面存放的内存块号组成
+## 地址变换 - 由逻辑地址得到段号、页号、页面偏移量； -
+段号与段表寄存器中的段长度比较，检查是否越界； -
+由段表始址、段号找到对应的段表项； -
+根据段表中记录的页表长度，检查页号是否越界； -
+由段表中的页表地址、页号查询页表，找到对应页表项； -
+由页面存放的内存块号、页内偏移量得到最终的物理地址； -
+访问目标单元；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+        <tag>内存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-虚拟内存</title>
+    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[<p>传统存储方式特点 -
+<strong>一次性</strong>：作业必须一次性全部装入内存后才能开始运行； -
+<strong>驻留性</strong>：一旦作业装入内存，就会一直驻留在内存中，直至作业结束；
+局部性原理 - <strong>时间局部性</strong> - <strong>空间局部性</strong>
+## 虚拟内存 -
+基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序；
+-
+在程序执行过程中，当<strong>访问的信息不在内存</strong>时，由操作系统负责将所需信息<strong>调入内存</strong>，然后继续执行程序；（<strong>请求调页/请求调段</strong>）
+-
+若<strong>内存空间不够</strong>，由操作系统负责将内存中<strong>暂时用不到的信息</strong>换到外存；（<strong>页面置换/段置换</strong>）
+#### 虚拟内存容量
+虚拟内存最大容量：由计算机地址结构（CPU寻址范围决定），如32位计算机地址结构：2^32B=4GB；
+虚拟内存实际容量：min（内外存容量之和，CPU寻址范围）； #### 特征 -
+多次性； - 对换性； - 虚拟性； ## 请求分页管理方式 #### 请求页表 -
+内存块号 - 状态栏：表示页面是否已在内存中； -
+访问字段：记录最近被访问过几次，或记录上次访问的时间，供置换算法选择换出页面时参考；
+- 修改位：表示页面调入内存后是否被修改过； -
+外存地址：页面在外存中存放的位置； #### 缺页中断机构 -
+在请求分页系统中，当访问的页面不在内存（状态位为0）时，便产生一个缺页中断，由操作系统的缺页中断处理程序处理中断。
+- 此时缺页的进程阻塞，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。
+-
+如果内存中有空闲块，则为进程分配一个空闲块，将所缺页面装入，并修改相应页表项；
+-
+如果内存中没有空闲块，则由页面置换算法选择一个页面淘汰，若该页面被修改过则需写回外存；
+#### 地址变换机构 - 找到页表项时需检查页面是否在内存中； -
+若页面不在内存中，需请求调页； - 如内存空间不够，需换出页面； -
+页面调入内存后，需要修改相应页表项； ## 页面置换算法
+追求更小的缺页率（缺页次数/访问次数）。 #### 最佳置换算法
+每次选择以后永不使用，或长时间内不再被访问的页面淘汰，保证最低缺页率。
+操作系统无法预判，所以无法实现。 #### 先进先出置换算法（FIFO）
+每次淘汰<strong>最早进入内存</strong>的页面。FIFO会产生Belady异常。
+<strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增。
+#### 最近最久未使用置换算法（LRU）
+每次淘汰<strong>最近最久未使用</strong>的页面。用访问字段记录上次被访问以来经历的时间t。
+性能好，但实现困难、开销大。 #### 时钟置换算法（CLOCK）
+<strong>简单的CLOCK算法</strong>： -
+为每个页面设置一个访问位，通过链接指针链接成一个<strong>循环队列</strong>；
+- 一个页面被访问时，访问位设为1； -
+需要淘汰一个页面时，按队列顺序检查访问位，访问位为0则换出，访问位为1则设为0；
+简单的CLOCK算法仅考虑一个页面最近是否被访问过。事实上，只有被修改过的淘汰页面才需要写回外存，因此没有被修改过的页面应该优先淘汰，避免I/O操作。
+<strong>改进型的时钟置换算法</strong>：
+-用（访问为，修改位）表示各页面状态； -
+第一轮：扫描找到第一个（0,0）页面用于替换，不修改任何标志位； -
+第二轮：若第一轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换，并将扫描过的访问位设为0；
+-
+第三轮：若第二轮扫描失败，则继续扫描查找第一个（0,0）的帧用于替换，不修改任何标志位；
+- 第四轮：若第三轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换； ##
+页面分配策略 驻留集：指请求分页存储管理中给进程分配的物理块的集合。
+采用了虚拟存储技术的系统中，驻留集一般<strong>小于</strong>进程总大小。
+- 驻留集太小，换页频繁，开销大； - 驻留集太大，并发度小，资源利用率低；
+固定分配 VS 可变分配：驻留集大小是否可变； 局部置换 VS
+全局置换：是否可以将其他进程的物理块换出； -
+固定分配局部置换：很难在刚开始就为每个进程分配合理的物理块数量，灵活性差；
+- 可变分配全局置换：部分进程物理块被减少，导致缺页率过高； -
+可变分配局部置换：根据缺页的频率来动态调整进程物理块； #### 何时调入页面
+-
+预调页策略：进程运行前预测不久之后可能访问到的页面，用于<strong>首次调入</strong>，由程序员指出；
+-
+请求调页策略：进程<strong>运行期间</strong>发现缺页才将所缺页面调入内存，需要频繁的I/O操作；
+#### 从何处调入页面 外存分为文件区和对换区。 |对换区|文件区|
+|:---:|:---:| |读写速度快|读写速度慢| |连续分配|离散分配|
+|一般空间较小|一般空间较大| -
+对换区空间充足：进程运行前相关数据复制到对换区，页面调入、调出都在内存和对换区进行；
+- 对换区空间不足：不会被修改的数据直接从文件区调入； -
+UNIX方式：运行之前进程相关数据全部放在文件区，运行时内存换出的页面写回对换区；
+#### 工作集
+<strong>抖动（颠簸）现象</strong>：刚刚换出/换入的页面马上又要换入/换出，频繁缺页。
+工作集：在某段时间间隔里（窗口尺寸），进程实际访问页面的集合。
+一般驻留集大小不能小于工作集大小，否则容易频繁缺页。</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+        <tag>内存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-磁盘</title>
+    <url>/2022/11/08/%E7%A3%81%E7%9B%98/</url>
+    <content><![CDATA[<p>磁盘的表面由一些磁性物质组成，可以记录二进制数据。磁盘的表面被划分成一个个磁道，一个磁道又被分成一个个扇区，每个扇区就是一个<strong>磁盘块</strong>。
+-
+地址形式：可以用（柱面号、盘面号、扇区号）来定位一个磁盘块。在读取地址连续的磁盘块时，（柱面号，盘面号，扇区号）的写法能减少磁头移动；
+- 根据<strong>磁头是否可移动</strong>可分为固定头磁盘和移动头磁盘； -
+根据<strong>盘片是否可换</strong>可分为固定盘磁盘和可换盘磁盘； ##
+一、磁盘调度算法 一次磁盘读/写操作时间分为三部分： -
+寻找时间：启动磁臂、移动磁头所花的时间； -
+延迟时间：将目标扇区转到磁头下面所花的时间； -
+传输时间：读/写数据花费的时间；</p>
+<p>磁盘调度算法通过减少<strong>寻找时间</strong>来提高效率。 #### 1.
+先来先服务（FCFS） - 按访问请求到达的先后顺序进行处理； #### 2.
+最短寻找时间优先（SSTF） - 每次都优先响应距离磁头最近的磁道访问请求； -
+贪心思想，无法保证整体最优； - 可能导致饥饿； #### 3. 扫描算法（SCAN） -
+只有磁头移到最边缘磁道才会改变方向； - 对各个位置磁道响应频率不均匀；
+#### 4. 循环扫描算法（C-SCAN） - 磁头只在朝一个方向移动时才会响应请求；
+#### 5.LOOK和C-LOOK -
+LOOK算法是SCAN的改进，只要磁头移动方向上不再有请求就改变方向； -
+C-LOOK算法是C-SCAN的改进； ## 二、减少延迟时间的方法
+<strong>交替编号</strong>：让编号相邻的扇区物理上不相邻； -
+物理相邻的两个扇区无法连续读取；
+<strong>错位命名</strong>：让相邻盘面的扇区编号错位；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>汇编基础</title>
+    <url>/2023/02/18/%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="一定义">一、定义</h2>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>第一个项目-华容道小游戏</title>
+    <url>/2022/11/20/%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE-%E5%8D%8E%E5%AE%B9%E9%81%93%E5%B0%8F%E6%B8%B8%E6%88%8F/</url>
+    <content><![CDATA[<p>两天速成Java的语法基础，记录一下第一个相对完整的项目（虽然不是独立完成orz，主要思路参考B站教学，做了局部优化，自己打了一遍练练手）。成品如下：
+<img src="游戏界面.jpg" alt="游戏界面" /> ## 主要变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//data用来存储每一个方格，data[i][j]表示第i行第j列的方格，数值代表这个方格当前的拼图（将每块图片抽象成数字华容道的1-16）</span></span><br><span class="line"><span class="type">int</span>[][] data = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line"><span class="comment">//存储空缺块当前坐标，data[x][y]=16</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>,y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//用来统计步数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//存储完成状态，当data和comp相等时拼图复原</span></span><br><span class="line"><span class="type">int</span>[][] comp = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>,<span class="number">6</span>,<span class="number">10</span>,<span class="number">14</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> ##
+ui界面 ui界面用了JFrame类。 #### 拼图区
+图片用JLable导入界面，16块拼图用循环分别导入： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> data[i%<span class="number">4</span>][i/<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">if</span> (num!=<span class="number">16</span>) &#123;</span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jLabel1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="keyword">new</span> <span class="title class_">ImageIcon</span>(<span class="string">&quot;module1\\image\\animal\\animal1\\&quot;</span> + num + <span class="string">&quot;.jpg&quot;</span>));</span><br><span class="line">        <span class="comment">//指定图片位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x_label</span> <span class="operator">=</span> i % <span class="number">4</span>, y_label = i / <span class="number">4</span>;</span><br><span class="line">        jLabel1.setBounds(<span class="number">105</span> * x_label + <span class="number">83</span>, <span class="number">105</span> * y_label + <span class="number">134</span>, <span class="number">105</span>, <span class="number">105</span>);</span><br><span class="line">        <span class="comment">//描边</span></span><br><span class="line">        jLabel1.setBorder(<span class="keyword">new</span> <span class="title class_">BevelBorder</span>(<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//将图片添加到窗口</span></span><br><span class="line">        <span class="built_in">this</span>.getContentPane().add(jLabel1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+这里关键是要找到每块拼图坐标的规律。原作者用了两层循环嵌套，一开始我用的是一维数组，因为没有考虑到后面拼图移动的问题（二维数组更加直观一点），可以优化一下。
+#### 菜单区 菜单使用JMenu，当前完成的功能较少，所以菜单比较简单。
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initJMenu</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">//初始化菜单</span></span><br><span class="line">    <span class="type">JMenuBar</span> <span class="variable">jMenuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line">    <span class="comment">//创建“功能”和“关于”选项</span></span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">FunctionJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;功能&quot;</span>);</span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">AboutJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;关于&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将条目加入到选项中</span></span><br><span class="line">    FunctionJMenu.add(ReplayItem);</span><br><span class="line">    FunctionJMenu.add(ReloginItem);</span><br><span class="line">    FunctionJMenu.add(CloseItem);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReplayItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新开始&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReloginItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新登录&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">CloseItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;关闭游戏&quot;</span>);</span><br><span class="line">    ReplayItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    ReloginItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    CloseItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将选项添加到菜单中</span></span><br><span class="line">    jMenuBar.add(FunctionJMenu);</span><br><span class="line">    jMenuBar.add(AboutJMenu);</span><br><span class="line">    <span class="comment">//将菜单添加到主界面中</span></span><br><span class="line">    <span class="built_in">this</span>.setJMenuBar(jMenuBar);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="内在机制">内在机制</h2>
+<h4 id="打乱图片">打乱图片</h4>
+<p>打乱图片的本质是随机打乱data数组。原作者采用的方法是将数组中的每个数都与随机下标的数进行一次调换，但是这样会导致打乱后的华容道出现无法复原的情况，对玩家很不友好（别问我怎么知道的
+这里改了打乱方式，模拟玩家打乱华容道的动作，对拼图进行了1000次打乱，这样保证了拼图是可以复原的。
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initdata</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] tempArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>&#125;;</span><br><span class="line">    <span class="type">Random</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    //原作者打乱方式</span></span><br><span class="line"><span class="comment">    for (int i = 0; i &lt; tempArray.length; i++) &#123;</span></span><br><span class="line"><span class="comment">        int index = r.nextInt(tempArray.length);</span></span><br><span class="line"><span class="comment">        int temp = tempArray[i];</span></span><br><span class="line"><span class="comment">        tempArray[i] = tempArray[index];</span></span><br><span class="line"><span class="comment">        tempArray[index]= temp;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//遍历数组存储成二维数组方便后续操作</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tempArray.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tempArray[i]==<span class="number">16</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x = i%<span class="number">4</span>;</span><br><span class="line">            y = i/<span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        data[i % <span class="number">4</span>][i / <span class="number">4</span>] = tempArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> r.nextInt(<span class="number">4</span>);</span><br><span class="line">        <span class="comment">//init_1会根据参数对华容道空缺块进行一次随机的移动（朝上/下/左/右移动一格）</span></span><br><span class="line">        init_1(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> #### 移动图片 使用了KeyListener,
+ActionListener对键盘/鼠标输入进行监听。
+原作者使用方向键对拼图进行控制，但是对笔记本玩家很不友好，就改成了WASD：
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">keyReleased</span><span class="params">(KeyEvent e)</span> &#123;</span><br><span class="line">       <span class="comment">//监听输入的字符</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> e.getKeyCode();</span><br><span class="line">      <span class="comment">//根据字符对动作进行判断。如A的ASCII码是65，监听到A就进行一次左移动作（将空缺块与右边格子进行交换）</span></span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">65</span>&amp;&amp;x&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            data[x][y] = data[x+<span class="number">1</span>][y];</span><br><span class="line">            data[x+<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x++;</span><br><span class="line">            cnt++;</span><br><span class="line">       <span class="comment">//移动完需要更新画面</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">87</span>&amp;&amp;y&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;上&quot;</span>);</span><br><span class="line">            data[x][y] = data[x][y+<span class="number">1</span>];</span><br><span class="line">            data[x][y+<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y++;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">68</span>&amp;&amp;x&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x-<span class="number">1</span>][y];</span><br><span class="line">            data[x-<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">83</span>&amp;&amp;y&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x][y-<span class="number">1</span>];</span><br><span class="line">            data[x][y-<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//这里是一个作弊器，监听到I之后会自动复原，同时也方便测试</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">73</span>)&#123;</span><br><span class="line">            recover(data);<span class="comment">//这个函数的作用是将data数组归位，即变成完成状态</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure> #### 重新开始、重新登陆、关闭游戏
+目前只实现了菜单里的这三个功能 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> e.getSource();</span><br><span class="line"><span class="comment">//重新开始</span></span><br><span class="line">        <span class="keyword">if</span> (obj== ReplayItem)&#123;</span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            initdata();</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//重新登陆</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==ReloginItem)&#123;</span><br><span class="line">            <span class="built_in">this</span>.setVisible(<span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LoginJFrame</span>();</span><br><span class="line"><span class="comment">//关闭游戏</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==CloseItem)&#123;</span><br><span class="line">            System.exit(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+这篇文章只记录了这个小游戏比较核心的几个功能的实现，还要一些比较简单的地方（比如胜利条件的判定）没有一一列举。写这个游戏的整体感受就是思维难度不高但是很繁琐，有很多细节需要注意，一不留神就会出BUG，跟以前打算法题很不一样。</p>
+<p><a
+href="https://github.com/RookieDB0901/Project_HuaRongRoad">项目链接</a></p>
+]]></content>
+      <tags>
+        <tag>java</tag>
+        <tag>projects</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性回归</title>
+    <url>/2024/01/06/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</url>
+    <content><![CDATA[<h3 id="一向量导数">一、向量导数</h3>
+<h4 id="一y为标量x为向量">（一）y为标量，x为向量</h4>
+<p><span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="15.988ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 7066.5 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(767.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(1823.6,0)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mo" transform="translate(2373.6,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(2762.6,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(3771.1,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(4215.8,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(5224.3,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(5669,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(6677.5,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span></p>
+<p>求梯度grad y。深度学习中，因变量一般为标量。</p>
+<h4 id="二y为向量x为标量">（二）y为向量，x为标量</h4>
+<p><span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="32.804ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 14499.3 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(1204.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(2260.1,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(3186.7,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(3575.7,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(4147.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(4536.7,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(4981.3,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(6185.7,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(7241.4,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(8168,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(8557,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(9129,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(9518,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(9962.7,0)"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(11167,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(12222.8,0)"><g data-mml-node="mi"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g><g data-mml-node="mn" transform="translate(523,-150) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="mo" transform="translate(13149.3,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(13538.3,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(14110.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span></p>
+<p>分别对x求导，组成一个列向量。</p>
+<h4 id="三x-y均为向量">（三）x, y均为向量</h4>
+<p>分别求梯度，组成矩阵。当x、y维度更高时同理类推。</p>
+<h3 id="二自动求导">二、自动求导</h3>
+<h4 id="一计算图">（一）计算图</h4>
+<p>计算图是有向无环图，类似于利用DAG表述表达式</p>
+<h4 id="二正向积累与反向传递">（二）正向积累与反向传递</h4>
+<p>使用链式法则求偏导，当从右往左算时为正向积累，从左往右算为反向传递。</p>
+<ul>
+<li>正向积累可理解为只存一个数，并在求导过程中不断更新，得到最终导数。正向积累内存复杂度为O(1)，但由于需要对每一层计算梯度，因此计算复杂度更高。</li>
+<li>反向传递可理解为计算过程中把中间值存起来，需要用时直接取。反向传递计算复杂度更低，但由于需要存储中间值，空间复杂度更高。</li>
+<li>实际运用中往往使用反向传递。</li>
+</ul>
+<h3 id="三线性回归基础优化">三、线性回归基础优化</h3>
+<p>线性回归方程为： <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="19.67ex" height="2.034ex" role="img" focusable="false" viewBox="0 -694 8694.2 899"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(767.8,0)"><g data-mml-node="text"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="text" transform="translate(778,0)"><path data-c="3C" d="M694 -11T694 -19T688 -33T678 -40Q671 -40 524 29T234 166L90 235Q83 240 83 250Q83 261 91 266Q664 540 678 540Q681 540 687 534T694 519T687 505Q686 504 417 376L151 250L417 124Q686 -4 687 -5Q694 -11 694 -19Z"></path></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2601.6,0)"><g data-mml-node="mi"><path data-c="1D430" d="M624 444Q636 441 722 441Q797 441 800 444H805V382H741L593 11Q592 10 590 8T586 4T584 2T581 0T579 -2T575 -3T571 -3T567 -4T561 -4T553 -4H542Q525 -4 518 6T490 70Q474 110 463 137L415 257L367 137Q357 111 341 72Q320 17 313 7T289 -4H277Q259 -4 253 -2T238 11L90 382H25V444H32Q47 441 140 441Q243 441 261 444H270V382H222L310 164L382 342L366 382H303V444H310Q322 441 407 441Q508 441 523 444H531V382H506Q481 382 481 380Q482 376 529 259T577 142L674 382H617V444H624Z"></path></g><g data-mml-node="mo" transform="translate(831,0)"><path data-c="2C" d="M74 85Q74 120 97 145T159 171Q200 171 226 138Q258 101 258 37Q258 -5 246 -44T218 -109T183 -155T152 -184T135 -194Q129 -194 118 -183T106 -164Q106 -157 115 -149Q121 -145 130 -137T161 -100T195 -35Q197 -28 200 -17T204 3T205 11T199 9T183 3T159 0Q120 0 97 26T74 85Z"></path></g><g data-mml-node="mi" transform="translate(1316.7,0)"><path data-c="1D431" d="M227 0Q212 3 121 3Q40 3 28 0H21V62H117L245 213L109 382H26V444H34Q49 441 143 441Q247 441 265 444H274V382H246L281 339Q315 297 316 297Q320 297 354 341L389 382H352V444H360Q375 441 466 441Q547 441 559 444H566V382H471L355 246L504 63L545 62H586V0H578Q563 3 469 3Q365 3 347 0H338V62H366Q366 63 326 112T285 163L198 63L217 62H235V0H227Z"></path></g></g><g data-mml-node="mo" transform="translate(4803,0)"><path data-c="3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"></path></g><g data-mml-node="mo" transform="translate(5858.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(6636.8,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g><g data-mml-node="mo" transform="translate(7288,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(8288.2,0)"><path data-c="1D716" d="M227 -11Q149 -11 95 41T40 174Q40 262 87 322Q121 367 173 396T287 430Q289 431 329 431H367Q382 426 382 411Q382 385 341 385H325H312Q191 385 154 277L150 265H327Q340 256 340 246Q340 228 320 219H138V217Q128 187 128 143Q128 77 160 52T231 26Q258 26 284 36T326 57T343 68Q350 68 354 58T358 39Q358 36 357 35Q354 31 337 21T289 0T227 -11Z"></path></g></g></g></svg></mjx-container></span></p>
+<h4 id="一训练数据">（一）训练数据</h4>
+<p>收集数据点并确定回归方程，可采用均方损失函数： <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="18.668ex" height="2.565ex" role="img" focusable="false" viewBox="0 -883.9 8251.2 1133.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mo" transform="translate(298,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(687,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(1177,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(1621.7,0)"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(300.6,16) translate(-250 0)"><path data-c="5E" d="M112 560L249 694L257 686Q387 562 387 560L361 531Q359 532 303 581L250 627L195 580Q182 569 169 557T148 538L140 532Q138 530 125 546L112 560Z"></path></g></g></g><g data-mml-node="mo" transform="translate(2111.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(2778.4,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(3834.2,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(4223.2,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(4935.4,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(5935.7,0)"><g data-mml-node="mover"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(300.6,16) translate(-250 0)"><path data-c="5E" d="M112 560L249 694L257 686Q387 562 387 560L361 531Q359 532 303 581L250 627L195 580Q182 569 169 557T148 538L140 532Q138 530 125 546L112 560Z"></path></g></g></g><g data-mml-node="msup" transform="translate(6425.7,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mn" transform="translate(422,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(7251.2,0)"><g data-mml-node="mo"><path data-c="2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path></g></g><g data-mml-node="mn" transform="translate(7751.2,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></svg></mjx-container></span></p>
+<h4 id="二梯度下降">（二）梯度下降</h4>
+<ul>
+<li><p>首先挑选初始值w0</p></li>
+<li></li>
+<li><p><span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -2.023ex;" xmlns="http://www.w3.org/2000/svg" width="20.428ex" height="5.17ex" role="img" focusable="false" viewBox="0 -1391 9029.2 2285"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mi" transform="translate(749,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(1332,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(2387.8,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="TeXAtom" transform="translate(749,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(361,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1139,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="mo" transform="translate(4568,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(5568.2,0)"><path data-c="1D702" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q156 442 175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336V326Q503 302 439 53Q381 -182 377 -189Q364 -216 332 -216Q319 -216 310 -208T299 -186Q299 -177 358 57L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mfrac" transform="translate(6065.2,0)"><g data-mml-node="mrow" transform="translate(1050,676)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="msub" transform="translate(566,0)"><g data-mml-node="mi"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="TeXAtom" transform="translate(749,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(361,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1139,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g><rect width="2723.9" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+<p>该递推式含义为沿损失函数的梯度方向更新参数值，其中η为<strong>学习率</strong>，由人为选择。通过该递推式迭代出w1、w2、w3。</p></li>
+</ul>
+<h4 id="三小批量随机梯度下降">（三）小批量随机梯度下降</h4>
+<p>在整个训练集上计算梯度代价过大，可以多次随机选取b个样本来近似损失。</p>
+<h3 id="四线性回归的实现">四、线性回归的实现</h3>
+<p>以下采用小批量随机梯度下降训练一个线性回归模型。本例仅供学习使用，为了方便，数据集直接由人工生成。</p>
+<h4 id="一生成数据集">（一）生成数据集</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">synthetic_data</span>(<span class="params">w, b, num</span>): <span class="comment">#生成y=wX+b+噪声（误差）</span></span><br><span class="line">    x = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (num, <span class="built_in">len</span>(w))) <span class="comment">#num个样本，len(w)个自变量，标准正态</span></span><br><span class="line">    y = torch.matmul(x, w)+b</span><br><span class="line">    y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, y.shape) <span class="comment">#加入随机误差</span></span><br><span class="line">    <span class="keyword">return</span> x, y.reshape((-<span class="number">1</span>, <span class="number">1</span>)) <span class="comment">#y变为列向量</span></span><br><span class="line"></span><br><span class="line">true_w = torch.tensor([<span class="number">2</span>,-<span class="number">3.4</span>])</span><br><span class="line">true_b = <span class="number">4.2</span> <span class="comment">#y=2*x1-3.4*x2+4.2</span></span><br><span class="line">features, labels = synthetic_data(true_w, true_b, <span class="number">1000</span>) <span class="comment">#得到训练样本</span></span><br></pre></td></tr></table></figure>
+<p>以上代码生成了线性回归模型 <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="24.819ex" height="1.995ex" role="img" focusable="false" viewBox="0 -677 10970 882"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(767.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(1823.6,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="msub" transform="translate(2323.6,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><g data-mml-node="mo" transform="translate(3554.3,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(4554.6,0)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(778,0)"></path></g><g data-mml-node="msub" transform="translate(5832.6,0)"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(7063.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(8063.6,0)"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(778,0)"></path></g><g data-mml-node="mo" transform="translate(9563.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(10564,0)"><path data-c="1D716" d="M227 -11Q149 -11 95 41T40 174Q40 262 87 322Q121 367 173 396T287 430Q289 431 329 431H367Q382 426 382 411Q382 385 341 385H325H312Q191 385 154 277L150 265H327Q340 256 340 246Q340 228 320 219H138V217Q128 187 128 143Q128 77 160 52T231 26Q258 26 284 36T326 57T343 68Q350 68 354 58T358 39Q358 36 357 35Q354 31 337 21T289 0T227 -11Z"></path></g></g></g></svg></mjx-container></span>
+的一组样本（样本量n=1000）。通过训练，我们要使估计出的w和b尽可能接近其真实值。</p>
+<h4 id="二生成多组小批量样本">（二）生成多组小批量样本</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):<span class="comment">#随机抽取大小为batch_size的样本</span></span><br><span class="line">    num = <span class="built_in">len</span>(features)</span><br><span class="line">    indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num))<span class="comment">#生成下标</span></span><br><span class="line">    random.shuffle(indices)<span class="comment">#随机打乱下标</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num, batch_size):<span class="comment">#for(int i=0;i&lt;num;i+=batch_size),本例中共循环1000/10=10次</span></span><br><span class="line">        batch_indices = torch.tensor(</span><br><span class="line">            indices[i:<span class="built_in">min</span>(i+batch_size, num)])</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indices], labels[batch_indices]<span class="comment">#迭代生成100组样本</span></span><br><span class="line">batch_size = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>以上代码按批量大小为10将数据集进行随机划分</p>
+<h4 id="三定义初始化模型参数">（三）定义初始化模型参数</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">w = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(<span class="number">2</span>, <span class="number">1</span>), requires_grad=<span class="literal">True</span>) </span><br><span class="line">b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="四定义模型和损失函数">（四）定义模型和损失函数</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">linreg</span>(<span class="params">x, w, b</span>):<span class="comment">#线性回归模型</span></span><br><span class="line">    <span class="keyword">return</span> torch.matmul(x, w) + b</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">squared_loss</span>(<span class="params">y_hat, y</span>):<span class="comment">#均方损失函数</span></span><br><span class="line">    <span class="keyword">return</span> (y_hat-y.reshape(y_hat.shape))**<span class="number">2</span>/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="五定义优化算法">（五）定义优化算法</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">sgd</span>(<span class="params">params, lr, batch_size</span>):<span class="comment">#小批量随机梯度下降</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():<span class="comment">#梯度于训练模块中计算</span></span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> params:<span class="comment">#有w,b两个参数</span></span><br><span class="line">            param -= lr * param.grad / batch_size<span class="comment">#参数迭代</span></span><br><span class="line">            param.grad.zero_()</span><br></pre></td></tr></table></figure>
+<h4 id="六训练模块">（六）训练模块</h4>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">lr = <span class="number">0.03</span><span class="comment">#学习率，可以自己调整，不能太大也不能太小</span></span><br><span class="line">num_epochs = <span class="number">3</span><span class="comment">#对训练集进行3次扫描，多次重复可以降低误差</span></span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):<span class="comment">#对训练集进行3次扫描</span></span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">        l = loss(net(x, w, b), y)<span class="comment">#net为回归方程，估计出y_hat，得到损失函数</span></span><br><span class="line">        l.<span class="built_in">sum</span>().backward()<span class="comment">#l为向量，求和并反向传递</span></span><br><span class="line">        sgd([w, b], lr, batch_size)<span class="comment">#使用参数的梯度迭代出新的参数</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        train_l = loss(net(features, w, b), labels)<span class="comment">#用训练出的w,b计算损失</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f'epoch <span class="subst">{epoch+<span class="number">1</span>}</span>, loss <span class="subst">{<span class="built_in">float</span>(train_l.mean()):f}</span>'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f'w的估计误差:<span class="subst">{true_w-w.reshape(true_w.shape)}</span>'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f'b的估计误差:<span class="subst">{true_b-b}</span>'</span>)</span><br></pre></td></tr></table></figure>
+<p>out：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">epoch 1, loss 0.066226</span><br><span class="line">epoch 2, loss 0.000361</span><br><span class="line">epoch 3, loss 0.000052</span><br><span class="line">w的估计误差:tensor([ 0.0014, -0.0013], grad_fn=&lt;SubBackward0&gt;)</span><br><span class="line">b的估计误差:tensor([0.0016], grad_fn=&lt;RsubBackward1&gt;)</span><br></pre></td></tr></table></figure>
+<p>可以看出，每次扫描后参数估计值将更加接近真实值，最终训练得到的参数估计值和实际十分接近。</p>
+<h4 id="七总结">（七）总结</h4>
+<p>虽然线性回归模型在实际中很少应用，但也展示了较为完整的深度学习训练过程，作为入门有助于理解深度学习的方法论。出于学习需要，以上流程尽可能手动实现。在实际中，通过调包可以大大减少代码量。</p>
+]]></content>
+      <tags>
+        <tag>deep learning</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络-应用层</title>
+    <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%BA%94%E7%94%A8%E5%B1%82/</url>
+    <content><![CDATA[<p>应用层是计算机网路体系结构的最顶层，是设计和建立计算机网络的最终目的，也是计算机网络中发展最快的部分。
+客户/服务器方式（C/S方式） - 客户和服务器指通信中所涉及的两个应用进程；
+- 描述进程之间服务和被服务的关系； -
+基于C/S方式的应用服务通常是<strong>服务集中型</strong>的，如WWW、电子邮件、FTP等；
+对等方式（P2P方式） -
+没有固定的服务请求者和服务提供者，对等方之间直接通信； -
+基于P2P的应用是<strong>服务分散型</strong>的，如P2P文件共享、即时通信、P2P流媒体、分布式存储等；
+-
+P2P最突出的特性之一是<strong>可扩展性</strong>，系统性能不会因规模的增大而降低；
+## 一、动态主机配置协议DHCO
+DHCP提供了<strong>即插即用连网</strong>的机制，允许一台计算机加入新网络时可<strong>自动获取IP地址</strong>等网络配置信息而不用手工参与。
+工作过程 -
+DHCP客户广播发送<strong>DHCP发现报文</strong>（封装DHCP客户端MAC地址、事物ID等内容），源IP地址为0.0.0.0；
+-
+DHCP服务器根据DHCP发现报文内封装的DHCP客户端MAC地址查找数据库，若有针对该MAC地址的配置信息（IP地址、子网掩码、地址租期、默认网关、DNS服务器等）则用这些信息构建并<strong>广播发送DHCP提供报文</strong>，没有则用默认配置信息；
+-
+DHCP客户根据报文中的事务ID判断是否接收，若接收则广播发送<strong>DHCP请求报文</strong>（封装DHCP客户端MAC地址、事物ID、接受的租约中的IP地址、DHCP服务器端IP地址）；
+- DHCP服务器广播发送<strong>DHCP确认报文</strong>； -
+租用期过了一半后，客户向服务器发送DHCP请求报文，服务器发送反馈； <img
+src="DHCP.jpg" alt="DHCP" />
+使用<strong>DHCP中继代理</strong>（给路由器配置DHCP服务器的IP地址）可以不用在每个网络上都设置一个DHCP服务器。
+## 二、域名系统DNS
+域名系统DNS是因特网使用的命名系统，用来把便于人们记忆的具有特定含义的主机名转化为便于机器处理的IP地址。
+因特网采用<strong>层次树状结构的域名结构</strong>：······.三级域名.二级域名.顶级域名。
+- 顶级域名TLD分为国家顶级域名nTLD、通用顶级域名gTLD、反向域arpa；
+域名和IP地址的映射关系必须保存在域名服务器中，供所有其他应用查询。DNS使用<strong>分布在各地</strong>的域名服务器来实现域名到IP地址的转换。
+-
+域名服务器可分为根域名服务器、顶级域名服务器、权限域名服务器、本地域名服务器；
+域名解析过程查找方式：<strong>递归查询</strong>和<strong>迭代查询</strong>；
+<img src="域名解析过程.jpg" alt="域名解析过程" />
+域名服务器中广泛使用了<strong>高速缓存</strong>，同来存放最近查询过的域名以及从何处获得域名映射信息的记录，以提高DNS查询效率。
+- 域名服务器应为每项内容设置计时器并删除超过合理时间的项； -
+用户主机中也很需要高速缓存； ## 三、文件传输协议FTP
+文件传送协议FTP是因特网上使用得最广泛的文件传送协议。 -
+提高交互式的访问，允许客户指明文件的类型、格式、存取权限； -
+屏蔽了各计算机系统的细节，适合在各异构网络中任意计算机之间传送文件；
+基本工作原理： - FTP客户和服务器之间要建立以下两个并行的TCP连接： -
+①控制连接，整个会话期间一直打开，用于传送FTP相关控制命令； -
+②数据连接，用于文件传输，每次文件传输时才建立，传输结束就关闭； -
+默认情况下，FTP使用TCP21端口进行控制连接，TCP20端口进行数据连接。但是TCP20端口建立数据连接与传输模式有关，主动方式使用TCP20端口，被动方式由服务器和客户端自行协商决定；
+<img src="FTP.jpg" alt="FTP" /> ## 四、电子邮件
+电子邮件采用C/S方式。三个组成构件：<strong>用户代理、邮件服务器</strong>，以及电子邮件所需要的<strong>协议</strong>。
+-
+用户代理是用户与电子邮件系统的接口，又称<strong>电子邮件客户端软件</strong>；
+-
+邮件服务器是电子邮件系统的基础设施，因特网上所有的ISP都要邮件服务器，其功能是<strong>发送和接收邮件</strong>，同时还要负责维护用户的邮箱；
+-
+协议包括邮件<strong>发送协议</strong>（如SMTP）和<strong>读取协议</strong>（如POP3）；
+#### 邮件发送协议
+常用的邮件发送协议是<strong>简单邮件传送协议SMTP</strong>； -
+基于TCP连接，端口号25； - 只能传送ASCII码文本； -
+用于用户代理向邮件服务器发送邮件以及邮件服务器之间的邮件发送；
+为解决SMTP传送非ASCII码文本的问题，提出了<strong>多用途因特网邮件扩展MIME</strong>；
+#### 邮件读取协议
+常用的邮件读取协议有<strong>邮局协议POP3</strong>和<strong>因特网邮件访问协议IMAP</strong>；
+-
+邮局协议POP3：非常简单、功能有限，不允许用户在邮件服务器上管理自己的邮件；
+-
+因特网邮件访问协议IMAP：用户在自己的计算机上就可以操控邮件服务器的中的邮箱，IMAP是一个联机协议；
+-
+POP3和IMAP4都采用<strong>基于TCP连接的C/S方式</strong>，端口号分别为110和143；
+#### 基于万维网的电子邮件
+通过浏览器登录<strong>邮件服务器万维网网站</strong>就可以撰写、收发、阅读和管理电子邮件，这种工作模式与IMAP很类似。
+用户浏览器与邮件服务器网站之间使用<strong>HTTP协议</strong>，邮件服务器之间使用<strong>SMTP协议</strong>。
+## 五、万维网WWW
+万维网是一个大规模的、联机式的信息储藏所，是运行在因特网上的一个<strong>分布式应用</strong>。
+- 万维网利用网页之间的超链接 -
+万维网使用<strong>统一资源定位符URL</strong>来指明因特网上任何种类“资源”的位置；
+#### 万维网文档 超文本标记语言HTML，使用多种标签来描述网页的结构和内容。
+层叠样式表CSS，从审美角度来描述网页的样式。
+脚本语言Javascript控制网页的行为。 #### 超文本传输协议HTTP
+定义了浏览器（即万维网客户进程）怎样向万维网服务器请求万维网文档，以及万维网服务器怎样把万维网文档传送给浏览器。
+-
+HTTP/1.0采用<strong>非连续连接</strong>方式，每次浏览器要请求一个文件都要与服务器建立TCP连接（80端口），收到响应后立即关闭连接；
+-
+HTTP/1.1采用<strong>持续连接</strong>方式，万维网服务器在发送响应后仍然保持连接，以便传送后续HTTP请求和响应报文。为了进一步提高效率，还可采用<strong>流水线</strong>方式，浏览器在收到响应报文前就可连续发送多个请求报文；
+HTTP有两类报文：<strong>请求报文</strong>和<strong>响应报文</strong> -
+报文中的每个字段都是一些ASCII码串，并且每个字段的长度都是不确定的； ####
+Cookie和缓存机制
+Cookie提高一种机制使得万维网服务器能够记住用户，而无需用户主动提供用户标识信息。Cookie是一种对无状态的HTTP进行<strong>状态化</strong>的技术。
+<img src="Cookie.jpg" alt="Cookie" /></p>
+<p>在万维网中还可以使用<strong>缓存机制</strong>以提高万维网的效率，万维网缓存又称为<strong>Web缓存</strong>，可位于客户机上，也可位于中间系统上（又称为代理服务器）
+-
+Web缓存把最近的一些请求和响应暂存在本地磁盘中,当新请求到达时,若发现其与暂存的请求相同,就返回暂存的响应，而不需要按URL地址再次去因特网访问该资源；
+-
+原始服务器会为每个响应对象设定<strong>修改时间字段</strong>和<strong>有效日期字段</strong>，代理服务器调用Web缓存时会询问原始服务器是否过期；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络-物理层</title>
+    <url>/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%89%A9%E7%90%86%E5%B1%82-1/</url>
+    <content><![CDATA[<p>物理层考虑怎样才能在连接各计算机的<strong>传输媒体</strong>上传输<strong>数据比特流</strong>。
+<strong>传输媒体</strong>： - 导引型传输媒体：双绞线、同轴电缆、光纤 -
+非导引型传输媒体：微波通信 <strong>物理层协议主要任务</strong>： -
+机械特性、电气特性、功能特性、过程特性 ## 一、传输媒体 分类： -
+导引型传输媒体：双绞线、同轴电缆、光纤、电力线； -
+非导引型传输媒体：无线电波、微波红外线、可见光； #### 导引型传输媒体
+<strong>同轴电缆</strong> - 基带同轴电缆和宽带同轴电缆 -
+价格贵且布线不够灵活和方便。 <strong>双绞线</strong> -
+无屏蔽双绞线电缆和屏蔽双绞线电缆 -
+绞合作用：①抵御部分来自外界的电磁波干扰；②减少相邻导线的电磁波干扰；
+<strong>光纤</strong> -
+优点：①通信容量大；②传输损耗小，适合远距离传输；③抗雷电和电磁干扰性能好；④无串音干扰，保密性好；⑤体积小，重量轻；
+- 缺点：①割接需要专用设备；②光电接口价格较贵； <strong>电力线</strong>
+#### 非导引型传输媒体 <strong>无线电波</strong> <strong>微波</strong> -
+直线传播； - 地面微波接力通信和卫星通信； <strong>红外线</strong> -
+点对点无线传输，直线传输，传输速率低； <strong>可见光</strong> -
+如LIFI通信，处于实验研究阶段； ## 二、传输方式 串行传输和并行传输
+同步传输和异步传输 单向通信和双向通信 ## 三、编码和调制
+基带信号（消息→数据→信号→基带信号） - 数字基带信号和模拟基带信号 -
+数字信道和模拟信道 - 编码和调制
+<strong>码元</strong>：在使用时间域的波形表示数字信号时，<strong>代表不同离散数值的基本波形</strong>；
+#### 常用编码 <strong>不归零编码与归零编码</strong> -
+不归零编码存在同步问题，不采用； -
+归零编码每个码元传输结束后都要归零，编码效率低；
+<strong>曼彻斯特编码</strong> -
+每个码元中间时刻发生跳变，跳变的方向表示0和1；
+<strong>差分曼彻斯特编码</strong> -
+码元中间时刻的跳变表示时钟，码元开始处电平是否变化表示数据0和1； <img
+src="常用编码.jpg" alt="常用编码" /> #### 调制方法
+<strong>基本调制方法</strong>：调幅、调频、调相 <img
+src="基本调制方法.jpg" alt="基本调制方法" />
+<strong>混合调制</strong>：正交振幅调制QAM -
+基本调制方法一个码元只能表示一个bit信息；可以采用混合调制方法，相位和振幅一起调制；
+-
+如QAM-16，有12种相位，可以调制出16种码元，每种码元对应4个bit（2^4=16）；
+## 信道的极限容量 信号通过信道会产生失真，产生失真的原因主要有： -
+码元传输速率、信号传输距离、噪声干扰、传输媒体质量等；
+<strong>奈式准则</strong>：在假定的理想条件下，为了避免码间串扰，码元传输速率是有上限的。
+- 理想低通信道的最高码元传输速率 = 2W Baud = 2W码元/秒； -
+理想带通信道的最高码元传输速率 = W Baud = W码元/秒； -
+W：信道带宽（单位：HZ）；Baud：波特，即码元/秒； -
+码元传输速率又称波特率、调制速率、波形速率或符号速率，当1码元携带n比特信息量时，n*波特率=比特率；
+-
+要想提高比特率，就必须设法使每一个码元能携带更多比特信息，需要采用<strong>多元制</strong>；
+- 实际信道所能传输的最高码元速率明显低于奈式准则的上限数值；
+<strong>香农公式</strong>：带宽受限且有高斯白噪声干扰的信道的极限信息传输速率c：
+- c = W × log2(1+S/N) -
+W：信道带宽，s：信道内所传信号的平均功率，N：信道内的高斯噪声功率，S/N：信噪比（单位分贝）；
+- 要努力提高信道中的<strong>信噪比</strong>； -
+实际所能达到的比公式的极限功率低不少；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络-电路交换、分组交换、报文交换</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2/</url>
+    <content><![CDATA[<p>交换：按照某种方式动态地分配传输线路的资源 ## 电路交换
+通过电话交换机接通电话线，使得不需要所有电话两两连接电话线。 -
+建立连接（分配通信资源） - 通话（一直占用通信资源） -
+释放连接（归还通信资源）
+当使用电路交换来传送计算机数据时，其线路的传输效率往往很低。 ##
+分组交换</p>
+<h2 id="报文交换">报文交换</h2>
+]]></content>
+  </entry>
+  <entry>
+    <title>计算机网络-网络层</title>
+    <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/</url>
+    <content><![CDATA[<p>IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。
+- 点分十进制表示方法：XXX.XXX.XXX.XXX； ## 一、历史发展 #### 1.
+分类编制的IPv4地址 分类： - A类：0开头，8位网络号+24位主机号 -
+B类：10开头，16位网络号+16位主机号 - C类：110开头，24位网络号+8位主机号
+- D类：1110开头，多播地址 - E类：1111开头，保留 注意事项： - 只有A； -
+主机号为“全0”的地址是<strong>网络地址</strong>，主机号为“全1”的地址是<strong>广播地址</strong>，
+不能分配给主机或路由器的各接口； -
+A类网络号0和127不可分配给主机或路由器的各接口； #### 2.
+划分子网的IPv4地址
+为新增网络申请新的网络号会浪费大量IP地址，借用主机号的一定位数来作为<strong>子网号</strong>，区分不同子网，以减少IP地址的浪费。
+-
+<strong>子网掩码</strong>：使用连续的比特1来对应网络号和子网号，连续的比特0来对应主机号。
+-
+将<strong>划分子网的IPv4地址</strong>与其相应的<strong>子网掩码</strong>进行逻辑<strong>与运算</strong>就可得到IPv4地址所在子网的网络地址；
+-
+可划分的子网数量由子网号位数决定，每个子网可分配的IP地址数量由主机号位数决定；
+#### 3. 无分类编制的IPv4地址
+无分类域间路由选择CIDR：消除了传统A/B/C类地址以及划分子网的概念。 -
+使用“斜线记法”，即在IPv4地址后面加上斜线“/”，在斜线后面写上网络前缀所占的比特数量；
+路由聚合（构造超网）：找共同前缀 -
+网络前缀越长，地址块越小，路由越具体； -
+<strong>最长前缀匹配</strong>：若路由器查表转发分组时发现有多条路可选，则选择网络前缀最长的那条；
+## 二、IPv4地址的应用 #### 1. IPv4地址的应用规划
+定长的子网掩码FLSM：使用<strong>同一个子网掩码</strong>来划分子网，所有子网的网络前缀长度一致，会造成IP地址的浪费。
+变长的子网掩码VLSM：使用<strong>不同的子网掩码</strong>来划分子网，每个子网所分配的IP地址数量可以不同，更加灵活。
+#### 2. IP数据报的发送和转发过程 主机发送IP数据报： -
+首先判断目的主机是否与自己在同一个网络（子网掩码）； -
+若在同一个网络，则直接交付，否则通过所在网络的默认网关（路由器）转发；
+路由器转发IP数据报： - 首先检查IP数据报首部是否出错； -
+根据IP数据报的目的地址在路由表中查找匹配的条目并通过相应接口转发； -
+路由表：记录各接口网络地址及子网掩码，若子网掩码和目的地址相与等于对应网络地址，则通过相应接口转发；
+#### 3. 静态路由配置与路由环路问题
+静态路由配置：用户或网络管理员使用路由i去相关指令给路由器人工配置路由表。一般用于小规模网络。
+-
+静态路由配置：目的网络+下一跳+类型（记录要到达目的网络下一跳需要转发到哪里）；
+-
+<strong>默认路由</strong>：因特网中网络众多，可以添加目的网络地址0.0.0.0（视为网络前缀长度为0的网络地址），没有记录的网络地址都将从这里转发；
+-
+<strong>特定主机路由</strong>：将特定主机的IP地址设为目的网络（视为网络前缀为32的网络地址）；
+- 转发时优先选择网络前缀最长的； 静态路由配置可能导致路由环路问题： -
+配置错误：会导致死循环，可以设置生存时间TTL字段； -
+聚合了不存在的网络：目的网络中实际IP地址数量小于最大IP地址数量，有部分IP地址不存在但会错误转发，可以添加黑洞路由解决；
+- 网络故障：可以将故障的IP地址设为黑洞路由； ## 三、路由选择协议
+动态路由选择：路由器通过<strong>路由选择协议</strong>自动获取路由信息。
+- 复杂开销大，能适应不同的网络状态，适用于大规模网络； -
+特点：自适应、分布式、分层次。
+分层次：内部网关协议IGP（IRP）和外部网关协议EGP（ERP）； <img
+src="路由选择协议.jpg" alt="路由选择协议" /> 路由器的基本结构: -
+<strong>路由表</strong>：收到<strong>路由报文</strong>后，会将信息记录到路由表中；
+- 根据路由表得到易于查找的<strong>转发表</strong>； -
+收到<strong>数据分组</strong>后，则根据转发表查表转发； -
+<strong>路由选择处理机</strong>存储路由表，还会周期性地给其他路由器发送自己所知道的路由信息；
+- 缓存区：输入/输出缓冲区用来暂存分组； #### 1. RIP
+RIP要求自治系统AS内的每一个路由器都要维护从它自己到AS内其他每一个网络的距离记录。
+-
+基于距离向量，使用“跳数”来衡量距离，距离等于16相当于不可达，因此只适用于小型互联网；
+-
+RIP认为好的路由就是“距离短”的路由，即通过路由器数量最少的路由（不考虑传输速率）。
+-
+当到达同一目的网络有多条距离相等的路由时，可以进行<strong>等价负载均衡</strong>；
+RIP基本工作过程： -
+刚开始工作时，进知道自己到<strong>直连网络</strong>的距离为1； -
+每个路由器仅和相邻路由器<strong>周期性地交换并更新路由信息</strong>； -
+若干次交换更新后，每个路由器都知道<strong>到达本AS内各网络的最短距离</strong>和<strong>下一跳地址</strong>，称为“收敛”；
+RIP存在<strong>“坏消息传播得慢”</strong>的问题，可能导致<strong>路由环路</strong>。可以采用以下方法缓解：
+- 限制最大路径距离为15； -
+<strong>触发更新</strong>：当路由表发生变化就立即发送更新报文； -
+<strong>水平分割</strong>：让路由器记录收到某特定路由信息的接口，而不让同一路由信息再通过此接口反方向传送；
+#### 2.开放最短路径优先OSPF
+OSPF基于<strong>链路状态</strong>（即本路由器都和哪些路由器相邻以及相应链路的“代价”），使用了Dijkstra提出的最短路径算法<strong>SPF</strong>。
+- “代价”用来表示费用、距离、时延、带宽等； -
+每个使用OSPF的路由器都会产生<strong>链路状态通告LSA</strong>，包含<strong>直连网络的状态信息</strong>和<strong>邻居路由器的状态信息</strong>，并有一个“链路状态数据库LSDB”用于存储LSA；
+-
+LSA被封装在<strong>链路状态更新分组LSU</strong>中，采用<strong>洪泛法</strong>发送；
+- 各路由器的LSDB最终将达到一致； -
+各路由器基于LSDB进行<strong>最短路径优先SPF</strong>计算，构建各自的路由表；
+OSPF有以下五种分组类型： - 问候分组：用来发现和维护邻居路由器的可达性；
+- 数据库描述分组：发送给邻居路由器； -
+链路状态请求分组：发现链路状态缺失时向邻居路由器发送； -
+链路状态更新分组：洪泛发送； -
+链路状态确认分组：对链路状态更新分组的确认；
+OSPF在多点接入网络中路由器邻居关系的建立： -
+选举指定路由器DR和备用的指定路由器BDR； -
+所有的非DR/BDR只与DR/BDR建立邻居关系，非DR/BDR之间通过DR/BDR交换信息；
+为了使OSPF能够用于规模很大的网络，OSPF把一个自治系统再划分为若干个更小的范围，叫做<strong>区域</strong>。
+- 减少了整个网络上的通信量； #### 3. 边界网关协议BGP
+用于自治系统<strong>之间</strong>的路由选择，工作原理如下： -
+再配置BGP时，每个自治系统的管理员选择至少一个路由器作为该自治系统的<strong>“BGP发言人”</strong>；
+-
+不同自治系统的发言人通过建立<strong>TCP连接</strong>交换路由信息，使用TCP连接交换路由信息的两个BGP发言人称为对方的邻站或对等站；
+-
+BGP发言人交换<strong>网络可达性</strong>的信息，并根据所采用的策略从收到的路由信息中找出到达各自治系统<strong>较好的路由</strong>，即构造不存在贿赂的自治系统连通图（树形结构）；
+BGP-4有以下四种报文： -
+OPEN报文：用来与相邻的另一个BGP发言人<strong>建立关系</strong>； -
+UPDATE报文：用来发送<strong>通过某一路由的信息</strong>，以及列出要撤销的多条路由；
+- KEEPALIVE报文：周期性地证实<strong>邻站的连通性</strong>； -
+NOTIFICATION报文：发送<strong>检测到的错误</strong>； ##
+四、IPv4数据报的首部格式 <img src="IP数据报首部.jpg"
+alt="IP数据报首部" /> 版本字段：表示IP协议版本，如IPv4；
+首部长度：取值为首部长度字节数/4；
+区分服务字段：根据不同取值获得不一样的服务质量，一般不用；
+总长度：IP数据报的字节数（包含首部）；
+标识：属于同一个数据报的各分片数据报具有相同标识（按计数器）；
+标志：3个比特，DF位表示允许分片，MF位表示后面是否还有分片，保留位为0；
+片偏移：分片数据报的数据载荷部分从原数据报的第几个字节开始（字节位置除以8，第一个分片为0）；
+生存时间TTL：每一跳-1，归零后丢弃，防止死循环；
+协议：表明数据部分是何种协议数据单元（如TCP、UDP、ISPF、IPv6）；
+首部检验和：用来检测首部在传输过程是否出现差错；
+可选字段：用来支持排错、测量及安全等措施，很少使用； ##
+五、网际控制报文协议
+为了更有效地转发IP数据报和提高交付成功的机会，在网际层使用了网际控制报文协议ICMP。
+-
+主机或路由器使用ICMP来发送<strong>差错报告报文</strong>和<strong>询问报文</strong>；
+- ICMP报文被封装在<strong>IP数据报</strong>中发送；
+ICMP差错报告报文共有五种： -
+终点不可达：当路由器或主机不能交付数据报时，就像源点发送终点不可达报文；
+-
+源点抑制：当路由器或主机由于拥塞而丢弃数据报时，就向源点发送源点抑制报文；
+- 时间超过：生存时间TTL字段减到0时发送； -
+参数问题：通过首部检验和字段发现首部字段出现误码时发送； -
+改变路由（重定向）：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发给另外的路由器；
+ICMP询问报文有以下两种： -
+回送请求和回答：用来<strong>测试目的站是否可达</strong>及了解有关状态；
+-
+时间戳请求和回答：请某个主机或路由器回答当前的日期和时间，用来进行时钟同步和测量时间；
+ICMP应用举例 - 分组网间探测PING：用来测试主机或路由器之间的连通性； -
+跟踪路由：用来测试IP数据报从源主机到达目的主机要经过哪些路由； ##
+六、虚拟专用网VPN和网络地址转换NAT
+<strong>虚拟专用网VPN</strong>：利用因特网作为本机构各专用网之间的通信载体。
+- 各主机地址使用私有地址（只能作为本地地址）； - 加密并通过路由器发送；
+-
+同一机构不同部门的内部网络构成的虚拟专用网称为内联网VPN，有时某些外部机构参加进来，称为外联网VPN；
+<strong>网络地址转换NAT</strong>：使用NAT路由器将私有地址转换成全球IP地址，缓解IPv4地址空间即将耗尽的问题。
+- 使用私有地址的主机发送IP数据报； -
+NAT路由器修改IP数据报的IP地址为全球IP地址； -
+记录私有地址和全球IP地址的对应关系，并转发IP数据报； -
+一个NAT路由器可连接多台主机； -
+NAT路由器接收外部发来的数据报，并根据转换表转发给主机； -
+可以利用运输层的端口号和IP地址一起进行转换，这样<strong>一个全球IP地址</strong>就可以使<strong>多个拥有本地地址的主机</strong>同时和因特网上的主机进行通信，称为<strong>网络地址与端口号转换NAPT</strong>；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络-运输层</title>
+    <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/</url>
+    <content><![CDATA[<p>计算机网络中进行通信的真正实体是<strong>位于通信两端主机中的进程</strong>，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。
+-
+因特网的运输层为应用层提供了<strong>面向连接的TCP</strong>和<strong>无连接的UDP</strong>两种不同的运输协议；
+## 一、端口号、复用和分用
+端口号：TCP/IP体系的运输层使用端口号来区分应用层的不同应用进程。 -
+端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号； -
+端口号只具有本地意义； 复用和分用： - 发送方：UDP复用/TCP复用、IP复用；
+- 接收方：IP分用、UDP分用/TCP分用； ## 二、UDP和TCP的对比 <img
+src="对比.jpg" alt="UDP和TCP的对比" /> ## 三、TCP的流量控制和拥塞控制
+#### 流量控制
+如果发送方数据发送速度过快，接收方可能来不及接收，造成数据丢失，这时需要采用流量控制。
+利用<strong>滑动窗口</strong>机制可以很方便地在TCP连接上实现对发送方的流量控制：
+- TCP接收方利用自己接收窗口的大小来限制发送方发送窗口的大小； -
+TCP发送方收到接收方的零窗口通知后，启动<strong>持续计时器</strong>，持续计时器超时后发送<strong>零窗口探测报文</strong>。
+#### 拥塞控制
+某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变差，称为<strong>拥塞</strong>。
+TCP采用了四种拥塞控制算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。
+-
+发送方维护<strong>拥塞窗口cwnd</strong>变量：其值取决于网络的拥塞程度（当发生超时重传，则视为发生网络拥塞），并动态变化，发送方将拥塞窗口作为发送窗口swnd；
+-
+维护一个慢开始门限ssthresh：cwnd&lt;ssthresh使用慢开始算法，cwnd&gt;ssthresh时改用拥塞避免算法；
+-
+<strong>慢开始</strong>：cwnd初始值为1，发送方每收到一个确认报文段，将cwnd加1，cwnd呈指数增长；
+-
+<strong>拥塞避免</strong>：每个传输轮次结束后，cwnd加1，cwnd呈线性增长；
+-
+当遇到拥塞（超时重传），则ssthresh重置为当前cwnd的一半，cwnd减少为1，重新开始执行慢开始算法；
+-
+<strong>快重传</strong>：超时重传不一定由网络拥塞导致，<strong>错误启动慢开始算法</strong>，降低传输效率。快重传要求接收方收到数据<strong>立刻发送确认</strong>（包括失序报文段），发送方一旦收到<strong>3个连续的重复确认</strong>就将相应报文段<strong>立即重传</strong>，而<strong>不用等超时重传计时器超时</strong>。
+-
+<strong>快恢复</strong>：发送方收到3个重复确认，不启动慢开始算法，而是将ssthresh和cwnd调整为当前cwnd的一半，并开始执行拥塞避免算法；
+## 四、TCP超时重传时间的选择
+超时重传时间RTO的选择是TCP最复杂的问题之一。
+<strong>加权平均往返时间RTTs</strong>： - RTTs1 = RTT1； - 新的RTTs =
+(1-α) × 旧的RTTs + α × 新的RTT样本（指数平滑法） -
+已成为建议标准的α取值为0.125； <strong>超时重传时间RTO</strong>： -
+应略大于加权平均往返时间RTTs； - RFC6298建议使用的RTO = RTTs + 4 ×
+RTTd，RTTd1 = RTT1 ÷ 2，新的RTTd = (1-β) x 旧的RTTd + β × |RTTs -
+新的RTT样本|，β建议值为0.25； -
+只要报文段重传了，就不采用其往返时间RTT样本，并把RTO增大一些（如×2）；
+## 五、TCP可靠传输的实现
+TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输。 -
+确认报文段包含接收窗口大小和希望接收到的起始字段，发送方据此构建发送窗口；
+-
+发送方在未收到接收方的确认时，可将发送窗口内还未发送的数据全部发送出去；
+- 接收方只接收序号落入发送窗口内的数据； -
+TCP通常将不按序到达的数据先临时存放在接收窗口中，等字节流缺少的字节收到后，再按序交付用户进程；
+- TCP要求接收方必须有累积确认和捎带确认机制，不应过分推迟发送确认； -
+TCP通信是全双工通信； ## 六、TCP的运输连接管理 TCP运输连接有三个阶段： -
+“三报文握手”建立TCP连接； - “四报文挥手”释放TCP连接； #### TCP的连接建立
+TCP连接建立要解决以下三个问题： - 使TCP双方能够确知对方的存在； -
+使TCP双方能够协商一些参数（如窗口最大值）； -
+使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配；
+“三报文握手”过程： - TCP服务器进程创建传输控制块，进入监听状态； -
+TCP客户进程创建传输控制块，向TCP服务进程发送<strong>TCP连接请求报文段</strong>（SYN=1，seq=x，不能携带数据且需要消耗掉一个序号），进入同步已发送状态；（一握手）
+-
+TCP服务器进程发送<strong>TCP连接请求确认报文段</strong>（SYN=1，ACK=1，seq=y，ack=x+1，不能携带数据且需要消耗掉一个序号），进入同步已接收状态；（二握手）
+-
+TCP客户进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=x+1，ack=y+1，可携带数据，若未携带数据则不消耗序号），进入连接已建立状态；（三握手）
+- TCP服务器进程进入连接已建立状态； -
+若改为两挥手，则可能因TCP连接请求超时重传导致错误； <img
+src="三报文握手.jpg" alt="三报文握手" /> #### TCP的连接释放
+“四报文挥手”过程： -
+TCP客户进程发送<strong>TCP连接释放报文段</strong>（FIN=1，ACK=1，seq=u，ack=v，不携带数据也要消耗掉一个序号），并进入终止等待1状态；
+-
+TCP服务器进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=v，ack=u+1），并进入关闭等待状态（未传输完的数据会继续传输，持续一段时间）；
+- TCP客户进程收到后进入终止等待2状态； -
+TCP服务器进程数据发送完后，发送<strong>TCP释放报文段</strong>（FIN=1，ACK=1，seq=w，ack=u+1），并进入最后确认状态；
+-
+TCP用户进程发送<strong>普通的TCP确认报文段</strong>（ACK=1,seq=u+1，ack=w+1），并进入时间等待状态;
+- TCP服务器进程进入关闭状态； -
+TCP客户进程在2MSL（MSL为最长报文段寿命，建议值为2min，一般更小）的时间后进入关闭状态；
+<strong>保活计时器</strong>：TCP服务器进程每收到一次数据，就重新设置并启动保活计时器（2小时），保活计时器到时后，TCP服务器进程发送一个<strong>探测报文段</strong>，并每隔75秒发送一次。若连续10个探测报文段未被响应，则TCP服务器进程关闭连接。
+<img src="四报文挥手.jpg" alt="四报文挥手" /> ## 七、TCP报文段的首部格式
+<img src="TCP首部.jpg" alt="TCP报文段首部格式" />
+序号：指出本TCP报文段数据载荷的第一个字节的序号（循环）。
+确认号：指出期望收到<strong>对方</strong>下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认，只有ACK=1才有效；
+数据偏移：即首部长度，指出TCP报文段的数据载荷部分的起始处距离TCP报文段起始处有多远，取值为首部字节数/4；
+保留：保留今后使用，置为0；
+SYN：在TCP<strong>连接建立时</strong>用来同步序号；
+FIN：用来释放TCP连接；
+RST：用来复位TCP连接，RST=1时表明连接出现异常，需要释放并重新建立连接；
+PSH：PSH=1时，接收方会将该报文段尽快上交应用进程；
+窗口：本报文段发送方的接收窗口；
+校验和：检查TCP报文段（首部+数据载荷）是否出现误码；
+紧急指针：URG=1时才有效，用来指明紧急数据的长度，紧急数据可插队到发送缓存的最前面；
+选项：用来增加TCP功能： - 最大报文段长度MSS选项：数据载荷部分最大长度；
+- 窗口扩大选项：为了扩大窗口（提高吞吐率）； -
+时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；
+- 选择确认选项：实现选择确认功能；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络体系结构</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
+<p><strong>OSI体系结构（法律上的国际标准）</strong> -
+应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
+<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
+应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
+网络接口层 <strong>原理体系结构</strong> -
+应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
+二、计算机网络体系结构分层
+<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
+物理接口 - 信号
+<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
+- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
+如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
+<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
+如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
+路由器如何转发分组，如何进行路由选择
+<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
+如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
+<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
+- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
+任何可发送或接受信息的硬件或软件进程。 -
+对等实体：接受双方相同层次中的实体 #### 协议
+控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
+- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
+同步：定义收发双方的时序关系； #### 服务
+<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
+- 协议是水平的，服务是垂直的；
+<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
+- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
+运输层：端口号
+<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
+<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
+应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
+- 链路层：帧 - 物理层：比特流
+<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
+多个SDU可以合成为一个PDU；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络-链路层</title>
+    <url>/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E9%93%BE%E8%B7%AF%E5%B1%82/</url>
+    <content><![CDATA[<p>使用<strong>点对点信道</strong>的数据链路层： -
+封装成帧、差错检测、可靠传输 使用<strong>广播信道</strong>的数据链路层：
+- 共享式以太网的媒体接入控制协议CSMA/CD； -
+802.11局域网的媒体接入控制协议CSMA/CA； 数据链路层的互连设备 -
+网桥和交换机的工作原理 - 集线器（物理层互连设备）与交换机的区别； ##
+一、封装成帧
+数据链路层给上层交付的协议数据单元添加帧头和帧尾使之成为帧。 -
+帧头和帧尾包含有重要的控制信息； - 帧头和帧尾的作用之一就是帧定界；
+<strong>透明传输</strong>：数据链路层对上层交付的传输数据没有任何限制。
+-
+面向字节的物理链路使用<strong>字节填充</strong>（或称字符填充）的方法实现透明传输（在与帧尾相同的数据段前插入转义字符）；
+-
+面向比特的物理链路使用<strong>比特填充</strong>的方法实现透明传输（插入比特）；
+<strong>最大传送单元MTU</strong> -
+为了提高帧的传输效率，应该使帧的数据部分尽可能大一些； -
+考虑到差错控制等多种因素，每一种数据链路层协议都规定了帧的数据部分的长度上限；
+## 二、差错检测
+<strong>比特差错：</strong>比特在传输过程中可能会产生差错，1可能会变成0，0也可能会变成1。
+- <strong>误码率BER：</strong>在一段时间内，传输错误的比特占总数的比例；
+-
+可以使用<strong>差错检测码</strong>来检测数据传输过程中是否产生比特差错；
+#### 1. 奇偶校验
+在待发送的数据后面添加一位奇偶校验位，表示数据中“1”个数的奇偶； -
+偶数个位发生误码时无法检测出，效果不好； #### 2. 循环冗余校验CEC
+收发双方约定好一个生成多项式G(x)，发送方基于待发送的数据和生成多项式计算出冗余码，将其添加到数据后面一起传输；接收方通过生成多项式来计算接受到的数据是否产生了误码。
+收发双方具体处理如下： <img src="循环冗余校验.jpg" alt="循环冗余校验" />
+CRC有很好的检错能力，虽然计算复杂但非常易于用硬件实现，因此被广泛用于数据链路层。</p>
+<p>检错码只能检测出错误，但不能定位并纠正错误。使用<strong>纠错码</strong>可以进行前向纠错，但开销较大，计算机网络中较少使用。
+## 三、可靠传输 数据链路层向上层提供的服务类型： -
+不可靠传输：仅仅丢弃有误码的帧； -
+可靠传输：想办法发送端发送什么，接收端就收到什么（无线链路误码率较高，需要可靠传输服务）；
+- 可靠传输服务不仅局限于数据链路层，其他各层均可选择实现；</p>
+<p>接下来介绍三种可靠传输实现机制： #### 1. 停止-等待协议SW
+<strong>原理</strong>： -
+接收方接收到数据分组后，若检测无误发送则给发送方发送<strong>ACK分组</strong>，发送方收到后发送下一个数据分组；若发送方没有及时收到ACK分组则会<strong>超时重传</strong>；
+-
+接收端检测到数据分组有误码时，将其丢弃并等待<strong>超时重传</strong>。但对于误码率较高的点对点链路，可以给发送方发送<strong>NKA分组</strong>；
+-
+超时重传后，接收方可能会收到<strong>重复的数据分组</strong>，为了让接收方能够判断接收到的数据分组是否重复，需要给数据分组<strong>编号</strong>（1个比特）。
+-
+为了让发送方能够判断所受到的ACK分组是否是重复的，需要给ACK分组编号。数据链路层一般不会出现ACK分组迟到，所以该层可以不用给ACK分组编号。
+- 数据链路层重传时间可以选为<strong>略大于平均往返时间</strong>；
+<strong>信道利用率</strong>： <img src="信道利用率.jpg"
+alt="信道利用率" /> #### 2. 回退N帧协议GBN <strong>原理</strong>： -
+使用n个比特给分组编序号，即序号0至2^n-1; -
+发送窗口尺寸Wt取值：1&lt;Wt&lt;2^n-1，数据落在发送窗口外的分组不允许发送；接收串口的尺寸Wr
+=
+1，数据落在接收窗口外的分组不允许接收，接收方只能按序接收正确到达的数据分组；
+-
+<strong>累积确认</strong>：接收方不一定要对所有数据分组逐个发送确认，可通过发送ACKn表示需要n及以前的所有数据分组都已正确接收；
+-
+当数据分组出现了差错，接收方会丢弃分组并发送<strong>当前接收成功的累积确认</strong>（比如序号5出现差错则会丢弃567并重复发送ACK4），发送方接收到重复的确认，就可以不等超时计时器超时就立刻重传567；
+#### 3. 选择重传协议SR
+回退N帧协议GBN需丢弃误码数据分组及之后的所有分组，为了进一步提高性能，可设法只重传出现误码的数据分组。接收窗口尺寸Wr大于1，可以使接收方先收下失序到达但无误码的数据分组，等所缺分组收齐后再一并交送上层。
+-
+1&lt;Wt&lt;=2<sup>(n-1)，1&lt;Wr&lt;=Wt，若Wt&gt;2</sup>(n-1)会出现接收方无法分辨新旧数据分组的问题；
+- 无法使用累计确认； ## 四、点对点协议PPP
+点对点协议PPP是目前使用最广泛的点对点数据链路层协议。
+PPP协议为在点对点链路传输各种协议数据报提供了一个标准方法，主要由以下三部分构成：
+- 对各种协议数据报的封装方法（封装成帧） -
+链路控制协议LCP，用于建立、配置以及测试数据链路的链接； -
+一套网络控制协议NCPs，其中的每一个协议支持不同的网络层协议； 帧格式 <img
+src="PPP帧格式.jpg" alt="PPP帧格式" />
+实现<strong>透明传输</strong>的方法 -
+面向字节的异步链路：字节填充法（插入转义字符）； -
+面向比特的同步链路：比特填充法（插入比特0）； <strong>差错检测</strong>
+- CRC-CCITT = X<sup>16+X</sup>12+X^5+1; -
+使用PPP的链路层向上<strong>不提供</strong>可靠服务； ## 五、媒体接入控制
+共享信道要注重考虑如何协调<strong>多个发送和接受站点</strong>对<strong>一个共享传输媒体</strong>的占有，即<strong>媒体接入控制MAC</strong>；
+- 静态划分信道：频分多址、时分多址、码分多址（不灵活，多用于物理层）； -
+动态接入控制：受控接入(集中控制&amp;分散控制，已淘汰)、随机接入； -
+在有线领域，共享式局域网已被取代；但由于无线信道的广播天性，无线局域网仍然使用共享媒体技术；
+#### 1. 静态划分信道 信道复用：通过一条物理线路同时传输多路用户的信号。
+<strong>频分复用FDM</strong>：所有用户同时占用不同的频带资源并行通信；
+<img src="频分复用.jpg" alt="频分复用" />
+<strong>时分复用TDM</strong>：所有用户在不同的时间占用相同的频带宽度；
+<img src="时分复用.jpg" alt="时分复用" />
+<strong>波分复用WDM</strong>：光的频分复用； <img src="波分复用.jpg"
+alt="波分复用" /> <strong>码分复用CDM</strong> -
+CDMA中，每一个比特时间再划分成m个短的间隔，成为码片； -
+每个站被指派一个唯一的m bit码片序列，如果要发送1，则发送自己的m
+bit码片序列；如果要发送0，则发送m bit码片序列的二进制反码； -
+码片序列挑选原则：①每个站码片必须各不相同；②每个站码片必须相互正交；
+<img src="码分复用.jpg" alt="码分复用" /> #### 2. 随机接入CSMA/CD
+CSMA/CD：载波监听多址接入/碰撞检测，总线局域网使用。 -
+<strong>多址接入MA</strong>：多个站连接在一条总线上，竞争使用总线； -
+<strong>载波监听CS</strong>：每个站在发送帧之前先要检测一下总线上是否有其他站点在发送帧（“先听后说”）——在总线空闲96比特时间时发送；
+-
+<strong>碰撞检测CD</strong>：每一个正在发送帧的站<strong>边发送边检测碰撞</strong>，一旦发现总线上出现碰撞，则立即<strong>停止发送</strong>，<strong>退避一段随机时间</strong>后再次发送；
+<strong>争用期</strong> <img src="争用期.jpg" alt="争用期" />
+<strong>最小帧长</strong> -
+当帧长太小时，争用期过短，已发送的帧可能在发送完毕后遭遇碰撞，而无法被检测出；
+-
+因此以太网规定最小帧长为<strong>64字节</strong>，即512bit，如果发送的数据非常少则需要填充至64字节（包含帧头帧尾）；
+<strong>最大帧长</strong>：最大长度1500字节（不包含帧头帧尾）；
+退避时间计算方法：<strong>截断二进制指数退避算法</strong> <img
+src="退避算法.jpg" alt="截断二进制指数退避算法" />
+<strong>信道利用率</strong>：Smax = 1/(1+a)，a=τ/T0 -
+要使帧长度尽量大，参数a尽量小，以提高信道利用率；
+<strong>帧发送流程</strong>： <img src="帧发送.jpg" alt="帧发送" />
+<strong>帧接收流程</strong> <img src="帧接收.jpg" alt="帧接收" /> ####
+3. 随机接入CSMA/CA 载波监听多址接入/碰撞避免
+CSMA/CA，802.11无线局域网使用。 -
+无线网卡上实现碰撞检测对硬件要求非常高，且由于隐蔽站问题，碰撞检测意义不大；
+-
+由于不可能避免所有碰撞，且无线信道误码率高，802.11标准使用了数据链路层确认机制（停止-等待协议）；
+-
+802.11的MAC层标准定义了两种不同的媒体接入控制方式：<strong>分布式协调功能DCF</strong>（默认）和<strong>点协调功能PCF</strong>（较少使用）；
+<strong>帧间间隔IFS</strong>：802.11标准规定，所有的站点必须在持续检测到信道空闲一段指定时间后才能发送帧。
+- 高优先级帧需要等待的时间较短，低优先级帧需要等待的时间较长； -
+短帧间间隔SIFS（28μs），是最短的帧间间隔，用来分隔一次对话的各帧； -
+DCF帧间间隔DIFS（128μs），在DCF方式中用来发送数据帧和管理帧；
+<strong>工作原理</strong>： -
+源站在检测到信道空闲后，经过<strong>DIFS间隔</strong>发送第一帧，目的站在接收到帧后，经过<strong>SIFS间隔</strong>反馈ACK；
+-
+从源站发出第一帧到接收到ACK这段时间里，信道为忙；其他站在检测到信道空闲后，经过DIFS间隔并<strong>退避</strong>一段随机时间（以防止多个站点同时发送数据而产生碰撞）后，发送下一帧。
+-
+站点检测到<strong>信道为空</strong>，且所发送的数据帧<strong>不是</strong>成功发送完上一个数据帧之后<strong>立即连续发出的数据帧</strong>时，不用退避；
+<strong>退避算法</strong> -
+站点为退避计时器设置一个随机退避时间，当退避计时器时间为0时，开始发送数据；
+-
+当退避计时器还未减小到0信道又转为忙状态，则冻结计时器数值，等信道空闲，再经过DIFS后，继续启动计时器；
+- 在进行第i次退避时，在时隙编号{0,1,...,2^(i+2)-1}中随机选择一个（i达到6
+时不再增加），乘以基本退避时间（一个时隙的长度）得到退避时间； <img
+src="退避计时器.jpg" alt="退避计时器" />
+<strong>信道预约</strong>：为了尽可能<strong>减少碰撞的概率</strong>和降低碰撞影响，802.11标准允许<strong>对信道进行预约</strong>。
+- 源站在发送数据帧前先发送一个短的控制帧，即请求发送RTS； -
+目的站收到RTS，且媒体空闲，就发送一个响应控制帧，即允许发生CTS； -
+源站收到CTS后，等待SIFS间隔即可发送数据帧； -
+目的站正确收到数据帧并等待SIFS后，向源站发出ACK； -
+其他各站收到CTS后就<strong>推迟接入无线局域网</strong>； -
+如RTS帧发生碰撞，需执行算法重传RTS帧； -
+一般数据帧发送时延往往大于传播时延，碰撞概率大；而RTS、CTS很短，碰撞的概率和开销很小；
+<strong>虚拟载波监听</strong>：除RTS和CTS会携带通信需要持续时间，数据帧也能携带通信需要持续时间。
+-
+因此，站点只要监听到RTS帧、CTS帧或数据帧的任何一个，就能知道信道被占用的持续时间；
+- 虚拟载波监听机制能减少隐蔽站带来的碰撞问题； ##
+六、MAC地址、IP地址和ARP协议 #### 1. MAC地址
+当多个主机连接在同一个<strong>广播信道</strong>上，要想实现两个主机之间的通信，则每个主机都必须有一个<strong>数据链路层地址</strong>。
+每个主机发送的帧必须携带标识发送主机和接收主机的地址，由于这类地址用于媒体介入控制（MAC），因此被称为MAC地址。
+-
+MAC地址一般被固化在网卡（网络适配器）上，因此也被称为<strong>硬件地址</strong>和<strong>物理地址</strong>；
+-
+一般情况下用户主机会有有线局域网适配器和无线局域网适配器，每个适配器都会有唯一的MAC地址，交换机和路由器拥有更多网络接口，所以一台设备会有<strong>多个MAC地址</strong>；
+<strong>IEEE
+802局域网的MAC地址格式</strong>：xx-xx-xx-xx-xx-xx，每个x表示一个16进制数。
+- OUI：前三个字节，分配给厂商； -
+第一个字节的b0位表示单播0/多播1，b1位表示全球管理0/本地管理1； -
+广播地址：FF-FF-FF-FF-FF-FF； -
+单播：帧会发给广播域所有主机，只有MAC地址匹配才会接收，否则会丢弃； ####
+2. IP地址
+IP地址是因特网上的主机和路由器所使用的地址，用于标识两部分信息： -
+<strong>网络编号</strong>：表示因特网上数以百万计的网络； -
+<strong>主机编号</strong>：标识同一个网络上的不同主机或路由器接口；
+MAC地址不具备<strong>区分不同网络</strong>的功能，而IP地址具备。
+数据包转发过程中IP地址和MAC地址的变化情况： -
+IP地址因填写<strong>源主机</strong>和<strong>目标主机</strong>；
+MAC地址因填写<strong>上一个发送接口的MAC地址</strong>和<strong>下一跳的地址</strong>；
+#### 3. ARP协议
+地址解析协议ARP：通过IP地址找到MAC地址（不能跨网络使用）。
+主机中存放ARP高速缓存表，记录各主机IP地址和MAC地址的对应关系。 -
+若查找不到，则向广播地址发布ARP请求报文； -
+IP地址匹配的主机反馈ARP响应报文（单播）； -
+将收到的响应报文记录到ARP高速缓存表中（动态，2分钟后会自动删除），下次可直接使用；
+## 七、交换机 #### 1. 集线器HUB - 早期以太网的互连设备； -
+工作在OSI体系结构的物理层； - 对接受到的信号进行放大、转发； -
+使用集线器作为互联设备的以太网属于共享总线式以太网，集线器互连起来的所有主机共享总线宽带，属于同一个碰撞域和广播域；
+#### 2. 交换机SWITCH - 目前以太网中使用最广泛的互连设备； -
+工作在OSI体系结构的数据链路层（也包括物理层）； -
+根据<strong>MAC地址</strong>对帧进行转发（存储帧交换表，即接口号和MAC地址的对应表），因此单播帧只会发给<strong>目标主机</strong>；
+-
+使用交换机作为互连设备的以太网是交换式以太网，交换机可以隔离碰撞域但不隔离广播域；
+#### 3. 交换机自学习和转发帧的流程
+交换机根据<strong>帧交换表</strong>中查找到的MAC地址对帧进行转发，以太网交换机通过<strong>自学习算法</strong>逐渐建立帧交换表。
+<img src="自学习.jpg" alt="自学习算法" /> -
+若帧交换表中没有源主机，则记录源主机MAC地址及对应接口； -
+若帧交换表中没有目标主机，则向所有接口转发该帧（盲目泛洪），只有MAC地址对应的主机会接受该帧；
+- 若帧交换表有目标主机，则会直接将帧转发到对应接口； #### 4.
+生成树协议STP
+为了提高以太网可靠性，可以添加<strong>冗余链路</strong>。但冗余电路会形成<strong>网络环路</strong>，导致：
+- <strong>广播风暴</strong>（广播帧在各交换机间反复转发）； -
+主机收到重复广播帧； - 交换机的帧交换表<strong>震荡</strong>；
+以太网交换机使用<strong>生成树协议STP</strong>，可以避免网络环路带来的各种问题：
+-
+无论交换机之间采用怎样的连接，都使用生成树算法构建一个逻辑上没有环路的网络；
+- 交换机或网络物理拓扑发生变化时，进行生成树的重新计算； ##
+八、虚拟局域网VLAN
+随着交换式以太网规模扩大，广播域也会响应扩大，带来许多弊端： -
+广播风暴（如一个ARP请求会传遍整个广播域）； - 难以管理和维护； -
+潜在的安全问题；
+使用路由器可以隔离广播域，但路由器成本较高，可以使用<strong>虚拟局域网VLAN</strong>达到类似的效果。
+虚拟局域网是一种将局域网内的设备划分成与物理位置无关的逻辑组的技术，这些逻辑组具有某些共同的需求。
+#### 实现方式 IEEE
+802.1Q帧对以太网帧格式进行了扩展，插入4字节的VLAN标记。 -
+VLAN标记的最后12比特称为<strong>VLAN标识符VID</strong>，唯一地标志了以太网帧属于哪一个VLAN；
+- VID有效取值为1-4094； -
+交换机收到普通的以太网帧时，会插入4字节的VLAN标记（打标签），转发802.1Q帧时，<strong>可能</strong>会删除VLAN标记（去标签）；
+交换机端口类型： <strong>Access</strong>： -
+一般用于连接用户计算机，只能属于一个VLAN； -
+接收处理：一般只接收普通以太网MAC帧，根据端口PVID给帧打标签； -
+发送处理：若帧中的VID与端口的PVID相等则“去标签转发”；
+<strong>Trunk</strong>： -
+一般用于交换机之间或交换机与路由器之间，可以属于多个VLAN； -
+接收处理：接收未打标签的帧，根据端口PVID打标签； -
+发送处理：对VID等于PVID的帧去标签再转发，对于不等的帧直接转发；
+<strong>Hybird</strong>： -
+既可连接用户计算机，也可以交换机之间或交换机和路由器互连，可以属于多个VLAN；
+-
+发送处理方法：查看帧的VID是否在端口的“去标签”列表中，若存在则去标签再转发，否则直接转发（直接转发给用户计算机会因无法识别而被丢弃）；
+- 接收处理方法：同Trunk；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络性能指标</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<h4 id="一速率">一、速率</h4>
+<p>连接在计算机网络上的主机在数字信道上传送比特的速率。 -
+又称比特率、数据率，单位b/s（bit/s，bps）； - 1kb/s = 10^3 b/s； ####
+二、带宽 计算机网络中，带宽用来表示网络的通信线路所能传送数据的能力。 -
+网络带宽表示在单位时间内从网络某一点到另一点所能通过的<strong>最高数据率</strong>。
+- 单位：b/s #### 三、吞吐量
+在单位时间内通过某个网络（或信道、接口）的数据量； -
+受网络带宽或额定速率的限制； #### 四、时延
+<strong>发送时延</strong>：源主机将分组发往传输线路； -
+分组长度(b)/发送速率(b/s) - 发送速率 = min(网卡发送速率, 信道带宽,
+接口速率) <strong>传播时延</strong>：分组在链路上传输 -
+信道长度(m)/电磁波传播速率(m/s) -
+电磁波传播速率：自由空间3x10<sup>8m/s，铜线2.3X10</sup>8m/s，光纤2.0X10^8m/s；
+<strong>处理时延</strong>：路由器对分组进行存储转发； - 不方便计算；
+#### 五、时延带宽积 时延带宽积 = 传播时延X带宽 -
+发送端连续发送数据时，发送的第一个比特到达终点时发送端已发送的比特数。 -
+链路的时延带宽积又称以比特为单位的链路长度； #### 六、往返时间（RTT）
+在很多情况下，因特网上的信息不仅仅是单方向传输，而是双向传输。 ####
+七、利用率 信道利用率：信道有百分之几是被利用的（有数据通过）。
+网络利用率：全网络的信道利用率加权平均。 -
+信道利用率增大时，时延会增加； #### 八、丢包率
+在一定时间范围内，传输过程中丢失的分组数量与总分组数量的比率，即分组丢失率。
+- 可分为接口丢包率、结点丢包率、链路丢包率、路径丢包率、网络丢包率等； -
+<strong>分组误码</strong>和<strong>网络拥塞</strong>会导致分组丢失； -
+丢包率反映了网络的拥塞情况；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+</search>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即： - vector并不会在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间 - vector容器的迭代器是支持随机访问的迭代器 ## vecotr构造函数 1234vector&lt;T&gt; v; &#x2F;&#x2F;采用模板实现类实现，默认构造函数vector">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ vector容器">
+<meta property="og:url" content="http://example.com/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即： - vector并不会在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间 - vector容器的迭代器是支持随机访问的迭代器 ## vecotr构造函数 1234vector&lt;T&gt; v; &#x2F;&#x2F;采用模板实现类实现，默认构造函数vector">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-02T10:06:21.000Z">
+<meta property="article:modified_time" content="2022-11-02T10:19:33.421Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="容器">
+<meta property="article:tag" content="vector">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/","path":"2022/11/02/C-vector容器/","title":"C++ vector容器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C++ vector容器 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C++ vector容器 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++ vector容器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-02 18:06:21 / Modified: 18:19:33" itemprop="dateCreated datePublished" datetime="2022-11-02T18:06:21+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即：
+-
+vector并不会在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间
+- vector容器的迭代器是支持随机访问的迭代器 ## vecotr构造函数
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt; v; <span class="comment">//采用模板实现类实现，默认构造函数</span></span><br><span class="line"><span class="built_in">vector</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>()); <span class="comment">//将v[begin(), end())区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(n, elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(<span class="type">const</span> vector &amp;vec); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## vector赋值 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&amp; <span class="keyword">operator</span>=(<span class="type">const</span> vector &amp;vec); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br></pre></td></tr></table></figure> ## vector容量和大小
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">capacity</span>(); <span class="comment">//容器的容量</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除</span></span><br></pre></td></tr></table></figure> ## vector插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(ele); <span class="comment">//尾部插入元素ele</span></span><br><span class="line"><span class="built_in">pop_back</span>(); <span class="comment">//删除最后一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, ele); <span class="comment">//迭代器指向位置pos插入元素ele</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, <span class="type">int</span> count,ele); <span class="comment">//迭代器指向位置pos插入count个元素ele</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator pos); <span class="comment">//删除迭代器指向的元素</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator start, const_iterator end); <span class="comment">//删除迭代器从start到end之间的元素</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//删除容器中所有元素</span></span><br></pre></td></tr></table></figure> ## vector数据存取
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">at</span>(<span class="type">int</span> idx); <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="keyword">operator</span>[]; <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回容器中第一个数据元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回容器中最后一个数据元素</span></span><br></pre></td></tr></table></figure> ## vector预留空间 预留空间可减少动态扩展容量时的扩展次数
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reserve</span>(<span class="type">int</span> len); <span class="comment">//容器预留len个元素长度，预留位置不初始化，元素不可访问。</span></span><br></pre></td></tr></table></figure> ## vector互换容器
+swap可以使两个容器互换，可以达到实用的收缩内存效果 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">swap</span>(vec); <span class="comment">// 将vec与本身的元素互换</span></span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/" title="C++ vector容器">http://example.com/2022/11/02/C-vector容器/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
+              <a href="/tags/vector/" rel="tag"># vector</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/02/C-String%E5%AE%B9%E5%99%A8/" rel="prev" title="C++ string容器">
+                  <i class="fa fa-angle-left"></i> C++ string容器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/02/C-list%E5%AE%B9%E5%99%A8/" rel="next" title="C++ list容器">
+                  C++ list容器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

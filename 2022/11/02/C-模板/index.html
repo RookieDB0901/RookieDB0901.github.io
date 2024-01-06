@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="基本语法 以置换函数为例： 12345678&#x2F;&#x2F;使用模板必须确定数据类型T，并能够推导出一致的类型template&lt;class T&gt;void mySwap(T&amp; a, T&amp; b)&#123;	T temp &#x3D; a;	a &#x3D; b;	b &#x3D; temp;&#125; 调用方式： - 自动类型推导：mySwap(a, b); - 显示指定类型：mySwap&lt;int&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++模板">
+<meta property="og:url" content="http://example.com/2022/11/02/C-%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="基本语法 以置换函数为例： 12345678&#x2F;&#x2F;使用模板必须确定数据类型T，并能够推导出一致的类型template&lt;class T&gt;void mySwap(T&amp; a, T&amp; b)&#123;	T temp &#x3D; a;	a &#x3D; b;	b &#x3D; temp;&#125; 调用方式： - 自动类型推导：mySwap(a, b); - 显示指定类型：mySwap&lt;int&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-02T04:51:27.000Z">
+<meta property="article:modified_time" content="2022-11-02T08:23:28.982Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="notes">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/02/C-%E6%A8%A1%E6%9D%BF/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/02/C-%E6%A8%A1%E6%9D%BF/","path":"2022/11/02/C-模板/","title":"C++模板"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C++模板 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/02/C-%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C++模板 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++模板
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-02 12:51:27 / Modified: 16:23:28" itemprop="dateCreated datePublished" datetime="2022-11-02T12:51:27+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="基本语法">基本语法</h2>
+<p>以置换函数为例： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用模板必须确定数据类型T，并能够推导出一致的类型</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T&amp; a, T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 调用方式： -
+自动类型推导：<code>mySwap(a, b);</code> -
+显示指定类型：<code>mySwap&lt;int&gt;(a, b);</code> ## 隐式类型转换
+在调用函数时，若实参与形参数据类型不一致，实参根据形参类型进行转化（如char类型转化成对应的ASCII码）
+普通函数&amp;显示指定类型模板函数会发生隐式类型转换
+自动类型推导不会发生，会报错 ## 调用规则 - 优先调用普通函数 -
+可以通过空模板参数列表强制调用函数模板
+<code>myPrint&lt;&gt;(a,b);</code> - 函数模板可以发生重载 -
+如果函数模板更好匹配，优先调用模板
+比如函数模板不用发生隐式类型转换，而普通函数需要 -
+提供了函数模板，最好不要再提供普通函数 ## 具体化
+模板的通用性不是万能的，如以下代码： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a==b) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+如果传入的a和b是一个类，就无法实现了。
+可以通过具体化实现自定义类型的通用化 ： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(person &amp;p1, person &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.name==p2.name &amp;&amp; p1.age==p2.age) return1;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 类模板 ###
+基本语法 template后面加类，如： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, calss AgeType&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Person</span>(NameType name, AgeType age)</span><br><span class="line">        &#123;</span><br><span class="line">                m_Name = name;</span><br><span class="line">                m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">        NameType m_Name;</span><br><span class="line">        AgeType m_Age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+调用：<code>Person&lt;string, int&gt; p1("name",age);</code> ###
+类模板注意事项 1. 类模板无法自动类型推导 2.
+类模板参数列表可以有默认参数，如：<code>template&lt;class NameType, calss AgeType = int&gt;</code>
+3. 类模板成员函数在调用时才会创建 ### 类模板对象作函数参数 1.
+指定传入类型：<code>void 函数名(类名&lt;数据类型1, 数据类型2&gt;&amp;对象名)</code>
+2. 参数模板化：<code>template&lt;class T1, class T2&gt;</code> 3.
+整个类模板化 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ### 类模板的继承 1.
+如果父类是类模板，子类继承时需要给定T类型，如：<code>calss son: public Base&lt;int&gt;</code>
+2. 如果想灵活指定父类T类型，子类也需要写成类模板 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, calss T2&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">son</span>: <span class="keyword">public</span> Base&lt;T2&gt;</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> ###
+类模板成员函数类外实现 以构造函数为例： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt; <span class="comment">//需要加上模板参数列表</span></span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ###
+类模板分文件编写 -
+问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到 -
+解决： 方式1：直接包含.cpp源文件
+方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/02/C-%E6%A8%A1%E6%9D%BF/" title="C++模板">http://example.com/2022/11/02/C-模板/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/notes/" rel="tag"># notes</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="prev" title="C++文件操作">
+                  <i class="fa fa-angle-left"></i> C++文件操作
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/02/C-String%E5%AE%B9%E5%99%A8/" rel="next" title="C++ string容器">
+                  C++ string容器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

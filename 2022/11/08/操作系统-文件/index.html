@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="文件是一组有意义的信息&#x2F;数据集合。 ## 一、文件的逻辑结构 - 逻辑结构：在用户看来，文件内部的数据应该是如何组织起来的。 - 物理结构：在操作系统看来，文件的数据是如何存放在外存的。 - 无结构文件： 文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。 - 有结构文件：由一组相似的记录组成，又称“记录式文件” 以下介绍三种有结构文件。 #### 1. 顺序文件 文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统-文件">
+<meta property="og:url" content="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="文件是一组有意义的信息&#x2F;数据集合。 ## 一、文件的逻辑结构 - 逻辑结构：在用户看来，文件内部的数据应该是如何组织起来的。 - 物理结构：在操作系统看来，文件的数据是如何存放在外存的。 - 无结构文件： 文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。 - 有结构文件：由一组相似的记录组成，又称“记录式文件” 以下介绍三种有结构文件。 #### 1. 顺序文件 文件">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-07T16:09:52.000Z">
+<meta property="article:modified_time" content="2022-11-08T08:04:52.782Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="文件">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/","path":"2022/11/08/操作系统-文件/","title":"操作系统-文件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统-文件 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E6%96%87%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">五、文件的基本操作</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统-文件 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统-文件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-08 00:09:52 / Modified: 16:04:52" itemprop="dateCreated datePublished" datetime="2022-11-08T00:09:52+08:00">2022-11-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>文件是一组有意义的信息/数据集合。 ## 一、文件的逻辑结构 -
+逻辑结构：在<strong>用户</strong>看来，文件内部的数据应该是如何组织起来的。
+-
+物理结构：在<strong>操作系统</strong>看来，文件的数据是如何存放在外存的。
+- 无结构文件：
+文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。 -
+有结构文件：由一组相似的记录组成，又称“记录式文件”
+以下介绍三种有结构文件。 #### 1. 顺序文件
+文件中的记录一个接一个地顺序排列（逻辑上）。各个记录在物理上可以<strong>顺序存储</strong>或<strong>链式存储</strong>。
+- 串结构：记录顺序与关键字无关。 - 顺序结构：记录按关键字顺序排列。
+链式存储：无法实现随机存取，每次只能从第一个记录开始依次往后查找。
+顺序存储（顺序文件一般指顺序存储的文件）： -
+可变长记录无法实现随机存取； -
+定长记录可以随机存取，记录长度为L，则第i个记录存放的相对位置是i*L；
+-采用顺序结构的定长记录，还可以快速找到某关键字对应的记录； #### 2.
+索引文件 - 建立一张索引表，每条记录对应一个索引项； -
+索引表本身是定长记录的顺序文件，因此可以快速找到第i个记录对应的索引项；
+- 若索引表按关键字顺序排列，则可支持<strong>快速检索</strong>； -
+解决了顺序文件不方便增删记录的问题，同时让不定长记录文件实现随机存取，但索引表可能占据很多空间；
+#### 3. 索引顺序文件
+为文件建立一张索引表，<strong>每组记录</strong>对应一个索引表项。 ##
+二、文件目录 #### 1. 文件控制块
+文件控制块（FCB）：目录文件（可理解成文件夹）中的一条记录就是一个文件控制块。包含了：
+- 文件的基本信息：文件名、物理地址、逻辑地址、物理结构等； -
+存取控制信息：是否可读/可写、禁止访问的用户名单等； -
+使用信息：文件的建立时间、修改时间等；
+FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用户程序）可以实现“按名存取”。
+对目录的操作：搜索、创建文件、删除文件、显示文件、修改文件。 #### 2.
+目录结构
+<strong>单级目录结构</strong>：整个系统只建立一张目录表，每个文件占一个目录项；
+<strong>两级目录结构</strong>：分为主文件目录（MFD）和用户文件目录（UFD）；
+- 主文件目录记录用户名及相应用户文件存放文字； -
+用户不能对自己的文件进行分类，缺乏灵活性；
+<strong>多级目录结构（树形目录结构）</strong> - 相对路径 VS 绝对路径； -
+不便于实现<strong>文件的共享</strong>；
+<strong>无环图目录结构</strong>：在树形目录结构基础上，增加一些指向同一节点的有向边，形成有向无环图。
+- 为共享结点设置共享计数器，计数器为0才删除结点； -
+可以更方便地实现多个用户间的文件共享； #### 3. 索引节点（FCB的改进）
+对目录表进行瘦身，保留文件名+索引结点指针信息，其他描述信息全都放到指针指向的地址；
+- 减小了目录表所占空间； -
+提高了检索效率（一个磁盘块可以放入更多FCB，启动磁盘次数减少）； ##
+三、文件的物理结构
+该部分探讨文件数据应该怎么存放在外存中，可以理解成文件分配方式问题。
+和内存分页类似，磁盘中存储单元也会被分为一个个“块/磁盘块/物理块”。很多操作系统中，磁盘块的大小与内存块、页面的大小<strong>相同</strong>。
+- 文件的逻辑地址也可以表示为（逻辑块号，块内地址）；、 -
+操作系统为文件分配存储空间以块为单位； -
+操作系统负责从逻辑地址到物理地址的映射；
+这里介绍<strong>连续分配</strong>、<strong>链接分配</strong>、<strong>索引分配</strong>三种分配方式：
+#### 1.连续分配 连续分配要求每个文件在磁盘上占有一组连续的块。
+文件目录记录文件存放的<strong>起始块号</strong>和<strong>长度</strong>。
+- 物理块号=起始块号+逻辑块号； <strong>优点：</strong> -
+支持<strong>顺序访问</strong>和<strong>随机访问</strong>（直接访问）； -
+在<strong>顺序读/写</strong>时速度最快； <strong>缺点：</strong> -
+不方便扩展； - 存储空间利用率低，会产生难以利用的磁盘碎片；
+地址转换方式： #### 2.链接分配
+<strong>隐式链接</strong>：文件中除最后一个磁盘块，每个磁盘块都会保存指向下一个磁盘块的指针。
+- 只支持顺序访问，不支持随机访问； - 拓展方便； - 磁盘利用率高；
+<strong>显示链接</strong>：把用于链接文件各物理块的指针显示地存放在一张表中，即文件分配表（FAT）；
+- FAT中，每个物理块号都记录下一块的地址； -
+每个磁盘仅设置一张FAT，开机时将FAT读入内存； -
+每个文件的起始块号记录在目录项中； <strong>优点：</strong> -
+支持顺序访问，也支持随机访问（查询FAT表不需要读磁盘）； -
+不会产生外部碎片，也方便拓展； <strong>缺点：</strong> -
+文件分配表需要占据一定存储空间； #### 3.索引分配
+为<strong>每个文件</strong>建立一张索引表，索引表中记录了文件各个逻辑块对应的物理块（类似于页表）；
+-
+索引表存放的磁盘称为<strong>索引块</strong>，文件数据存放的磁盘成为<strong>数据块</strong>；
+- FCB中记录索引块地址； - 支持随机访问、容易拓展；
+当一个磁盘块装不下整张索引表，可以采取以下三种解决方式： -
+链接方案：多个索引块链接起来存放； -
+多层索引：类似于多级页表，为索引表建立索引表，除了顶级索引表都可以离散存放；
+-
+混合索引：顶级索引表中，既包含直接地址索引，又包含间接索引，使得对于小文件来说，访问一个数据块所需的读磁盘次数更少（<strong>为什么小文件需要多层索引？</strong>）；
+## 四、文件存储空间管理 对磁盘空闲空间的管理。 #### 1.
+存储空间的划分和初始块 物理磁盘划分为一个个文件卷（C盘、D盘、E盘等）；
+各个文件卷分为目录区（存放FCB、用于存储磁盘空间管理的信息）、文件区（存放文件数据）；</p>
+<p>加下来介绍4种存储空间管理方法： #### 2. 空闲表法
+记录每个空闲区间的起始位置和长度。 - 适用于连续分配方式； -
+可采用首次适应、最佳适应、最坏适应等算法为文件分配区间； #### 3.
+空闲链表法 <strong>空闲盘块链</strong>：以盘块为单位组成一条空闲链； -
+空闲盘块存储这下一个空闲盘块的指针； - 操作系统保存着链头、链尾指针；
+<strong>空闲盘区链</strong>：以盘区为单位组成一条空闲链； -
+操作系统保存着链头、链尾指针； -
+空闲盘区中的第一个盘块记录了盘区的长度、下一个盘区的指针； -
+离散分配、连续分配都适用，为一个文件分配多个盘块时效率更高； #### 4.
+位示图法
+每个二进制位对应一个盘块，位示图一般用连续的“字”表示，用（字号，位号）对应一个盘块。
+- 字号i = b/n，位号j = b%n，n表示字长，b表示盘块号； -
+注意盘块号、字号、位号从0开始还是从1开始； #### 5. 成组链接法
+文件卷的目录区设置一个磁盘块为“超级块”。 -
+超级块记录下一组空闲盘块数、每个空闲盘块号； -
+系统启动时超级块读入内存，并随着磁盘的超级块更新； -
+超级块的第一个磁盘块存放了下一组的信息； - 适用于大型操作系统；</p>
+<h2 id="五文件的基本操作">五、文件的基本操作</h2>
+<p><strong>创建文件</strong>（creat系统调用）： -
+在外存中找到文件所需空间； - 创建该文件对应的目录项；
+<strong>删除文件</strong>（delete系统调用）： - 找到文件名对应的目录项；
+- 回收文件占用的磁盘块； - 删除文件对应的目录项；
+<strong>打开文件</strong>（open系统调用）： - 找到文件名对应的目录项； -
+将目录项复制到内存的“打开文件表”中，并将打开文件表的索引号返回给用户； -
+每个进程有自己的打开文件表，系统也有一张总的打开文件表； -
+进程打开文件表特有属性：读写指针、访问权限（是否只读）； -
+系统打开文件表特有属性：打开计数器；
+<strong>关闭文件</strong>（close系统调用）： -
+将进程的打开文件表相应表项删除； - 回收分配给该文件的内存空间等资源； -
+系统打开文件表打开计数器-1，若count为0则删除对应表项；
+<strong>读文件</strong>（read系统调用）： -
+根据读指针、读入数据量、内存位置将文件数据从外存读入内存；
+<strong>写文件</strong>（write系统调用）： -
+根据读指针、读入数据量、内存位置将文件数据从内存写出外存； ##
+六、文件共享和文件保护 #### 1. 文件共享
+基于<strong>索引节点</strong>的共享方式（硬链接）： -
+每个用户的目录项指向同一个索引结点； - 索引结点中有链接技术count； -
+某用户删除文件时只删除目录项，count--，只有count==0才删除文件数据；
+基于<strong>符号链接</strong>的共享方式（软链接）: -
+在一个link型文件（如快捷方式）记录共享文件存放路径； -
+软连接访问共享文件需要查询多级目录，需要多次I/O操作，访问速度慢； ####
+2. 文件保护 <strong>口令保护</strong>： -
+为文件设置一个口令，用户访问时需提供口令； -
+开销小，但口令需存放系统中，不太安全； <strong>加密保护</strong>： -
+用一个密码对文件加密（如异或加密），需要提供相同密码才能正确解密； -
+安全性高，但加密解密需耗时； <strong>访问控制</strong>： -
+用访问控制表（ACL）记录不同用户的访问权限； -
+对文件访问类型可以分为：读/写/执行/删除 等； -
+实现灵活，可以实现复杂的文件保护功能；</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/" title="操作系统-文件">http://example.com/2022/11/08/操作系统-文件/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+              <a href="/tags/%E6%96%87%E4%BB%B6/" rel="tag"># 文件</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" rel="prev" title="操作系统-虚拟内存">
+                  <i class="fa fa-angle-left"></i> 操作系统-虚拟内存
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/08/%E7%A3%81%E7%9B%98/" rel="next" title="操作系统-磁盘">
+                  操作系统-磁盘 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

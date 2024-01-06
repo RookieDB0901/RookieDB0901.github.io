@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="传统存储方式特点 - 一次性：作业必须一次性全部装入内存后才能开始运行； - 驻留性：一旦作业装入内存，就会一直驻留在内存中，直至作业结束； 局部性原理 - 时间局部性 - 空间局部性 ## 虚拟内存 - 基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序； - 在程序执行过程中，当访问的信息不在内存时，由操作系统负责将所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统-虚拟内存">
+<meta property="og:url" content="http://example.com/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="传统存储方式特点 - 一次性：作业必须一次性全部装入内存后才能开始运行； - 驻留性：一旦作业装入内存，就会一直驻留在内存中，直至作业结束； 局部性原理 - 时间局部性 - 空间局部性 ## 虚拟内存 - 基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序； - 在程序执行过程中，当访问的信息不在内存时，由操作系统负责将所">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-06T11:52:35.000Z">
+<meta property="article:modified_time" content="2022-11-06T13:32:57.592Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="notes">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="内存">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/","path":"2022/11/06/操作系统-虚拟内存/","title":"操作系统-虚拟内存"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统-虚拟内存 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="操作系统-虚拟内存 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统-虚拟内存
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-11-06 19:52:35 / Modified: 21:32:57" itemprop="dateCreated datePublished" datetime="2022-11-06T19:52:35+08:00">2022-11-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>传统存储方式特点 -
+<strong>一次性</strong>：作业必须一次性全部装入内存后才能开始运行； -
+<strong>驻留性</strong>：一旦作业装入内存，就会一直驻留在内存中，直至作业结束；
+局部性原理 - <strong>时间局部性</strong> - <strong>空间局部性</strong>
+## 虚拟内存 -
+基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序；
+-
+在程序执行过程中，当<strong>访问的信息不在内存</strong>时，由操作系统负责将所需信息<strong>调入内存</strong>，然后继续执行程序；（<strong>请求调页/请求调段</strong>）
+-
+若<strong>内存空间不够</strong>，由操作系统负责将内存中<strong>暂时用不到的信息</strong>换到外存；（<strong>页面置换/段置换</strong>）
+#### 虚拟内存容量
+虚拟内存最大容量：由计算机地址结构（CPU寻址范围决定），如32位计算机地址结构：2^32B=4GB；
+虚拟内存实际容量：min（内外存容量之和，CPU寻址范围）； #### 特征 -
+多次性； - 对换性； - 虚拟性； ## 请求分页管理方式 #### 请求页表 -
+内存块号 - 状态栏：表示页面是否已在内存中； -
+访问字段：记录最近被访问过几次，或记录上次访问的时间，供置换算法选择换出页面时参考；
+- 修改位：表示页面调入内存后是否被修改过； -
+外存地址：页面在外存中存放的位置； #### 缺页中断机构 -
+在请求分页系统中，当访问的页面不在内存（状态位为0）时，便产生一个缺页中断，由操作系统的缺页中断处理程序处理中断。
+- 此时缺页的进程阻塞，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。
+-
+如果内存中有空闲块，则为进程分配一个空闲块，将所缺页面装入，并修改相应页表项；
+-
+如果内存中没有空闲块，则由页面置换算法选择一个页面淘汰，若该页面被修改过则需写回外存；
+#### 地址变换机构 - 找到页表项时需检查页面是否在内存中； -
+若页面不在内存中，需请求调页； - 如内存空间不够，需换出页面； -
+页面调入内存后，需要修改相应页表项； ## 页面置换算法
+追求更小的缺页率（缺页次数/访问次数）。 #### 最佳置换算法
+每次选择以后永不使用，或长时间内不再被访问的页面淘汰，保证最低缺页率。
+操作系统无法预判，所以无法实现。 #### 先进先出置换算法（FIFO）
+每次淘汰<strong>最早进入内存</strong>的页面。FIFO会产生Belady异常。
+<strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增。
+#### 最近最久未使用置换算法（LRU）
+每次淘汰<strong>最近最久未使用</strong>的页面。用访问字段记录上次被访问以来经历的时间t。
+性能好，但实现困难、开销大。 #### 时钟置换算法（CLOCK）
+<strong>简单的CLOCK算法</strong>： -
+为每个页面设置一个访问位，通过链接指针链接成一个<strong>循环队列</strong>；
+- 一个页面被访问时，访问位设为1； -
+需要淘汰一个页面时，按队列顺序检查访问位，访问位为0则换出，访问位为1则设为0；
+简单的CLOCK算法仅考虑一个页面最近是否被访问过。事实上，只有被修改过的淘汰页面才需要写回外存，因此没有被修改过的页面应该优先淘汰，避免I/O操作。
+<strong>改进型的时钟置换算法</strong>：
+-用（访问为，修改位）表示各页面状态； -
+第一轮：扫描找到第一个（0,0）页面用于替换，不修改任何标志位； -
+第二轮：若第一轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换，并将扫描过的访问位设为0；
+-
+第三轮：若第二轮扫描失败，则继续扫描查找第一个（0,0）的帧用于替换，不修改任何标志位；
+- 第四轮：若第三轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换； ##
+页面分配策略 驻留集：指请求分页存储管理中给进程分配的物理块的集合。
+采用了虚拟存储技术的系统中，驻留集一般<strong>小于</strong>进程总大小。
+- 驻留集太小，换页频繁，开销大； - 驻留集太大，并发度小，资源利用率低；
+固定分配 VS 可变分配：驻留集大小是否可变； 局部置换 VS
+全局置换：是否可以将其他进程的物理块换出； -
+固定分配局部置换：很难在刚开始就为每个进程分配合理的物理块数量，灵活性差；
+- 可变分配全局置换：部分进程物理块被减少，导致缺页率过高； -
+可变分配局部置换：根据缺页的频率来动态调整进程物理块； #### 何时调入页面
+-
+预调页策略：进程运行前预测不久之后可能访问到的页面，用于<strong>首次调入</strong>，由程序员指出；
+-
+请求调页策略：进程<strong>运行期间</strong>发现缺页才将所缺页面调入内存，需要频繁的I/O操作；
+#### 从何处调入页面 外存分为文件区和对换区。 |对换区|文件区|
+|:---:|:---:| |读写速度快|读写速度慢| |连续分配|离散分配|
+|一般空间较小|一般空间较大| -
+对换区空间充足：进程运行前相关数据复制到对换区，页面调入、调出都在内存和对换区进行；
+- 对换区空间不足：不会被修改的数据直接从文件区调入； -
+UNIX方式：运行之前进程相关数据全部放在文件区，运行时内存换出的页面写回对换区；
+#### 工作集
+<strong>抖动（颠簸）现象</strong>：刚刚换出/换入的页面马上又要换入/换出，频繁缺页。
+工作集：在某段时间间隔里（窗口尺寸），进程实际访问页面的集合。
+一般驻留集大小不能小于工作集大小，否则容易频繁缺页。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>John Doe
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" title="操作系统-虚拟内存">http://example.com/2022/11/06/操作系统-虚拟内存/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/notes/" rel="tag"># notes</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+              <a href="/tags/%E5%86%85%E5%AD%98/" rel="tag"># 内存</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/" rel="prev" title="操作系统-分页与分段储存管理方式">
+                  <i class="fa fa-angle-left"></i> 操作系统-分页与分段储存管理方式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/" rel="next" title="操作系统-文件">
+                  操作系统-文件 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
