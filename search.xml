@@ -61,6 +61,26 @@
       </tags>
   </entry>
   <entry>
+    <title>C++ list容器</title>
+    <url>/2022/11/02/C-list%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>list：链表 链表的组成：链表由一系列结点组成
+结点的组成：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域
+STL中的链表是一个双向循环链表 list的优点： -
+采用动态存储分配，不会造成内存浪费和溢出 -
+链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素
+list的缺点： - 链表灵活，但是空间(指针域) 和 时间（遍历）额外耗费较大
+List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的
+## list构造函数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">list&lt;T&gt; lst; <span class="comment">//list采用采用模板类实现,对象的默认构造形式：</span></span><br><span class="line"><span class="built_in">list</span>(beg,end); <span class="comment">//构造函数将[beg, end)区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(n,elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(<span class="type">const</span> list &amp;lst); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## list赋值和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br><span class="line">list&amp; <span class="keyword">operator</span>=(<span class="type">const</span> list &amp;lst); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">swap</span>(lst); <span class="comment">//将lst与本身的元素互换。</span></span><br></pre></td></tr></table></figure> ##
+list大小操作 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">resize</span>(num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br></pre></td></tr></table></figure> ## list插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(elem);<span class="comment">//在容器尾部加入一个元素</span></span><br><span class="line"><span class="built_in">pop_back</span>();<span class="comment">//删除容器中最后一个元素</span></span><br><span class="line"><span class="built_in">push_front</span>(elem);<span class="comment">//在容器开头插入一个元素</span></span><br><span class="line"><span class="built_in">pop_front</span>();<span class="comment">//从容器开头移除第一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(pos,elem);<span class="comment">//在pos位置插elem元素的拷贝，返回新数据的位置。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,n,elem);<span class="comment">//在pos位置插入n个elem数据，无返回值。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,beg,end);<span class="comment">//在pos位置插入[beg,end)区间的数据，无返回值。</span></span><br><span class="line"><span class="built_in">clear</span>();<span class="comment">//移除容器的所有数据</span></span><br><span class="line"><span class="built_in">erase</span>(beg,end);<span class="comment">//删除[beg,end)区间的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">erase</span>(pos);<span class="comment">//删除pos位置的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">remove</span>(elem);<span class="comment">//删除容器中所有与elem值匹配的元素。</span></span><br></pre></td></tr></table></figure> ##
+list数据存取 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素。</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素。</span></span><br></pre></td></tr></table></figure> ## list反转和排序 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">reverse</span>(); <span class="comment">//反转链表</span></span><br><span class="line"><span class="built_in">sort</span>(); <span class="comment">//链表排序</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++ string容器</title>
     <url>/2022/11/02/C-String%E5%AE%B9%E5%99%A8/</url>
     <content><![CDATA[<p>string是C++风格的字符串，本质上是个类 ## string构造函数
@@ -80,18 +100,17 @@
       </tags>
   </entry>
   <entry>
-    <title>C++ list容器</title>
-    <url>/2022/11/02/C-list%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<p>list：链表 链表的组成：链表由一系列结点组成
-结点的组成：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域
-STL中的链表是一个双向循环链表 list的优点： -
-采用动态存储分配，不会造成内存浪费和溢出 -
-链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素
-list的缺点： - 链表灵活，但是空间(指针域) 和 时间（遍历）额外耗费较大
-List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的
-## list构造函数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">list&lt;T&gt; lst; <span class="comment">//list采用采用模板类实现,对象的默认构造形式：</span></span><br><span class="line"><span class="built_in">list</span>(beg,end); <span class="comment">//构造函数将[beg, end)区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(n,elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(<span class="type">const</span> list &amp;lst); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## list赋值和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br><span class="line">list&amp; <span class="keyword">operator</span>=(<span class="type">const</span> list &amp;lst); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">swap</span>(lst); <span class="comment">//将lst与本身的元素互换。</span></span><br></pre></td></tr></table></figure> ##
-list大小操作 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">resize</span>(num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br></pre></td></tr></table></figure> ## list插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(elem);<span class="comment">//在容器尾部加入一个元素</span></span><br><span class="line"><span class="built_in">pop_back</span>();<span class="comment">//删除容器中最后一个元素</span></span><br><span class="line"><span class="built_in">push_front</span>(elem);<span class="comment">//在容器开头插入一个元素</span></span><br><span class="line"><span class="built_in">pop_front</span>();<span class="comment">//从容器开头移除第一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(pos,elem);<span class="comment">//在pos位置插elem元素的拷贝，返回新数据的位置。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,n,elem);<span class="comment">//在pos位置插入n个elem数据，无返回值。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,beg,end);<span class="comment">//在pos位置插入[beg,end)区间的数据，无返回值。</span></span><br><span class="line"><span class="built_in">clear</span>();<span class="comment">//移除容器的所有数据</span></span><br><span class="line"><span class="built_in">erase</span>(beg,end);<span class="comment">//删除[beg,end)区间的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">erase</span>(pos);<span class="comment">//删除pos位置的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">remove</span>(elem);<span class="comment">//删除容器中所有与elem值匹配的元素。</span></span><br></pre></td></tr></table></figure> ##
-list数据存取 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素。</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素。</span></span><br></pre></td></tr></table></figure> ## list反转和排序 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">reverse</span>(); <span class="comment">//反转链表</span></span><br><span class="line"><span class="built_in">sort</span>(); <span class="comment">//链表排序</span></span><br></pre></td></tr></table></figure></p>
+    <title>C++ set容器</title>
+    <url>/2022/11/02/C-set&amp;multiset%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用二叉树实现。
+set和multiset区别： - set不可以插入重复数据，而multiset可以 -
+set插入数据的同时会返回插入结果，表示插入是否成功 -
+multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">set&lt;T&gt; st; <span class="comment">//默认构造函数：</span></span><br><span class="line"><span class="built_in">set</span>(<span class="type">const</span> set &amp;st); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">set&amp; <span class="keyword">operator</span>=(<span class="type">const</span> set &amp;st); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">## set大小和交换</span><br><span class="line">``` C++</span><br><span class="line">size(); //返回容器中元素的数目</span><br><span class="line">empty(); //判断容器是否为空</span><br><span class="line">swap(st); //交换两个集合容器</span><br></pre></td></tr></table></figure> ## set插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(elem); <span class="comment">//删除容器中值为elem的元素。</span></span><br></pre></td></tr></table></figure> ##
+set查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## pair对组创建
+成对出现的数据，利用对组可以返回两个数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">pair&lt;type, type&gt; <span class="title">p</span> <span class="params">( value1, value2 )</span></span>;</span><br><span class="line">pair&lt;type, type&gt; p = <span class="built_in">make_pair</span>( value1, value2 );</span><br></pre></td></tr></table></figure> ## set容器排序
+set容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>c++</tag>
@@ -148,25 +167,6 @@ swap可以使两个容器互换，可以达到实用的收缩内存效果 <figur
         <tag>notes</tag>
         <tag>容器</tag>
         <tag>vector</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ set容器</title>
-    <url>/2022/11/02/C-set&amp;multiset%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用二叉树实现。
-set和multiset区别： - set不可以插入重复数据，而multiset可以 -
-set插入数据的同时会返回插入结果，表示插入是否成功 -
-multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">set&lt;T&gt; st; <span class="comment">//默认构造函数：</span></span><br><span class="line"><span class="built_in">set</span>(<span class="type">const</span> set &amp;st); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">set&amp; <span class="keyword">operator</span>=(<span class="type">const</span> set &amp;st); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">## set大小和交换</span><br><span class="line">``` C++</span><br><span class="line">size(); //返回容器中元素的数目</span><br><span class="line">empty(); //判断容器是否为空</span><br><span class="line">swap(st); //交换两个集合容器</span><br></pre></td></tr></table></figure> ## set插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(elem); <span class="comment">//删除容器中值为elem的元素。</span></span><br></pre></td></tr></table></figure> ##
-set查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## pair对组创建
-成对出现的数据，利用对组可以返回两个数 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">pair&lt;type, type&gt; <span class="title">p</span> <span class="params">( value1, value2 )</span></span>;</span><br><span class="line">pair&lt;type, type&gt; p = <span class="built_in">make_pair</span>( value1, value2 );</span><br></pre></td></tr></table></figure> ## set容器排序
-set容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-        <tag>容器</tag>
       </tags>
   </entry>
   <entry>
@@ -272,6 +272,47 @@ API文档：可以查找API；</p>
       </tags>
   </entry>
   <entry>
+    <title>JAVA基础语法</title>
+    <url>/2022/11/18/JAVA%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="零输入输出">零、输入输出</h2>
+<p>输出： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;Hello World&quot;</span>); <span class="comment">//输入sout可以自动弹出</span></span><br></pre></td></tr></table></figure> 输入： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner();</span><br></pre></td></tr></table></figure> ## 一、变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+## 二、运算符 +、-、*、/、%、++、--、&lt;&lt;、&gt;&gt;作用同C++；
+关系运算符同C++； 三元运算符同C++； #### “+”运算符 字符串相加：
+“+”会将两个字符串拼接，其他类型和字符串相加也会<strong>直接拼接</strong>：
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;123&quot;</span>+<span class="number">123</span>); <span class="comment">//输出123123</span></span><br></pre></td></tr></table></figure> 连续进行“＋”操作时，从左到右执行： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">1</span>+<span class="number">2</span>+<span class="string">&quot;123&quot;</span>); <span class="comment">//输出3123</span></span><br></pre></td></tr></table></figure>
+字符相加：ASCII码相加 #### 逻辑运算符 与：&amp; 或：| 异或：^ 非：！
+短路运算符&amp;&amp;和||： - &amp;和|会判断对前后语句的正误都进行判断；
+-
+使用&amp;&amp;，当前面语句为FALSE，则<strong>不会对第二个语句进行判断</strong>，直接返回FALSE；
+#### 左移/右移运算符 &lt;&lt;、&gt;&gt;将将二进制数进行左移/右移
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">200</span>；</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> a &lt;&lt; <span class="number">2</span>; <span class="comment">//b=800</span></span><br><span class="line"><span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> a &gt;&gt; <span class="number">2</span>; <span class="comment">//c=50</span></span><br></pre></td></tr></table></figure> ## 三、隐式转换和强制转换
+取值范围：byte&lt;short&lt;int&lt;long&lt;float&lt;double #### 隐式转换
+隐式转换：取值范围小的变成取值范围大的（自动类型提升）； <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>; </span><br><span class="line"><span class="type">double</span> <span class="variable">b</span> <span class="operator">=</span> a; <span class="comment">//b完成了隐式转换</span></span><br></pre></td></tr></table></figure>
+byte、short、char在进行运算时都会自动转为int。 #### 强制转换
+强制转换：可以将取值范围大的变成取值范围小的； 格式：目标数据类型 变量名
+= (目标数据类型)被强转的数据; <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">300</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> (<span class="type">int</span>)a; <span class="comment">//强制转换</span></span><br></pre></td></tr></table></figure> ## 三、流程控制语句 ####
+分支结构 if语句： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//if (关系表达式) &#123;语句体;&#125; else &#123;语句体&#125;</span></span><br><span class="line"><span class="keyword">if</span> (a &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        a--;</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        a++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> switch语句： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (a)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期六&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期日&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>: <span class="comment">//以上情况都不是</span></span><br><span class="line">        System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//case穿透：</span></span><br><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line"><span class="keyword">switch</span> (num)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期六&quot;</span>); <span class="comment">//没有break语句，输出星期六后继续往下执行</span></span><br><span class="line"><span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期日&quot;</span>);<span class="comment">//输出星期日</span></span><br><span class="line">        <span class="keyword">break</span>;<span class="comment">//跳出switch语句</span></span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//用-&gt;可以不用break：</span></span><br><span class="line"><span class="keyword">switch</span> (num)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span> -&gt; System.out.println(<span class="string">&quot;星期六&quot;</span>); <span class="comment">//输出星期六并跳出</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span> -&gt; System.out.println(<span class="string">&quot;星期日&quot;</span>);</span><br><span class="line">    <span class="keyword">default</span> -&gt; System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> #### 循环结构
+基本同C++ ## 四、数组 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>[] array = &#123;<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>&#125;;<span class="comment">//创建int数组并初始化，数组为引用数据类型（存储地址值），数组长度为3且不再变化；</span></span><br><span class="line">System.out.println(array);<span class="comment">//会输出数组的内存地址[I@xxxxxxxx，指向堆内存</span></span><br><span class="line">System.out.println(array.length);<span class="comment">//输出数组的长度3</span></span><br><span class="line"><span class="comment">//遍历数组：</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++) &#123;&#125; <span class="comment">//输入array.fori可快速弹出</span></span><br><span class="line">String[] arr = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">50</span>]; <span class="comment">//创建长度50的字符串数组，默认初始值为null；</span></span><br></pre></td></tr></table></figure> ## 五、方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;<span class="comment">//返回两个参数相加的结果</span></span><br></pre></td></tr></table></figure>
+Java方法也可以重载。 ## 六、面向对象 测试类：带main方法的类
+Javabean类：用来描述一类事物，不写main方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">        string m_name;</span><br><span class="line">        <span class="type">int</span> m_age;<span class="comment">//定义成员变量</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print_name</span><span class="params">()</span> &#123; System.out.println(<span class="built_in">this</span>.m_name);&#125;<span class="comment">//定义成员函数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();<span class="comment">//定义对象：类名 对象名 = new 类名();</span></span><br></pre></td></tr></table></figure>
+一个java文件可以定义多个类，且只能一个是public修饰，public修饰的类名必须成为代码文件名，因此一个文件一般只定义一个class类。
+封装：变量修饰为private，再通过public的方法调用； 成员变量与局部变量： -
+就近原则：若没有声明，优先认为age是局部变量； -
+可以使用this.age调用成员变量； 构造方法：与C++基本一致 -
+利用ptg可以快速生成javabean类 ## 七、字符串
+常用内容：String、StringBuilder、StringBuffer、Pattern、Matcher
+字符串内容在创建后就不能改变，但可以改变字符串变量指向的字符串； ####
+String构造方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1.直接赋值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">//2.使用new</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>()；</span><br><span class="line"><span class="comment">//3.传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(orginal:<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="comment">//4.传递一个字符数组，根据字符数组内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(chs);</span><br><span class="line"><span class="comment">//5.传递一个字节数组，根据字节数组内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">byte</span>[] bytes = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">s5</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bytes);</span><br></pre></td></tr></table></figure> #### 常用方法 字符串比较： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">result1</span> <span class="operator">=</span> (s1==s2); <span class="comment">//false，==比较的是地址</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">result2</span> <span class="operator">=</span> s1.equals(s2); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+StringBuilder：可以看作一个容器，创建之后里面的内容是<strong>可变的</strong>。
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;abc&quot;</span>);<span class="comment">//创建对象</span></span><br><span class="line">sb.append(<span class="number">1</span>);<span class="comment">//添加元素，sb值为abc1</span></span><br><span class="line">sb.reverse();<span class="comment">//反转，sb值为1cba；</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> sb.length();/获取长度，len值为<span class="number">3</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sb.toString();<span class="comment">//变成字符串</span></span><br></pre></td></tr></table></figure> StringJoiner <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringJoiner</span> <span class="variable">sj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringJoiner</span>(<span class="string">&quot;,&quot;</span>,<span class="string">&quot;[&quot;</span>,<span class="string">&quot;]&quot;</span>);<span class="comment">//指定,为间隔符号,[]为开始结束符号</span></span><br><span class="line">sj.add(<span class="string">&quot;aaa&quot;</span>).add(<span class="string">&quot;bbb&quot;</span>).add(<span class="string">&quot;ccc&quot;</span>);<span class="comment">//[aaa,bbb,ccc]，add参数只能是字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sj.toString;</span><br></pre></td></tr></table></figure> ## 八、集合ArrayList
+ArrayList类似vector，只能存放引用变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();<span class="comment">//创建字符串集合</span></span><br><span class="line">list.add(<span class="string">&quot;abc&quot;</span>);<span class="comment">//添加</span></span><br><span class="line">list.add(<span class="string">&quot;bbb&quot;</span>);</span><br><span class="line">list.remove(<span class="string">&quot;abc&quot;</span>);<span class="comment">//删除</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> list.remove(<span class="number">0</span>);<span class="comment">//删除第一个数据，并将其赋值给str</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> list.set(<span class="number">0</span>, <span class="string">&quot;ccc&quot;</span>);<span class="comment">//修改第一个数据为ccc并将修改前的数据返回</span></span><br><span class="line">String.get(<span class="number">0</span>);<span class="comment">//返回第1个数据</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> list.size();<span class="comment">//返回长度</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux-命令</title>
     <url>/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<p>Linux命令格式：<code>command [-options] [parameter]</code>
@@ -343,6 +384,24 @@ tail：可以查看文件尾部内容，追踪文件的最新更改 -
       </tags>
   </entry>
   <entry>
+    <title>C++指针</title>
+    <url>/2022/11/01/%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[<h2 id="一定义">一、定义</h2>
+<p>指针：用来存放<strong>变量地址</strong>（起始地址）的变量（间接访问）。
+引用操作符&amp;：获取一个变量的地址值；
+解引用操作符*：获取一个地址对应的数据； <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> *i_pointer = &amp;i; <span class="comment">//定义一个指针变量，32位下占4字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i); <span class="comment">//直接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, *i_pointer); <span class="comment">//间接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i_pointer); <span class="comment">//输出i所在的地址</span></span><br></pre></td></tr></table></figure> ## 二、使用场景
+### 1.传递 函数定义时使用变量地址： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">void</span>(<span class="type">int</span> *j)</span><br><span class="line">&#123;</span><br><span class="line">      *j = <span class="number">5</span>; <span class="comment">//*j等价于变量i</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+函数调用时传递变量地址： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">change</span>(&amp;i); <span class="comment">//j=&amp;i</span></span><br></pre></td></tr></table></figure> ### 2.偏移
+根据指针加减偏移量形成新的地址 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;<span class="comment">//数组名a存储了其起始地址</span></span><br><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p = a;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,*(p+i)); <span class="comment">//输出a[i]的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+数组名作为实参传递给子函数时，弱化为指针 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">change</span><span class="params">(<span class="type">char</span> *d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     *d = <span class="string">&#x27;H&#x27;</span>;</span><br><span class="line">      d[<span class="number">1</span>] = <span class="string">&#x27;E&#x27;</span>;</span><br><span class="line">      *(d+<span class="number">2</span>) = <span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="type">char</span> c[<span class="number">10</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">      <span class="built_in">change</span>(c); <span class="comment">//变为HELlo</span></span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+三、指针与动态内存申请malloc C头文件：stdlib.h <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> size=<span class="number">20</span>; <span class="comment">//需要申请的字节数</span></span><br><span class="line"><span class="type">char</span> *p;</span><br><span class="line">p = (<span class="type">char</span>*)<span class="built_in">malloc</span>(size); <span class="comment">//在堆区申请20字节空间，malloc返回无类型指针void*，需要强制转换</span></span><br><span class="line"><span class="built_in">strcpy</span>(p,<span class="string">&quot;malloc success&quot;</span>);</span><br><span class="line"><span class="built_in">puts</span>(p); <span class="comment">//输出malloc success</span></span><br><span class="line"><span class="built_in">free</span>(p); <span class="comment">//用完记得释放</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown的书写</title>
     <url>/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/</url>
     <content><![CDATA[<h3 id="标题">标题</h3>
@@ -366,47 +425,6 @@ tail：可以查看文件尾部内容，追踪文件的最新更改 -
       <tags>
         <tag>notes</tag>
         <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JAVA基础语法</title>
-    <url>/2022/11/18/JAVA%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="零输入输出">零、输入输出</h2>
-<p>输出： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;Hello World&quot;</span>); <span class="comment">//输入sout可以自动弹出</span></span><br></pre></td></tr></table></figure> 输入： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner();</span><br></pre></td></tr></table></figure> ## 一、变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-## 二、运算符 +、-、*、/、%、++、--、&lt;&lt;、&gt;&gt;作用同C++；
-关系运算符同C++； 三元运算符同C++； #### “+”运算符 字符串相加：
-“+”会将两个字符串拼接，其他类型和字符串相加也会<strong>直接拼接</strong>：
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;123&quot;</span>+<span class="number">123</span>); <span class="comment">//输出123123</span></span><br></pre></td></tr></table></figure> 连续进行“＋”操作时，从左到右执行： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">1</span>+<span class="number">2</span>+<span class="string">&quot;123&quot;</span>); <span class="comment">//输出3123</span></span><br></pre></td></tr></table></figure>
-字符相加：ASCII码相加 #### 逻辑运算符 与：&amp; 或：| 异或：^ 非：！
-短路运算符&amp;&amp;和||： - &amp;和|会判断对前后语句的正误都进行判断；
--
-使用&amp;&amp;，当前面语句为FALSE，则<strong>不会对第二个语句进行判断</strong>，直接返回FALSE；
-#### 左移/右移运算符 &lt;&lt;、&gt;&gt;将将二进制数进行左移/右移
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">200</span>；</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> a &lt;&lt; <span class="number">2</span>; <span class="comment">//b=800</span></span><br><span class="line"><span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> a &gt;&gt; <span class="number">2</span>; <span class="comment">//c=50</span></span><br></pre></td></tr></table></figure> ## 三、隐式转换和强制转换
-取值范围：byte&lt;short&lt;int&lt;long&lt;float&lt;double #### 隐式转换
-隐式转换：取值范围小的变成取值范围大的（自动类型提升）； <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>; </span><br><span class="line"><span class="type">double</span> <span class="variable">b</span> <span class="operator">=</span> a; <span class="comment">//b完成了隐式转换</span></span><br></pre></td></tr></table></figure>
-byte、short、char在进行运算时都会自动转为int。 #### 强制转换
-强制转换：可以将取值范围大的变成取值范围小的； 格式：目标数据类型 变量名
-= (目标数据类型)被强转的数据; <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">300</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> (<span class="type">int</span>)a; <span class="comment">//强制转换</span></span><br></pre></td></tr></table></figure> ## 三、流程控制语句 ####
-分支结构 if语句： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//if (关系表达式) &#123;语句体;&#125; else &#123;语句体&#125;</span></span><br><span class="line"><span class="keyword">if</span> (a &gt; <span class="number">2</span>) &#123;</span><br><span class="line">        a--;</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        a++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> switch语句： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (a)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期六&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期日&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">default</span>: <span class="comment">//以上情况都不是</span></span><br><span class="line">        System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//case穿透：</span></span><br><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line"><span class="keyword">switch</span> (num)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期六&quot;</span>); <span class="comment">//没有break语句，输出星期六后继续往下执行</span></span><br><span class="line"><span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;星期日&quot;</span>);<span class="comment">//输出星期日</span></span><br><span class="line">        <span class="keyword">break</span>;<span class="comment">//跳出switch语句</span></span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">        System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//用-&gt;可以不用break：</span></span><br><span class="line"><span class="keyword">switch</span> (num)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span> -&gt; System.out.println(<span class="string">&quot;星期六&quot;</span>); <span class="comment">//输出星期六并跳出</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span> -&gt; System.out.println(<span class="string">&quot;星期日&quot;</span>);</span><br><span class="line">    <span class="keyword">default</span> -&gt; System.out.println(<span class="string">&quot;上班&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> #### 循环结构
-基本同C++ ## 四、数组 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>[] array = &#123;<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>&#125;;<span class="comment">//创建int数组并初始化，数组为引用数据类型（存储地址值），数组长度为3且不再变化；</span></span><br><span class="line">System.out.println(array);<span class="comment">//会输出数组的内存地址[I@xxxxxxxx，指向堆内存</span></span><br><span class="line">System.out.println(array.length);<span class="comment">//输出数组的长度3</span></span><br><span class="line"><span class="comment">//遍历数组：</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++) &#123;&#125; <span class="comment">//输入array.fori可快速弹出</span></span><br><span class="line">String[] arr = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">50</span>]; <span class="comment">//创建长度50的字符串数组，默认初始值为null；</span></span><br></pre></td></tr></table></figure> ## 五、方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;<span class="comment">//返回两个参数相加的结果</span></span><br></pre></td></tr></table></figure>
-Java方法也可以重载。 ## 六、面向对象 测试类：带main方法的类
-Javabean类：用来描述一类事物，不写main方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">        string m_name;</span><br><span class="line">        <span class="type">int</span> m_age;<span class="comment">//定义成员变量</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print_name</span><span class="params">()</span> &#123; System.out.println(<span class="built_in">this</span>.m_name);&#125;<span class="comment">//定义成员函数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();<span class="comment">//定义对象：类名 对象名 = new 类名();</span></span><br></pre></td></tr></table></figure>
-一个java文件可以定义多个类，且只能一个是public修饰，public修饰的类名必须成为代码文件名，因此一个文件一般只定义一个class类。
-封装：变量修饰为private，再通过public的方法调用； 成员变量与局部变量： -
-就近原则：若没有声明，优先认为age是局部变量； -
-可以使用this.age调用成员变量； 构造方法：与C++基本一致 -
-利用ptg可以快速生成javabean类 ## 七、字符串
-常用内容：String、StringBuilder、StringBuffer、Pattern、Matcher
-字符串内容在创建后就不能改变，但可以改变字符串变量指向的字符串； ####
-String构造方法 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1.直接赋值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">//2.使用new</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>()；</span><br><span class="line"><span class="comment">//3.传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(orginal:<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="comment">//4.传递一个字符数组，根据字符数组内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">s4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(chs);</span><br><span class="line"><span class="comment">//5.传递一个字节数组，根据字节数组内容再创建一个新的字符串对象</span></span><br><span class="line"><span class="type">byte</span>[] bytes = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">s5</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bytes);</span><br></pre></td></tr></table></figure> #### 常用方法 字符串比较： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">result1</span> <span class="operator">=</span> (s1==s2); <span class="comment">//false，==比较的是地址</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">result2</span> <span class="operator">=</span> s1.equals(s2); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-StringBuilder：可以看作一个容器，创建之后里面的内容是<strong>可变的</strong>。
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;abc&quot;</span>);<span class="comment">//创建对象</span></span><br><span class="line">sb.append(<span class="number">1</span>);<span class="comment">//添加元素，sb值为abc1</span></span><br><span class="line">sb.reverse();<span class="comment">//反转，sb值为1cba；</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> sb.length();/获取长度，len值为<span class="number">3</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sb.toString();<span class="comment">//变成字符串</span></span><br></pre></td></tr></table></figure> StringJoiner <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringJoiner</span> <span class="variable">sj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringJoiner</span>(<span class="string">&quot;,&quot;</span>,<span class="string">&quot;[&quot;</span>,<span class="string">&quot;]&quot;</span>);<span class="comment">//指定,为间隔符号,[]为开始结束符号</span></span><br><span class="line">sj.add(<span class="string">&quot;aaa&quot;</span>).add(<span class="string">&quot;bbb&quot;</span>).add(<span class="string">&quot;ccc&quot;</span>);<span class="comment">//[aaa,bbb,ccc]，add参数只能是字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> sj.toString;</span><br></pre></td></tr></table></figure> ## 八、集合ArrayList
-ArrayList类似vector，只能存放引用变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();<span class="comment">//创建字符串集合</span></span><br><span class="line">list.add(<span class="string">&quot;abc&quot;</span>);<span class="comment">//添加</span></span><br><span class="line">list.add(<span class="string">&quot;bbb&quot;</span>);</span><br><span class="line">list.remove(<span class="string">&quot;abc&quot;</span>);<span class="comment">//删除</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> list.remove(<span class="number">0</span>);<span class="comment">//删除第一个数据，并将其赋值给str</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> list.set(<span class="number">0</span>, <span class="string">&quot;ccc&quot;</span>);<span class="comment">//修改第一个数据为ccc并将修改前的数据返回</span></span><br><span class="line">String.get(<span class="number">0</span>);<span class="comment">//返回第1个数据</span></span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> list.size();<span class="comment">//返回长度</span></span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -498,17 +516,135 @@ CPU发出I/O命令后可以做其他事，通道会执行通道程序以完成I/
       </tags>
   </entry>
   <entry>
-    <title>C++指针</title>
-    <url>/2022/11/01/%E6%8C%87%E9%92%88/</url>
+    <title>操作系统-分页与分段储存管理方式</title>
+    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[内存的连续分配方式都存在明显缺陷，如果允许将一个进程<strong>分散地</strong>装入到许多<strong>不相邻</strong>的分区中，便可充分地利用内存，从而产生非连续分配方式。
+<strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的</strong>内存空间。
+# 基本分页存储管理
+思想：把内存分为一个个<strong>相等的</strong>小分区，再按照分区大小把进程拆分成一个个小部分。
+- 每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； -
+每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”、“物理块号”； -
+每个用户进程拆分成的部分称为“页”、“页面”，页面与页框一一对应，页面编号称为“页号”；
+- 进程的最后一个页面小于页框，会产生<strong>内部碎片</strong>； ##
+页表与页表项
+为了能知道进程的每个页面在内存中存放的位置，操作系统要为每个进程建立一张<strong>页表</strong>。
+- 一个进程对应一张页表； -
+<strong>页表项</strong>：进程的每一页对应一个页表项，每个页表项由<strong>页号</strong>和<strong>块号</strong>组成；
+-
+页表记录<strong>进程页面</strong>（页号，连续）和<strong>实际存放的内存块</strong>（块号，非连续）之间的对应关系；
+-
+各页表项会<strong>按顺序连续地</strong>存放在内存中（因此页号是<strong>隐含的</strong>，只需要存放块号的空间），实际中通常使一个页框放入<strong>整数个</strong>页表项；
+## 地址转换
+逻辑地址由页号+页内偏移量组成。假如由32个二进制位表示逻辑地址，页面大小为4KB，则前20位表示页号，后12位表示页内偏移量（2<sup>12B=4KB），且最多有2</sup>20个页面。
+逻辑地址转换成物理地址： -
+根据逻辑地址计算<strong>页号</strong>（逻辑地址/页面长度）、<strong>页内偏移量</strong>（逻辑地址%页面长度）；
+-页号合法性检查（与页表长度对比）；
+-根据页表起始地址、页号找到对应<strong>页表项</strong>； -
+根据页表项记录的<strong>内存块号</strong>、页内偏移量得到物理地址； -
+访问内存单元； ## 两级页表
+页表必须连续存放，在单级页表中，当页表很大时，需要占用很多个连续的页框。
+可以将页表再分页，形成<strong>两级页表</strong>或<strong>多级页表</strong>（为页表建立页表）。
+- 逻辑地址结构：一级页号+二级页号+页面偏移量； -
+页目录表、外层页表、顶级页表； <strong>两级页表的地址转换</strong> -
+根据逻辑地址得到一级页号、二级页号、页面偏移量 -
+从PCB中读出页目录表始址，根据一级页号查找页目录表，找到下一级页表在内存中的存放位置；
+- 根据二级页号查表，找到最终想访问的内存块号； -
+结合页内偏移量得到物理地址； # 基本分段存储管理
+分段：将地址空间按<strong>程序自身的逻辑关系</strong>划分为若干个段，每段从0开始编址。每个段在内存中占据<strong>连续空间</strong>，但各段之间可以<strong>不相邻</strong>。
+逻辑地址：段号（段名）+段内地址（段内偏移量） -
+段号的位数决定了每个进程可以分几个段； -
+段内地址位数决定了每个段的最大长度是多少； ## 段表 -
+每个段对应一个段表项，记录了该段在内存中的起始位置（基址）、段的长度； -
+各个段表项的长度是相同的，段号是隐含的； ## 地址转换 -
+由逻辑地址得到段号、段内地址； -
+段号与<strong>段表寄存器</strong>中的段表长度比较，检查是否越界； -
+由段表始址、段号找到对应段表项； -
+根据段表中记录的段长，检查段内地址是否越界； -
+由段表中记录的基址、段内地址得到物理地址； - 访问内存单元； ##
+分段、分页管理的比较
+<table>
+<tr>
+<td>
+分页管理
+</td>
+<td>
+分段管理
+</td>
+</tr>
+<tr>
+<td>
+页是信息的物理单位
+</td>
+<td>
+段是信息的逻辑单位
+</td>
+</tr>
+<tr>
+<td>
+分页对用户不可见
+</td>
+<td>
+分段对用户可见
+</td>
+</tr>
+<tr>
+<td>
+页的大小固定
+</td>
+<td>
+段的大小决定于用户编写的程序
+</td>
+</tr>
+<tr>
+<td>
+地址空间一维
+</td>
+<td>
+地址空间二维
+</td>
+</tr>
+<tr>
+<td>
+空间利用率高，不会产生外部碎片
+</td>
+<td>
+会产生外部碎片
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+分段更容易实现信息的共享和保护
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+访问一个逻辑地址都需要两次访存
+</td>
+</tr>
+</table>
+<h1 id="段页式管理方式">段页式管理方式</h1>
+<p>段页式管理：将进程<strong>按逻辑模块</strong>分段，再将各段分页，再将内存空间分为<strong>大小相同</strong>的内存块。
+逻辑地址：段号+页号+页内偏移量 ## 段表、页表 -
+每个段对应一个段表项，由段号（隐含）、页表长度、页表存放块号组成； -
+每个页面对应一个页表项，每个页表项由页号（隐含）、页面存放的内存块号组成
+## 地址变换 - 由逻辑地址得到段号、页号、页面偏移量； -
+段号与段表寄存器中的段长度比较，检查是否越界； -
+由段表始址、段号找到对应的段表项； -
+根据段表中记录的页表长度，检查页号是否越界； -
+由段表中的页表地址、页号查询页表，找到对应页表项； -
+由页面存放的内存块号、页内偏移量得到最终的物理地址； -
+访问目标单元；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+        <tag>内存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>汇编基础</title>
+    <url>/2023/02/18/%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h2 id="一定义">一、定义</h2>
-<p>指针：用来存放<strong>变量地址</strong>（起始地址）的变量（间接访问）。
-引用操作符&amp;：获取一个变量的地址值；
-解引用操作符*：获取一个地址对应的数据； <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> *i_pointer = &amp;i; <span class="comment">//定义一个指针变量，32位下占4字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i); <span class="comment">//直接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, *i_pointer); <span class="comment">//间接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i_pointer); <span class="comment">//输出i所在的地址</span></span><br></pre></td></tr></table></figure> ## 二、使用场景
-### 1.传递 函数定义时使用变量地址： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">void</span>(<span class="type">int</span> *j)</span><br><span class="line">&#123;</span><br><span class="line">      *j = <span class="number">5</span>; <span class="comment">//*j等价于变量i</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-函数调用时传递变量地址： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">change</span>(&amp;i); <span class="comment">//j=&amp;i</span></span><br></pre></td></tr></table></figure> ### 2.偏移
-根据指针加减偏移量形成新的地址 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;<span class="comment">//数组名a存储了其起始地址</span></span><br><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p = a;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,*(p+i)); <span class="comment">//输出a[i]的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-数组名作为实参传递给子函数时，弱化为指针 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">change</span><span class="params">(<span class="type">char</span> *d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     *d = <span class="string">&#x27;H&#x27;</span>;</span><br><span class="line">      d[<span class="number">1</span>] = <span class="string">&#x27;E&#x27;</span>;</span><br><span class="line">      *(d+<span class="number">2</span>) = <span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="type">char</span> c[<span class="number">10</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">      <span class="built_in">change</span>(c); <span class="comment">//变为HELlo</span></span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
-三、指针与动态内存申请malloc C头文件：stdlib.h <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> size=<span class="number">20</span>; <span class="comment">//需要申请的字节数</span></span><br><span class="line"><span class="type">char</span> *p;</span><br><span class="line">p = (<span class="type">char</span>*)<span class="built_in">malloc</span>(size); <span class="comment">//在堆区申请20字节空间，malloc返回无类型指针void*，需要强制转换</span></span><br><span class="line"><span class="built_in">strcpy</span>(p,<span class="string">&quot;malloc success&quot;</span>);</span><br><span class="line"><span class="built_in">puts</span>(p); <span class="comment">//输出malloc success</span></span><br><span class="line"><span class="built_in">free</span>(p); <span class="comment">//用完记得释放</span></span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>c++</tag>
@@ -651,132 +787,6 @@ FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用
       </tags>
   </entry>
   <entry>
-    <title>操作系统-分页与分段储存管理方式</title>
-    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/</url>
-    <content><![CDATA[内存的连续分配方式都存在明显缺陷，如果允许将一个进程<strong>分散地</strong>装入到许多<strong>不相邻</strong>的分区中，便可充分地利用内存，从而产生非连续分配方式。
-<strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的</strong>内存空间。
-# 基本分页存储管理
-思想：把内存分为一个个<strong>相等的</strong>小分区，再按照分区大小把进程拆分成一个个小部分。
-- 每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； -
-每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”、“物理块号”； -
-每个用户进程拆分成的部分称为“页”、“页面”，页面与页框一一对应，页面编号称为“页号”；
-- 进程的最后一个页面小于页框，会产生<strong>内部碎片</strong>； ##
-页表与页表项
-为了能知道进程的每个页面在内存中存放的位置，操作系统要为每个进程建立一张<strong>页表</strong>。
-- 一个进程对应一张页表； -
-<strong>页表项</strong>：进程的每一页对应一个页表项，每个页表项由<strong>页号</strong>和<strong>块号</strong>组成；
--
-页表记录<strong>进程页面</strong>（页号，连续）和<strong>实际存放的内存块</strong>（块号，非连续）之间的对应关系；
--
-各页表项会<strong>按顺序连续地</strong>存放在内存中（因此页号是<strong>隐含的</strong>，只需要存放块号的空间），实际中通常使一个页框放入<strong>整数个</strong>页表项；
-## 地址转换
-逻辑地址由页号+页内偏移量组成。假如由32个二进制位表示逻辑地址，页面大小为4KB，则前20位表示页号，后12位表示页内偏移量（2<sup>12B=4KB），且最多有2</sup>20个页面。
-逻辑地址转换成物理地址： -
-根据逻辑地址计算<strong>页号</strong>（逻辑地址/页面长度）、<strong>页内偏移量</strong>（逻辑地址%页面长度）；
--页号合法性检查（与页表长度对比）；
--根据页表起始地址、页号找到对应<strong>页表项</strong>； -
-根据页表项记录的<strong>内存块号</strong>、页内偏移量得到物理地址； -
-访问内存单元； ## 两级页表
-页表必须连续存放，在单级页表中，当页表很大时，需要占用很多个连续的页框。
-可以将页表再分页，形成<strong>两级页表</strong>或<strong>多级页表</strong>（为页表建立页表）。
-- 逻辑地址结构：一级页号+二级页号+页面偏移量； -
-页目录表、外层页表、顶级页表； <strong>两级页表的地址转换</strong> -
-根据逻辑地址得到一级页号、二级页号、页面偏移量 -
-从PCB中读出页目录表始址，根据一级页号查找页目录表，找到下一级页表在内存中的存放位置；
-- 根据二级页号查表，找到最终想访问的内存块号； -
-结合页内偏移量得到物理地址； # 基本分段存储管理
-分段：将地址空间按<strong>程序自身的逻辑关系</strong>划分为若干个段，每段从0开始编址。每个段在内存中占据<strong>连续空间</strong>，但各段之间可以<strong>不相邻</strong>。
-逻辑地址：段号（段名）+段内地址（段内偏移量） -
-段号的位数决定了每个进程可以分几个段； -
-段内地址位数决定了每个段的最大长度是多少； ## 段表 -
-每个段对应一个段表项，记录了该段在内存中的起始位置（基址）、段的长度； -
-各个段表项的长度是相同的，段号是隐含的； ## 地址转换 -
-由逻辑地址得到段号、段内地址； -
-段号与<strong>段表寄存器</strong>中的段表长度比较，检查是否越界； -
-由段表始址、段号找到对应段表项； -
-根据段表中记录的段长，检查段内地址是否越界； -
-由段表中记录的基址、段内地址得到物理地址； - 访问内存单元； ##
-分段、分页管理的比较
-<table>
-<tr>
-<td>
-分页管理
-</td>
-<td>
-分段管理
-</td>
-</tr>
-<tr>
-<td>
-页是信息的物理单位
-</td>
-<td>
-段是信息的逻辑单位
-</td>
-</tr>
-<tr>
-<td>
-分页对用户不可见
-</td>
-<td>
-分段对用户可见
-</td>
-</tr>
-<tr>
-<td>
-页的大小固定
-</td>
-<td>
-段的大小决定于用户编写的程序
-</td>
-</tr>
-<tr>
-<td>
-地址空间一维
-</td>
-<td>
-地址空间二维
-</td>
-</tr>
-<tr>
-<td>
-空间利用率高，不会产生外部碎片
-</td>
-<td>
-会产生外部碎片
-</td>
-</tr>
-<tr>
-<td colspan="2" style="text-align:center">
-分段更容易实现信息的共享和保护
-</td>
-</tr>
-<tr>
-<td colspan="2" style="text-align:center">
-访问一个逻辑地址都需要两次访存
-</td>
-</tr>
-</table>
-<h1 id="段页式管理方式">段页式管理方式</h1>
-<p>段页式管理：将进程<strong>按逻辑模块</strong>分段，再将各段分页，再将内存空间分为<strong>大小相同</strong>的内存块。
-逻辑地址：段号+页号+页内偏移量 ## 段表、页表 -
-每个段对应一个段表项，由段号（隐含）、页表长度、页表存放块号组成； -
-每个页面对应一个页表项，每个页表项由页号（隐含）、页面存放的内存块号组成
-## 地址变换 - 由逻辑地址得到段号、页号、页面偏移量； -
-段号与段表寄存器中的段长度比较，检查是否越界； -
-由段表始址、段号找到对应的段表项； -
-根据段表中记录的页表长度，检查页号是否越界； -
-由段表中的页表地址、页号查询页表，找到对应页表项； -
-由页面存放的内存块号、页内偏移量得到最终的物理地址； -
-访问目标单元；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>操作系统</tag>
-        <tag>内存</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>操作系统-虚拟内存</title>
     <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/</url>
     <content><![CDATA[<p>传统存储方式特点 -
@@ -886,35 +896,37 @@ C-LOOK算法是C-SCAN的改进； ## 二、减少延迟时间的方法
       </tags>
   </entry>
   <entry>
-    <title>汇编基础</title>
-    <url>/2023/02/18/%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="一定义">一、定义</h2>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>第一个项目-华容道小游戏</title>
     <url>/2022/11/20/%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE-%E5%8D%8E%E5%AE%B9%E9%81%93%E5%B0%8F%E6%B8%B8%E6%88%8F/</url>
-    <content><![CDATA[<p>两天速成Java的语法基础，记录一下第一个相对完整的项目（虽然不是独立完成orz，主要思路参考B站教学，做了局部优化，自己打了一遍练练手）。成品如下：
-<img src="游戏界面.jpg" alt="游戏界面" /> ## 主要变量 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//data用来存储每一个方格，data[i][j]表示第i行第j列的方格，数值代表这个方格当前的拼图（将每块图片抽象成数字华容道的1-16）</span></span><br><span class="line"><span class="type">int</span>[][] data = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line"><span class="comment">//存储空缺块当前坐标，data[x][y]=16</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>,y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//用来统计步数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//存储完成状态，当data和comp相等时拼图复原</span></span><br><span class="line"><span class="type">int</span>[][] comp = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>,<span class="number">6</span>,<span class="number">10</span>,<span class="number">14</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> ##
-ui界面 ui界面用了JFrame类。 #### 拼图区
-图片用JLable导入界面，16块拼图用循环分别导入： <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> data[i%<span class="number">4</span>][i/<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">if</span> (num!=<span class="number">16</span>) &#123;</span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jLabel1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="keyword">new</span> <span class="title class_">ImageIcon</span>(<span class="string">&quot;module1\\image\\animal\\animal1\\&quot;</span> + num + <span class="string">&quot;.jpg&quot;</span>));</span><br><span class="line">        <span class="comment">//指定图片位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x_label</span> <span class="operator">=</span> i % <span class="number">4</span>, y_label = i / <span class="number">4</span>;</span><br><span class="line">        jLabel1.setBounds(<span class="number">105</span> * x_label + <span class="number">83</span>, <span class="number">105</span> * y_label + <span class="number">134</span>, <span class="number">105</span>, <span class="number">105</span>);</span><br><span class="line">        <span class="comment">//描边</span></span><br><span class="line">        jLabel1.setBorder(<span class="keyword">new</span> <span class="title class_">BevelBorder</span>(<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//将图片添加到窗口</span></span><br><span class="line">        <span class="built_in">this</span>.getContentPane().add(jLabel1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-这里关键是要找到每块拼图坐标的规律。原作者用了两层循环嵌套，一开始我用的是一维数组，因为没有考虑到后面拼图移动的问题（二维数组更加直观一点），可以优化一下。
-#### 菜单区 菜单使用JMenu，当前完成的功能较少，所以菜单比较简单。
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initJMenu</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">//初始化菜单</span></span><br><span class="line">    <span class="type">JMenuBar</span> <span class="variable">jMenuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line">    <span class="comment">//创建“功能”和“关于”选项</span></span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">FunctionJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;功能&quot;</span>);</span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">AboutJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;关于&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将条目加入到选项中</span></span><br><span class="line">    FunctionJMenu.add(ReplayItem);</span><br><span class="line">    FunctionJMenu.add(ReloginItem);</span><br><span class="line">    FunctionJMenu.add(CloseItem);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReplayItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新开始&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReloginItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新登录&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">CloseItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;关闭游戏&quot;</span>);</span><br><span class="line">    ReplayItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    ReloginItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    CloseItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将选项添加到菜单中</span></span><br><span class="line">    jMenuBar.add(FunctionJMenu);</span><br><span class="line">    jMenuBar.add(AboutJMenu);</span><br><span class="line">    <span class="comment">//将菜单添加到主界面中</span></span><br><span class="line">    <span class="built_in">this</span>.setJMenuBar(jMenuBar);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+    <content><![CDATA[<p>速成完Java的语法基础，记录一下第一个相对完整的项目（虽然不是独立完成orz，主要思路参考B站教学，做了局部优化，自己打了一遍练练手）。成品如下：</p>
+<figure>
+<img src="游戏界面.jpg" alt="游戏界面" />
+<figcaption aria-hidden="true">游戏界面</figcaption>
+</figure>
+<h2 id="主要变量">主要变量</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//data用来存储每一个方格，data[i][j]表示第i行第j列的方格，数值代表这个方格当前的拼图（将每块图片抽象成数字华容道的1-16）</span></span><br><span class="line"><span class="type">int</span>[][] data = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line"><span class="comment">//存储空缺块当前坐标，data[x][y]=16</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>,y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//用来统计步数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//存储完成状态，当data和comp相等时拼图复原</span></span><br><span class="line"><span class="type">int</span>[][] comp = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>,<span class="number">6</span>,<span class="number">10</span>,<span class="number">14</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="ui界面">ui界面</h2>
+<p>ui界面用了JFrame类。</p>
+<h4 id="拼图区">拼图区</h4>
+<p>图片用JLable导入界面，16块拼图用循环分别导入：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> data[i%<span class="number">4</span>][i/<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">if</span> (num!=<span class="number">16</span>) &#123;</span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jLabel1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="keyword">new</span> <span class="title class_">ImageIcon</span>(<span class="string">&quot;module1\\image\\animal\\animal1\\&quot;</span> + num + <span class="string">&quot;.jpg&quot;</span>));</span><br><span class="line">        <span class="comment">//指定图片位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x_label</span> <span class="operator">=</span> i % <span class="number">4</span>, y_label = i / <span class="number">4</span>;</span><br><span class="line">        jLabel1.setBounds(<span class="number">105</span> * x_label + <span class="number">83</span>, <span class="number">105</span> * y_label + <span class="number">134</span>, <span class="number">105</span>, <span class="number">105</span>);</span><br><span class="line">        <span class="comment">//描边</span></span><br><span class="line">        jLabel1.setBorder(<span class="keyword">new</span> <span class="title class_">BevelBorder</span>(<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//将图片添加到窗口</span></span><br><span class="line">        <span class="built_in">this</span>.getContentPane().add(jLabel1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里关键是要找到每块拼图坐标的规律。原作者用了两层循环嵌套，一开始我用的是一维数组，因为没有考虑到后面拼图移动的问题（二维数组更加直观一点），可以优化一下。</p>
+<h4 id="菜单区">菜单区</h4>
+<p>菜单使用JMenu，当前完成的功能较少，所以菜单比较简单。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initJMenu</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">//初始化菜单</span></span><br><span class="line">    <span class="type">JMenuBar</span> <span class="variable">jMenuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line">    <span class="comment">//创建“功能”和“关于”选项</span></span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">FunctionJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;功能&quot;</span>);</span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">AboutJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;关于&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将条目加入到选项中</span></span><br><span class="line">    FunctionJMenu.add(ReplayItem);</span><br><span class="line">    FunctionJMenu.add(ReloginItem);</span><br><span class="line">    FunctionJMenu.add(CloseItem);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReplayItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新开始&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReloginItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新登录&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">CloseItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;关闭游戏&quot;</span>);</span><br><span class="line">    ReplayItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    ReloginItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    CloseItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将选项添加到菜单中</span></span><br><span class="line">    jMenuBar.add(FunctionJMenu);</span><br><span class="line">    jMenuBar.add(AboutJMenu);</span><br><span class="line">    <span class="comment">//将菜单添加到主界面中</span></span><br><span class="line">    <span class="built_in">this</span>.setJMenuBar(jMenuBar);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="内在机制">内在机制</h2>
 <h4 id="打乱图片">打乱图片</h4>
 <p>打乱图片的本质是随机打乱data数组。原作者采用的方法是将数组中的每个数都与随机下标的数进行一次调换，但是这样会导致打乱后的华容道出现无法复原的情况，对玩家很不友好（别问我怎么知道的
-这里改了打乱方式，模拟玩家打乱华容道的动作，对拼图进行了1000次打乱，这样保证了拼图是可以复原的。
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initdata</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] tempArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>&#125;;</span><br><span class="line">    <span class="type">Random</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    //原作者打乱方式</span></span><br><span class="line"><span class="comment">    for (int i = 0; i &lt; tempArray.length; i++) &#123;</span></span><br><span class="line"><span class="comment">        int index = r.nextInt(tempArray.length);</span></span><br><span class="line"><span class="comment">        int temp = tempArray[i];</span></span><br><span class="line"><span class="comment">        tempArray[i] = tempArray[index];</span></span><br><span class="line"><span class="comment">        tempArray[index]= temp;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//遍历数组存储成二维数组方便后续操作</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tempArray.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tempArray[i]==<span class="number">16</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x = i%<span class="number">4</span>;</span><br><span class="line">            y = i/<span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        data[i % <span class="number">4</span>][i / <span class="number">4</span>] = tempArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> r.nextInt(<span class="number">4</span>);</span><br><span class="line">        <span class="comment">//init_1会根据参数对华容道空缺块进行一次随机的移动（朝上/下/左/右移动一格）</span></span><br><span class="line">        init_1(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> #### 移动图片 使用了KeyListener,
-ActionListener对键盘/鼠标输入进行监听。
-原作者使用方向键对拼图进行控制，但是对笔记本玩家很不友好，就改成了WASD：
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">keyReleased</span><span class="params">(KeyEvent e)</span> &#123;</span><br><span class="line">       <span class="comment">//监听输入的字符</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> e.getKeyCode();</span><br><span class="line">      <span class="comment">//根据字符对动作进行判断。如A的ASCII码是65，监听到A就进行一次左移动作（将空缺块与右边格子进行交换）</span></span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">65</span>&amp;&amp;x&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            data[x][y] = data[x+<span class="number">1</span>][y];</span><br><span class="line">            data[x+<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x++;</span><br><span class="line">            cnt++;</span><br><span class="line">       <span class="comment">//移动完需要更新画面</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">87</span>&amp;&amp;y&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;上&quot;</span>);</span><br><span class="line">            data[x][y] = data[x][y+<span class="number">1</span>];</span><br><span class="line">            data[x][y+<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y++;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">68</span>&amp;&amp;x&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x-<span class="number">1</span>][y];</span><br><span class="line">            data[x-<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">83</span>&amp;&amp;y&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x][y-<span class="number">1</span>];</span><br><span class="line">            data[x][y-<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//这里是一个作弊器，监听到I之后会自动复原，同时也方便测试</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">73</span>)&#123;</span><br><span class="line">            recover(data);<span class="comment">//这个函数的作用是将data数组归位，即变成完成状态</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure> #### 重新开始、重新登陆、关闭游戏
-目前只实现了菜单里的这三个功能 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> e.getSource();</span><br><span class="line"><span class="comment">//重新开始</span></span><br><span class="line">        <span class="keyword">if</span> (obj== ReplayItem)&#123;</span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            initdata();</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//重新登陆</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==ReloginItem)&#123;</span><br><span class="line">            <span class="built_in">this</span>.setVisible(<span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LoginJFrame</span>();</span><br><span class="line"><span class="comment">//关闭游戏</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==CloseItem)&#123;</span><br><span class="line">            System.exit(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-这篇文章只记录了这个小游戏比较核心的几个功能的实现，还要一些比较简单的地方（比如胜利条件的判定）没有一一列举。写这个游戏的整体感受就是思维难度不高但是很繁琐，有很多细节需要注意，一不留神就会出BUG，跟以前打算法题很不一样。</p>
+这里改了打乱方式，模拟玩家打乱华容道的动作，对拼图进行了1000次打乱，这样保证了拼图是可以复原的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initdata</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] tempArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>&#125;;</span><br><span class="line">    <span class="type">Random</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    //原作者打乱方式</span></span><br><span class="line"><span class="comment">    for (int i = 0; i &lt; tempArray.length; i++) &#123;</span></span><br><span class="line"><span class="comment">        int index = r.nextInt(tempArray.length);</span></span><br><span class="line"><span class="comment">        int temp = tempArray[i];</span></span><br><span class="line"><span class="comment">        tempArray[i] = tempArray[index];</span></span><br><span class="line"><span class="comment">        tempArray[index]= temp;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//遍历数组存储成二维数组方便后续操作</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tempArray.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tempArray[i]==<span class="number">16</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x = i%<span class="number">4</span>;</span><br><span class="line">            y = i/<span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        data[i % <span class="number">4</span>][i / <span class="number">4</span>] = tempArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> r.nextInt(<span class="number">4</span>);</span><br><span class="line">        <span class="comment">//init_1会根据参数对华容道空缺块进行一次随机的移动（朝上/下/左/右移动一格）</span></span><br><span class="line">        init_1(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="移动图片">移动图片</h4>
+<p>使用了KeyListener, ActionListener对键盘/鼠标输入进行监听。
+原作者使用方向键对拼图进行控制，但是对笔记本玩家很不友好，就改成了WASD：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">keyReleased</span><span class="params">(KeyEvent e)</span> &#123;</span><br><span class="line">       <span class="comment">//监听输入的字符</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> e.getKeyCode();</span><br><span class="line">      <span class="comment">//根据字符对动作进行判断。如A的ASCII码是65，监听到A就进行一次左移动作（将空缺块与右边格子进行交换）</span></span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">65</span>&amp;&amp;x&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            data[x][y] = data[x+<span class="number">1</span>][y];</span><br><span class="line">            data[x+<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x++;</span><br><span class="line">            cnt++;</span><br><span class="line">       <span class="comment">//移动完需要更新画面</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">87</span>&amp;&amp;y&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;上&quot;</span>);</span><br><span class="line">            data[x][y] = data[x][y+<span class="number">1</span>];</span><br><span class="line">            data[x][y+<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y++;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">68</span>&amp;&amp;x&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x-<span class="number">1</span>][y];</span><br><span class="line">            data[x-<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">83</span>&amp;&amp;y&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x][y-<span class="number">1</span>];</span><br><span class="line">            data[x][y-<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//这里是一个作弊器，监听到I之后会自动复原，同时也方便测试</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">73</span>)&#123;</span><br><span class="line">            recover(data);<span class="comment">//这个函数的作用是将data数组归位，即变成完成状态</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="重新开始重新登陆关闭游戏">重新开始、重新登陆、关闭游戏</h4>
+<p>目前只实现了菜单里的这三个功能</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> e.getSource();</span><br><span class="line"><span class="comment">//重新开始</span></span><br><span class="line">        <span class="keyword">if</span> (obj== ReplayItem)&#123;</span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            initdata();</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//重新登陆</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==ReloginItem)&#123;</span><br><span class="line">            <span class="built_in">this</span>.setVisible(<span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LoginJFrame</span>();</span><br><span class="line"><span class="comment">//关闭游戏</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==CloseItem)&#123;</span><br><span class="line">            System.exit(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这篇文章只记录了这个小游戏比较核心的几个功能的实现，还要一些比较简单的地方（比如胜利条件的判定）没有一一列举。写这个游戏的整体感受就是思维难度不高但是很繁琐，有很多细节需要注意，一不留神就会出BUG，跟以前打算法题很不一样。</p>
 <p><a
 href="https://github.com/RookieDB0901/Project_HuaRongRoad">项目链接</a></p>
 ]]></content>
@@ -1141,18 +1153,6 @@ W：信道带宽，s：信道内所传信号的平均功率，N：信道内的�
       </tags>
   </entry>
   <entry>
-    <title>计算机网络-电路交换、分组交换、报文交换</title>
-    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2/</url>
-    <content><![CDATA[<p>交换：按照某种方式动态地分配传输线路的资源 ## 电路交换
-通过电话交换机接通电话线，使得不需要所有电话两两连接电话线。 -
-建立连接（分配通信资源） - 通话（一直占用通信资源） -
-释放连接（归还通信资源）
-当使用电路交换来传送计算机数据时，其线路的传输效率往往很低。 ##
-分组交换</p>
-<h2 id="报文交换">报文交换</h2>
-]]></content>
-  </entry>
-  <entry>
     <title>计算机网络-网络层</title>
     <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/</url>
     <content><![CDATA[<p>IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。
@@ -1201,8 +1201,7 @@ A类网络号0和127不可分配给主机或路由器的各接口； #### 2.
 动态路由选择：路由器通过<strong>路由选择协议</strong>自动获取路由信息。
 - 复杂开销大，能适应不同的网络状态，适用于大规模网络； -
 特点：自适应、分布式、分层次。
-分层次：内部网关协议IGP（IRP）和外部网关协议EGP（ERP）； <img
-src="路由选择协议.jpg" alt="路由选择协议" /> 路由器的基本结构: -
+分层次：内部网关协议IGP（IRP）和外部网关协议EGP（ERP）； <img src="路由选择协议.jpg" alt="路由选择协议"> 路由器的基本结构: -
 <strong>路由表</strong>：收到<strong>路由报文</strong>后，会将信息记录到路由表中；
 - 根据路由表得到易于查找的<strong>转发表</strong>； -
 收到<strong>数据分组</strong>后，则根据转发表查表转发； -
@@ -1252,8 +1251,7 @@ OPEN报文：用来与相邻的另一个BGP发言人<strong>建立关系</strong
 UPDATE报文：用来发送<strong>通过某一路由的信息</strong>，以及列出要撤销的多条路由；
 - KEEPALIVE报文：周期性地证实<strong>邻站的连通性</strong>； -
 NOTIFICATION报文：发送<strong>检测到的错误</strong>； ##
-四、IPv4数据报的首部格式 <img src="IP数据报首部.jpg"
-alt="IP数据报首部" /> 版本字段：表示IP协议版本，如IPv4；
+四、IPv4数据报的首部格式 <img src="IP数据报首部.jpg" alt="IP数据报首部"> 版本字段：表示IP协议版本，如IPv4；
 首部长度：取值为首部长度字节数/4；
 区分服务字段：根据不同取值获得不一样的服务质量，一般不用；
 总长度：IP数据报的字节数（包含首部）；
@@ -1299,6 +1297,18 @@ NAT路由器接收外部发来的数据报，并根据转换表转发给主机�
         <tag>notes</tag>
         <tag>计算机网络</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>计算机网络-电路交换、分组交换、报文交换</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2/</url>
+    <content><![CDATA[<p>交换：按照某种方式动态地分配传输线路的资源 ## 电路交换
+通过电话交换机接通电话线，使得不需要所有电话两两连接电话线。 -
+建立连接（分配通信资源） - 通话（一直占用通信资源） -
+释放连接（归还通信资源）
+当使用电路交换来传送计算机数据时，其线路的传输效率往往很低。 ##
+分组交换</p>
+<h2 id="报文交换">报文交换</h2>
+]]></content>
   </entry>
   <entry>
     <title>计算机网络-运输层</title>
@@ -1393,51 +1403,6 @@ PSH：PSH=1时，接收方会将该报文段尽快上交应用进程；
 - 窗口扩大选项：为了扩大窗口（提高吞吐率）； -
 时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；
 - 选择确认选项：实现选择确认功能；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络体系结构</title>
-    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
-<p><strong>OSI体系结构（法律上的国际标准）</strong> -
-应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
-<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
-应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
-网络接口层 <strong>原理体系结构</strong> -
-应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
-二、计算机网络体系结构分层
-<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
-物理接口 - 信号
-<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
-- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
-如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
-<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
-如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
-路由器如何转发分组，如何进行路由选择
-<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
-如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
-<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
-- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
-任何可发送或接受信息的硬件或软件进程。 -
-对等实体：接受双方相同层次中的实体 #### 协议
-控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
-- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
-同步：定义收发双方的时序关系； #### 服务
-<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
-- 协议是水平的，服务是垂直的；
-<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
-- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
-运输层：端口号
-<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
-<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
-应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
-- 链路层：帧 - 物理层：比特流
-<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
-多个SDU可以合成为一个PDU；</p>
 ]]></content>
       <tags>
         <tag>notes</tag>
@@ -1657,6 +1622,51 @@ VLAN标记的最后12比特称为<strong>VLAN标识符VID</strong>，唯一地�
 -
 发送处理方法：查看帧的VID是否在端口的“去标签”列表中，若存在则去标签再转发，否则直接转发（直接转发给用户计算机会因无法识别而被丢弃）；
 - 接收处理方法：同Trunk；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络体系结构</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
+<p><strong>OSI体系结构（法律上的国际标准）</strong> -
+应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
+<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
+应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
+网络接口层 <strong>原理体系结构</strong> -
+应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
+二、计算机网络体系结构分层
+<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
+物理接口 - 信号
+<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
+- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
+如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
+<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
+如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
+路由器如何转发分组，如何进行路由选择
+<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
+如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
+<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
+- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
+任何可发送或接受信息的硬件或软件进程。 -
+对等实体：接受双方相同层次中的实体 #### 协议
+控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
+- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
+同步：定义收发双方的时序关系； #### 服务
+<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
+- 协议是水平的，服务是垂直的；
+<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
+- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
+运输层：端口号
+<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
+<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
+应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
+- 链路层：帧 - 物理层：比特流
+<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
+多个SDU可以合成为一个PDU；</p>
 ]]></content>
       <tags>
         <tag>notes</tag>
