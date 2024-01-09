@@ -143,7 +143,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -165,6 +165,131 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%89%A9%E7%90%86%E5%B1%82-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%89%A9%E7%90%86%E5%B1%82-1/" class="post-title-link" itemprop="url">计算机网络-物理层</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-13 12:31:40" itemprop="dateCreated datePublished" datetime="2022-11-13T12:31:40+08:00">2022-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2022-11-16 20:59:50" itemprop="dateModified" datetime="2022-11-16T20:59:50+08:00">2022-11-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>物理层考虑怎样才能在连接各计算机的<strong>传输媒体</strong>上传输<strong>数据比特流</strong>。
+<strong>传输媒体</strong>： - 导引型传输媒体：双绞线、同轴电缆、光纤 -
+非导引型传输媒体：微波通信 <strong>物理层协议主要任务</strong>： -
+机械特性、电气特性、功能特性、过程特性 ## 一、传输媒体 分类： -
+导引型传输媒体：双绞线、同轴电缆、光纤、电力线； -
+非导引型传输媒体：无线电波、微波红外线、可见光； #### 导引型传输媒体
+<strong>同轴电缆</strong> - 基带同轴电缆和宽带同轴电缆 -
+价格贵且布线不够灵活和方便。 <strong>双绞线</strong> -
+无屏蔽双绞线电缆和屏蔽双绞线电缆 -
+绞合作用：①抵御部分来自外界的电磁波干扰；②减少相邻导线的电磁波干扰；
+<strong>光纤</strong> -
+优点：①通信容量大；②传输损耗小，适合远距离传输；③抗雷电和电磁干扰性能好；④无串音干扰，保密性好；⑤体积小，重量轻；
+- 缺点：①割接需要专用设备；②光电接口价格较贵； <strong>电力线</strong>
+#### 非导引型传输媒体 <strong>无线电波</strong> <strong>微波</strong> -
+直线传播； - 地面微波接力通信和卫星通信； <strong>红外线</strong> -
+点对点无线传输，直线传输，传输速率低； <strong>可见光</strong> -
+如LIFI通信，处于实验研究阶段； ## 二、传输方式 串行传输和并行传输
+同步传输和异步传输 单向通信和双向通信 ## 三、编码和调制
+基带信号（消息→数据→信号→基带信号） - 数字基带信号和模拟基带信号 -
+数字信道和模拟信道 - 编码和调制
+<strong>码元</strong>：在使用时间域的波形表示数字信号时，<strong>代表不同离散数值的基本波形</strong>；
+#### 常用编码 <strong>不归零编码与归零编码</strong> -
+不归零编码存在同步问题，不采用； -
+归零编码每个码元传输结束后都要归零，编码效率低；
+<strong>曼彻斯特编码</strong> -
+每个码元中间时刻发生跳变，跳变的方向表示0和1；
+<strong>差分曼彻斯特编码</strong> -
+码元中间时刻的跳变表示时钟，码元开始处电平是否变化表示数据0和1； <img
+src="常用编码.jpg" alt="常用编码" /> #### 调制方法
+<strong>基本调制方法</strong>：调幅、调频、调相 <img
+src="基本调制方法.jpg" alt="基本调制方法" />
+<strong>混合调制</strong>：正交振幅调制QAM -
+基本调制方法一个码元只能表示一个bit信息；可以采用混合调制方法，相位和振幅一起调制；
+-
+如QAM-16，有12种相位，可以调制出16种码元，每种码元对应4个bit（2^4=16）；
+## 信道的极限容量 信号通过信道会产生失真，产生失真的原因主要有： -
+码元传输速率、信号传输距离、噪声干扰、传输媒体质量等；
+<strong>奈式准则</strong>：在假定的理想条件下，为了避免码间串扰，码元传输速率是有上限的。
+- 理想低通信道的最高码元传输速率 = 2W Baud = 2W码元/秒； -
+理想带通信道的最高码元传输速率 = W Baud = W码元/秒； -
+W：信道带宽（单位：HZ）；Baud：波特，即码元/秒； -
+码元传输速率又称波特率、调制速率、波形速率或符号速率，当1码元携带n比特信息量时，n*波特率=比特率；
+-
+要想提高比特率，就必须设法使每一个码元能携带更多比特信息，需要采用<strong>多元制</strong>；
+- 实际信道所能传输的最高码元速率明显低于奈式准则的上限数值；
+<strong>香农公式</strong>：带宽受限且有高斯白噪声干扰的信道的极限信息传输速率c：
+- c = W × log2(1+S/N) -
+W：信道带宽，s：信道内所传信号的平均功率，N：信道内的高斯噪声功率，S/N：信噪比（单位分贝）；
+- 要努力提高信道中的<strong>信噪比</strong>； -
+实际所能达到的比公式的极限功率低不少；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1321,85 +1446,6 @@ UNIX方式：运行之前进程相关数据全部放在文件区，运行时内�
 由段表中的页表地址、页号查询页表，找到对应页表项； -
 由页面存放的内存块号、页内偏移量得到最终的物理地址； -
 访问目标单元；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ map容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2022-11-03 00:36:31 / Modified: 00:08:25" itemprop="dateCreated datePublished" datetime="2022-11-03T00:36:31+08:00">2022-11-03</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
-map中所有元素都是pair -
-pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
-所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
-map和multimap区别： - map不允许容器中有重复key值元素 -
-multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
-map大小和交换 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
-map查找和统计 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
-map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
