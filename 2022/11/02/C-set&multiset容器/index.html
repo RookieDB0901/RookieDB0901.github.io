@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"rookiedb0901.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="set&#x2F;multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用二叉树实现。 set和multiset区别： - set不可以插入重复数据，而multiset可以 - set插入数据的同时会返回插入结果，表示插入是否成功 - multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值 12345&#x2F;&#x2F;构造：set&lt;T&gt; st; &#x2F;&#x2F;默认构造函数">
+    <meta name="description" content="set&#x2F;multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用红黑树实现的。 set和multiset区别：  set不可以插入重复数据，而multiset可以 set插入数据的同时会返回插入结果，表示插入是否成功 multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值 12345&#x2F;&#x2F;构造：set&lt;T&gt; st; &#x2F;&#x2F;默认构造函数：s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++ set容器">
 <meta property="og:url" content="https://rookiedb0901.github.io/2022/11/02/C-set&multiset%E5%AE%B9%E5%99%A8/index.html">
 <meta property="og:site_name" content="深夜食堂">
-<meta property="og:description" content="set&#x2F;multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用二叉树实现。 set和multiset区别： - set不可以插入重复数据，而multiset可以 - set插入数据的同时会返回插入结果，表示插入是否成功 - multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值 12345&#x2F;&#x2F;构造：set&lt;T&gt; st; &#x2F;&#x2F;默认构造函数">
+<meta property="og:description" content="set&#x2F;multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用红黑树实现的。 set和multiset区别：  set不可以插入重复数据，而multiset可以 set插入数据的同时会返回插入结果，表示插入是否成功 multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值 12345&#x2F;&#x2F;构造：set&lt;T&gt; st; &#x2F;&#x2F;默认构造函数：s">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-02T15:56:31.000Z">
-<meta property="article:modified_time" content="2022-11-02T15:56:42.097Z">
+<meta property="article:modified_time" content="2024-01-13T03:00:33.643Z">
 <meta property="article:author" content="DB">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="notes">
@@ -150,7 +150,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -210,9 +210,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2022-11-02 23:56:31 / Modified: 23:56:42" itemprop="dateCreated datePublished" datetime="2022-11-02T23:56:31+08:00">2022-11-02</time>
+      <time title="Created: 2022-11-02 23:56:31" itemprop="dateCreated datePublished" datetime="2022-11-02T23:56:31+08:00">2022-11-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-13 11:00:33" itemprop="dateModified" datetime="2024-01-13T11:00:33+08:00">2024-01-13</time>
     </span>
 
   
@@ -224,15 +230,18 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用二叉树实现。
-set和multiset区别： - set不可以插入重复数据，而multiset可以 -
-set插入数据的同时会返回插入结果，表示插入是否成功 -
-multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
+    <div class="post-body" itemprop="articleBody"><p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用红黑树实现的。
+set和multiset区别：</p>
+<ul>
+<li>set不可以插入重复数据，而multiset可以</li>
+<li>set插入数据的同时会返回插入结果，表示插入是否成功</li>
+<li>multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">set&lt;T&gt; st; <span class="comment">//默认构造函数：</span></span><br><span class="line"><span class="built_in">set</span>(<span class="type">const</span> set &amp;st); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">set&amp; <span class="keyword">operator</span>=(<span class="type">const</span> set &amp;st); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">## set大小和交换</span><br><span class="line">``` C++</span><br><span class="line">size(); //返回容器中元素的数目</span><br><span class="line">empty(); //判断容器是否为空</span><br><span class="line">swap(st); //交换两个集合容器</span><br></pre></td></tr></table></figure> ## set插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(elem); <span class="comment">//删除容器中值为elem的元素。</span></span><br></pre></td></tr></table></figure> ##
 set查找和统计 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## pair对组创建
 成对出现的数据，利用对组可以返回两个数 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pair&lt;type, type&gt; <span class="title">p</span> <span class="params">( value1, value2 )</span></span>;</span><br><span class="line">pair&lt;type, type&gt; p = <span class="built_in">make_pair</span>( value1, value2 );</span><br></pre></td></tr></table></figure> ## set容器排序
 set容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></li>
+</ul>
 
     </div>
 

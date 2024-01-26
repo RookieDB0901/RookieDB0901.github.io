@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rookiedb0901.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="为了巩固阶段性学习成果，尝试应用MLP进行实践。本次使用MNIST数据集，通过一个使用MLP训练一个手写体数字识别模型。 获取数据 本次仍然采用MNIST数据集中的数据，数据获取方式与softmax一节中相似。不同之处在于，这里从训练集中划分了20%作为验证集，用于在最终测试前对模型进行调整。 12345678#下载数据transform &#x3D; transforms.ToTensor()tra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习实践丨基于MNIST的MLP手写体识别实践">
+<meta property="og:url" content="https://rookiedb0901.github.io/2024/01/24/%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="为了巩固阶段性学习成果，尝试应用MLP进行实践。本次使用MNIST数据集，通过一个使用MLP训练一个手写体数字识别模型。 获取数据 本次仍然采用MNIST数据集中的数据，数据获取方式与softmax一节中相似。不同之处在于，这里从训练集中划分了20%作为验证集，用于在最终测试前对模型进行调整。 12345678#下载数据transform &#x3D; transforms.ToTensor()tra">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-01-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-26T08:09:45.672Z">
+<meta property="article:author" content="DB">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rookiedb0901.github.io/2024/01/24/%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rookiedb0901.github.io/2024/01/24/%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/","path":"2024/01/24/手写体识别/","title":"深度学习实践丨基于MNIST的MLP手写体识别实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>深度学习实践丨基于MNIST的MLP手写体识别实践 | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">定义模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">DB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/01/24/%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="深度学习实践丨基于MNIST的MLP手写体识别实践 | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深度学习实践丨基于MNIST的MLP手写体识别实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-01-24 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-24T00:00:00+08:00">2024-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-26 16:09:45" itemprop="dateModified" datetime="2024-01-26T16:09:45+08:00">2024-01-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>为了巩固阶段性学习成果，尝试应用MLP进行实践。本次使用MNIST数据集，通过一个使用MLP训练一个手写体数字识别模型。</p>
+<h1 id="获取数据">获取数据</h1>
+<p>本次仍然采用MNIST数据集中的数据，数据获取方式与softmax一节中相似。不同之处在于，这里从训练集中划分了20%作为验证集，用于在最终测试前对模型进行调整。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#下载数据</span></span><br><span class="line">transform = transforms.ToTensor()</span><br><span class="line">train_dataset = datasets.MNIST(root=<span class="string">'./data'</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>, transform = transform)</span><br><span class="line">test_dataset = datasets.MNIST(root=<span class="string">'./data'</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>, transform = transform)</span><br><span class="line"><span class="comment">#划分训练集和验证集</span></span><br><span class="line">train_size = <span class="built_in">int</span>(<span class="number">0.8</span>*<span class="built_in">len</span>(train_dataset))</span><br><span class="line">val_size = <span class="built_in">len</span>(train_dataset)-train_size</span><br><span class="line">train_dataset,val_dataset=torch.utils.data.random_split(train_dataset,[train_size,val_size])</span><br></pre></td></tr></table></figure>
+<p>接着将训练集、验证集、测试集分别打乱并按64的批量存入迭代器中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">batch_size = <span class="number">64</span></span><br><span class="line">train_loader=DataLoader(train_dataset, batch_size, shuffle=<span class="literal">True</span>)</span><br><span class="line">val_loader=DataLoader(val_dataset, batch_size, shuffle=<span class="literal">True</span>)</span><br><span class="line">test_loader=DataLoader(test_dataset, batch_size, shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="定义模型">定义模型</h1>
+<p>由于数据集较简单，事实上很简单的模型就能取得较高的精确度。一开始仅仅使用三个全连接层并直接使用ReLU激活函数就能在验证集上达到97%的精确度。后续引入了批量归一化层，并尝试着加大深度、调整宽度，但最终也只能达到98%的精确度。一者因为精确度已经较高，二者因为MLP的局限，再做过多调整意义已经不大。以下是经过调整的模型代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MLP</span>(nn.Module):</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="built_in">super</span>().__init__()</span><br><span class="line">    self.fc1 = nn.Linear(<span class="number">28</span>*<span class="number">28</span>,<span class="number">1024</span>)</span><br><span class="line">    self.bn1 = nn.BatchNorm1d(<span class="number">1024</span>)<span class="comment">#批量归一化层</span></span><br><span class="line">    self.fc2 = nn.Linear(<span class="number">1024</span>,<span class="number">512</span>)</span><br><span class="line">    self.bn2 = nn.BatchNorm1d(<span class="number">512</span>)</span><br><span class="line">    self.fc3 = nn.Linear(<span class="number">512</span>,<span class="number">256</span>)</span><br><span class="line">    self.bn3 = nn.BatchNorm1d(<span class="number">256</span>)</span><br><span class="line">    self.fc4 = nn.Linear(<span class="number">256</span>,<span class="number">10</span>)</span><br><span class="line">    self.relu=nn.ReLU()</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,x</span>):</span><br><span class="line">    x = x.view(x.shape[<span class="number">0</span>],-<span class="number">1</span>)<span class="comment">#将x展平</span></span><br><span class="line">    x = self.relu(self.bn1(self.fc1(x)))</span><br><span class="line">    x = self.relu(self.bn2(self.fc2(x)))</span><br><span class="line">    x = self.relu(self.bn3(self.fc3(x)))</span><br><span class="line">    <span class="keyword">return</span> self.fc4(x)</span><br><span class="line"></span><br><span class="line">model = MLP()</span><br><span class="line"><span class="comment">#定义损失函数和优化器</span></span><br><span class="line">criterion = nn.CrossEntropyLoss()<span class="comment">#会自动softmax并计算交叉熵</span></span><br><span class="line">optimzer = optim.Adam(model.parameters(),lr=<span class="number">0.001</span>)<span class="comment">#Adam是比sgd更加先进的优化器，对学习率较不敏感且收敛更快</span></span><br></pre></td></tr></table></figure>
+<h1 id="训练模型">训练模型</h1>
+<p>共进行10轮训练，每轮训练完成后使用验证集对模型进行检验，看是否过拟合，从而对超参数进行调整。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">num_epoches = <span class="number">10</span><span class="comment">#训练轮数</span></span><br><span class="line">epoch_losses = []<span class="comment">#用于记录各轮训练损失，供可视化使用</span></span><br><span class="line">val_losses = []<span class="comment">#记录各轮验证损失</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epoches):</span><br><span class="line">  model.train()<span class="comment">#声明训练模式</span></span><br><span class="line">  epoch_loss=<span class="number">0.0</span><span class="comment">#该轮训练损失</span></span><br><span class="line">  <span class="keyword">for</span> features, labels <span class="keyword">in</span> train_loader:</span><br><span class="line">    optimzer.zero_grad()</span><br><span class="line">    outputs = model(features)</span><br><span class="line">    loss = criterion(outputs,labels)</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimzer.step()</span><br><span class="line">    epoch_loss += loss.item()</span><br><span class="line">  avg_epoch_loss = epoch_loss/<span class="built_in">len</span>(train_loader)<span class="comment">#平均损失</span></span><br><span class="line">  epoch_losses.append(avg_epoch_loss) </span><br><span class="line">  <span class="comment">#验证模型</span></span><br><span class="line">  model.<span class="built_in">eval</span>()<span class="comment">#切换评估模型</span></span><br><span class="line">  val_loss=<span class="number">0.0</span></span><br><span class="line">  <span class="keyword">with</span> torch.no_grad():<span class="comment">#不更新梯度</span></span><br><span class="line">    <span class="keyword">for</span> features,labels <span class="keyword">in</span> val_loader:</span><br><span class="line">      outputs = model(features)</span><br><span class="line">      val_loss += criterion(outputs,labels).item()</span><br><span class="line">  avg_val_loss=val_loss/<span class="built_in">len</span>(val_loader)</span><br><span class="line">  val_losses.append(avg_val_loss)</span><br></pre></td></tr></table></figure>
+<p>将各轮损失进行可视化：</p>
+<p>![损失变化][损失变化.png]</p>
+<p>可以看到第四轮开始就出现过拟合现象了，可以根据损失的变化调整训练轮数。由于模型拟合已较好，经过调整实际变化不大。</p>
+<h1 id="测试">测试</h1>
+<p>确定模型后，就可以使用测试集对模型效果进行测试。调整后的模型在测试集上精确度达到了98.08%。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">  correct = <span class="number">0</span></span><br><span class="line">  total = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> features, labels <span class="keyword">in</span> test_loader:</span><br><span class="line">    outputs = model(features)</span><br><span class="line">    _,predicted = torch.<span class="built_in">max</span>(outputs.data,<span class="number">1</span>)<span class="comment">#1表示从每行中选最大的，即预测值</span></span><br><span class="line">    total += labels.size(<span class="number">0</span>)<span class="comment">#labels.size(0)返回张量labels第一个维度的大小。通常，这用于获取张量第一个轴上的样本数或元素数。</span></span><br><span class="line">    correct += (predicted==labels).<span class="built_in">sum</span>().item()<span class="comment">#预测正确的数量</span></span><br><span class="line">  accuracy=correct/total<span class="comment">#精确度</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f"<span class="subst">{accuracy*<span class="number">100</span>:<span class="number">.2</span>f}</span>%"</span>)</span><br></pre></td></tr></table></figure>
+<p>我们还可以输出几个样本来观察预测是否正确。</p>
+<p>![部分预测结果][部分预测结果.png]</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>DB
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://rookiedb0901.github.io/2024/01/24/%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/" title="深度学习实践丨基于MNIST的MLP手写体识别实践">https://rookiedb0901.github.io/2024/01/24/手写体识别/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/22/%E5%8D%B7%E7%A7%AF%E5%B1%82/" rel="prev" title="动手学深度学习丨卷积层">
+                  <i class="fa fa-angle-left"></i> 动手学深度学习丨卷积层
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">DB</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
