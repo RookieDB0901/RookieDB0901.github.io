@@ -322,7 +322,7 @@ mjx-container[display="true"] + br {
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2024-01-26 16:09:45" itemprop="dateModified" datetime="2024-01-26T16:09:45+08:00">2024-01-26</time>
+      <time title="Modified: 2024-01-26 16:34:22" itemprop="dateModified" datetime="2024-01-26T16:34:22+08:00">2024-01-26</time>
     </span>
 
   
@@ -348,13 +348,19 @@ mjx-container[display="true"] + br {
 <p>共进行10轮训练，每轮训练完成后使用验证集对模型进行检验，看是否过拟合，从而对超参数进行调整。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">num_epoches = <span class="number">10</span><span class="comment">#训练轮数</span></span><br><span class="line">epoch_losses = []<span class="comment">#用于记录各轮训练损失，供可视化使用</span></span><br><span class="line">val_losses = []<span class="comment">#记录各轮验证损失</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epoches):</span><br><span class="line">  model.train()<span class="comment">#声明训练模式</span></span><br><span class="line">  epoch_loss=<span class="number">0.0</span><span class="comment">#该轮训练损失</span></span><br><span class="line">  <span class="keyword">for</span> features, labels <span class="keyword">in</span> train_loader:</span><br><span class="line">    optimzer.zero_grad()</span><br><span class="line">    outputs = model(features)</span><br><span class="line">    loss = criterion(outputs,labels)</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimzer.step()</span><br><span class="line">    epoch_loss += loss.item()</span><br><span class="line">  avg_epoch_loss = epoch_loss/<span class="built_in">len</span>(train_loader)<span class="comment">#平均损失</span></span><br><span class="line">  epoch_losses.append(avg_epoch_loss) </span><br><span class="line">  <span class="comment">#验证模型</span></span><br><span class="line">  model.<span class="built_in">eval</span>()<span class="comment">#切换评估模型</span></span><br><span class="line">  val_loss=<span class="number">0.0</span></span><br><span class="line">  <span class="keyword">with</span> torch.no_grad():<span class="comment">#不更新梯度</span></span><br><span class="line">    <span class="keyword">for</span> features,labels <span class="keyword">in</span> val_loader:</span><br><span class="line">      outputs = model(features)</span><br><span class="line">      val_loss += criterion(outputs,labels).item()</span><br><span class="line">  avg_val_loss=val_loss/<span class="built_in">len</span>(val_loader)</span><br><span class="line">  val_losses.append(avg_val_loss)</span><br></pre></td></tr></table></figure>
 <p>将各轮损失进行可视化：</p>
-<p>![损失变化][损失变化.png]</p>
+<figure>
+<img src="损失变化.png" alt="损失变化">
+<figcaption aria-hidden="true">损失变化</figcaption>
+</figure>
 <p>可以看到第四轮开始就出现过拟合现象了，可以根据损失的变化调整训练轮数。由于模型拟合已较好，经过调整实际变化不大。</p>
 <h1 id="测试">测试</h1>
 <p>确定模型后，就可以使用测试集对模型效果进行测试。调整后的模型在测试集上精确度达到了98.08%。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">  correct = <span class="number">0</span></span><br><span class="line">  total = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> features, labels <span class="keyword">in</span> test_loader:</span><br><span class="line">    outputs = model(features)</span><br><span class="line">    _,predicted = torch.<span class="built_in">max</span>(outputs.data,<span class="number">1</span>)<span class="comment">#1表示从每行中选最大的，即预测值</span></span><br><span class="line">    total += labels.size(<span class="number">0</span>)<span class="comment">#labels.size(0)返回张量labels第一个维度的大小。通常，这用于获取张量第一个轴上的样本数或元素数。</span></span><br><span class="line">    correct += (predicted==labels).<span class="built_in">sum</span>().item()<span class="comment">#预测正确的数量</span></span><br><span class="line">  accuracy=correct/total<span class="comment">#精确度</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f"<span class="subst">{accuracy*<span class="number">100</span>:<span class="number">.2</span>f}</span>%"</span>)</span><br></pre></td></tr></table></figure>
 <p>我们还可以输出几个样本来观察预测是否正确。</p>
-<p>![部分预测结果][部分预测结果.png]</p>
+<figure>
+<img src="部分预测结果.png" alt="部分预测结果">
+<figcaption aria-hidden="true">部分预测结果</figcaption>
+</figure>
 
       
     </div>

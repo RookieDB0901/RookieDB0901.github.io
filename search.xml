@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C++类和对象-重载运算符</title>
-    <url>/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
-    <content><![CDATA[<p>运算符重载：采用operator对运算符进行重新定义，本文将对+、++、&lt;&lt;、=、==进行示例，其余运算符可推。
-## 重载加号运算符 加号运算符可以采用成员函数、全局函数两种方式重载。
-成员函数重载+： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person &amp;per)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = <span class="keyword">this</span>-&gt;m_A + per.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 全局函数重载+： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person&amp; p1, person&amp; p2)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = p1.m_A + p2.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
-重载递增运算符 在C++中，++符号位于变量前和变量后含义不同，因此需要区分。
-成员函数重载前置++： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>++()<span class="comment">//前置返回引用才能嵌套</span></span><br><span class="line">&#123;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 成员函数重载后置++： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>++(<span class="type">int</span>)<span class="comment">//后置需要占位参数</span></span><br><span class="line">&#123;</span><br><span class="line">	person temp = *<span class="keyword">this</span>;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
-重载左移运算符
-类变量不可直接输出，通过重载左移运算符可直接通过cout输出对象：
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;cout, person5 p) <span class="comment">//返回引用</span></span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; p.m_A;</span><br><span class="line">	<span class="keyword">return</span> cout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载赋值运算符
-编译器提供的=只能进行浅拷贝，如果需要深拷贝则需要重载=运算符：
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>=(person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//判断是否有属性在堆区，有则清干净</span></span><br><span class="line">	<span class="keyword">if</span> (m_Age != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_Age;</span><br><span class="line">		m_Age = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//深拷贝</span></span><br><span class="line">	m_Age = <span class="keyword">new</span> <span class="built_in">int</span>(*p.m_Age);</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载关系运算符 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>==(person p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (p.m_Name == m_Name &amp;&amp; p.m_Age == m_Age) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 仿函数
-可以通过重载()来产生仿函数，譬如： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(string str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; str &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-可通过<code>变量名("输出内容");</code>来输出字符串。
-仿函数的应用非常灵活，在此无法一一列举。</p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>class</tag>
-        <tag>notes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++内存模型与引用</title>
     <url>/2022/11/01/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
     <content><![CDATA[<h2 id="内存四区">内存四区</h2>
@@ -56,8 +33,31 @@
 ]]></content>
       <tags>
         <tag>c++</tag>
-        <tag>class</tag>
         <tag>notes</tag>
+        <tag>class</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++类和对象-重载运算符</title>
+    <url>/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+    <content><![CDATA[<p>运算符重载：采用operator对运算符进行重新定义，本文将对+、++、&lt;&lt;、=、==进行示例，其余运算符可推。
+## 重载加号运算符 加号运算符可以采用成员函数、全局函数两种方式重载。
+成员函数重载+： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person &amp;per)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = <span class="keyword">this</span>-&gt;m_A + per.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 全局函数重载+： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person&amp; p1, person&amp; p2)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = p1.m_A + p2.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+重载递增运算符 在C++中，++符号位于变量前和变量后含义不同，因此需要区分。
+成员函数重载前置++： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>++()<span class="comment">//前置返回引用才能嵌套</span></span><br><span class="line">&#123;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 成员函数重载后置++： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person <span class="keyword">operator</span>++(<span class="type">int</span>)<span class="comment">//后置需要占位参数</span></span><br><span class="line">&#123;</span><br><span class="line">	person temp = *<span class="keyword">this</span>;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+重载左移运算符
+类变量不可直接输出，通过重载左移运算符可直接通过cout输出对象：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;cout, person5 p) <span class="comment">//返回引用</span></span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; p.m_A;</span><br><span class="line">	<span class="keyword">return</span> cout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载赋值运算符
+编译器提供的=只能进行浅拷贝，如果需要深拷贝则需要重载=运算符：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>=(person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//判断是否有属性在堆区，有则清干净</span></span><br><span class="line">	<span class="keyword">if</span> (m_Age != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_Age;</span><br><span class="line">		m_Age = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//深拷贝</span></span><br><span class="line">	m_Age = <span class="keyword">new</span> <span class="built_in">int</span>(*p.m_Age);</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载关系运算符 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>==(person p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (p.m_Name == m_Name &amp;&amp; p.m_Age == m_Age) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 仿函数
+可以通过重载()来产生仿函数，譬如： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(string str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; str &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+可通过<code>变量名("输出内容");</code>来输出字符串。
+仿函数的应用非常灵活，在此无法一一列举。</p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>class</tag>
       </tags>
   </entry>
   <entry>
@@ -77,26 +77,6 @@
         <tag>notes</tag>
         <tag>容器</tag>
         <tag>string</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ map容器</title>
-    <url>/2022/11/03/C-map&amp;multimap%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
-map中所有元素都是pair -
-pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
-所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
-map和multimap区别： - map不允许容器中有重复key值元素 -
-multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
-map大小和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
-map查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
-map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-        <tag>容器</tag>
       </tags>
   </entry>
   <entry>
@@ -142,6 +122,37 @@ set容器默认排序规则为从小到大，可通过仿函数改变排序规�
       </tags>
   </entry>
   <entry>
+    <title>C++ map容器</title>
+    <url>/2022/11/03/C-map&amp;multimap%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
+map中所有元素都是pair -
+pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
+所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
+map和multimap区别： - map不允许容器中有重复key值元素 -
+multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
+map大小和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
+map查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
+map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ stack&amp;queue容器函数</title>
+    <url>/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>stack：栈 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">stack&lt;T&gt; stk; <span class="comment">//stack采用模板类实现， stack对象的默认构造形式</span></span><br><span class="line"><span class="built_in">stack</span>(<span class="type">const</span> stack &amp;stk); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">stack&amp; <span class="keyword">operator</span>=(<span class="type">const</span> stack &amp;stk); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//向栈顶添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从栈顶移除第一个元素</span></span><br><span class="line"><span class="built_in">top</span>(); <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure> queue：队列 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">queue&lt;T&gt; que; <span class="comment">//queue采用模板类实现，queue对象的默认构造形式</span></span><br><span class="line"><span class="built_in">queue</span>(<span class="type">const</span> queue &amp;que); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> queue &amp;que); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//往队尾添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从队头移除第一个元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++ vector容器</title>
     <url>/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/</url>
     <content><![CDATA[<p>vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即：
@@ -162,14 +173,31 @@ swap可以使两个容器互换，可以达到实用的收缩内存效果 <figur
       </tags>
   </entry>
   <entry>
-    <title>C++ stack&amp;queue容器函数</title>
-    <url>/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<p>stack：栈 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">stack&lt;T&gt; stk; <span class="comment">//stack采用模板类实现， stack对象的默认构造形式</span></span><br><span class="line"><span class="built_in">stack</span>(<span class="type">const</span> stack &amp;stk); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">stack&amp; <span class="keyword">operator</span>=(<span class="type">const</span> stack &amp;stk); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//向栈顶添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从栈顶移除第一个元素</span></span><br><span class="line"><span class="built_in">top</span>(); <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure> queue：队列 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">queue&lt;T&gt; que; <span class="comment">//queue采用模板类实现，queue对象的默认构造形式</span></span><br><span class="line"><span class="built_in">queue</span>(<span class="type">const</span> queue &amp;que); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> queue &amp;que); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//往队尾添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从队头移除第一个元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure></p>
+    <title>C++文件操作</title>
+    <url>/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>文件分类 - 文本文件：ASCII码存储 - 二进制文件：二进制存储</p>
+<p>操作文件三大类： -ofstream：写 -ifstream：读 -fstream：读写 ## 写文件
+- 需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ofstream ofs;</code> -
+打开文件<code>ofs.open("文件路径","打开方式");</code> -
+写数据<code>ofs&lt;&lt;"写入的数据";</code> -
+关闭文件<code>ofs.close();</code></p>
+<p>文件打开方式： |打开方式|作用| |:---|:---| |ios::in|读文件|
+|ios::out|写文件| |ios::ate|初始位置为文件尾| |ios::app|追加方式写|
+|ios::trunc|先删除，再创建| |ios::binary|二进制方式写|
+可以使用|用多种方式打开：<code>ios::in|ios::out</code> ## 读文件 -
+需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ifstream ifs;</code> -
+打开文件<code>ifs.open("文件路径","打开方式");</code> - 读数据
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -关闭文件<code>ifs.close();</code></p>
+<h2 id="二进制文件读写">二进制文件读写</h2>
+<p>写文件： <code>ofs.write((const char *)&amp;p, sizeof(p));</code>
+读文件： <code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
 ]]></content>
       <tags>
         <tag>c++</tag>
         <tag>notes</tag>
-        <tag>容器</tag>
+        <tag>文件操作</tag>
       </tags>
   </entry>
   <entry>
@@ -212,34 +240,6 @@ swap可以使两个容器互换，可以达到实用的收缩内存效果 <figur
       </tags>
   </entry>
   <entry>
-    <title>C++文件操作</title>
-    <url>/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<p>文件分类 - 文本文件：ASCII码存储 - 二进制文件：二进制存储</p>
-<p>操作文件三大类： -ofstream：写 -ifstream：读 -fstream：读写 ## 写文件
-- 需包含头文件<code>#include&lt;fstream&gt;</code> -
-创建流对象<code>ofstream ofs;</code> -
-打开文件<code>ofs.open("文件路径","打开方式");</code> -
-写数据<code>ofs&lt;&lt;"写入的数据";</code> -
-关闭文件<code>ofs.close();</code></p>
-<p>文件打开方式： |打开方式|作用| |:---|:---| |ios::in|读文件|
-|ios::out|写文件| |ios::ate|初始位置为文件尾| |ios::app|追加方式写|
-|ios::trunc|先删除，再创建| |ios::binary|二进制方式写|
-可以使用|用多种方式打开：<code>ios::in|ios::out</code> ## 读文件 -
-需包含头文件<code>#include&lt;fstream&gt;</code> -
-创建流对象<code>ifstream ifs;</code> -
-打开文件<code>ifs.open("文件路径","打开方式");</code> - 读数据
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -关闭文件<code>ifs.close();</code></p>
-<h2 id="二进制文件读写">二进制文件读写</h2>
-<p>写文件： <code>ofs.write((const char *)&amp;p, sizeof(p));</code>
-读文件： <code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-        <tag>文件操作</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++类和对象-多态</title>
     <url>/2022/11/01/C-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/</url>
     <content><![CDATA[<h2 id="分类">分类：</h2>
@@ -258,8 +258,20 @@ swap可以使两个容器互换，可以达到实用的收缩内存效果 <figur
 ]]></content>
       <tags>
         <tag>c++</tag>
-        <tag>class</tag>
         <tag>notes</tag>
+        <tag>class</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAVA-API</title>
+    <url>/2022/11/18/JAVA-API/</url>
+    <content><![CDATA[<p>API：应用程序编程接口 - java
+api：JDK提供的各种功能的类，可以直接调用，如：Scanner； -
+API文档：可以查找API；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -375,18 +387,6 @@ tail：可以查看文件尾部内容，追踪文件的最新更改 -
       </tags>
   </entry>
   <entry>
-    <title>JAVA-API</title>
-    <url>/2022/11/18/JAVA-API/</url>
-    <content><![CDATA[<p>API：应用程序编程接口 - java
-api：JDK提供的各种功能的类，可以直接调用，如：Scanner； -
-API文档：可以查找API；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown的书写</title>
     <url>/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/</url>
     <content><![CDATA[<h3 id="标题">标题</h3>
@@ -499,6 +499,46 @@ API文档：可以查找API；</p>
       <tags>
         <tag>deep learning</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>华容道小游戏</title>
+    <url>/2022/11/20/%E5%8D%8E%E5%AE%B9%E9%81%93%E5%B0%8F%E6%B8%B8%E6%88%8F/</url>
+    <content><![CDATA[<p>速成完Java的语法基础，记录一下第一个相对完整的项目（虽然不是独立完成orz，主要思路参考B站教学，做了局部优化，自己打了一遍练练手）。成品如下：</p>
+<figure>
+<img src="游戏界面.jpg" alt="游戏界面" />
+<figcaption aria-hidden="true">游戏界面</figcaption>
+</figure>
+<h2 id="主要变量">主要变量</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//data用来存储每一个方格，data[i][j]表示第i行第j列的方格，数值代表这个方格当前的拼图（将每块图片抽象成数字华容道的1-16）</span></span><br><span class="line"><span class="type">int</span>[][] data = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line"><span class="comment">//存储空缺块当前坐标，data[x][y]=16</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>,y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//用来统计步数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//存储完成状态，当data和comp相等时拼图复原</span></span><br><span class="line"><span class="type">int</span>[][] comp = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>,<span class="number">6</span>,<span class="number">10</span>,<span class="number">14</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="ui界面">ui界面</h2>
+<p>ui界面用了JFrame类。</p>
+<h4 id="拼图区">拼图区</h4>
+<p>图片用JLable导入界面，16块拼图用循环分别导入：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> data[i%<span class="number">4</span>][i/<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">if</span> (num!=<span class="number">16</span>) &#123;</span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jLabel1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="keyword">new</span> <span class="title class_">ImageIcon</span>(<span class="string">&quot;module1\\image\\animal\\animal1\\&quot;</span> + num + <span class="string">&quot;.jpg&quot;</span>));</span><br><span class="line">        <span class="comment">//指定图片位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x_label</span> <span class="operator">=</span> i % <span class="number">4</span>, y_label = i / <span class="number">4</span>;</span><br><span class="line">        jLabel1.setBounds(<span class="number">105</span> * x_label + <span class="number">83</span>, <span class="number">105</span> * y_label + <span class="number">134</span>, <span class="number">105</span>, <span class="number">105</span>);</span><br><span class="line">        <span class="comment">//描边</span></span><br><span class="line">        jLabel1.setBorder(<span class="keyword">new</span> <span class="title class_">BevelBorder</span>(<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//将图片添加到窗口</span></span><br><span class="line">        <span class="built_in">this</span>.getContentPane().add(jLabel1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里关键是要找到每块拼图坐标的规律。原作者用了两层循环嵌套，一开始我用的是一维数组，因为没有考虑到后面拼图移动的问题（二维数组更加直观一点），可以优化一下。</p>
+<h4 id="菜单区">菜单区</h4>
+<p>菜单使用JMenu，当前完成的功能较少，所以菜单比较简单。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initJMenu</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">//初始化菜单</span></span><br><span class="line">    <span class="type">JMenuBar</span> <span class="variable">jMenuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line">    <span class="comment">//创建“功能”和“关于”选项</span></span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">FunctionJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;功能&quot;</span>);</span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">AboutJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;关于&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将条目加入到选项中</span></span><br><span class="line">    FunctionJMenu.add(ReplayItem);</span><br><span class="line">    FunctionJMenu.add(ReloginItem);</span><br><span class="line">    FunctionJMenu.add(CloseItem);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReplayItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新开始&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReloginItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新登录&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">CloseItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;关闭游戏&quot;</span>);</span><br><span class="line">    ReplayItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    ReloginItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    CloseItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将选项添加到菜单中</span></span><br><span class="line">    jMenuBar.add(FunctionJMenu);</span><br><span class="line">    jMenuBar.add(AboutJMenu);</span><br><span class="line">    <span class="comment">//将菜单添加到主界面中</span></span><br><span class="line">    <span class="built_in">this</span>.setJMenuBar(jMenuBar);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="内在机制">内在机制</h2>
+<h4 id="打乱图片">打乱图片</h4>
+<p>打乱图片的本质是随机打乱data数组。原作者采用的方法是将数组中的每个数都与随机下标的数进行一次调换，但是这样会导致打乱后的华容道出现无法复原的情况，对玩家很不友好（别问我怎么知道的
+这里改了打乱方式，模拟玩家打乱华容道的动作，对拼图进行了1000次打乱，这样保证了拼图是可以复原的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initdata</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] tempArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>&#125;;</span><br><span class="line">    <span class="type">Random</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    //原作者打乱方式</span></span><br><span class="line"><span class="comment">    for (int i = 0; i &lt; tempArray.length; i++) &#123;</span></span><br><span class="line"><span class="comment">        int index = r.nextInt(tempArray.length);</span></span><br><span class="line"><span class="comment">        int temp = tempArray[i];</span></span><br><span class="line"><span class="comment">        tempArray[i] = tempArray[index];</span></span><br><span class="line"><span class="comment">        tempArray[index]= temp;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//遍历数组存储成二维数组方便后续操作</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tempArray.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tempArray[i]==<span class="number">16</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x = i%<span class="number">4</span>;</span><br><span class="line">            y = i/<span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        data[i % <span class="number">4</span>][i / <span class="number">4</span>] = tempArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> r.nextInt(<span class="number">4</span>);</span><br><span class="line">        <span class="comment">//init_1会根据参数对华容道空缺块进行一次随机的移动（朝上/下/左/右移动一格）</span></span><br><span class="line">        init_1(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="移动图片">移动图片</h4>
+<p>使用了KeyListener, ActionListener对键盘/鼠标输入进行监听。
+原作者使用方向键对拼图进行控制，但是对笔记本玩家很不友好，就改成了WASD：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">keyReleased</span><span class="params">(KeyEvent e)</span> &#123;</span><br><span class="line">       <span class="comment">//监听输入的字符</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> e.getKeyCode();</span><br><span class="line">      <span class="comment">//根据字符对动作进行判断。如A的ASCII码是65，监听到A就进行一次左移动作（将空缺块与右边格子进行交换）</span></span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">65</span>&amp;&amp;x&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            data[x][y] = data[x+<span class="number">1</span>][y];</span><br><span class="line">            data[x+<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x++;</span><br><span class="line">            cnt++;</span><br><span class="line">       <span class="comment">//移动完需要更新画面</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">87</span>&amp;&amp;y&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;上&quot;</span>);</span><br><span class="line">            data[x][y] = data[x][y+<span class="number">1</span>];</span><br><span class="line">            data[x][y+<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y++;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">68</span>&amp;&amp;x&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x-<span class="number">1</span>][y];</span><br><span class="line">            data[x-<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">83</span>&amp;&amp;y&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x][y-<span class="number">1</span>];</span><br><span class="line">            data[x][y-<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//这里是一个作弊器，监听到I之后会自动复原，同时也方便测试</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">73</span>)&#123;</span><br><span class="line">            recover(data);<span class="comment">//这个函数的作用是将data数组归位，即变成完成状态</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="重新开始重新登陆关闭游戏">重新开始、重新登陆、关闭游戏</h4>
+<p>目前只实现了菜单里的这三个功能</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> e.getSource();</span><br><span class="line"><span class="comment">//重新开始</span></span><br><span class="line">        <span class="keyword">if</span> (obj== ReplayItem)&#123;</span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            initdata();</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//重新登陆</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==ReloginItem)&#123;</span><br><span class="line">            <span class="built_in">this</span>.setVisible(<span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LoginJFrame</span>();</span><br><span class="line"><span class="comment">//关闭游戏</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==CloseItem)&#123;</span><br><span class="line">            System.exit(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这篇文章只记录了这个小游戏比较核心的几个功能的实现，还要一些比较简单的地方（比如胜利条件的判定）没有一一列举。写这个游戏的整体感受就是思维难度不高但是很繁琐，有很多细节需要注意，一不留神就会出BUG，跟以前打算法题很不一样。</p>
+<p><a
+href="https://github.com/RookieDB0901/Project_HuaRongRoad">项目链接</a></p>
+]]></content>
+      <tags>
+        <tag>java</tag>
+        <tag>projects</tag>
       </tags>
   </entry>
   <entry>
@@ -637,46 +677,6 @@ h' =
       </tags>
   </entry>
   <entry>
-    <title>华容道小游戏</title>
-    <url>/2022/11/20/%E5%8D%8E%E5%AE%B9%E9%81%93%E5%B0%8F%E6%B8%B8%E6%88%8F/</url>
-    <content><![CDATA[<p>速成完Java的语法基础，记录一下第一个相对完整的项目（虽然不是独立完成orz，主要思路参考B站教学，做了局部优化，自己打了一遍练练手）。成品如下：</p>
-<figure>
-<img src="游戏界面.jpg" alt="游戏界面" />
-<figcaption aria-hidden="true">游戏界面</figcaption>
-</figure>
-<h2 id="主要变量">主要变量</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//data用来存储每一个方格，data[i][j]表示第i行第j列的方格，数值代表这个方格当前的拼图（将每块图片抽象成数字华容道的1-16）</span></span><br><span class="line"><span class="type">int</span>[][] data = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line"><span class="comment">//存储空缺块当前坐标，data[x][y]=16</span></span><br><span class="line"><span class="type">int</span> x=<span class="number">0</span>,y=<span class="number">0</span>;</span><br><span class="line"><span class="comment">//用来统计步数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="comment">//存储完成状态，当data和comp相等时拼图复原</span></span><br><span class="line"><span class="type">int</span>[][] comp = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>,<span class="number">6</span>,<span class="number">10</span>,<span class="number">14</span>&#125;,</span><br><span class="line">        &#123;<span class="number">3</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">15</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">16</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="ui界面">ui界面</h2>
-<p>ui界面用了JFrame类。</p>
-<h4 id="拼图区">拼图区</h4>
-<p>图片用JLable导入界面，16块拼图用循环分别导入：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">16</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> data[i%<span class="number">4</span>][i/<span class="number">4</span>];</span><br><span class="line">    <span class="keyword">if</span> (num!=<span class="number">16</span>) &#123;</span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jLabel1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="keyword">new</span> <span class="title class_">ImageIcon</span>(<span class="string">&quot;module1\\image\\animal\\animal1\\&quot;</span> + num + <span class="string">&quot;.jpg&quot;</span>));</span><br><span class="line">        <span class="comment">//指定图片位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">x_label</span> <span class="operator">=</span> i % <span class="number">4</span>, y_label = i / <span class="number">4</span>;</span><br><span class="line">        jLabel1.setBounds(<span class="number">105</span> * x_label + <span class="number">83</span>, <span class="number">105</span> * y_label + <span class="number">134</span>, <span class="number">105</span>, <span class="number">105</span>);</span><br><span class="line">        <span class="comment">//描边</span></span><br><span class="line">        jLabel1.setBorder(<span class="keyword">new</span> <span class="title class_">BevelBorder</span>(<span class="number">1</span>));</span><br><span class="line">        <span class="comment">//将图片添加到窗口</span></span><br><span class="line">        <span class="built_in">this</span>.getContentPane().add(jLabel1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里关键是要找到每块拼图坐标的规律。原作者用了两层循环嵌套，一开始我用的是一维数组，因为没有考虑到后面拼图移动的问题（二维数组更加直观一点），可以优化一下。</p>
-<h4 id="菜单区">菜单区</h4>
-<p>菜单使用JMenu，当前完成的功能较少，所以菜单比较简单。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initJMenu</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">//初始化菜单</span></span><br><span class="line">    <span class="type">JMenuBar</span> <span class="variable">jMenuBar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuBar</span>();</span><br><span class="line">    <span class="comment">//创建“功能”和“关于”选项</span></span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">FunctionJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;功能&quot;</span>);</span><br><span class="line">    <span class="type">JMenu</span> <span class="variable">AboutJMenu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenu</span>(<span class="string">&quot;关于&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将条目加入到选项中</span></span><br><span class="line">    FunctionJMenu.add(ReplayItem);</span><br><span class="line">    FunctionJMenu.add(ReloginItem);</span><br><span class="line">    FunctionJMenu.add(CloseItem);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReplayItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新开始&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">ReloginItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;重新登录&quot;</span>);</span><br><span class="line">    <span class="type">JMenuItem</span> <span class="variable">CloseItem</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JMenuItem</span>(<span class="string">&quot;关闭游戏&quot;</span>);</span><br><span class="line">    ReplayItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    ReloginItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line">    CloseItem.addActionListener(<span class="built_in">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将选项添加到菜单中</span></span><br><span class="line">    jMenuBar.add(FunctionJMenu);</span><br><span class="line">    jMenuBar.add(AboutJMenu);</span><br><span class="line">    <span class="comment">//将菜单添加到主界面中</span></span><br><span class="line">    <span class="built_in">this</span>.setJMenuBar(jMenuBar);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="内在机制">内在机制</h2>
-<h4 id="打乱图片">打乱图片</h4>
-<p>打乱图片的本质是随机打乱data数组。原作者采用的方法是将数组中的每个数都与随机下标的数进行一次调换，但是这样会导致打乱后的华容道出现无法复原的情况，对玩家很不友好（别问我怎么知道的
-这里改了打乱方式，模拟玩家打乱华容道的动作，对拼图进行了1000次打乱，这样保证了拼图是可以复原的。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initdata</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] tempArray = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>&#125;;</span><br><span class="line">    <span class="type">Random</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    //原作者打乱方式</span></span><br><span class="line"><span class="comment">    for (int i = 0; i &lt; tempArray.length; i++) &#123;</span></span><br><span class="line"><span class="comment">        int index = r.nextInt(tempArray.length);</span></span><br><span class="line"><span class="comment">        int temp = tempArray[i];</span></span><br><span class="line"><span class="comment">        tempArray[i] = tempArray[index];</span></span><br><span class="line"><span class="comment">        tempArray[index]= temp;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="comment">//遍历数组存储成二维数组方便后续操作</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; tempArray.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tempArray[i]==<span class="number">16</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            x = i%<span class="number">4</span>;</span><br><span class="line">            y = i/<span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        data[i % <span class="number">4</span>][i / <span class="number">4</span>] = tempArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> r.nextInt(<span class="number">4</span>);</span><br><span class="line">        <span class="comment">//init_1会根据参数对华容道空缺块进行一次随机的移动（朝上/下/左/右移动一格）</span></span><br><span class="line">        init_1(index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="移动图片">移动图片</h4>
-<p>使用了KeyListener, ActionListener对键盘/鼠标输入进行监听。
-原作者使用方向键对拼图进行控制，但是对笔记本玩家很不友好，就改成了WASD：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">keyReleased</span><span class="params">(KeyEvent e)</span> &#123;</span><br><span class="line">       <span class="comment">//监听输入的字符</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">code</span> <span class="operator">=</span> e.getKeyCode();</span><br><span class="line">      <span class="comment">//根据字符对动作进行判断。如A的ASCII码是65，监听到A就进行一次左移动作（将空缺块与右边格子进行交换）</span></span><br><span class="line">        <span class="keyword">if</span> (code == <span class="number">65</span>&amp;&amp;x&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            data[x][y] = data[x+<span class="number">1</span>][y];</span><br><span class="line">            data[x+<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x++;</span><br><span class="line">            cnt++;</span><br><span class="line">       <span class="comment">//移动完需要更新画面</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">87</span>&amp;&amp;y&lt;<span class="number">3</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;上&quot;</span>);</span><br><span class="line">            data[x][y] = data[x][y+<span class="number">1</span>];</span><br><span class="line">            data[x][y+<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y++;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">68</span>&amp;&amp;x&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x-<span class="number">1</span>][y];</span><br><span class="line">            data[x-<span class="number">1</span>][y] = <span class="number">16</span>;</span><br><span class="line">            x--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">83</span>&amp;&amp;y&gt;<span class="number">0</span>) &#123;</span><br><span class="line">            data[x][y] = data[x][y-<span class="number">1</span>];</span><br><span class="line">            data[x][y-<span class="number">1</span>] = <span class="number">16</span>;</span><br><span class="line">            y--;</span><br><span class="line">            cnt++;</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//这里是一个作弊器，监听到I之后会自动复原，同时也方便测试</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (code == <span class="number">73</span>)&#123;</span><br><span class="line">            recover(data);<span class="comment">//这个函数的作用是将data数组归位，即变成完成状态</span></span><br><span class="line">            initImage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="重新开始重新登陆关闭游戏">重新开始、重新登陆、关闭游戏</h4>
-<p>目前只实现了菜单里的这三个功能</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> e.getSource();</span><br><span class="line"><span class="comment">//重新开始</span></span><br><span class="line">        <span class="keyword">if</span> (obj== ReplayItem)&#123;</span><br><span class="line">            cnt = <span class="number">0</span>;</span><br><span class="line">            initdata();</span><br><span class="line">            initImage();</span><br><span class="line"><span class="comment">//重新登陆</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==ReloginItem)&#123;</span><br><span class="line">            <span class="built_in">this</span>.setVisible(<span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">LoginJFrame</span>();</span><br><span class="line"><span class="comment">//关闭游戏</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (obj==CloseItem)&#123;</span><br><span class="line">            System.exit(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>这篇文章只记录了这个小游戏比较核心的几个功能的实现，还要一些比较简单的地方（比如胜利条件的判定）没有一一列举。写这个游戏的整体感受就是思维难度不高但是很繁琐，有很多细节需要注意，一不留神就会出BUG，跟以前打算法题很不一样。</p>
-<p><a
-href="https://github.com/RookieDB0901/Project_HuaRongRoad">项目链接</a></p>
-]]></content>
-      <tags>
-        <tag>java</tag>
-        <tag>projects</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深度学习实践丨基于MNIST的MLP手写体识别实践</title>
     <url>/2024/01/24/%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/</url>
     <content><![CDATA[<p>为了巩固阶段性学习成果，尝试应用MLP进行实践。本次使用MNIST数据集，通过一个使用MLP训练一个手写体数字识别模型。</p>
@@ -692,13 +692,19 @@ href="https://github.com/RookieDB0901/Project_HuaRongRoad">项目链接</a></p>
 <p>共进行10轮训练，每轮训练完成后使用验证集对模型进行检验，看是否过拟合，从而对超参数进行调整。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">num_epoches = <span class="number">10</span><span class="comment">#训练轮数</span></span><br><span class="line">epoch_losses = []<span class="comment">#用于记录各轮训练损失，供可视化使用</span></span><br><span class="line">val_losses = []<span class="comment">#记录各轮验证损失</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epoches):</span><br><span class="line">  model.train()<span class="comment">#声明训练模式</span></span><br><span class="line">  epoch_loss=<span class="number">0.0</span><span class="comment">#该轮训练损失</span></span><br><span class="line">  <span class="keyword">for</span> features, labels <span class="keyword">in</span> train_loader:</span><br><span class="line">    optimzer.zero_grad()</span><br><span class="line">    outputs = model(features)</span><br><span class="line">    loss = criterion(outputs,labels)</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimzer.step()</span><br><span class="line">    epoch_loss += loss.item()</span><br><span class="line">  avg_epoch_loss = epoch_loss/<span class="built_in">len</span>(train_loader)<span class="comment">#平均损失</span></span><br><span class="line">  epoch_losses.append(avg_epoch_loss) </span><br><span class="line">  <span class="comment">#验证模型</span></span><br><span class="line">  model.<span class="built_in">eval</span>()<span class="comment">#切换评估模型</span></span><br><span class="line">  val_loss=<span class="number">0.0</span></span><br><span class="line">  <span class="keyword">with</span> torch.no_grad():<span class="comment">#不更新梯度</span></span><br><span class="line">    <span class="keyword">for</span> features,labels <span class="keyword">in</span> val_loader:</span><br><span class="line">      outputs = model(features)</span><br><span class="line">      val_loss += criterion(outputs,labels).item()</span><br><span class="line">  avg_val_loss=val_loss/<span class="built_in">len</span>(val_loader)</span><br><span class="line">  val_losses.append(avg_val_loss)</span><br></pre></td></tr></table></figure>
 <p>将各轮损失进行可视化：</p>
-<p>![损失变化][损失变化.png]</p>
+<figure>
+<img src="损失变化.png" alt="损失变化">
+<figcaption aria-hidden="true">损失变化</figcaption>
+</figure>
 <p>可以看到第四轮开始就出现过拟合现象了，可以根据损失的变化调整训练轮数。由于模型拟合已较好，经过调整实际变化不大。</p>
 <h1 id="测试">测试</h1>
 <p>确定模型后，就可以使用测试集对模型效果进行测试。调整后的模型在测试集上精确度达到了98.08%。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">  correct = <span class="number">0</span></span><br><span class="line">  total = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> features, labels <span class="keyword">in</span> test_loader:</span><br><span class="line">    outputs = model(features)</span><br><span class="line">    _,predicted = torch.<span class="built_in">max</span>(outputs.data,<span class="number">1</span>)<span class="comment">#1表示从每行中选最大的，即预测值</span></span><br><span class="line">    total += labels.size(<span class="number">0</span>)<span class="comment">#labels.size(0)返回张量labels第一个维度的大小。通常，这用于获取张量第一个轴上的样本数或元素数。</span></span><br><span class="line">    correct += (predicted==labels).<span class="built_in">sum</span>().item()<span class="comment">#预测正确的数量</span></span><br><span class="line">  accuracy=correct/total<span class="comment">#精确度</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">f"<span class="subst">{accuracy*<span class="number">100</span>:<span class="number">.2</span>f}</span>%"</span>)</span><br></pre></td></tr></table></figure>
 <p>我们还可以输出几个样本来观察预测是否正确。</p>
-<p>![部分预测结果][部分预测结果.png]</p>
+<figure>
+<img src="部分预测结果.png" alt="部分预测结果">
+<figcaption aria-hidden="true">部分预测结果</figcaption>
+</figure>
 ]]></content>
       <tags>
         <tag>deep learning</tag>
@@ -812,13 +818,129 @@ CPU发出I/O命令后可以做其他事，通道会执行通道程序以完成I/
       </tags>
   </entry>
   <entry>
-    <title>汇编基础</title>
-    <url>/2023/02/18/%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="一定义">一、定义</h2>
+    <title>操作系统-分页与分段储存管理方式</title>
+    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[内存的连续分配方式都存在明显缺陷，如果允许将一个进程<strong>分散地</strong>装入到许多<strong>不相邻</strong>的分区中，便可充分地利用内存，从而产生非连续分配方式。
+<strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的</strong>内存空间。
+# 基本分页存储管理
+思想：把内存分为一个个<strong>相等的</strong>小分区，再按照分区大小把进程拆分成一个个小部分。
+- 每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； -
+每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”、“物理块号”； -
+每个用户进程拆分成的部分称为“页”、“页面”，页面与页框一一对应，页面编号称为“页号”；
+- 进程的最后一个页面小于页框，会产生<strong>内部碎片</strong>； ##
+页表与页表项
+为了能知道进程的每个页面在内存中存放的位置，操作系统要为每个进程建立一张<strong>页表</strong>。
+- 一个进程对应一张页表； -
+<strong>页表项</strong>：进程的每一页对应一个页表项，每个页表项由<strong>页号</strong>和<strong>块号</strong>组成；
+-
+页表记录<strong>进程页面</strong>（页号，连续）和<strong>实际存放的内存块</strong>（块号，非连续）之间的对应关系；
+-
+各页表项会<strong>按顺序连续地</strong>存放在内存中（因此页号是<strong>隐含的</strong>，只需要存放块号的空间），实际中通常使一个页框放入<strong>整数个</strong>页表项；
+## 地址转换
+逻辑地址由页号+页内偏移量组成。假如由32个二进制位表示逻辑地址，页面大小为4KB，则前20位表示页号，后12位表示页内偏移量（2<sup>12B=4KB），且最多有2</sup>20个页面。
+逻辑地址转换成物理地址： -
+根据逻辑地址计算<strong>页号</strong>（逻辑地址/页面长度）、<strong>页内偏移量</strong>（逻辑地址%页面长度）；
+-页号合法性检查（与页表长度对比）；
+-根据页表起始地址、页号找到对应<strong>页表项</strong>； -
+根据页表项记录的<strong>内存块号</strong>、页内偏移量得到物理地址； -
+访问内存单元； ## 两级页表
+页表必须连续存放，在单级页表中，当页表很大时，需要占用很多个连续的页框。
+可以将页表再分页，形成<strong>两级页表</strong>或<strong>多级页表</strong>（为页表建立页表）。
+- 逻辑地址结构：一级页号+二级页号+页面偏移量； -
+页目录表、外层页表、顶级页表； <strong>两级页表的地址转换</strong> -
+根据逻辑地址得到一级页号、二级页号、页面偏移量 -
+从PCB中读出页目录表始址，根据一级页号查找页目录表，找到下一级页表在内存中的存放位置；
+- 根据二级页号查表，找到最终想访问的内存块号； -
+结合页内偏移量得到物理地址； # 基本分段存储管理
+分段：将地址空间按<strong>程序自身的逻辑关系</strong>划分为若干个段，每段从0开始编址。每个段在内存中占据<strong>连续空间</strong>，但各段之间可以<strong>不相邻</strong>。
+逻辑地址：段号（段名）+段内地址（段内偏移量） -
+段号的位数决定了每个进程可以分几个段； -
+段内地址位数决定了每个段的最大长度是多少； ## 段表 -
+每个段对应一个段表项，记录了该段在内存中的起始位置（基址）、段的长度； -
+各个段表项的长度是相同的，段号是隐含的； ## 地址转换 -
+由逻辑地址得到段号、段内地址； -
+段号与<strong>段表寄存器</strong>中的段表长度比较，检查是否越界； -
+由段表始址、段号找到对应段表项； -
+根据段表中记录的段长，检查段内地址是否越界； -
+由段表中记录的基址、段内地址得到物理地址； - 访问内存单元； ##
+分段、分页管理的比较
+<table>
+<tr>
+<td>
+分页管理
+</td>
+<td>
+分段管理
+</td>
+</tr>
+<tr>
+<td>
+页是信息的物理单位
+</td>
+<td>
+段是信息的逻辑单位
+</td>
+</tr>
+<tr>
+<td>
+分页对用户不可见
+</td>
+<td>
+分段对用户可见
+</td>
+</tr>
+<tr>
+<td>
+页的大小固定
+</td>
+<td>
+段的大小决定于用户编写的程序
+</td>
+</tr>
+<tr>
+<td>
+地址空间一维
+</td>
+<td>
+地址空间二维
+</td>
+</tr>
+<tr>
+<td>
+空间利用率高，不会产生外部碎片
+</td>
+<td>
+会产生外部碎片
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+分段更容易实现信息的共享和保护
+</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align:center">
+访问一个逻辑地址都需要两次访存
+</td>
+</tr>
+</table>
+<h1 id="段页式管理方式">段页式管理方式</h1>
+<p>段页式管理：将进程<strong>按逻辑模块</strong>分段，再将各段分页，再将内存空间分为<strong>大小相同</strong>的内存块。
+逻辑地址：段号+页号+页内偏移量 ## 段表、页表 -
+每个段对应一个段表项，由段号（隐含）、页表长度、页表存放块号组成； -
+每个页面对应一个页表项，每个页表项由页号（隐含）、页面存放的内存块号组成
+## 地址变换 - 由逻辑地址得到段号、页号、页面偏移量； -
+段号与段表寄存器中的段长度比较，检查是否越界； -
+由段表始址、段号找到对应的段表项； -
+根据段表中记录的页表长度，检查页号是否越界； -
+由段表中的页表地址、页号查询页表，找到对应页表项； -
+由页面存放的内存块号、页内偏移量得到最终的物理地址； -
+访问目标单元；</p>
 ]]></content>
       <tags>
-        <tag>c++</tag>
         <tag>notes</tag>
+        <tag>操作系统</tag>
+        <tag>内存</tag>
       </tags>
   </entry>
   <entry>
@@ -1036,6 +1158,16 @@ UNIX方式：运行之前进程相关数据全部放在文件区，运行时内�
       </tags>
   </entry>
   <entry>
+    <title>汇编基础</title>
+    <url>/2023/02/18/%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="一定义">一、定义</h2>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>操作系统-磁盘</title>
     <url>/2022/11/08/%E7%A3%81%E7%9B%98/</url>
     <content><![CDATA[<p>磁盘的表面由一些磁性物质组成，可以记录二进制数据。磁盘的表面被划分成一个个磁道，一个磁道又被分成一个个扇区，每个扇区就是一个<strong>磁盘块</strong>。
@@ -1063,132 +1195,6 @@ C-LOOK算法是C-SCAN的改进； ## 二、减少延迟时间的方法
       <tags>
         <tag>notes</tag>
         <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统-分页与分段储存管理方式</title>
-    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E5%88%86%E9%A1%B5%E4%B8%8E%E5%88%86%E6%AE%B5%E5%82%A8%E5%AD%98%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F/</url>
-    <content><![CDATA[内存的连续分配方式都存在明显缺陷，如果允许将一个进程<strong>分散地</strong>装入到许多<strong>不相邻</strong>的分区中，便可充分地利用内存，从而产生非连续分配方式。
-<strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的</strong>内存空间。
-# 基本分页存储管理
-思想：把内存分为一个个<strong>相等的</strong>小分区，再按照分区大小把进程拆分成一个个小部分。
-- 每个内存分区称为“页框”、“页帧”、“内存块”、“物理块”； -
-每个页框有一个编号，成为“页框号”、“页帧号”“内存块号”、“物理块号”； -
-每个用户进程拆分成的部分称为“页”、“页面”，页面与页框一一对应，页面编号称为“页号”；
-- 进程的最后一个页面小于页框，会产生<strong>内部碎片</strong>； ##
-页表与页表项
-为了能知道进程的每个页面在内存中存放的位置，操作系统要为每个进程建立一张<strong>页表</strong>。
-- 一个进程对应一张页表； -
-<strong>页表项</strong>：进程的每一页对应一个页表项，每个页表项由<strong>页号</strong>和<strong>块号</strong>组成；
--
-页表记录<strong>进程页面</strong>（页号，连续）和<strong>实际存放的内存块</strong>（块号，非连续）之间的对应关系；
--
-各页表项会<strong>按顺序连续地</strong>存放在内存中（因此页号是<strong>隐含的</strong>，只需要存放块号的空间），实际中通常使一个页框放入<strong>整数个</strong>页表项；
-## 地址转换
-逻辑地址由页号+页内偏移量组成。假如由32个二进制位表示逻辑地址，页面大小为4KB，则前20位表示页号，后12位表示页内偏移量（2<sup>12B=4KB），且最多有2</sup>20个页面。
-逻辑地址转换成物理地址： -
-根据逻辑地址计算<strong>页号</strong>（逻辑地址/页面长度）、<strong>页内偏移量</strong>（逻辑地址%页面长度）；
--页号合法性检查（与页表长度对比）；
--根据页表起始地址、页号找到对应<strong>页表项</strong>； -
-根据页表项记录的<strong>内存块号</strong>、页内偏移量得到物理地址； -
-访问内存单元； ## 两级页表
-页表必须连续存放，在单级页表中，当页表很大时，需要占用很多个连续的页框。
-可以将页表再分页，形成<strong>两级页表</strong>或<strong>多级页表</strong>（为页表建立页表）。
-- 逻辑地址结构：一级页号+二级页号+页面偏移量； -
-页目录表、外层页表、顶级页表； <strong>两级页表的地址转换</strong> -
-根据逻辑地址得到一级页号、二级页号、页面偏移量 -
-从PCB中读出页目录表始址，根据一级页号查找页目录表，找到下一级页表在内存中的存放位置；
-- 根据二级页号查表，找到最终想访问的内存块号； -
-结合页内偏移量得到物理地址； # 基本分段存储管理
-分段：将地址空间按<strong>程序自身的逻辑关系</strong>划分为若干个段，每段从0开始编址。每个段在内存中占据<strong>连续空间</strong>，但各段之间可以<strong>不相邻</strong>。
-逻辑地址：段号（段名）+段内地址（段内偏移量） -
-段号的位数决定了每个进程可以分几个段； -
-段内地址位数决定了每个段的最大长度是多少； ## 段表 -
-每个段对应一个段表项，记录了该段在内存中的起始位置（基址）、段的长度； -
-各个段表项的长度是相同的，段号是隐含的； ## 地址转换 -
-由逻辑地址得到段号、段内地址； -
-段号与<strong>段表寄存器</strong>中的段表长度比较，检查是否越界； -
-由段表始址、段号找到对应段表项； -
-根据段表中记录的段长，检查段内地址是否越界； -
-由段表中记录的基址、段内地址得到物理地址； - 访问内存单元； ##
-分段、分页管理的比较
-<table>
-<tr>
-<td>
-分页管理
-</td>
-<td>
-分段管理
-</td>
-</tr>
-<tr>
-<td>
-页是信息的物理单位
-</td>
-<td>
-段是信息的逻辑单位
-</td>
-</tr>
-<tr>
-<td>
-分页对用户不可见
-</td>
-<td>
-分段对用户可见
-</td>
-</tr>
-<tr>
-<td>
-页的大小固定
-</td>
-<td>
-段的大小决定于用户编写的程序
-</td>
-</tr>
-<tr>
-<td>
-地址空间一维
-</td>
-<td>
-地址空间二维
-</td>
-</tr>
-<tr>
-<td>
-空间利用率高，不会产生外部碎片
-</td>
-<td>
-会产生外部碎片
-</td>
-</tr>
-<tr>
-<td colspan="2" style="text-align:center">
-分段更容易实现信息的共享和保护
-</td>
-</tr>
-<tr>
-<td colspan="2" style="text-align:center">
-访问一个逻辑地址都需要两次访存
-</td>
-</tr>
-</table>
-<h1 id="段页式管理方式">段页式管理方式</h1>
-<p>段页式管理：将进程<strong>按逻辑模块</strong>分段，再将各段分页，再将内存空间分为<strong>大小相同</strong>的内存块。
-逻辑地址：段号+页号+页内偏移量 ## 段表、页表 -
-每个段对应一个段表项，由段号（隐含）、页表长度、页表存放块号组成； -
-每个页面对应一个页表项，每个页表项由页号（隐含）、页面存放的内存块号组成
-## 地址变换 - 由逻辑地址得到段号、页号、页面偏移量； -
-段号与段表寄存器中的段长度比较，检查是否越界； -
-由段表始址、段号找到对应的段表项； -
-根据段表中记录的页表长度，检查页号是否越界； -
-由段表中的页表地址、页号查询页表，找到对应页表项； -
-由页面存放的内存块号、页内偏移量得到最终的物理地址； -
-访问目标单元；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>操作系统</tag>
-        <tag>内存</tag>
       </tags>
   </entry>
   <entry>
