@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C++内存模型与引用</title>
-    <url>/2022/11/01/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="内存四区">内存四区</h2>
-<p>程序运行前就存在：代码区、全局区 程序运行后存在：栈区、堆区
-<strong>代码区</strong>：存放cpu执行的机器指令，共享的、只读的
-<strong>全局区</strong>：存放全局变量、静态变量、字符串常量，程序结束后系统自动释放
-<strong>栈区</strong>：存放函数参数、局部变量等，函数执行完后自动释放
-<strong>堆区</strong>：程序员分配释放，若不释放程序结束后系统自动释放。一般用new开辟,用delete释放：
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">delete</span> p;</span><br><span class="line"><span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];  <span class="comment">//创建数组</span></span><br><span class="line"><span class="keyword">delete</span>[] arr;  </span><br></pre></td></tr></table></figure> ## 引用 采用 &amp;来生成一个引用 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> &amp;b = num;  <span class="comment">//引用必须初始化，且地址不可再更改</span></span><br></pre></td></tr></table></figure>
-常量引用：用来修饰形参，防止误操作 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; ref = num;  <span class="comment">//ref的值不可修改</span></span><br></pre></td></tr></table></figure>
-引用作参数，可修改实参： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>&amp; a, <span class="type">int</span>&amp; b)</span><span class="comment">//引用作参数，可修改实参</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++类和对象-构造函数与析构函数</title>
     <url>/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h2 id="构造函数与析构函数">构造函数与析构函数</h2>
@@ -33,8 +15,8 @@
 ]]></content>
       <tags>
         <tag>c++</tag>
-        <tag>notes</tag>
         <tag>class</tag>
+        <tag>notes</tag>
       </tags>
   </entry>
   <entry>
@@ -58,6 +40,24 @@ list数据存取 <figure class="highlight c++"><table><tr><td class="code"><pre>
       </tags>
   </entry>
   <entry>
+    <title>C++内存模型与引用</title>
+    <url>/2022/11/01/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="内存四区">内存四区</h2>
+<p>程序运行前就存在：代码区、全局区 程序运行后存在：栈区、堆区
+<strong>代码区</strong>：存放cpu执行的机器指令，共享的、只读的
+<strong>全局区</strong>：存放全局变量、静态变量、字符串常量，程序结束后系统自动释放
+<strong>栈区</strong>：存放函数参数、局部变量等，函数执行完后自动释放
+<strong>堆区</strong>：程序员分配释放，若不释放程序结束后系统自动释放。一般用new开辟,用delete释放：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">delete</span> p;</span><br><span class="line"><span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];  <span class="comment">//创建数组</span></span><br><span class="line"><span class="keyword">delete</span>[] arr;  </span><br></pre></td></tr></table></figure> ## 引用 采用 &amp;来生成一个引用 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> &amp;b = num;  <span class="comment">//引用必须初始化，且地址不可再更改</span></span><br></pre></td></tr></table></figure>
+常量引用：用来修饰形参，防止误操作 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; ref = num;  <span class="comment">//ref的值不可修改</span></span><br></pre></td></tr></table></figure>
+引用作参数，可修改实参： <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>&amp; a, <span class="type">int</span>&amp; b)</span><span class="comment">//引用作参数，可修改实参</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++类和对象-重载运算符</title>
     <url>/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
     <content><![CDATA[<p>运算符重载：采用operator对运算符进行重新定义，本文将对+、++、&lt;&lt;、=、==进行示例，其余运算符可推。
@@ -76,8 +76,28 @@ list数据存取 <figure class="highlight c++"><table><tr><td class="code"><pre>
 ]]></content>
       <tags>
         <tag>c++</tag>
-        <tag>notes</tag>
         <tag>class</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ map容器</title>
+    <url>/2022/11/03/C-map&amp;multimap%E5%AE%B9%E5%99%A8/</url>
+    <content><![CDATA[<p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
+map中所有元素都是pair -
+pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
+所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
+map和multimap区别： - map不允许容器中有重复key值元素 -
+multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
+map大小和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
+map查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
+map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>容器</tag>
       </tags>
   </entry>
   <entry>
@@ -122,26 +142,6 @@ set容器默认排序规则为从小到大，可通过仿函数改变排序规�
       </tags>
   </entry>
   <entry>
-    <title>C++ map容器</title>
-    <url>/2022/11/03/C-map&amp;multimap%E5%AE%B9%E5%99%A8/</url>
-    <content><![CDATA[<p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
-map中所有元素都是pair -
-pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
-所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
-map和multimap区别： - map不允许容器中有重复key值元素 -
-multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
-map大小和交换 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
-map查找和统计 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
-map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-        <tag>容器</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++ stack&amp;queue容器函数</title>
     <url>/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/</url>
     <content><![CDATA[<p>stack：栈 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">stack&lt;T&gt; stk; <span class="comment">//stack采用模板类实现， stack对象的默认构造形式</span></span><br><span class="line"><span class="built_in">stack</span>(<span class="type">const</span> stack &amp;stk); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">stack&amp; <span class="keyword">operator</span>=(<span class="type">const</span> stack &amp;stk); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//向栈顶添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从栈顶移除第一个元素</span></span><br><span class="line"><span class="built_in">top</span>(); <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure> queue：队列 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">queue&lt;T&gt; que; <span class="comment">//queue采用模板类实现，queue对象的默认构造形式</span></span><br><span class="line"><span class="built_in">queue</span>(<span class="type">const</span> queue &amp;que); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> queue &amp;que); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//往队尾添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从队头移除第一个元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure></p>
@@ -150,34 +150,6 @@ map容器默认排序规则为从小到大，可通过仿函数改变排序规�
         <tag>c++</tag>
         <tag>notes</tag>
         <tag>容器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++文件操作</title>
-    <url>/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<p>文件分类 - 文本文件：ASCII码存储 - 二进制文件：二进制存储</p>
-<p>操作文件三大类： -ofstream：写 -ifstream：读 -fstream：读写 ## 写文件
-- 需包含头文件<code>#include&lt;fstream&gt;</code> -
-创建流对象<code>ofstream ofs;</code> -
-打开文件<code>ofs.open("文件路径","打开方式");</code> -
-写数据<code>ofs&lt;&lt;"写入的数据";</code> -
-关闭文件<code>ofs.close();</code></p>
-<p>文件打开方式： |打开方式|作用| |:---|:---| |ios::in|读文件|
-|ios::out|写文件| |ios::ate|初始位置为文件尾| |ios::app|追加方式写|
-|ios::trunc|先删除，再创建| |ios::binary|二进制方式写|
-可以使用|用多种方式打开：<code>ios::in|ios::out</code> ## 读文件 -
-需包含头文件<code>#include&lt;fstream&gt;</code> -
-创建流对象<code>ifstream ifs;</code> -
-打开文件<code>ifs.open("文件路径","打开方式");</code> - 读数据
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -关闭文件<code>ifs.close();</code></p>
-<h2 id="二进制文件读写">二进制文件读写</h2>
-<p>写文件： <code>ofs.write((const char *)&amp;p, sizeof(p));</code>
-读文件： <code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
-]]></content>
-      <tags>
-        <tag>c++</tag>
-        <tag>notes</tag>
-        <tag>文件操作</tag>
       </tags>
   </entry>
   <entry>
@@ -219,8 +191,36 @@ swap可以使两个容器互换，可以达到实用的收缩内存效果 <figur
 ]]></content>
       <tags>
         <tag>c++</tag>
-        <tag>notes</tag>
         <tag>class</tag>
+        <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++文件操作</title>
+    <url>/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>文件分类 - 文本文件：ASCII码存储 - 二进制文件：二进制存储</p>
+<p>操作文件三大类： -ofstream：写 -ifstream：读 -fstream：读写 ## 写文件
+- 需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ofstream ofs;</code> -
+打开文件<code>ofs.open("文件路径","打开方式");</code> -
+写数据<code>ofs&lt;&lt;"写入的数据";</code> -
+关闭文件<code>ofs.close();</code></p>
+<p>文件打开方式： |打开方式|作用| |:---|:---| |ios::in|读文件|
+|ios::out|写文件| |ios::ate|初始位置为文件尾| |ios::app|追加方式写|
+|ios::trunc|先删除，再创建| |ios::binary|二进制方式写|
+可以使用|用多种方式打开：<code>ios::in|ios::out</code> ## 读文件 -
+需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ifstream ifs;</code> -
+打开文件<code>ifs.open("文件路径","打开方式");</code> - 读数据
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -关闭文件<code>ifs.close();</code></p>
+<h2 id="二进制文件读写">二进制文件读写</h2>
+<p>写文件： <code>ofs.write((const char *)&amp;p, sizeof(p));</code>
+读文件： <code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
+]]></content>
+      <tags>
+        <tag>c++</tag>
+        <tag>notes</tag>
+        <tag>文件操作</tag>
       </tags>
   </entry>
   <entry>
@@ -263,18 +263,6 @@ swap可以使两个容器互换，可以达到实用的收缩内存效果 <figur
       </tags>
   </entry>
   <entry>
-    <title>JAVA-API</title>
-    <url>/2022/11/18/JAVA-API/</url>
-    <content><![CDATA[<p>API：应用程序编程接口 - java
-api：JDK提供的各种功能的类，可以直接调用，如：Scanner； -
-API文档：可以查找API；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JAVA基础语法</title>
     <url>/2022/11/18/JAVA%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<h2 id="零输入输出">零、输入输出</h2>
@@ -313,6 +301,44 @@ ArrayList类似vector，只能存放引用变量 <figure class="highlight java">
       <tags>
         <tag>notes</tag>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAVA-API</title>
+    <url>/2022/11/18/JAVA-API/</url>
+    <content><![CDATA[<p>API：应用程序编程接口 - java
+api：JDK提供的各种功能的类，可以直接调用，如：Scanner； -
+API文档：可以查找API；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown的书写</title>
+    <url>/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/</url>
+    <content><![CDATA[<h3 id="标题">标题</h3>
+<p>#表示一级标题，##表示二级标题</p>
+<h3 id="代码块">代码块</h3>
+<p>代码块用三个反引号```括起来，譬如： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">``` c++</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="表格">表格</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|姓名|年龄|成绩|         //用 | 分隔</span><br><span class="line">|:---|---:|:---:|            //：表示文字位置</span><br><span class="line">|张三|19|60|              </span><br></pre></td></tr></table></figure>
+<h3 id="分割线">分割线</h3>
+<p>三条短横<code>---</code>代表分割线</p>
+<h3 id="超链接">超链接</h3>
+<p><a href="url">链接描述</a>，如： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[百度](https://baidu.com)</span><br></pre></td></tr></table></figure></p>
+<h3 id="字体">字体</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*斜体*</span><br><span class="line"> **加粗**</span><br><span class="line"> ``行内代码`` </span><br><span class="line">&lt;u&gt;下划线&lt;/u&gt; </span><br></pre></td></tr></table></figure>
+<h3 id="插入图片">插入图片</h3>
+<figure>
+<img src="图片base64编码" alt="图片" />
+<figcaption aria-hidden="true">图片</figcaption>
+</figure>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -387,34 +413,8 @@ tail：可以查看文件尾部内容，追踪文件的最新更改 -
       </tags>
   </entry>
   <entry>
-    <title>Markdown的书写</title>
-    <url>/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/</url>
-    <content><![CDATA[<h3 id="标题">标题</h3>
-<p>#表示一级标题，##表示二级标题</p>
-<h3 id="代码块">代码块</h3>
-<p>代码块用三个反引号```括起来，譬如： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">``` c++</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="表格">表格</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|姓名|年龄|成绩|         //用 | 分隔</span><br><span class="line">|:---|---:|:---:|            //：表示文字位置</span><br><span class="line">|张三|19|60|              </span><br></pre></td></tr></table></figure>
-<h3 id="分割线">分割线</h3>
-<p>三条短横<code>---</code>代表分割线</p>
-<h3 id="超链接">超链接</h3>
-<p><a href="url">链接描述</a>，如： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[百度](https://baidu.com)</span><br></pre></td></tr></table></figure></p>
-<h3 id="字体">字体</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*斜体*</span><br><span class="line"> **加粗**</span><br><span class="line"> ``行内代码`` </span><br><span class="line">&lt;u&gt;下划线&lt;/u&gt; </span><br></pre></td></tr></table></figure>
-<h3 id="插入图片">插入图片</h3>
-<figure>
-<img src="图片base64编码" alt="图片" />
-<figcaption aria-hidden="true">图片</figcaption>
-</figure>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>leetcode79丨单词搜索</title>
-    <url>/2024/04/06/leetcode79%E4%B8%A8%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/</url>
+    <url>/2024/02/06/leetcode79%E4%B8%A8%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/</url>
     <content><![CDATA[<p>这是一道简单的回溯题，正常dfs就能A，但是我做的时候内存爆了，从而发现了一个以前一直没发现的问题。</p>
 <p>之前我只有需要对实参进行修改才会在定义函数时使用引用传递。这道题因为不用对字母表进行修改，所以我一开始直接传值：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; a,string word,<span class="type">int</span> n,<span class="type">int</span> x,<span class="type">int</span> y)</span>  <span class="comment">// a为字母表，n为当前匹配长度，x、y为当前字母坐标</span></span></span><br></pre></td></tr></table></figure>
@@ -425,21 +425,6 @@ tail：可以查看文件尾部内容，追踪文件的最新更改 -
 ]]></content>
       <tags>
         <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c++中对空队列使用front()函数报错</title>
-    <url>/2024/04/08/c++%E4%B8%AD%E5%AF%B9%E7%A9%BA%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8front()%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99/</url>
-    <content><![CDATA[<p>问题发生在写leetcode994腐烂的橘子的时候。这道题只要朴素的广搜就能A，我第一次提交的代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">orangesRotting</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>{</span><br><span class="line">    queue&lt;vector&lt;<span class="type">int</span>&gt;&gt; q;  </span><br><span class="line">    <span class="type">int</span> dir[<span class="number">4</span>][<span class="number">2</span>]={{<span class="number">1</span>,<span class="number">0</span>},{<span class="number">-1</span>,<span class="number">0</span>},{<span class="number">0</span>,<span class="number">1</span>},{<span class="number">0</span>,<span class="number">-1</span>}};  <span class="comment">// 方向数组，分别指向上下左右四个方向</span></span><br><span class="line">    <span class="type">int</span> m=grid.<span class="built_in">size</span>(),n=grid[<span class="number">0</span>].<span class="built_in">size</span>(),cnt=<span class="number">0</span>,ans;</span><br><span class="line">    <span class="comment">// 已腐烂的橘子入队</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++){</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++){</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">2</span>){</span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; a={i,j,<span class="number">0</span>};  <span class="comment">// (x坐标，y坐标，腐烂时间)</span></span><br><span class="line">                q.<span class="built_in">push</span>(a);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">1</span>) cnt++;  <span class="comment">//新鲜橘子个数</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//  广度优先搜索</span></span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()){</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; a=q.<span class="built_in">front</span>();  <span class="comment">//出队</span></span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="comment">//  传染邻格的橘子</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++){</span><br><span class="line">            <span class="type">int</span> x=a[<span class="number">0</span>]+dir[i][<span class="number">0</span>],y=a[<span class="number">1</span>]+dir[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (x&gt;=<span class="number">0</span>&amp;&amp;x&lt;m&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;n&amp;&amp;grid[x][y]==<span class="number">1</span>){</span><br><span class="line">                cnt--;  <span class="comment">//新鲜橘子减少</span></span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; temp={x,y,a[<span class="number">2</span>]+<span class="number">1</span>};</span><br><span class="line">                q.<span class="built_in">push</span>(temp);  <span class="comment">// 刚腐烂的橘子入队</span></span><br><span class="line">                grid[x][y]=<span class="number">2</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        ans=q.<span class="built_in">front</span>()[<span class="number">2</span>];  <span class="comment">//最后一个橘子出队前，ans将更新为其腐烂时间</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (cnt==<span class="number">0</span>) <span class="keyword">return</span> ans;  <span class="comment">// 不存在新鲜橘子</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>然后出现了以下报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Line 1037: Char 9: runtime error: reference binding to misaligned address 0xbebebebebebebec6 for type 'int', which requires 4 byte alignment (stl_vector.h)</span><br></pre></td></tr></table></figure>
-<p>经过检查，发现是“ans=q.front()[2];”这行代码未进行判空，导致在队列为空时引用了front()函数而产生错误。</p>
-<p>将改行代码修改为“if (!q.empty()) ans=q.front()[2];”后问题解决。</p>
-]]></content>
-      <tags>
-        <tag>leetcode</tag>
-        <tag>error</tag>
       </tags>
   </entry>
   <entry>
@@ -458,6 +443,21 @@ tail：可以查看文件尾部内容，追踪文件的最新更改 -
       <tags>
         <tag>c++</tag>
         <tag>notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c++中对空队列使用front()函数报错</title>
+    <url>/2024/02/08/c++%E4%B8%AD%E5%AF%B9%E7%A9%BA%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8front()%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99/</url>
+    <content><![CDATA[<p>问题发生在写leetcode994腐烂的橘子的时候。这道题只要朴素的广搜就能A，我第一次提交的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">orangesRotting</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>{</span><br><span class="line">    queue&lt;vector&lt;<span class="type">int</span>&gt;&gt; q;  </span><br><span class="line">    <span class="type">int</span> dir[<span class="number">4</span>][<span class="number">2</span>]={{<span class="number">1</span>,<span class="number">0</span>},{<span class="number">-1</span>,<span class="number">0</span>},{<span class="number">0</span>,<span class="number">1</span>},{<span class="number">0</span>,<span class="number">-1</span>}};  <span class="comment">// 方向数组，分别指向上下左右四个方向</span></span><br><span class="line">    <span class="type">int</span> m=grid.<span class="built_in">size</span>(),n=grid[<span class="number">0</span>].<span class="built_in">size</span>(),cnt=<span class="number">0</span>,ans;</span><br><span class="line">    <span class="comment">// 已腐烂的橘子入队</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++){</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++){</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">2</span>){</span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; a={i,j,<span class="number">0</span>};  <span class="comment">// (x坐标，y坐标，腐烂时间)</span></span><br><span class="line">                q.<span class="built_in">push</span>(a);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">1</span>) cnt++;  <span class="comment">//新鲜橘子个数</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//  广度优先搜索</span></span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()){</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; a=q.<span class="built_in">front</span>();  <span class="comment">//出队</span></span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="comment">//  传染邻格的橘子</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++){</span><br><span class="line">            <span class="type">int</span> x=a[<span class="number">0</span>]+dir[i][<span class="number">0</span>],y=a[<span class="number">1</span>]+dir[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (x&gt;=<span class="number">0</span>&amp;&amp;x&lt;m&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;n&amp;&amp;grid[x][y]==<span class="number">1</span>){</span><br><span class="line">                cnt--;  <span class="comment">//新鲜橘子减少</span></span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; temp={x,y,a[<span class="number">2</span>]+<span class="number">1</span>};</span><br><span class="line">                q.<span class="built_in">push</span>(temp);  <span class="comment">// 刚腐烂的橘子入队</span></span><br><span class="line">                grid[x][y]=<span class="number">2</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        ans=q.<span class="built_in">front</span>()[<span class="number">2</span>];  <span class="comment">//最后一个橘子出队前，ans将更新为其腐烂时间</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (cnt==<span class="number">0</span>) <span class="keyword">return</span> ans;  <span class="comment">// 不存在新鲜橘子</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>然后出现了以下报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Line 1037: Char 9: runtime error: reference binding to misaligned address 0xbebebebebebebec6 for type 'int', which requires 4 byte alignment (stl_vector.h)</span><br></pre></td></tr></table></figure>
+<p>经过检查，发现是“ans=q.front()[2];”这行代码未进行判空，导致在队列为空时引用了front()函数而产生错误。</p>
+<p>将改行代码修改为“if (!q.empty()) ans=q.front()[2];”后问题解决。</p>
+]]></content>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>error</tag>
       </tags>
   </entry>
   <entry>
@@ -810,6 +810,85 @@ FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用
       </tags>
   </entry>
   <entry>
+    <title>操作系统-虚拟内存</title>
+    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/</url>
+    <content><![CDATA[<p>传统存储方式特点 -
+<strong>一次性</strong>：作业必须一次性全部装入内存后才能开始运行； -
+<strong>驻留性</strong>：一旦作业装入内存，就会一直驻留在内存中，直至作业结束；
+局部性原理 - <strong>时间局部性</strong> - <strong>空间局部性</strong>
+## 虚拟内存 -
+基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序；
+-
+在程序执行过程中，当<strong>访问的信息不在内存</strong>时，由操作系统负责将所需信息<strong>调入内存</strong>，然后继续执行程序；（<strong>请求调页/请求调段</strong>）
+-
+若<strong>内存空间不够</strong>，由操作系统负责将内存中<strong>暂时用不到的信息</strong>换到外存；（<strong>页面置换/段置换</strong>）
+#### 虚拟内存容量
+虚拟内存最大容量：由计算机地址结构（CPU寻址范围决定），如32位计算机地址结构：2^32B=4GB；
+虚拟内存实际容量：min（内外存容量之和，CPU寻址范围）； #### 特征 -
+多次性； - 对换性； - 虚拟性； ## 请求分页管理方式 #### 请求页表 -
+内存块号 - 状态栏：表示页面是否已在内存中； -
+访问字段：记录最近被访问过几次，或记录上次访问的时间，供置换算法选择换出页面时参考；
+- 修改位：表示页面调入内存后是否被修改过； -
+外存地址：页面在外存中存放的位置； #### 缺页中断机构 -
+在请求分页系统中，当访问的页面不在内存（状态位为0）时，便产生一个缺页中断，由操作系统的缺页中断处理程序处理中断。
+- 此时缺页的进程阻塞，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。
+-
+如果内存中有空闲块，则为进程分配一个空闲块，将所缺页面装入，并修改相应页表项；
+-
+如果内存中没有空闲块，则由页面置换算法选择一个页面淘汰，若该页面被修改过则需写回外存；
+#### 地址变换机构 - 找到页表项时需检查页面是否在内存中； -
+若页面不在内存中，需请求调页； - 如内存空间不够，需换出页面； -
+页面调入内存后，需要修改相应页表项； ## 页面置换算法
+追求更小的缺页率（缺页次数/访问次数）。 #### 最佳置换算法
+每次选择以后永不使用，或长时间内不再被访问的页面淘汰，保证最低缺页率。
+操作系统无法预判，所以无法实现。 #### 先进先出置换算法（FIFO）
+每次淘汰<strong>最早进入内存</strong>的页面。FIFO会产生Belady异常。
+<strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增。
+#### 最近最久未使用置换算法（LRU）
+每次淘汰<strong>最近最久未使用</strong>的页面。用访问字段记录上次被访问以来经历的时间t。
+性能好，但实现困难、开销大。 #### 时钟置换算法（CLOCK）
+<strong>简单的CLOCK算法</strong>： -
+为每个页面设置一个访问位，通过链接指针链接成一个<strong>循环队列</strong>；
+- 一个页面被访问时，访问位设为1； -
+需要淘汰一个页面时，按队列顺序检查访问位，访问位为0则换出，访问位为1则设为0；
+简单的CLOCK算法仅考虑一个页面最近是否被访问过。事实上，只有被修改过的淘汰页面才需要写回外存，因此没有被修改过的页面应该优先淘汰，避免I/O操作。
+<strong>改进型的时钟置换算法</strong>：
+-用（访问为，修改位）表示各页面状态； -
+第一轮：扫描找到第一个（0,0）页面用于替换，不修改任何标志位； -
+第二轮：若第一轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换，并将扫描过的访问位设为0；
+-
+第三轮：若第二轮扫描失败，则继续扫描查找第一个（0,0）的帧用于替换，不修改任何标志位；
+- 第四轮：若第三轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换； ##
+页面分配策略 驻留集：指请求分页存储管理中给进程分配的物理块的集合。
+采用了虚拟存储技术的系统中，驻留集一般<strong>小于</strong>进程总大小。
+- 驻留集太小，换页频繁，开销大； - 驻留集太大，并发度小，资源利用率低；
+固定分配 VS 可变分配：驻留集大小是否可变； 局部置换 VS
+全局置换：是否可以将其他进程的物理块换出； -
+固定分配局部置换：很难在刚开始就为每个进程分配合理的物理块数量，灵活性差；
+- 可变分配全局置换：部分进程物理块被减少，导致缺页率过高； -
+可变分配局部置换：根据缺页的频率来动态调整进程物理块； #### 何时调入页面
+-
+预调页策略：进程运行前预测不久之后可能访问到的页面，用于<strong>首次调入</strong>，由程序员指出；
+-
+请求调页策略：进程<strong>运行期间</strong>发现缺页才将所缺页面调入内存，需要频繁的I/O操作；
+#### 从何处调入页面 外存分为文件区和对换区。 |对换区|文件区|
+|:---:|:---:| |读写速度快|读写速度慢| |连续分配|离散分配|
+|一般空间较小|一般空间较大| -
+对换区空间充足：进程运行前相关数据复制到对换区，页面调入、调出都在内存和对换区进行；
+- 对换区空间不足：不会被修改的数据直接从文件区调入； -
+UNIX方式：运行之前进程相关数据全部放在文件区，运行时内存换出的页面写回对换区；
+#### 工作集
+<strong>抖动（颠簸）现象</strong>：刚刚换出/换入的页面马上又要换入/换出，频繁缺页。
+工作集：在某段时间间隔里（窗口尺寸），进程实际访问页面的集合。
+一般驻留集大小不能小于工作集大小，否则容易频繁缺页。</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
+        <tag>内存</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习丨softmax回归</title>
     <url>/2024/01/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%A8softmax%E5%9B%9E%E5%BD%92/</url>
     <content><![CDATA[<h1 id="softmax回归">softmax回归</h1>
@@ -1024,85 +1103,6 @@ h' =
       </tags>
   </entry>
   <entry>
-    <title>操作系统-虚拟内存</title>
-    <url>/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/</url>
-    <content><![CDATA[<p>传统存储方式特点 -
-<strong>一次性</strong>：作业必须一次性全部装入内存后才能开始运行； -
-<strong>驻留性</strong>：一旦作业装入内存，就会一直驻留在内存中，直至作业结束；
-局部性原理 - <strong>时间局部性</strong> - <strong>空间局部性</strong>
-## 虚拟内存 -
-基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序；
--
-在程序执行过程中，当<strong>访问的信息不在内存</strong>时，由操作系统负责将所需信息<strong>调入内存</strong>，然后继续执行程序；（<strong>请求调页/请求调段</strong>）
--
-若<strong>内存空间不够</strong>，由操作系统负责将内存中<strong>暂时用不到的信息</strong>换到外存；（<strong>页面置换/段置换</strong>）
-#### 虚拟内存容量
-虚拟内存最大容量：由计算机地址结构（CPU寻址范围决定），如32位计算机地址结构：2^32B=4GB；
-虚拟内存实际容量：min（内外存容量之和，CPU寻址范围）； #### 特征 -
-多次性； - 对换性； - 虚拟性； ## 请求分页管理方式 #### 请求页表 -
-内存块号 - 状态栏：表示页面是否已在内存中； -
-访问字段：记录最近被访问过几次，或记录上次访问的时间，供置换算法选择换出页面时参考；
-- 修改位：表示页面调入内存后是否被修改过； -
-外存地址：页面在外存中存放的位置； #### 缺页中断机构 -
-在请求分页系统中，当访问的页面不在内存（状态位为0）时，便产生一个缺页中断，由操作系统的缺页中断处理程序处理中断。
-- 此时缺页的进程阻塞，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。
--
-如果内存中有空闲块，则为进程分配一个空闲块，将所缺页面装入，并修改相应页表项；
--
-如果内存中没有空闲块，则由页面置换算法选择一个页面淘汰，若该页面被修改过则需写回外存；
-#### 地址变换机构 - 找到页表项时需检查页面是否在内存中； -
-若页面不在内存中，需请求调页； - 如内存空间不够，需换出页面； -
-页面调入内存后，需要修改相应页表项； ## 页面置换算法
-追求更小的缺页率（缺页次数/访问次数）。 #### 最佳置换算法
-每次选择以后永不使用，或长时间内不再被访问的页面淘汰，保证最低缺页率。
-操作系统无法预判，所以无法实现。 #### 先进先出置换算法（FIFO）
-每次淘汰<strong>最早进入内存</strong>的页面。FIFO会产生Belady异常。
-<strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增。
-#### 最近最久未使用置换算法（LRU）
-每次淘汰<strong>最近最久未使用</strong>的页面。用访问字段记录上次被访问以来经历的时间t。
-性能好，但实现困难、开销大。 #### 时钟置换算法（CLOCK）
-<strong>简单的CLOCK算法</strong>： -
-为每个页面设置一个访问位，通过链接指针链接成一个<strong>循环队列</strong>；
-- 一个页面被访问时，访问位设为1； -
-需要淘汰一个页面时，按队列顺序检查访问位，访问位为0则换出，访问位为1则设为0；
-简单的CLOCK算法仅考虑一个页面最近是否被访问过。事实上，只有被修改过的淘汰页面才需要写回外存，因此没有被修改过的页面应该优先淘汰，避免I/O操作。
-<strong>改进型的时钟置换算法</strong>：
--用（访问为，修改位）表示各页面状态； -
-第一轮：扫描找到第一个（0,0）页面用于替换，不修改任何标志位； -
-第二轮：若第一轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换，并将扫描过的访问位设为0；
--
-第三轮：若第二轮扫描失败，则继续扫描查找第一个（0,0）的帧用于替换，不修改任何标志位；
-- 第四轮：若第三轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换； ##
-页面分配策略 驻留集：指请求分页存储管理中给进程分配的物理块的集合。
-采用了虚拟存储技术的系统中，驻留集一般<strong>小于</strong>进程总大小。
-- 驻留集太小，换页频繁，开销大； - 驻留集太大，并发度小，资源利用率低；
-固定分配 VS 可变分配：驻留集大小是否可变； 局部置换 VS
-全局置换：是否可以将其他进程的物理块换出； -
-固定分配局部置换：很难在刚开始就为每个进程分配合理的物理块数量，灵活性差；
-- 可变分配全局置换：部分进程物理块被减少，导致缺页率过高； -
-可变分配局部置换：根据缺页的频率来动态调整进程物理块； #### 何时调入页面
--
-预调页策略：进程运行前预测不久之后可能访问到的页面，用于<strong>首次调入</strong>，由程序员指出；
--
-请求调页策略：进程<strong>运行期间</strong>发现缺页才将所缺页面调入内存，需要频繁的I/O操作；
-#### 从何处调入页面 外存分为文件区和对换区。 |对换区|文件区|
-|:---:|:---:| |读写速度快|读写速度慢| |连续分配|离散分配|
-|一般空间较小|一般空间较大| -
-对换区空间充足：进程运行前相关数据复制到对换区，页面调入、调出都在内存和对换区进行；
-- 对换区空间不足：不会被修改的数据直接从文件区调入； -
-UNIX方式：运行之前进程相关数据全部放在文件区，运行时内存换出的页面写回对换区；
-#### 工作集
-<strong>抖动（颠簸）现象</strong>：刚刚换出/换入的页面马上又要换入/换出，频繁缺页。
-工作集：在某段时间间隔里（窗口尺寸），进程实际访问页面的集合。
-一般驻留集大小不能小于工作集大小，否则容易频繁缺页。</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>操作系统</tag>
-        <tag>内存</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深度学习丨基于MNIST的MLP手写体识别实践</title>
     <url>/2024/01/24/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%A8%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/</url>
     <content><![CDATA[<p>为了巩固阶段性学习成果，尝试应用MLP进行实践。本次使用MNIST数据集，通过一个使用MLP训练一个手写体数字识别模型。</p>
@@ -1135,6 +1135,36 @@ UNIX方式：运行之前进程相关数据全部放在文件区，运行时内�
       <tags>
         <tag>deep learning</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>操作系统-磁盘</title>
+    <url>/2022/11/08/%E7%A3%81%E7%9B%98/</url>
+    <content><![CDATA[<p>磁盘的表面由一些磁性物质组成，可以记录二进制数据。磁盘的表面被划分成一个个磁道，一个磁道又被分成一个个扇区，每个扇区就是一个<strong>磁盘块</strong>。
+-
+地址形式：可以用（柱面号、盘面号、扇区号）来定位一个磁盘块。在读取地址连续的磁盘块时，（柱面号，盘面号，扇区号）的写法能减少磁头移动；
+- 根据<strong>磁头是否可移动</strong>可分为固定头磁盘和移动头磁盘； -
+根据<strong>盘片是否可换</strong>可分为固定盘磁盘和可换盘磁盘； ##
+一、磁盘调度算法 一次磁盘读/写操作时间分为三部分： -
+寻找时间：启动磁臂、移动磁头所花的时间； -
+延迟时间：将目标扇区转到磁头下面所花的时间； -
+传输时间：读/写数据花费的时间；</p>
+<p>磁盘调度算法通过减少<strong>寻找时间</strong>来提高效率。 #### 1.
+先来先服务（FCFS） - 按访问请求到达的先后顺序进行处理； #### 2.
+最短寻找时间优先（SSTF） - 每次都优先响应距离磁头最近的磁道访问请求； -
+贪心思想，无法保证整体最优； - 可能导致饥饿； #### 3. 扫描算法（SCAN） -
+只有磁头移到最边缘磁道才会改变方向； - 对各个位置磁道响应频率不均匀；
+#### 4. 循环扫描算法（C-SCAN） - 磁头只在朝一个方向移动时才会响应请求；
+#### 5.LOOK和C-LOOK -
+LOOK算法是SCAN的改进，只要磁头移动方向上不再有请求就改变方向； -
+C-LOOK算法是C-SCAN的改进； ## 二、减少延迟时间的方法
+<strong>交替编号</strong>：让编号相邻的扇区物理上不相邻； -
+物理相邻的两个扇区无法连续读取；
+<strong>错位命名</strong>：让相邻盘面的扇区编号错位；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
@@ -1288,36 +1318,6 @@ Net）是transformer中的又一重要子层，FFN层本质上是全连接层，
       <tags>
         <tag>deep learning</tag>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统-磁盘</title>
-    <url>/2022/11/08/%E7%A3%81%E7%9B%98/</url>
-    <content><![CDATA[<p>磁盘的表面由一些磁性物质组成，可以记录二进制数据。磁盘的表面被划分成一个个磁道，一个磁道又被分成一个个扇区，每个扇区就是一个<strong>磁盘块</strong>。
--
-地址形式：可以用（柱面号、盘面号、扇区号）来定位一个磁盘块。在读取地址连续的磁盘块时，（柱面号，盘面号，扇区号）的写法能减少磁头移动；
-- 根据<strong>磁头是否可移动</strong>可分为固定头磁盘和移动头磁盘； -
-根据<strong>盘片是否可换</strong>可分为固定盘磁盘和可换盘磁盘； ##
-一、磁盘调度算法 一次磁盘读/写操作时间分为三部分： -
-寻找时间：启动磁臂、移动磁头所花的时间； -
-延迟时间：将目标扇区转到磁头下面所花的时间； -
-传输时间：读/写数据花费的时间；</p>
-<p>磁盘调度算法通过减少<strong>寻找时间</strong>来提高效率。 #### 1.
-先来先服务（FCFS） - 按访问请求到达的先后顺序进行处理； #### 2.
-最短寻找时间优先（SSTF） - 每次都优先响应距离磁头最近的磁道访问请求； -
-贪心思想，无法保证整体最优； - 可能导致饥饿； #### 3. 扫描算法（SCAN） -
-只有磁头移到最边缘磁道才会改变方向； - 对各个位置磁道响应频率不均匀；
-#### 4. 循环扫描算法（C-SCAN） - 磁头只在朝一个方向移动时才会响应请求；
-#### 5.LOOK和C-LOOK -
-LOOK算法是SCAN的改进，只要磁头移动方向上不再有请求就改变方向； -
-C-LOOK算法是C-SCAN的改进； ## 二、减少延迟时间的方法
-<strong>交替编号</strong>：让编号相邻的扇区物理上不相邻； -
-物理相邻的两个扇区无法连续读取；
-<strong>错位命名</strong>：让相邻盘面的扇区编号错位；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
@@ -1485,6 +1485,105 @@ W：信道带宽，s：信道内所传信号的平均功率，N：信道内的�
 分组交换</p>
 <h2 id="报文交换">报文交换</h2>
 ]]></content>
+  </entry>
+  <entry>
+    <title>计算机网络-运输层</title>
+    <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/</url>
+    <content><![CDATA[<p>计算机网络中进行通信的真正实体是<strong>位于通信两端主机中的进程</strong>，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。
+-
+因特网的运输层为应用层提供了<strong>面向连接的TCP</strong>和<strong>无连接的UDP</strong>两种不同的运输协议；
+## 一、端口号、复用和分用
+端口号：TCP/IP体系的运输层使用端口号来区分应用层的不同应用进程。 -
+端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号； -
+端口号只具有本地意义； 复用和分用： - 发送方：UDP复用/TCP复用、IP复用；
+- 接收方：IP分用、UDP分用/TCP分用； ## 二、UDP和TCP的对比 <img
+src="对比.jpg" alt="UDP和TCP的对比" /> ## 三、TCP的流量控制和拥塞控制
+#### 流量控制
+如果发送方数据发送速度过快，接收方可能来不及接收，造成数据丢失，这时需要采用流量控制。
+利用<strong>滑动窗口</strong>机制可以很方便地在TCP连接上实现对发送方的流量控制：
+- TCP接收方利用自己接收窗口的大小来限制发送方发送窗口的大小； -
+TCP发送方收到接收方的零窗口通知后，启动<strong>持续计时器</strong>，持续计时器超时后发送<strong>零窗口探测报文</strong>。
+#### 拥塞控制
+某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变差，称为<strong>拥塞</strong>。
+TCP采用了四种拥塞控制算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。
+-
+发送方维护<strong>拥塞窗口cwnd</strong>变量：其值取决于网络的拥塞程度（当发生超时重传，则视为发生网络拥塞），并动态变化，发送方将拥塞窗口作为发送窗口swnd；
+-
+维护一个慢开始门限ssthresh：cwnd&lt;ssthresh使用慢开始算法，cwnd&gt;ssthresh时改用拥塞避免算法；
+-
+<strong>慢开始</strong>：cwnd初始值为1，发送方每收到一个确认报文段，将cwnd加1，cwnd呈指数增长；
+-
+<strong>拥塞避免</strong>：每个传输轮次结束后，cwnd加1，cwnd呈线性增长；
+-
+当遇到拥塞（超时重传），则ssthresh重置为当前cwnd的一半，cwnd减少为1，重新开始执行慢开始算法；
+-
+<strong>快重传</strong>：超时重传不一定由网络拥塞导致，<strong>错误启动慢开始算法</strong>，降低传输效率。快重传要求接收方收到数据<strong>立刻发送确认</strong>（包括失序报文段），发送方一旦收到<strong>3个连续的重复确认</strong>就将相应报文段<strong>立即重传</strong>，而<strong>不用等超时重传计时器超时</strong>。
+-
+<strong>快恢复</strong>：发送方收到3个重复确认，不启动慢开始算法，而是将ssthresh和cwnd调整为当前cwnd的一半，并开始执行拥塞避免算法；
+## 四、TCP超时重传时间的选择
+超时重传时间RTO的选择是TCP最复杂的问题之一。
+<strong>加权平均往返时间RTTs</strong>： - RTTs1 = RTT1； - 新的RTTs =
+(1-α) × 旧的RTTs + α × 新的RTT样本（指数平滑法） -
+已成为建议标准的α取值为0.125； <strong>超时重传时间RTO</strong>： -
+应略大于加权平均往返时间RTTs； - RFC6298建议使用的RTO = RTTs + 4 ×
+RTTd，RTTd1 = RTT1 ÷ 2，新的RTTd = (1-β) x 旧的RTTd + β × |RTTs -
+新的RTT样本|，β建议值为0.25； -
+只要报文段重传了，就不采用其往返时间RTT样本，并把RTO增大一些（如×2）；
+## 五、TCP可靠传输的实现
+TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输。 -
+确认报文段包含接收窗口大小和希望接收到的起始字段，发送方据此构建发送窗口；
+-
+发送方在未收到接收方的确认时，可将发送窗口内还未发送的数据全部发送出去；
+- 接收方只接收序号落入发送窗口内的数据； -
+TCP通常将不按序到达的数据先临时存放在接收窗口中，等字节流缺少的字节收到后，再按序交付用户进程；
+- TCP要求接收方必须有累积确认和捎带确认机制，不应过分推迟发送确认； -
+TCP通信是全双工通信； ## 六、TCP的运输连接管理 TCP运输连接有三个阶段： -
+“三报文握手”建立TCP连接； - “四报文挥手”释放TCP连接； #### TCP的连接建立
+TCP连接建立要解决以下三个问题： - 使TCP双方能够确知对方的存在； -
+使TCP双方能够协商一些参数（如窗口最大值）； -
+使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配；
+“三报文握手”过程： - TCP服务器进程创建传输控制块，进入监听状态； -
+TCP客户进程创建传输控制块，向TCP服务进程发送<strong>TCP连接请求报文段</strong>（SYN=1，seq=x，不能携带数据且需要消耗掉一个序号），进入同步已发送状态；（一握手）
+-
+TCP服务器进程发送<strong>TCP连接请求确认报文段</strong>（SYN=1，ACK=1，seq=y，ack=x+1，不能携带数据且需要消耗掉一个序号），进入同步已接收状态；（二握手）
+-
+TCP客户进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=x+1，ack=y+1，可携带数据，若未携带数据则不消耗序号），进入连接已建立状态；（三握手）
+- TCP服务器进程进入连接已建立状态； -
+若改为两挥手，则可能因TCP连接请求超时重传导致错误； <img
+src="三报文握手.jpg" alt="三报文握手" /> #### TCP的连接释放
+“四报文挥手”过程： -
+TCP客户进程发送<strong>TCP连接释放报文段</strong>（FIN=1，ACK=1，seq=u，ack=v，不携带数据也要消耗掉一个序号），并进入终止等待1状态；
+-
+TCP服务器进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=v，ack=u+1），并进入关闭等待状态（未传输完的数据会继续传输，持续一段时间）；
+- TCP客户进程收到后进入终止等待2状态； -
+TCP服务器进程数据发送完后，发送<strong>TCP释放报文段</strong>（FIN=1，ACK=1，seq=w，ack=u+1），并进入最后确认状态；
+-
+TCP用户进程发送<strong>普通的TCP确认报文段</strong>（ACK=1,seq=u+1，ack=w+1），并进入时间等待状态;
+- TCP服务器进程进入关闭状态； -
+TCP客户进程在2MSL（MSL为最长报文段寿命，建议值为2min，一般更小）的时间后进入关闭状态；
+<strong>保活计时器</strong>：TCP服务器进程每收到一次数据，就重新设置并启动保活计时器（2小时），保活计时器到时后，TCP服务器进程发送一个<strong>探测报文段</strong>，并每隔75秒发送一次。若连续10个探测报文段未被响应，则TCP服务器进程关闭连接。
+<img src="四报文挥手.jpg" alt="四报文挥手" /> ## 七、TCP报文段的首部格式
+<img src="TCP首部.jpg" alt="TCP报文段首部格式" />
+序号：指出本TCP报文段数据载荷的第一个字节的序号（循环）。
+确认号：指出期望收到<strong>对方</strong>下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认，只有ACK=1才有效；
+数据偏移：即首部长度，指出TCP报文段的数据载荷部分的起始处距离TCP报文段起始处有多远，取值为首部字节数/4；
+保留：保留今后使用，置为0；
+SYN：在TCP<strong>连接建立时</strong>用来同步序号；
+FIN：用来释放TCP连接；
+RST：用来复位TCP连接，RST=1时表明连接出现异常，需要释放并重新建立连接；
+PSH：PSH=1时，接收方会将该报文段尽快上交应用进程；
+窗口：本报文段发送方的接收窗口；
+校验和：检查TCP报文段（首部+数据载荷）是否出现误码；
+紧急指针：URG=1时才有效，用来指明紧急数据的长度，紧急数据可插队到发送缓存的最前面；
+选项：用来增加TCP功能： - 最大报文段长度MSS选项：数据载荷部分最大长度；
+- 窗口扩大选项：为了扩大窗口（提高吞吐率）； -
+时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；
+- 选择确认选项：实现选择确认功能；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
   </entry>
   <entry>
     <title>计算机网络-链路层</title>
@@ -1706,6 +1805,85 @@ VLAN标记的最后12比特称为<strong>VLAN标识符VID</strong>，唯一地�
       </tags>
   </entry>
   <entry>
+    <title>计算机网络体系结构</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
+<p><strong>OSI体系结构（法律上的国际标准）</strong> -
+应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
+<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
+应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
+网络接口层 <strong>原理体系结构</strong> -
+应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
+二、计算机网络体系结构分层
+<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
+物理接口 - 信号
+<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
+- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
+如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
+<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
+如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
+路由器如何转发分组，如何进行路由选择
+<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
+如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
+<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
+- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
+任何可发送或接受信息的硬件或软件进程。 -
+对等实体：接受双方相同层次中的实体 #### 协议
+控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
+- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
+同步：定义收发双方的时序关系； #### 服务
+<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
+- 协议是水平的，服务是垂直的；
+<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
+- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
+运输层：端口号
+<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
+<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
+应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
+- 链路层：帧 - 物理层：比特流
+<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
+多个SDU可以合成为一个PDU；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络性能指标</title>
+    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<h4 id="一速率">一、速率</h4>
+<p>连接在计算机网络上的主机在数字信道上传送比特的速率。 -
+又称比特率、数据率，单位b/s（bit/s，bps）； - 1kb/s = 10^3 b/s； ####
+二、带宽 计算机网络中，带宽用来表示网络的通信线路所能传送数据的能力。 -
+网络带宽表示在单位时间内从网络某一点到另一点所能通过的<strong>最高数据率</strong>。
+- 单位：b/s #### 三、吞吐量
+在单位时间内通过某个网络（或信道、接口）的数据量； -
+受网络带宽或额定速率的限制； #### 四、时延
+<strong>发送时延</strong>：源主机将分组发往传输线路； -
+分组长度(b)/发送速率(b/s) - 发送速率 = min(网卡发送速率, 信道带宽,
+接口速率) <strong>传播时延</strong>：分组在链路上传输 -
+信道长度(m)/电磁波传播速率(m/s) -
+电磁波传播速率：自由空间3x10<sup>8m/s，铜线2.3X10</sup>8m/s，光纤2.0X10^8m/s；
+<strong>处理时延</strong>：路由器对分组进行存储转发； - 不方便计算；
+#### 五、时延带宽积 时延带宽积 = 传播时延X带宽 -
+发送端连续发送数据时，发送的第一个比特到达终点时发送端已发送的比特数。 -
+链路的时延带宽积又称以比特为单位的链路长度； #### 六、往返时间（RTT）
+在很多情况下，因特网上的信息不仅仅是单方向传输，而是双向传输。 ####
+七、利用率 信道利用率：信道有百分之几是被利用的（有数据通过）。
+网络利用率：全网络的信道利用率加权平均。 -
+信道利用率增大时，时延会增加； #### 八、丢包率
+在一定时间范围内，传输过程中丢失的分组数量与总分组数量的比率，即分组丢失率。
+- 可分为接口丢包率、结点丢包率、链路丢包率、路径丢包率、网络丢包率等； -
+<strong>分组误码</strong>和<strong>网络拥塞</strong>会导致分组丢失； -
+丢包率反映了网络的拥塞情况；</p>
+]]></content>
+      <tags>
+        <tag>notes</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机网络-网络层</title>
     <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/</url>
     <content><![CDATA[<p>IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。
@@ -1845,184 +2023,6 @@ NAT路由器修改IP数据报的IP地址为全球IP地址； -
 一个NAT路由器可连接多台主机； -
 NAT路由器接收外部发来的数据报，并根据转换表转发给主机； -
 可以利用运输层的端口号和IP地址一起进行转换，这样<strong>一个全球IP地址</strong>就可以使<strong>多个拥有本地地址的主机</strong>同时和因特网上的主机进行通信，称为<strong>网络地址与端口号转换NAPT</strong>；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络体系结构</title>
-    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
-<p><strong>OSI体系结构（法律上的国际标准）</strong> -
-应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
-<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
-应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
-网络接口层 <strong>原理体系结构</strong> -
-应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
-二、计算机网络体系结构分层
-<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
-物理接口 - 信号
-<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
-- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
-如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
-<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
-如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
-路由器如何转发分组，如何进行路由选择
-<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
-如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
-<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
-- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
-任何可发送或接受信息的硬件或软件进程。 -
-对等实体：接受双方相同层次中的实体 #### 协议
-控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
-- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
-同步：定义收发双方的时序关系； #### 服务
-<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
-- 协议是水平的，服务是垂直的；
-<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
-- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
-运输层：端口号
-<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
-<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
-应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
-- 链路层：帧 - 物理层：比特流
-<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
-多个SDU可以合成为一个PDU；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络-运输层</title>
-    <url>/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/</url>
-    <content><![CDATA[<p>计算机网络中进行通信的真正实体是<strong>位于通信两端主机中的进程</strong>，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。
--
-因特网的运输层为应用层提供了<strong>面向连接的TCP</strong>和<strong>无连接的UDP</strong>两种不同的运输协议；
-## 一、端口号、复用和分用
-端口号：TCP/IP体系的运输层使用端口号来区分应用层的不同应用进程。 -
-端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号； -
-端口号只具有本地意义； 复用和分用： - 发送方：UDP复用/TCP复用、IP复用；
-- 接收方：IP分用、UDP分用/TCP分用； ## 二、UDP和TCP的对比 <img
-src="对比.jpg" alt="UDP和TCP的对比" /> ## 三、TCP的流量控制和拥塞控制
-#### 流量控制
-如果发送方数据发送速度过快，接收方可能来不及接收，造成数据丢失，这时需要采用流量控制。
-利用<strong>滑动窗口</strong>机制可以很方便地在TCP连接上实现对发送方的流量控制：
-- TCP接收方利用自己接收窗口的大小来限制发送方发送窗口的大小； -
-TCP发送方收到接收方的零窗口通知后，启动<strong>持续计时器</strong>，持续计时器超时后发送<strong>零窗口探测报文</strong>。
-#### 拥塞控制
-某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变差，称为<strong>拥塞</strong>。
-TCP采用了四种拥塞控制算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。
--
-发送方维护<strong>拥塞窗口cwnd</strong>变量：其值取决于网络的拥塞程度（当发生超时重传，则视为发生网络拥塞），并动态变化，发送方将拥塞窗口作为发送窗口swnd；
--
-维护一个慢开始门限ssthresh：cwnd&lt;ssthresh使用慢开始算法，cwnd&gt;ssthresh时改用拥塞避免算法；
--
-<strong>慢开始</strong>：cwnd初始值为1，发送方每收到一个确认报文段，将cwnd加1，cwnd呈指数增长；
--
-<strong>拥塞避免</strong>：每个传输轮次结束后，cwnd加1，cwnd呈线性增长；
--
-当遇到拥塞（超时重传），则ssthresh重置为当前cwnd的一半，cwnd减少为1，重新开始执行慢开始算法；
--
-<strong>快重传</strong>：超时重传不一定由网络拥塞导致，<strong>错误启动慢开始算法</strong>，降低传输效率。快重传要求接收方收到数据<strong>立刻发送确认</strong>（包括失序报文段），发送方一旦收到<strong>3个连续的重复确认</strong>就将相应报文段<strong>立即重传</strong>，而<strong>不用等超时重传计时器超时</strong>。
--
-<strong>快恢复</strong>：发送方收到3个重复确认，不启动慢开始算法，而是将ssthresh和cwnd调整为当前cwnd的一半，并开始执行拥塞避免算法；
-## 四、TCP超时重传时间的选择
-超时重传时间RTO的选择是TCP最复杂的问题之一。
-<strong>加权平均往返时间RTTs</strong>： - RTTs1 = RTT1； - 新的RTTs =
-(1-α) × 旧的RTTs + α × 新的RTT样本（指数平滑法） -
-已成为建议标准的α取值为0.125； <strong>超时重传时间RTO</strong>： -
-应略大于加权平均往返时间RTTs； - RFC6298建议使用的RTO = RTTs + 4 ×
-RTTd，RTTd1 = RTT1 ÷ 2，新的RTTd = (1-β) x 旧的RTTd + β × |RTTs -
-新的RTT样本|，β建议值为0.25； -
-只要报文段重传了，就不采用其往返时间RTT样本，并把RTO增大一些（如×2）；
-## 五、TCP可靠传输的实现
-TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输。 -
-确认报文段包含接收窗口大小和希望接收到的起始字段，发送方据此构建发送窗口；
--
-发送方在未收到接收方的确认时，可将发送窗口内还未发送的数据全部发送出去；
-- 接收方只接收序号落入发送窗口内的数据； -
-TCP通常将不按序到达的数据先临时存放在接收窗口中，等字节流缺少的字节收到后，再按序交付用户进程；
-- TCP要求接收方必须有累积确认和捎带确认机制，不应过分推迟发送确认； -
-TCP通信是全双工通信； ## 六、TCP的运输连接管理 TCP运输连接有三个阶段： -
-“三报文握手”建立TCP连接； - “四报文挥手”释放TCP连接； #### TCP的连接建立
-TCP连接建立要解决以下三个问题： - 使TCP双方能够确知对方的存在； -
-使TCP双方能够协商一些参数（如窗口最大值）； -
-使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配；
-“三报文握手”过程： - TCP服务器进程创建传输控制块，进入监听状态； -
-TCP客户进程创建传输控制块，向TCP服务进程发送<strong>TCP连接请求报文段</strong>（SYN=1，seq=x，不能携带数据且需要消耗掉一个序号），进入同步已发送状态；（一握手）
--
-TCP服务器进程发送<strong>TCP连接请求确认报文段</strong>（SYN=1，ACK=1，seq=y，ack=x+1，不能携带数据且需要消耗掉一个序号），进入同步已接收状态；（二握手）
--
-TCP客户进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=x+1，ack=y+1，可携带数据，若未携带数据则不消耗序号），进入连接已建立状态；（三握手）
-- TCP服务器进程进入连接已建立状态； -
-若改为两挥手，则可能因TCP连接请求超时重传导致错误； <img
-src="三报文握手.jpg" alt="三报文握手" /> #### TCP的连接释放
-“四报文挥手”过程： -
-TCP客户进程发送<strong>TCP连接释放报文段</strong>（FIN=1，ACK=1，seq=u，ack=v，不携带数据也要消耗掉一个序号），并进入终止等待1状态；
--
-TCP服务器进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=v，ack=u+1），并进入关闭等待状态（未传输完的数据会继续传输，持续一段时间）；
-- TCP客户进程收到后进入终止等待2状态； -
-TCP服务器进程数据发送完后，发送<strong>TCP释放报文段</strong>（FIN=1，ACK=1，seq=w，ack=u+1），并进入最后确认状态；
--
-TCP用户进程发送<strong>普通的TCP确认报文段</strong>（ACK=1,seq=u+1，ack=w+1），并进入时间等待状态;
-- TCP服务器进程进入关闭状态； -
-TCP客户进程在2MSL（MSL为最长报文段寿命，建议值为2min，一般更小）的时间后进入关闭状态；
-<strong>保活计时器</strong>：TCP服务器进程每收到一次数据，就重新设置并启动保活计时器（2小时），保活计时器到时后，TCP服务器进程发送一个<strong>探测报文段</strong>，并每隔75秒发送一次。若连续10个探测报文段未被响应，则TCP服务器进程关闭连接。
-<img src="四报文挥手.jpg" alt="四报文挥手" /> ## 七、TCP报文段的首部格式
-<img src="TCP首部.jpg" alt="TCP报文段首部格式" />
-序号：指出本TCP报文段数据载荷的第一个字节的序号（循环）。
-确认号：指出期望收到<strong>对方</strong>下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认，只有ACK=1才有效；
-数据偏移：即首部长度，指出TCP报文段的数据载荷部分的起始处距离TCP报文段起始处有多远，取值为首部字节数/4；
-保留：保留今后使用，置为0；
-SYN：在TCP<strong>连接建立时</strong>用来同步序号；
-FIN：用来释放TCP连接；
-RST：用来复位TCP连接，RST=1时表明连接出现异常，需要释放并重新建立连接；
-PSH：PSH=1时，接收方会将该报文段尽快上交应用进程；
-窗口：本报文段发送方的接收窗口；
-校验和：检查TCP报文段（首部+数据载荷）是否出现误码；
-紧急指针：URG=1时才有效，用来指明紧急数据的长度，紧急数据可插队到发送缓存的最前面；
-选项：用来增加TCP功能： - 最大报文段长度MSS选项：数据载荷部分最大长度；
-- 窗口扩大选项：为了扩大窗口（提高吞吐率）； -
-时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；
-- 选择确认选项：实现选择确认功能；</p>
-]]></content>
-      <tags>
-        <tag>notes</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络性能指标</title>
-    <url>/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/</url>
-    <content><![CDATA[<h4 id="一速率">一、速率</h4>
-<p>连接在计算机网络上的主机在数字信道上传送比特的速率。 -
-又称比特率、数据率，单位b/s（bit/s，bps）； - 1kb/s = 10^3 b/s； ####
-二、带宽 计算机网络中，带宽用来表示网络的通信线路所能传送数据的能力。 -
-网络带宽表示在单位时间内从网络某一点到另一点所能通过的<strong>最高数据率</strong>。
-- 单位：b/s #### 三、吞吐量
-在单位时间内通过某个网络（或信道、接口）的数据量； -
-受网络带宽或额定速率的限制； #### 四、时延
-<strong>发送时延</strong>：源主机将分组发往传输线路； -
-分组长度(b)/发送速率(b/s) - 发送速率 = min(网卡发送速率, 信道带宽,
-接口速率) <strong>传播时延</strong>：分组在链路上传输 -
-信道长度(m)/电磁波传播速率(m/s) -
-电磁波传播速率：自由空间3x10<sup>8m/s，铜线2.3X10</sup>8m/s，光纤2.0X10^8m/s；
-<strong>处理时延</strong>：路由器对分组进行存储转发； - 不方便计算；
-#### 五、时延带宽积 时延带宽积 = 传播时延X带宽 -
-发送端连续发送数据时，发送的第一个比特到达终点时发送端已发送的比特数。 -
-链路的时延带宽积又称以比特为单位的链路长度； #### 六、往返时间（RTT）
-在很多情况下，因特网上的信息不仅仅是单方向传输，而是双向传输。 ####
-七、利用率 信道利用率：信道有百分之几是被利用的（有数据通过）。
-网络利用率：全网络的信道利用率加权平均。 -
-信道利用率增大时，时延会增加； #### 八、丢包率
-在一定时间范围内，传输过程中丢失的分组数量与总分组数量的比率，即分组丢失率。
-- 可分为接口丢包率、结点丢包率、链路丢包率、路径丢包率、网络丢包率等； -
-<strong>分组误码</strong>和<strong>网络拥塞</strong>会导致分组丢失； -
-丢包率反映了网络的拥塞情况；</p>
 ]]></content>
       <tags>
         <tag>notes</tag>

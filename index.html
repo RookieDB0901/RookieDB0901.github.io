@@ -286,155 +286,6 @@ mjx-container[display="true"] + br {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/04/08/c++%E4%B8%AD%E5%AF%B9%E7%A9%BA%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8front()%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/08/c++%E4%B8%AD%E5%AF%B9%E7%A9%BA%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8front()%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">c++中对空队列使用front()函数报错</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-04-08 00:00:00" itemprop="dateCreated datePublished" datetime="2024-04-08T00:00:00+08:00">2024-04-08</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>问题发生在写leetcode994腐烂的橘子的时候。这道题只要朴素的广搜就能A，我第一次提交的代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">orangesRotting</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>{</span><br><span class="line">    queue&lt;vector&lt;<span class="type">int</span>&gt;&gt; q;  </span><br><span class="line">    <span class="type">int</span> dir[<span class="number">4</span>][<span class="number">2</span>]={{<span class="number">1</span>,<span class="number">0</span>},{<span class="number">-1</span>,<span class="number">0</span>},{<span class="number">0</span>,<span class="number">1</span>},{<span class="number">0</span>,<span class="number">-1</span>}};  <span class="comment">// 方向数组，分别指向上下左右四个方向</span></span><br><span class="line">    <span class="type">int</span> m=grid.<span class="built_in">size</span>(),n=grid[<span class="number">0</span>].<span class="built_in">size</span>(),cnt=<span class="number">0</span>,ans;</span><br><span class="line">    <span class="comment">// 已腐烂的橘子入队</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++){</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++){</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">2</span>){</span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; a={i,j,<span class="number">0</span>};  <span class="comment">// (x坐标，y坐标，腐烂时间)</span></span><br><span class="line">                q.<span class="built_in">push</span>(a);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">1</span>) cnt++;  <span class="comment">//新鲜橘子个数</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//  广度优先搜索</span></span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()){</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; a=q.<span class="built_in">front</span>();  <span class="comment">//出队</span></span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="comment">//  传染邻格的橘子</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++){</span><br><span class="line">            <span class="type">int</span> x=a[<span class="number">0</span>]+dir[i][<span class="number">0</span>],y=a[<span class="number">1</span>]+dir[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (x&gt;=<span class="number">0</span>&amp;&amp;x&lt;m&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;n&amp;&amp;grid[x][y]==<span class="number">1</span>){</span><br><span class="line">                cnt--;  <span class="comment">//新鲜橘子减少</span></span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; temp={x,y,a[<span class="number">2</span>]+<span class="number">1</span>};</span><br><span class="line">                q.<span class="built_in">push</span>(temp);  <span class="comment">// 刚腐烂的橘子入队</span></span><br><span class="line">                grid[x][y]=<span class="number">2</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        ans=q.<span class="built_in">front</span>()[<span class="number">2</span>];  <span class="comment">//最后一个橘子出队前，ans将更新为其腐烂时间</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (cnt==<span class="number">0</span>) <span class="keyword">return</span> ans;  <span class="comment">// 不存在新鲜橘子</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>然后出现了以下报错：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Line 1037: Char 9: runtime error: reference binding to misaligned address 0xbebebebebebebec6 for type 'int', which requires 4 byte alignment (stl_vector.h)</span><br></pre></td></tr></table></figure>
-<p>经过检查，发现是“ans=q.front()[2];”这行代码未进行判空，导致在队列为空时引用了front()函数而产生错误。</p>
-<p>将改行代码修改为“if (!q.empty()) ans=q.front()[2];”后问题解决。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/04/06/leetcode79%E4%B8%A8%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/04/06/leetcode79%E4%B8%A8%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" class="post-title-link" itemprop="url">leetcode79丨单词搜索</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2024-04-06T00:00:00+08:00">2024-04-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这是一道简单的回溯题，正常dfs就能A，但是我做的时候内存爆了，从而发现了一个以前一直没发现的问题。</p>
-<p>之前我只有需要对实参进行修改才会在定义函数时使用引用传递。这道题因为不用对字母表进行修改，所以我一开始直接传值：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; a,string word,<span class="type">int</span> n,<span class="type">int</span> x,<span class="type">int</span> y)</span>  <span class="comment">// a为字母表，n为当前匹配长度，x、y为当前字母坐标</span></span></span><br></pre></td></tr></table></figure>
-<p>然后内存爆了。因为回溯题的数组一般都比较小，就算把整个数组直接传进去空间复杂度也才乘100左右，以前直接这样传内存一直没有爆过。以后递归的时候不能再这样传参了，太占空间了。</p>
-<p>下面附上此题代码。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> visit[<span class="number">16</span>][<span class="number">16</span>]={};  <span class="comment">// 记录各字母是否被访问过</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; &amp;a,string word,<span class="type">int</span> n,<span class="type">int</span> x,<span class="type">int</span> y)</span></span>{</span><br><span class="line">    <span class="keyword">if</span> (x&gt;=a.<span class="built_in">size</span>()||x&lt;<span class="number">0</span>||y&gt;=a[<span class="number">0</span>].<span class="built_in">size</span>()||y&lt;<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 坐标越界</span></span><br><span class="line">    <span class="keyword">if</span> (visit[x][y]) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 已经用过的字母不能再次使用</span></span><br><span class="line">    <span class="keyword">if</span> (a[x][y]!=word[n]) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 字母不匹配</span></span><br><span class="line">    <span class="keyword">if</span> (n==word.<span class="built_in">length</span>()<span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">// 匹配成功</span></span><br><span class="line">    visit[x][y]=<span class="number">1</span>;  </span><br><span class="line">    <span class="comment">// 分别对上下左右四个方向进行搜索</span></span><br><span class="line">    <span class="type">bool</span> ans=<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x+<span class="number">1</span>,y)||<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x<span class="number">-1</span>,y)||<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x,y+<span class="number">1</span>)||<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x,y<span class="number">-1</span>);</span><br><span class="line">    visit[x][y]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">exist</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board, string word)</span> </span>{</span><br><span class="line">    <span class="comment">//分别以每个点为起点进行搜索</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;board.<span class="built_in">size</span>();i++){</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;board[<span class="number">0</span>].<span class="built_in">size</span>();j++){</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">dfs</span>(board,word,<span class="number">0</span>,i,j)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>这样就A了，就没有再剪枝了。。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/03/05/%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%AD%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8gradio%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -654,6 +505,155 @@ Net）是transformer中的又一重要子层，FFN层本质上是全连接层，
 <h1 id="训练">训练</h1>
 <p>损失函数使用交叉熵损失，优化器使用SGD，对模型进行训练。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">model = Transformer().to(device)</span><br><span class="line"><span class="comment"># ignore_index=0，因为 "pad" 这个单词的索引为 0，这样设置以后，就不会计算 "pad" 的损失</span></span><br><span class="line">criterion = nn.CrossEntropyLoss(ignore_index=<span class="number">0</span>)</span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">1e-3</span>, momentum=<span class="number">0.99</span>) </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    <span class="keyword">for</span> enc_inputs, dec_inputs, dec_outputs <span class="keyword">in</span> loader:</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        enc_inputs: [batch_size, src_len]</span></span><br><span class="line"><span class="string">        dec_inputs: [batch_size, tgt_len]</span></span><br><span class="line"><span class="string">        dec_outputs: [batch_size, tgt_len]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        enc_inputs, dec_inputs, dec_outputs = enc_inputs.to(device), dec_inputs.to(device), dec_outputs.to(device)</span><br><span class="line">        <span class="comment"># outputs: [batch_size * tgt_len, tgt_vocab_size]</span></span><br><span class="line">        outputs, enc_self_attns, dec_self_attns, dec_enc_attns = model(enc_inputs, dec_inputs)</span><br><span class="line">        loss = criterion(outputs, dec_outputs.view(-<span class="number">1</span>))  <span class="comment"># dec_outputs.view(-1):[batch_size * tgt_len * tgt_vocab_size]</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Epoch:'</span>, <span class="string">'%04d'</span> % (epoch + <span class="number">1</span>), <span class="string">'loss ='</span>, <span class="string">'{:.6f}'</span>.<span class="built_in">format</span>(loss))</span><br><span class="line"></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/02/08/c++%E4%B8%AD%E5%AF%B9%E7%A9%BA%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8front()%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/02/08/c++%E4%B8%AD%E5%AF%B9%E7%A9%BA%E9%98%9F%E5%88%97%E4%BD%BF%E7%94%A8front()%E5%87%BD%E6%95%B0%E6%8A%A5%E9%94%99/" class="post-title-link" itemprop="url">c++中对空队列使用front()函数报错</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-02-08 00:00:00" itemprop="dateCreated datePublished" datetime="2024-02-08T00:00:00+08:00">2024-02-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>问题发生在写leetcode994腐烂的橘子的时候。这道题只要朴素的广搜就能A，我第一次提交的代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">orangesRotting</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; grid)</span> </span>{</span><br><span class="line">    queue&lt;vector&lt;<span class="type">int</span>&gt;&gt; q;  </span><br><span class="line">    <span class="type">int</span> dir[<span class="number">4</span>][<span class="number">2</span>]={{<span class="number">1</span>,<span class="number">0</span>},{<span class="number">-1</span>,<span class="number">0</span>},{<span class="number">0</span>,<span class="number">1</span>},{<span class="number">0</span>,<span class="number">-1</span>}};  <span class="comment">// 方向数组，分别指向上下左右四个方向</span></span><br><span class="line">    <span class="type">int</span> m=grid.<span class="built_in">size</span>(),n=grid[<span class="number">0</span>].<span class="built_in">size</span>(),cnt=<span class="number">0</span>,ans;</span><br><span class="line">    <span class="comment">// 已腐烂的橘子入队</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;m;i++){</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++){</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">2</span>){</span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; a={i,j,<span class="number">0</span>};  <span class="comment">// (x坐标，y坐标，腐烂时间)</span></span><br><span class="line">                q.<span class="built_in">push</span>(a);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (grid[i][j]==<span class="number">1</span>) cnt++;  <span class="comment">//新鲜橘子个数</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//  广度优先搜索</span></span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()){</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; a=q.<span class="built_in">front</span>();  <span class="comment">//出队</span></span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        <span class="comment">//  传染邻格的橘子</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++){</span><br><span class="line">            <span class="type">int</span> x=a[<span class="number">0</span>]+dir[i][<span class="number">0</span>],y=a[<span class="number">1</span>]+dir[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (x&gt;=<span class="number">0</span>&amp;&amp;x&lt;m&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;n&amp;&amp;grid[x][y]==<span class="number">1</span>){</span><br><span class="line">                cnt--;  <span class="comment">//新鲜橘子减少</span></span><br><span class="line">                vector&lt;<span class="type">int</span>&gt; temp={x,y,a[<span class="number">2</span>]+<span class="number">1</span>};</span><br><span class="line">                q.<span class="built_in">push</span>(temp);  <span class="comment">// 刚腐烂的橘子入队</span></span><br><span class="line">                grid[x][y]=<span class="number">2</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        ans=q.<span class="built_in">front</span>()[<span class="number">2</span>];  <span class="comment">//最后一个橘子出队前，ans将更新为其腐烂时间</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (cnt==<span class="number">0</span>) <span class="keyword">return</span> ans;  <span class="comment">// 不存在新鲜橘子</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>然后出现了以下报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Line 1037: Char 9: runtime error: reference binding to misaligned address 0xbebebebebebebec6 for type 'int', which requires 4 byte alignment (stl_vector.h)</span><br></pre></td></tr></table></figure>
+<p>经过检查，发现是“ans=q.front()[2];”这行代码未进行判空，导致在队列为空时引用了front()函数而产生错误。</p>
+<p>将改行代码修改为“if (!q.empty()) ans=q.front()[2];”后问题解决。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/02/06/leetcode79%E4%B8%A8%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/02/06/leetcode79%E4%B8%A8%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2/" class="post-title-link" itemprop="url">leetcode79丨单词搜索</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-02-06 00:00:00" itemprop="dateCreated datePublished" datetime="2024-02-06T00:00:00+08:00">2024-02-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这是一道简单的回溯题，正常dfs就能A，但是我做的时候内存爆了，从而发现了一个以前一直没发现的问题。</p>
+<p>之前我只有需要对实参进行修改才会在定义函数时使用引用传递。这道题因为不用对字母表进行修改，所以我一开始直接传值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; a,string word,<span class="type">int</span> n,<span class="type">int</span> x,<span class="type">int</span> y)</span>  <span class="comment">// a为字母表，n为当前匹配长度，x、y为当前字母坐标</span></span></span><br></pre></td></tr></table></figure>
+<p>然后内存爆了。因为回溯题的数组一般都比较小，就算把整个数组直接传进去空间复杂度也才乘100左右，以前直接这样传内存一直没有爆过。以后递归的时候不能再这样传参了，太占空间了。</p>
+<p>下面附上此题代码。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> visit[<span class="number">16</span>][<span class="number">16</span>]={};  <span class="comment">// 记录各字母是否被访问过</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">dfs</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt; &amp;a,string word,<span class="type">int</span> n,<span class="type">int</span> x,<span class="type">int</span> y)</span></span>{</span><br><span class="line">    <span class="keyword">if</span> (x&gt;=a.<span class="built_in">size</span>()||x&lt;<span class="number">0</span>||y&gt;=a[<span class="number">0</span>].<span class="built_in">size</span>()||y&lt;<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 坐标越界</span></span><br><span class="line">    <span class="keyword">if</span> (visit[x][y]) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 已经用过的字母不能再次使用</span></span><br><span class="line">    <span class="keyword">if</span> (a[x][y]!=word[n]) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 字母不匹配</span></span><br><span class="line">    <span class="keyword">if</span> (n==word.<span class="built_in">length</span>()<span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">// 匹配成功</span></span><br><span class="line">    visit[x][y]=<span class="number">1</span>;  </span><br><span class="line">    <span class="comment">// 分别对上下左右四个方向进行搜索</span></span><br><span class="line">    <span class="type">bool</span> ans=<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x+<span class="number">1</span>,y)||<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x<span class="number">-1</span>,y)||<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x,y+<span class="number">1</span>)||<span class="built_in">dfs</span>(a,word,n+<span class="number">1</span>,x,y<span class="number">-1</span>);</span><br><span class="line">    visit[x][y]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">exist</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; board, string word)</span> </span>{</span><br><span class="line">    <span class="comment">//分别以每个点为起点进行搜索</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;board.<span class="built_in">size</span>();i++){</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;board[<span class="number">0</span>].<span class="built_in">size</span>();j++){</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">dfs</span>(board,word,<span class="number">0</span>,i,j)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>这样就A了，就没有再剪枝了。。</p>
 
       
     </div>
