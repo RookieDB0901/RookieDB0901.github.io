@@ -143,12 +143,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -165,6 +165,673 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%89%A9%E7%90%86%E5%B1%82-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%89%A9%E7%90%86%E5%B1%82-1/" class="post-title-link" itemprop="url">计算机网络-物理层</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-13 12:31:40" itemprop="dateCreated datePublished" datetime="2022-11-13T12:31:40+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>物理层考虑怎样才能在连接各计算机的<strong>传输媒体</strong>上传输<strong>数据比特流</strong>。
+<strong>传输媒体</strong>： - 导引型传输媒体：双绞线、同轴电缆、光纤 -
+非导引型传输媒体：微波通信 <strong>物理层协议主要任务</strong>： -
+机械特性、电气特性、功能特性、过程特性 ## 一、传输媒体 分类： -
+导引型传输媒体：双绞线、同轴电缆、光纤、电力线； -
+非导引型传输媒体：无线电波、微波红外线、可见光； #### 导引型传输媒体
+<strong>同轴电缆</strong> - 基带同轴电缆和宽带同轴电缆 -
+价格贵且布线不够灵活和方便。 <strong>双绞线</strong> -
+无屏蔽双绞线电缆和屏蔽双绞线电缆 -
+绞合作用：①抵御部分来自外界的电磁波干扰；②减少相邻导线的电磁波干扰；
+<strong>光纤</strong> -
+优点：①通信容量大；②传输损耗小，适合远距离传输；③抗雷电和电磁干扰性能好；④无串音干扰，保密性好；⑤体积小，重量轻；
+- 缺点：①割接需要专用设备；②光电接口价格较贵； <strong>电力线</strong>
+#### 非导引型传输媒体 <strong>无线电波</strong> <strong>微波</strong> -
+直线传播； - 地面微波接力通信和卫星通信； <strong>红外线</strong> -
+点对点无线传输，直线传输，传输速率低； <strong>可见光</strong> -
+如LIFI通信，处于实验研究阶段； ## 二、传输方式 串行传输和并行传输
+同步传输和异步传输 单向通信和双向通信 ## 三、编码和调制
+基带信号（消息→数据→信号→基带信号） - 数字基带信号和模拟基带信号 -
+数字信道和模拟信道 - 编码和调制
+<strong>码元</strong>：在使用时间域的波形表示数字信号时，<strong>代表不同离散数值的基本波形</strong>；
+#### 常用编码 <strong>不归零编码与归零编码</strong> -
+不归零编码存在同步问题，不采用； -
+归零编码每个码元传输结束后都要归零，编码效率低；
+<strong>曼彻斯特编码</strong> -
+每个码元中间时刻发生跳变，跳变的方向表示0和1；
+<strong>差分曼彻斯特编码</strong> -
+码元中间时刻的跳变表示时钟，码元开始处电平是否变化表示数据0和1； <img
+src="常用编码.jpg" alt="常用编码" /> #### 调制方法
+<strong>基本调制方法</strong>：调幅、调频、调相 <img
+src="基本调制方法.jpg" alt="基本调制方法" />
+<strong>混合调制</strong>：正交振幅调制QAM -
+基本调制方法一个码元只能表示一个bit信息；可以采用混合调制方法，相位和振幅一起调制；
+-
+如QAM-16，有12种相位，可以调制出16种码元，每种码元对应4个bit（2^4=16）；
+## 信道的极限容量 信号通过信道会产生失真，产生失真的原因主要有： -
+码元传输速率、信号传输距离、噪声干扰、传输媒体质量等；
+<strong>奈式准则</strong>：在假定的理想条件下，为了避免码间串扰，码元传输速率是有上限的。
+- 理想低通信道的最高码元传输速率 = 2W Baud = 2W码元/秒； -
+理想带通信道的最高码元传输速率 = W Baud = W码元/秒； -
+W：信道带宽（单位：HZ）；Baud：波特，即码元/秒； -
+码元传输速率又称波特率、调制速率、波形速率或符号速率，当1码元携带n比特信息量时，n*波特率=比特率；
+-
+要想提高比特率，就必须设法使每一个码元能携带更多比特信息，需要采用<strong>多元制</strong>；
+- 实际信道所能传输的最高码元速率明显低于奈式准则的上限数值；
+<strong>香农公式</strong>：带宽受限且有高斯白噪声干扰的信道的极限信息传输速率c：
+- c = W × log2(1+S/N) -
+W：信道带宽，s：信道内所传信号的平均功率，N：信道内的高斯噪声功率，S/N：信噪比（单位分贝）；
+- 要努力提高信道中的<strong>信噪比</strong>； -
+实际所能达到的比公式的极限功率低不少；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/11/Linux-%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux-命令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-11 21:09:43" itemprop="dateCreated datePublished" datetime="2022-11-11T21:09:43+08:00">2022-11-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Linux命令格式：<code>command [-options] [parameter]</code>
+command：命令本身 -
+-options：命令选项，可通过选项控制命令的<strong>行为细节</strong>； -
+parameter：命令参数，多数用于命令的<strong>指向目标</strong>等； ## 命令
+#### ls命令 作用：列出目录下的内容 语法细节：
+<code>ls [-a -l -h] [Linux路径]</code> -
+[Linux路径]默认为HOME目录，即：/home/用户名； -
+-a表示all，即列出全部文件（包括隐藏的文件/文件夹）； -
+-l表示以<strong>列表</strong>（竖向排列）的形式展示内容，并展示更多信息；
+- -h以更加人性化的方式显示文件的大小单位（使用-h必须使用-l）； ####
+cd-pw命令 cd：切换工作目录 - 语法：<code>cd [Linux路径]</code>； -
+无选项，默认参数为HOME； pwd：展示当前工作目录路径 - 无选项且无参数；
+#### mkdir命令 作用：创建新的目录（文件夹）。
+语法：<code>mkdir [-p] Linux路径</code> -
+参数必填，即要创建的文件夹路径； -
+-p可选，表示自动创建不存在的父目录，适用于创建连续多层级的目录； -
+创建文件夹需要修改权限，否则只能在HOME内操作； #### touch、cat、more命令
+touch：创建文件 - 语法 <code>touch Linux路径</code> -
+touch命令无选项，参数必填，表示要创建的文件路径 cat：查看文件内容 -
+语法：<code>cat Linux路径</code> more ：查看文件内容 -
+语法：<code>more Linux路径</code>； -
+cat直接将内容全部显示出来，more支持翻页（空格翻页）； -
+翻页界面按q退出； #### cp、mv、rm命令 cp：复制文件、文件夹 -
+语法：<code>cp [-r] 参数1 参数2</code>； - -r可选，用于复制文件夹； -
+参数1表示被复制的文件，参数2表示复制去的地方； mv：移动文件、文件夹 -
+语法：<code>mv 参数1 参数2</code>； -
+参数1表示被移动的文件，参数2表示移动去的地方； -
+<code>mv test2.txt test3.txt</code>可起到改名作用； rm：删除文件、文件夹
+- 语法：<code>rm [-r -f] 参数1 参数2 ...... 参数N</code>； -
+-r用于删除文件夹； - -f表示强制删除（不会弹出提示）； - 参数1 参数2
+...... 参数N表示要删除的文件； - rm支持通配符“<em>”; #### grep、wc命令
+grep：从文件中通过关键字过滤文件行 -
+语法：<code>grep [-n] 关键字 文件路径</code> -
+选项-n可选，表示在结果中显示匹配的行的行号； -
+关键字表示过滤的关键字，带空格时需用双引号包围； -
+文件路径可使用<strong>管道符</strong>获取；
+wc：统计文件的行数、单词数量等； - 语法：wc [-c -m -l -w] 文件路径 -
+-c表示统计<strong>bytes数量</strong>，-m表示统计<strong>字符数量</strong>，-l表示统计<strong>行数</strong>，-w表示统计<strong>单词数</strong>；
+- 文件路径可使用<strong>管道符</strong>获取 #### which、find命令
+which：查看命令的<strong>程序文件</strong>存放位置 -
+语法：<code>which 要查找的命令</code>，如<code>which cd</code>；
+find：搜索指定文件 -
+语法一：<code>find 起始路径 -name "被查找文件名"</code>； -
+语法二：<code>find 起始路径 -size -10k</code>查找小于10KB的文件，+10k可以查找大于10KB的；
+- 文件名支持通配符模糊匹配； #### echo、tail命令
+echo：在命令行输出指定内容 -
+语法：<code>echo 输出的内容</code>，如<code>echo "hello world!"</code>；
+tail：可以查看文件尾部内容，追踪文件的最新更改 -
+语法：<code>tail [-f -num] Linux路径</code>； - -f表示持续追踪； -
+-num表示查看尾部多少行，默认为10； ## 特殊符号
+<strong>特殊路径符</strong> -
+“.”表示当前目录，如<code>cd ./Desktop</code>； -
+“..”表示上一级目录，如<code>cd ../..</code>表示切换到上二级目录； -
+“~”表示HOME目录，比如<code>cd ~</code>表示切换到HOME目录；
+<strong>通配符</strong> - “</em>”表示通配符，即匹配任意内容（包括空）；
+-
+如test<em>表示匹配所有以test开头的内容，</em>test*表示匹配所有包含test的内容；
+<strong>管道符</strong> -“|”表示将左边命令的结果作为右边的输入（参数）；
+- 可以嵌套； <strong>重定向符</strong> -
+“&gt;”将左侧命令的结果<strong>覆盖</strong>写入到符号右侧文件中； -
+“&gt;&gt;”将左侧命令的结果<strong>追加</strong>写入到符号右侧文件中； -
+如<code>ls &gt;&gt; test.txt</code>，可以将ls的输出结果追加写入test.txt中；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">计算机网络体系结构</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-11 15:25:33" itemprop="dateCreated datePublished" datetime="2022-11-11T15:25:33+08:00">2022-11-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一常见的计算机网络体系结构">一、常见的计算机网络体系结构</h2>
+<p><strong>OSI体系结构（法律上的国际标准）</strong> -
+应用层、表示层、会话层、运输层、网络层、数据链路层、物理层
+<strong>TCP/IP体系结构（事实上的国际标准）</strong> -
+应用层：HTTP、SMTP、DNS、RTP - 运输层：TCP、UDP - 网际层：IP -
+网络接口层 <strong>原理体系结构</strong> -
+应用层、运输层、网络层、数据链路层、物理层； - 适用于教学； ##
+二、计算机网络体系结构分层
+<strong>物理层</strong>：解决使用何种信号来传输比特的问题。 - 传输媒体 -
+物理接口 - 信号
+<strong>数据链路层</strong>：解决分组在一个网络（或一段链路）上传输的问题。
+- 主机编址问题（如何标识网络中的各主机），如MAC地址 -
+如何从信号所表示的一连串比特流中区分出地址和数据 - 协调各主机争用总线
+<strong>网络层</strong>：解决分组在多个网络上传输（路由）的问题。 -
+如何标识各网络以及网络中的各主机（网络和主机共同编址问题，如IP地址） -
+路由器如何转发分组，如何进行路由选择
+<strong>运输层</strong>：解决进程之间基于网络的通信问题。 -
+如何解决进程之间基于网络的通信问题 - 出现传输错误时如何处理
+<strong>应用层</strong>：解决通过应用进程的交互来实现特定网络应用的问题。
+- 通过应用进程间的交互来完成特定网络的应用 ## 三、专用术语 #### 实体
+任何可发送或接受信息的硬件或软件进程。 -
+对等实体：接受双方相同层次中的实体 #### 协议
+控制两个对等实体进行逻辑通信的规则的集合。 协议三要素：语法、语义、同步
+- 语法：定义所交换信息的格式； - 语义：定义收发双方所要完成的操作； -
+同步：定义收发双方的时序关系； #### 服务
+<strong>服务</strong>：在协议控制下，两个对等实体间的逻辑通信使得本层能够向上一层提高服务。
+- 协议是水平的，服务是垂直的；
+<strong>服务访问点</strong>：在同一系统中相邻两层的实体交换信息的逻辑接口，用于区分不同的服务类型。
+- 数据链路层：帧的“类型”字段； - 网络层：IP数据报首部中的“协议字段”； -
+运输层：端口号
+<strong>服务原语</strong>：上层使用下层所提供的服务是时必须与下层交换的命令。
+<strong>协议数据单元PDU</strong>：对等层次之间传送的数据包 -
+应用层：报文 - 运输层：TCP报文段或UDP用户数据报 - 网络层：IP数据报或分组
+- 链路层：帧 - 物理层：比特流
+<strong>服务数据单元SDU</strong>：同一系统内，层与层之间交换的数据包。 -
+多个SDU可以合成为一个PDU；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" class="post-title-link" itemprop="url">计算机网络性能指标</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-11 13:21:48" itemprop="dateCreated datePublished" datetime="2022-11-11T13:21:48+08:00">2022-11-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="一速率">一、速率</h4>
+<p>连接在计算机网络上的主机在数字信道上传送比特的速率。 -
+又称比特率、数据率，单位b/s（bit/s，bps）； - 1kb/s = 10^3 b/s； ####
+二、带宽 计算机网络中，带宽用来表示网络的通信线路所能传送数据的能力。 -
+网络带宽表示在单位时间内从网络某一点到另一点所能通过的<strong>最高数据率</strong>。
+- 单位：b/s #### 三、吞吐量
+在单位时间内通过某个网络（或信道、接口）的数据量； -
+受网络带宽或额定速率的限制； #### 四、时延
+<strong>发送时延</strong>：源主机将分组发往传输线路； -
+分组长度(b)/发送速率(b/s) - 发送速率 = min(网卡发送速率, 信道带宽,
+接口速率) <strong>传播时延</strong>：分组在链路上传输 -
+信道长度(m)/电磁波传播速率(m/s) -
+电磁波传播速率：自由空间3x10<sup>8m/s，铜线2.3X10</sup>8m/s，光纤2.0X10^8m/s；
+<strong>处理时延</strong>：路由器对分组进行存储转发； - 不方便计算；
+#### 五、时延带宽积 时延带宽积 = 传播时延X带宽 -
+发送端连续发送数据时，发送的第一个比特到达终点时发送端已发送的比特数。 -
+链路的时延带宽积又称以比特为单位的链路长度； #### 六、往返时间（RTT）
+在很多情况下，因特网上的信息不仅仅是单方向传输，而是双向传输。 ####
+七、利用率 信道利用率：信道有百分之几是被利用的（有数据通过）。
+网络利用率：全网络的信道利用率加权平均。 -
+信道利用率增大时，时延会增加； #### 八、丢包率
+在一定时间范围内，传输过程中丢失的分组数量与总分组数量的比率，即分组丢失率。
+- 可分为接口丢包率、结点丢包率、链路丢包率、路径丢包率、网络丢包率等； -
+<strong>分组误码</strong>和<strong>网络拥塞</strong>会导致分组丢失； -
+丢包率反映了网络的拥塞情况；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E3%80%81%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E3%80%81%E6%8A%A5%E6%96%87%E4%BA%A4%E6%8D%A2/" class="post-title-link" itemprop="url">计算机网络-电路交换、分组交换、报文交换</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-11 12:57:44" itemprop="dateCreated datePublished" datetime="2022-11-11T12:57:44+08:00">2022-11-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>交换：按照某种方式动态地分配传输线路的资源 ## 电路交换
+通过电话交换机接通电话线，使得不需要所有电话两两连接电话线。 -
+建立连接（分配通信资源） - 通话（一直占用通信资源） -
+释放连接（归还通信资源）
+当使用电路交换来传送计算机数据时，其线路的传输效率往往很低。 ##
+分组交换</p>
+<h2 id="报文交换">报文交换</h2>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-I-O/" class="post-title-link" itemprop="url">操作系统-I/O</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-08 23:44:22" itemprop="dateCreated datePublished" datetime="2022-11-08T23:44:22+08:00">2022-11-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>I/O设备：将数据输入/输出计算机的外部设备。 -
+按使用特性可分为人机交互类设备、存储设备、网络通信设备； -
+按传输速率可分为低速设备、中速设备、高速设备； -
+按信息交换的单位可分为块设备、字符设备；
+I/O分为<strong>软件层</strong>和<strong>硬件层</strong>，软件层次从上至下可分为<strong>用户层软件、设备独立性软件、设备驱动软件、中断处理程序</strong>，每层会利用下层提供的服务，实现某些功能，并屏蔽实现的具体细节，向高层提供服务（封装）。
+## 一、IO控制器 I/O设备的电子部分，用于实现对I/O设备的控制。 #### 1.
+主要功能 - 接受和识别CPU发出的指令（控制寄存器）； -
+向CPU报告设备的状态（状态寄存器）； -
+数据交换，暂存输入/输出的数据（数据寄存器）； -
+地址识别（由I/O逻辑实现）； #### 2. 组成 -
+CPU和控制器之间的接口（实现控制器和CPU之间的通信）； -
+I/O逻辑（负责识别CPU发出的命令，并向设备发出命令）； -
+控制器和设备之间的接口（实现控制器和设备之间的通信）； #### 3.
+寄存器编址方式 <strong>内存映射I/O</strong>： -
+控制器中的寄存器和内存统一编址； -
+可以采用对内存进行操作的指令来对控制器进行操作；
+<strong>寄存器独立编址</strong>： - 控制器中的寄存器独立编址； -
+需要设置专门的指令来操作控制器； ## 二、I/O控制方式
+用什么方式来控制I/O设备的数据读/写。 #### 1. 程序直接控制方式 -
+CPU干预频率高（等待IO完成过程需要不断轮询检查）； -
+每次数据传送单位为一个字； - 实现简单，但CPU利用率低； #### 2.
+中断驱动方式 -
+CPU发出I/O命令后可以做其他事，本次I/O完成后设备控制器发出中断信号； -
+CPU干预频率较低； - 每次数据传送单位为一个字； - CPU利用率明显
+提升，但频繁中断会消耗大量CPU时间； #### 3. DMA方式
+直接存储器存取，主要用于块设备的I/O控制。 - 数据传送单位是“块”； -
+仅在传送一个或多个<strong>连续</strong>数据块的开始和结束时，才需要CPU干预；
+- I/O设备和内存间的数据传输不需要经过CPU； #### 4. 通道控制方式
+CPU发出I/O命令后可以做其他事，通道会执行通道程序以完成I/O，完成后通道向CPU发出中断信号。
+- CPU干预频率极低； - 每次读写一组数据块； - 实现复杂，需要专门的硬件；
+## 三、假脱机技术
+<strong>用户层软件</strong>：实现与用户交互的接口，向上提供方便易用的库函数。
+假脱机技术又称SPOOLing技术，在用户层软件实现，是用软件的方式模拟脱机技术，达成脱离主机控制进行输入/输出的目的。
+-
+<strong>输入井</strong>和<strong>输出井</strong>：在磁盘中申请的临时存放输入/输出数据的空间；
+-
+<strong>输入进程</strong>和<strong>输出进程</strong>：设备数据与输入/输出井的数据交互进程；
+-
+<strong>输入缓冲区</strong>和<strong>输出缓冲区</strong>：内存中的缓冲区，输入/输出时的中转站；
+## 四、设备的分配与回收
+<strong>设备独立性软件</strong>：负责I/O调度、设备保护、设备分配与回收、缓冲区管理等；
+#### 1. 设备分配时应考虑的因素 <strong>设备的固有属性</strong> -
+独占设备、共享设备、虚拟设备； <strong>设备分配算法</strong> -
+先来先服务、优先级高者优先、短任务有限等等；
+<strong>设备分配中的安全性</strong> -
+安全分配方式：为进程分配一个I/O设备后就将进程阻塞； - 不安全分配方式；
+#### 2. 静态分配和动态分配
+静态分配：进程运行前为其分配全部所需资源，运行接收后归还；
+动态分配：进程运行过程中动态申请资源； #### 3.设备分配管理中的数据结构
+<strong>设备控制表（DCT）</strong>：系统为每个设备配置一张DCT，用于记录设备情况；
+- 设备类型（打印机/扫描仪/键盘...）； - 设备标识符（物理设备名）； -
+设备状态（空闲/忙碌/故障...）； -
+指向设备控制器的指针（每个设备由一个控制器控制）； -
+重复执行次数或时间（多次操作不成功后认为本次I/O失败）； -
+设备队列的队首指针（指向正在等待该设备的进程队列，队列由进程PCB组成）；
+<strong>控制器控制表（COCT）</strong>：每个设备控制器对应一张COCT，操作系统根据COCT的信息对控制器进行操作和管理；
+- 控制器标识符、控制器状态、指向通道表的指针、控制器队列队首/尾指针；
+<strong>通道控制板（CHCT）</strong>：每个通道对应一张CHCT，操作系统根据CHCT的信息对通道进行操作和管理；
+- 标识符、状态、与通道连接的控制器表首址、通道队列队首/队尾指针；
+<strong>系统设备表（SDT）</strong>：记录了系统中全部设备情况，每个设备对应一个表目；
+#### 4. 设备分配的步骤 -
+根据进程请求的<strong>物理设备名</strong>查找SDT； -
+根据SAT找到DCT，若忙碌则将进程PCB挂到设备等待队列； -
+根据DCT找到COCT，若控制器忙碌则挂到控制器等待队列； -
+根据COCT找到CHCT，若通道忙碌则搞到通道等等队列； -
+可以建立逻辑设备名和物理设备名的映射机制，用户编程时只需提高逻辑设备名。</p>
+<h2 id="五缓冲区管理">五、缓冲区管理</h2>
+<p>缓冲区是一个存储区域，可以由专门的硬件寄存器组成，也可利用内存作为缓冲区（常用）。
+<strong>作用：</strong> - 缓和CPU与I/O设备速度不匹配的矛盾； -
+减少对CPU的中断频率，放宽对CPU中断响应时间的限制； -
+解决数据粒度不匹配的问题； - 提高CPU与I/O设备之间的并行性； #### 1.
+单缓冲 在主存中为用户进程分配一个缓冲区（一个块）。 -
+缓冲区数据非空时不能冲入数据，缓冲区为空时，需要充满才能把数据传出；
+#### 2. 双缓冲 在主存中为用户进程分配两个缓冲区。 #### 3. 循环缓冲
+多个缓冲区链接成循环队列，in指针指向第一个缓冲区，out指针指向第一个满缓冲区；
+#### 4. 缓冲池 由系统中共用的缓冲区组成。 -
+按<strong>使用状况</strong>分为空缓存队列、装满输入数据的缓冲队列、装满输出数据的缓冲队列；
+-
+按实际功能不同设置四种工作缓冲区：用于收容输入数据的工作缓冲区（hin）、用于收容输出数据的工作缓冲区（hout）、用于提取输入数据的工作缓冲（cin）、用于提取输出数据的工作缓冲区（cout）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -769,466 +1436,8 @@ UNIX方式：运行之前进程相关数据全部放在文件区，运行时内�
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ map容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-03 00:36:31" itemprop="dateCreated datePublished" datetime="2022-11-03T00:36:31+08:00">2022-11-03</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
-map中所有元素都是pair -
-pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
-所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
-map和multimap区别： - map不允许容器中有重复key值元素 -
-multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
-map大小和交换 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
-map查找和统计 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
-map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-set&multiset%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/02/C-set&multiset%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ set容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-02 23:56:31" itemprop="dateCreated datePublished" datetime="2022-11-02T23:56:31+08:00">2022-11-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用红黑树实现的。
-set和multiset区别：</p>
-<ul>
-<li>set不可以插入重复数据，而multiset可以</li>
-<li>set插入数据的同时会返回插入结果，表示插入是否成功</li>
-<li>multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">set&lt;T&gt; st; <span class="comment">//默认构造函数：</span></span><br><span class="line"><span class="built_in">set</span>(<span class="type">const</span> set &amp;st); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">set&amp; <span class="keyword">operator</span>=(<span class="type">const</span> set &amp;st); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">## set大小和交换</span><br><span class="line">``` C++</span><br><span class="line">size(); //返回容器中元素的数目</span><br><span class="line">empty(); //判断容器是否为空</span><br><span class="line">swap(st); //交换两个集合容器</span><br></pre></td></tr></table></figure> ## set插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(elem); <span class="comment">//删除容器中值为elem的元素。</span></span><br></pre></td></tr></table></figure> ##
-set查找和统计 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## pair对组创建
-成对出现的数据，利用对组可以返回两个数 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pair&lt;type, type&gt; <span class="title">p</span> <span class="params">( value1, value2 )</span></span>;</span><br><span class="line">pair&lt;type, type&gt; p = <span class="built_in">make_pair</span>( value1, value2 );</span><br></pre></td></tr></table></figure> ## set容器排序
-set容器默认排序规则为从小到大，可通过仿函数改变排序规则：
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ stack&queue容器函数</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-02 23:30:55" itemprop="dateCreated datePublished" datetime="2022-11-02T23:30:55+08:00">2022-11-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>stack：栈 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">stack&lt;T&gt; stk; <span class="comment">//stack采用模板类实现， stack对象的默认构造形式</span></span><br><span class="line"><span class="built_in">stack</span>(<span class="type">const</span> stack &amp;stk); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">stack&amp; <span class="keyword">operator</span>=(<span class="type">const</span> stack &amp;stk); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//向栈顶添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从栈顶移除第一个元素</span></span><br><span class="line"><span class="built_in">top</span>(); <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure> queue：队列 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">queue&lt;T&gt; que; <span class="comment">//queue采用模板类实现，queue对象的默认构造形式</span></span><br><span class="line"><span class="built_in">queue</span>(<span class="type">const</span> queue &amp;que); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> queue &amp;que); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//往队尾添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从队头移除第一个元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-list%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/02/C-list%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ list容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-02 18:06:21" itemprop="dateCreated datePublished" datetime="2022-11-02T18:06:21+08:00">2022-11-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>list：链表 链表的组成：链表由一系列结点组成
-结点的组成：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域
-STL中的链表是一个双向循环链表 list的优点： -
-采用动态存储分配，不会造成内存浪费和溢出 -
-链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素
-list的缺点： - 链表灵活，但是空间(指针域) 和 时间（遍历）额外耗费较大
-List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的
-## list构造函数 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list&lt;T&gt; lst; <span class="comment">//list采用采用模板类实现,对象的默认构造形式：</span></span><br><span class="line"><span class="built_in">list</span>(beg,end); <span class="comment">//构造函数将[beg, end)区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(n,elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(<span class="type">const</span> list &amp;lst); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## list赋值和交换 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br><span class="line">list&amp; <span class="keyword">operator</span>=(<span class="type">const</span> list &amp;lst); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">swap</span>(lst); <span class="comment">//将lst与本身的元素互换。</span></span><br></pre></td></tr></table></figure> ##
-list大小操作 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">resize</span>(num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br></pre></td></tr></table></figure> ## list插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(elem);<span class="comment">//在容器尾部加入一个元素</span></span><br><span class="line"><span class="built_in">pop_back</span>();<span class="comment">//删除容器中最后一个元素</span></span><br><span class="line"><span class="built_in">push_front</span>(elem);<span class="comment">//在容器开头插入一个元素</span></span><br><span class="line"><span class="built_in">pop_front</span>();<span class="comment">//从容器开头移除第一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(pos,elem);<span class="comment">//在pos位置插elem元素的拷贝，返回新数据的位置。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,n,elem);<span class="comment">//在pos位置插入n个elem数据，无返回值。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,beg,end);<span class="comment">//在pos位置插入[beg,end)区间的数据，无返回值。</span></span><br><span class="line"><span class="built_in">clear</span>();<span class="comment">//移除容器的所有数据</span></span><br><span class="line"><span class="built_in">erase</span>(beg,end);<span class="comment">//删除[beg,end)区间的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">erase</span>(pos);<span class="comment">//删除pos位置的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">remove</span>(elem);<span class="comment">//删除容器中所有与elem值匹配的元素。</span></span><br></pre></td></tr></table></figure> ##
-list数据存取 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素。</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素。</span></span><br></pre></td></tr></table></figure> ## list反转和排序 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reverse</span>(); <span class="comment">//反转链表</span></span><br><span class="line"><span class="built_in">sort</span>(); <span class="comment">//链表排序</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ vector容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-02 18:06:21" itemprop="dateCreated datePublished" datetime="2022-11-02T18:06:21+08:00">2022-11-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即：
--
-vector并不会在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间
-- vector容器的迭代器是支持随机访问的迭代器 ## vecotr构造函数
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt; v; <span class="comment">//采用模板实现类实现，默认构造函数</span></span><br><span class="line"><span class="built_in">vector</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>()); <span class="comment">//将v[begin(), end())区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(n, elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(<span class="type">const</span> vector &amp;vec); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## vector赋值 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&amp; <span class="keyword">operator</span>=(<span class="type">const</span> vector &amp;vec); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br></pre></td></tr></table></figure> ## vector容量和大小
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">capacity</span>(); <span class="comment">//容器的容量</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除</span></span><br></pre></td></tr></table></figure> ## vector插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(ele); <span class="comment">//尾部插入元素ele</span></span><br><span class="line"><span class="built_in">pop_back</span>(); <span class="comment">//删除最后一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, ele); <span class="comment">//迭代器指向位置pos插入元素ele</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, <span class="type">int</span> count,ele); <span class="comment">//迭代器指向位置pos插入count个元素ele</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator pos); <span class="comment">//删除迭代器指向的元素</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator start, const_iterator end); <span class="comment">//删除迭代器从start到end之间的元素</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//删除容器中所有元素</span></span><br></pre></td></tr></table></figure> ## vector数据存取
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">at</span>(<span class="type">int</span> idx); <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="keyword">operator</span>[]; <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回容器中第一个数据元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回容器中最后一个数据元素</span></span><br></pre></td></tr></table></figure> ## vector预留空间 预留空间可减少动态扩展容量时的扩展次数
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reserve</span>(<span class="type">int</span> len); <span class="comment">//容器预留len个元素长度，预留位置不初始化，元素不可访问。</span></span><br></pre></td></tr></table></figure> ## vector互换容器
-swap可以使两个容器互换，可以达到实用的收缩内存效果 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">swap</span>(vec); <span class="comment">// 将vec与本身的元素互换</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-String%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/02/C-String%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ string容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-02 17:46:41" itemprop="dateCreated datePublished" datetime="2022-11-02T17:46:41+08:00">2022-11-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>string是C++风格的字符串，本质上是个类 ## string构造函数
-构造函数原型： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>(); <span class="comment">//创建一个空的字符串 例如: string str;</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">const</span> <span class="type">char</span>* s); <span class="comment">//使用字符串s初始化</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">const</span> string&amp; str); <span class="comment">//使用一个string对象初始化另一个string对象</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">int</span> n, <span class="type">char</span> c); <span class="comment">//使用n个字符c初始化</span></span><br></pre></td></tr></table></figure> ## string赋值操作 赋值函数原型：
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">const</span> <span class="type">char</span>* s); <span class="comment">//char*类型字符串 赋值给当前的字符串</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">const</span> string &amp;s); <span class="comment">//把字符串s赋给当前的字符串</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">char</span> c); <span class="comment">//字符赋值给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>; <span class="comment">//把字符串s赋给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> n)</span></span>; <span class="comment">//把字符串s的前n个字符赋给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>; <span class="comment">//把字符串s赋给当前字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> c)</span></span>; <span class="comment">//用n个字符c赋给当前字符串</span></span><br></pre></td></tr></table></figure> ## string字符串拼接 用于在字符串末尾拼接字符串
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> <span class="type">char</span>* str); <span class="comment">//重载+=操作符</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> <span class="type">char</span> c); <span class="comment">//重载+=操作符</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> string&amp; str); <span class="comment">//重载+=操作符</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>; <span class="comment">//把字符串s连接到当前字符串结尾</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> n)</span></span>; <span class="comment">//把字符串s的前n个字符连接到当前字符串结尾</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>; <span class="comment">//同operator+=(const string&amp; str)</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> string &amp;s, <span class="type">int</span> pos, <span class="type">int</span> n)</span></span>; <span class="comment">//字符串s中从pos开始的n个字符连接到字符串结尾</span></span><br></pre></td></tr></table></figure> ## string查找和替换 查找：查找指定字符串是否存在
-替换：在指定的位置替换字符串 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找str第一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找s第一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos, <span class="type">int</span> n)</span> <span class="type">const</span></span>; <span class="comment">//从pos位置查找s的前n个字符第一次位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span> c, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找字符c第一次出现位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">int</span> pos = npos)</span> <span class="type">const</span></span>; <span class="comment">//查找str最后一次位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos = npos)</span> <span class="type">const</span></span>; <span class="comment">//查找s最后一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos, <span class="type">int</span> n)</span> <span class="type">const</span></span>; <span class="comment">//从pos查找s的前n个字符最后一次位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span> c, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找字符c最后一次出现位置</span></span><br><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n, <span class="type">const</span> string&amp; str)</span></span>; <span class="comment">//替换从pos开始n个字符为字符串str</span></span><br><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n,<span class="type">const</span> <span class="type">char</span>* s)</span></span>; <span class="comment">//替换从pos开始的n个字符为字符串s</span></span><br></pre></td></tr></table></figure> ## string字符串比较
-字符串之间通过ASCII码比较，一般用于比较是否相等 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> string &amp;s)</span> <span class="type">const</span></span>; <span class="comment">//与字符串s比较</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span> <span class="type">const</span></span>; <span class="comment">//与字符串s比较</span></span><br></pre></td></tr></table></figure> ##
-字符串存取 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>&amp; <span class="keyword">operator</span>[](<span class="type">int</span> n); <span class="comment">//通过[]方式取字符</span></span><br><span class="line"><span class="function"><span class="type">char</span>&amp; <span class="title">at</span><span class="params">(<span class="type">int</span> n)</span></span>; <span class="comment">//通过at方法获取字符</span></span><br></pre></td></tr></table></figure> ## string插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">const</span> <span class="type">char</span>* s)</span></span>; <span class="comment">//插入字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">const</span> string&amp; str)</span></span>; <span class="comment">//插入字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n, <span class="type">char</span> c)</span></span>; <span class="comment">//在指定位置插入n个字符c</span></span><br><span class="line"><span class="function">string&amp; <span class="title">erase</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n = npos)</span></span>; <span class="comment">//删除从Pos开始的n个字符</span></span><br></pre></td></tr></table></figure> ## string子串
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">substr</span><span class="params">(<span class="type">int</span> pos = <span class="number">0</span>, <span class="type">int</span> n = npos)</span> <span class="type">const</span></span>; <span class="comment">//返回由pos开始的n个字符组成的字符串</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
