@@ -143,7 +143,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -165,6 +165,254 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/01/C-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">C++文件操作</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-01 22:21:03" itemprop="dateCreated datePublished" datetime="2022-11-01T22:21:03+08:00">2022-11-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>文件分类 - 文本文件：ASCII码存储 - 二进制文件：二进制存储</p>
+<p>操作文件三大类： -ofstream：写 -ifstream：读 -fstream：读写 ## 写文件
+- 需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ofstream ofs;</code> -
+打开文件<code>ofs.open("文件路径","打开方式");</code> -
+写数据<code>ofs&lt;&lt;"写入的数据";</code> -
+关闭文件<code>ofs.close();</code></p>
+<p>文件打开方式： |打开方式|作用| |:---|:---| |ios::in|读文件|
+|ios::out|写文件| |ios::ate|初始位置为文件尾| |ios::app|追加方式写|
+|ios::trunc|先删除，再创建| |ios::binary|二进制方式写|
+可以使用|用多种方式打开：<code>ios::in|ios::out</code> ## 读文件 -
+需包含头文件<code>#include&lt;fstream&gt;</code> -
+创建流对象<code>ifstream ifs;</code> -
+打开文件<code>ifs.open("文件路径","打开方式");</code> - 读数据
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs &gt;&gt; buf)</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="type">char</span> buf[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">string buf;</span><br><span class="line"><span class="keyword">while</span> (ifs.<span class="built_in">getline</span>(buf,<span class="built_in">sizeof</span>(buf)))</span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; buf &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法四</span></span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line"><span class="keyword">while</span> ((c = ifs.<span class="built_in">get</span>()) != EOF) <span class="comment">//EOF: end of file</span></span><br><span class="line">&#123;</span><br><span class="line">        cout &lt;&lt; c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> -关闭文件<code>ifs.close();</code></p>
+<h2 id="二进制文件读写">二进制文件读写</h2>
+<p>写文件： <code>ofs.write((const char *)&amp;p, sizeof(p));</code>
+读文件： <code>ifs.read((char *)&amp;p, sizeof(p)));</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/C-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/01/C-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/" class="post-title-link" itemprop="url">C++类和对象-多态</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-01 21:23:54" itemprop="dateCreated datePublished" datetime="2022-11-01T21:23:54+08:00">2022-11-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="分类">分类：</h2>
+<p>静态多态：重载（早绑定，编译阶段确定函数地址）
+动态多态：派生类和虚函数实现运行时多态（晚绑定，运行阶段确定函数地址）
+## 虚函数： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RNG</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">FW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;RNG不行&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiaoHu</span>: <span class="keyword">public</span> RNG</span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">FW</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cout &lt;&lt; <span class="string">&quot;Xiaohu不行&quot;</span> &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(RNG&amp; rng)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	rng.<span class="built_in">FW</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test_vir</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	XiaoHu LYH;</span><br><span class="line">	<span class="built_in">print</span>(LYH); <span class="comment">//输出&quot;Xiaohu不行&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 多态好处： 1、组织结构清晰 2、可读性强
+3、利于前期和后期拓展以及维护 ## 纯虚函数和抽象类：
+父类中的虚函数一般无意义，所以可以简写成纯虚函数
+带纯虚函数的类称为抽象类
+语法：<code>virtual 返回值类型 函数名 (参数列表) = 0</code>
+特点：无法实例化对象 ## 虚析构和纯虚析构
+如果子类中有属性开辟到堆区，父类指针释放时无法调用到子类的析构代码
+因此，需要将父类的析构函数改为虚析构 特点：
+1、可以解决父类指针释放子类对象 2、需要有具体的函数实现
+纯虚析构需要定义，也需要实现</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E9%87%8D%E8%BD%BD%E8%BF%90%E7%AE%97%E7%AC%A6/" class="post-title-link" itemprop="url">C++类和对象-重载运算符</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-01 15:23:08" itemprop="dateCreated datePublished" datetime="2022-11-01T15:23:08+08:00">2022-11-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>运算符重载：采用operator对运算符进行重新定义，本文将对+、++、&lt;&lt;、=、==进行示例，其余运算符可推。
+## 重载加号运算符 加号运算符可以采用成员函数、全局函数两种方式重载。
+成员函数重载+： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person &amp;per)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = <span class="keyword">this</span>-&gt;m_A + per.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 全局函数重载+： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">person <span class="keyword">operator</span>+(person&amp; p1, person&amp; p2)</span><br><span class="line">&#123;</span><br><span class="line">	person temp;</span><br><span class="line">	temp.m_A = p1.m_A + p2.m_A;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+重载递增运算符 在C++中，++符号位于变量前和变量后含义不同，因此需要区分。
+成员函数重载前置++： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>++()<span class="comment">//前置返回引用才能嵌套</span></span><br><span class="line">&#123;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 成员函数重载后置++： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">person <span class="keyword">operator</span>++(<span class="type">int</span>)<span class="comment">//后置需要占位参数</span></span><br><span class="line">&#123;</span><br><span class="line">	person temp = *<span class="keyword">this</span>;</span><br><span class="line">	m_A++;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
+重载左移运算符
+类变量不可直接输出，通过重载左移运算符可直接通过cout输出对象：
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;cout, person5 p) <span class="comment">//返回引用</span></span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; p.m_A;</span><br><span class="line">	<span class="keyword">return</span> cout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载赋值运算符
+编译器提供的=只能进行浅拷贝，如果需要深拷贝则需要重载=运算符：
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">person &amp;<span class="keyword">operator</span>=(person &amp;p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//判断是否有属性在堆区，有则清干净</span></span><br><span class="line">	<span class="keyword">if</span> (m_Age != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_Age;</span><br><span class="line">		m_Age = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//深拷贝</span></span><br><span class="line">	m_Age = <span class="keyword">new</span> <span class="built_in">int</span>(*p.m_Age);</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 重载关系运算符 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>==(person p)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (p.m_Name == m_Name &amp;&amp; p.m_Age == m_Age) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 仿函数
+可以通过重载()来产生仿函数，譬如： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(string str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; str &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+可通过<code>变量名("输出内容");</code>来输出字符串。
+仿函数的应用非常灵活，在此无法一一列举。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
