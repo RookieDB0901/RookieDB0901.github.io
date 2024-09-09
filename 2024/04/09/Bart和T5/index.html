@@ -22,28 +22,28 @@
     <meta name="description" content="自回归(autoregressive)语言模型，如GPT，采用从左向右单向解码的方式，适用于自然语言生成（NLG）任务。非自回归(non-autoregressive)语言模型，如BERT，每个时刻的输出都可以充分利用双向信息，适用于自然语言理解（NLU）任务，但是在NLG上表现不佳。BERT采用transformer的编码器结构，GPT采用transformer的解码器结构，而BART和T5都采">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BART和T5">
-<meta property="og:url" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/index.html">
+<meta property="og:url" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/index.html">
 <meta property="og:site_name" content="深夜食堂">
 <meta property="og:description" content="自回归(autoregressive)语言模型，如GPT，采用从左向右单向解码的方式，适用于自然语言生成（NLG）任务。非自回归(non-autoregressive)语言模型，如BERT，每个时刻的输出都可以充分利用双向信息，适用于自然语言理解（NLU）任务，但是在NLG上表现不佳。BERT采用transformer的编码器结构，GPT采用transformer的解码器结构，而BART和T5都采">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/BART.jpg">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/BART%E5%BE%AE%E8%B0%83.jpg">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/BART%E5%BE%AE%E8%B0%83.jpg">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/NLU%E6%95%88%E6%9E%9C%E6%AF%94%E5%AF%B9.jpg">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/NLG%E6%95%88%E6%9E%9C%E6%AF%94%E5%AF%B9.jpg">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/BART.png">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/BART%E5%BE%AE%E8%B0%83.png">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/BART%E5%BE%AE%E8%B0%83.png">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/NLU%E6%95%88%E6%9E%9C%E6%AF%94%E5%AF%B9.png">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/NLG%E6%95%88%E6%9E%9C%E6%AF%94%E5%AF%B9.png">
 <meta property="article:published_time" content="2024-04-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-09-09T04:50:00.824Z">
+<meta property="article:modified_time" content="2024-09-09T08:13:49.814Z">
 <meta property="article:author" content="DB">
 <meta property="article:tag" content="deep learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/BART.jpg">
+<meta name="twitter:image" content="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/BART.png">
 
 
-<link rel="canonical" href="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/">
+<link rel="canonical" href="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/","path":"2024/04/09/Bart和T5/","title":"BART和T5"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/","path":"2024/04/09/BART和T5/","title":"BART和T5"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>BART和T5 | 深夜食堂</title>
@@ -299,7 +299,7 @@ mjx-container[display="true"] + br {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -356,7 +356,7 @@ Rotation等方法。经过对比实验Text
 Infilling更有助于模型效果提升，而Sentence
 permutation虽然提升不大，但作者假设模型规模提升后这个任务会有用。</p>
 <figure>
-<img src="BART.jpg" alt="BART">
+<img src="BART.png" alt="BART">
 <figcaption aria-hidden="true">BART</figcaption>
 </figure>
 <p>T5使用两种任务，分为无监督和有监督。其中无监督任务也是Span级别的mask，不过输出不需要还原整句，只需要输出mask掉的tokens就可以，总共mask15%字符。有监督任务提升不大，这里不展开说明。</p>
@@ -367,23 +367,23 @@ permutation虽然提升不大，但作者假设模型规模提升后这个任务
 <li><p>右边是翻译任务的微调方式，由于翻译任务的词表可能和模型词表不同，所以这里使用一个新的小型Encoder替换BART中的Embedding。</p></li>
 </ul>
 <figure>
-<img src="BART微调.jpg" alt="BART微调">
+<img src="BART微调.png" alt="BART微调">
 <figcaption aria-hidden="true">BART微调</figcaption>
 </figure>
 <p>T5将分类任务和生成任务都视为生成式任务：</p>
 <figure>
-<img src="BART微调.jpg" alt="BART微调">
+<img src="BART微调.png" alt="BART微调">
 <figcaption aria-hidden="true">BART微调</figcaption>
 </figure>
 <h1 id="效果比较">效果比较</h1>
 <p>对于理解任务，将两篇论文中实验结果整理为下表：</p>
 <figure>
-<img src="NLU效果比对.jpg" alt="NLU效果比对">
+<img src="NLU效果比对.png" alt="NLU效果比对">
 <figcaption aria-hidden="true">NLU效果比对</figcaption>
 </figure>
 <p>对于生成任务，两个模型都在CNN/DailyMail上进行了实验</p>
 <figure>
-<img src="NLG效果比对.jpg" alt="NLG效果比对">
+<img src="NLG效果比对.png" alt="NLG效果比对">
 <figcaption aria-hidden="true">NLG效果比对</figcaption>
 </figure>
 <p>综合比较来看，BART稍微好一些，尤其是在理解任务上。不过由于T5发布的模型比较大，参数量最多达到了11B，所以在GLUE和SuperGLUE上长期霸榜。</p>
@@ -432,7 +432,7 @@ bert-base）</p>
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="https://rookiedb0901.github.io/2024/04/09/Bart%E5%92%8CT5/" title="BART和T5">https://rookiedb0901.github.io/2024/04/09/Bart和T5/</a>
+      <a href="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/" title="BART和T5">https://rookiedb0901.github.io/2024/04/09/BART和T5/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
