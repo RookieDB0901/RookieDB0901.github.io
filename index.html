@@ -260,7 +260,7 @@ mjx-container[display="true"] + br {
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -286,7 +286,7 @@ mjx-container[display="true"] + br {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E8%A1%8C%E4%B8%BA%E5%BA%8F%E5%88%97/">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/07/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%A9%E5%93%81%E5%86%B7%E5%90%AF%E5%8A%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -304,7 +304,7 @@ mjx-container[display="true"] + br {
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E8%A1%8C%E4%B8%BA%E5%BA%8F%E5%88%97/" class="post-title-link" itemprop="url">Untitled</a>
+          <a href="/2024/10/07/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%A9%E5%93%81%E5%86%B7%E5%90%AF%E5%8A%A8/" class="post-title-link" itemprop="url">推荐算法丨物品冷启动</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,492 +315,7 @@ mjx-container[display="true"] + br {
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="lastn">LastN</h1>
-<p>LastN，即用户最近 n
-次点击、点赞、收藏、转发等行为是推荐系统中重要的特征，可以帮助召回和排序变得更精准。</p>
-<p>用户的LastN序列是用户最近交互过的N个物品，将这些物品的ID
-embedding成向量并取平均得到一个向量，作为用户的一种特征，和其他特征一起输入神经网络。</p>
-<p>这种方法适用于双塔模型、三塔模型、精排模型。</p>
-<p>在实践中，可以用点击、点赞、收藏等的LastN序列分别生成一个特征向量，再把这些向量拼接起来。除了使用物品ID，还可以使用物品其他特征做embedding，再和ID的embedding拼接起来。</p>
-<h1 id="din模型">DIN模型</h1>
-<p>DIN模型是对LastN序列建模的一种方法，效果优于简单的平均。DIN
-的本质是注意力机制。</p>
-<p>DIN采用了加权平均代替普通平均，权重是候选物品向量与LastN物品向量的相似度。</p>
-<p>DIN模型只用于精排模型，而不用于双塔模型、三塔模型。这是因为双塔模型中物品表征离线存储，用户塔无法看到候选物品特征。</p>
-<h1 id="sim模型">SIM模型</h1>
-<p>DIN模型的计算量受N影响，因此N的规模不能太大，一般只能为几百，导致模型无法看到用户的长期兴趣。</p>
-<p>SIM模型的目标是保留用户的长期行为序列，而且计算量不会过大。</p>
-<p>SIM模型对DIN做出改进：</p>
-<ul>
-<li>DIN对LastN向量做加权平均，权重是相似度。</li>
-<li>如果某LastN物品与候选物品差异很大，则权重接近零。</li>
-<li>可以快速排除掉与候选物品无关的LastN物品，降低注意层的计算量。</li>
-</ul>
-<p>SIM的步骤如下：</p>
-<p><strong>查找</strong>：</p>
-<ul>
-<li>Hard Search：保留LastN物品中与候选物品类目相同的。</li>
-<li>Soft
-Search：最近邻查找，将候选物品向量作为query查找LastN中k个相似度最高的。</li>
-<li>前者更快，后者效果更好。一般用前者就行。</li>
-</ul>
-<p><strong>注意力机制</strong>：</p>
-<ul>
-<li>将DIN中的LastN向量换成TopK向量即可。</li>
-<li>SIM记录用户的长期行为，LastN可能存在很久之前的交互，因此可以加入时间信息：
-<ul>
-<li>用户与某个LastN物品的交互时刻距今为δ；</li>
-<li>对δ做离散化，在做embedding，变成向量<strong>d</strong>；</li>
-<li>将物品向量<strong>x</strong>和时间向量<strong>d</strong>拼接在一起，作为一个LastN物品的表征。</li>
-</ul></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>“协同过滤”就是协同⼤家的反馈、评价和意见⼀起对海量的信息进⾏过滤，从中筛选出⽬标⽤户可能感兴趣的信息的推荐过程。</p>
-<ul>
-<li><strong>共现矩阵</strong>：用横坐标表示物品，纵坐标表示用户，矩阵元素值表示用户对物品的感兴趣程度。</li>
-</ul>
-<h1 id="基于用户的协同过滤">基于用户的协同过滤</h1>
-<p>基于用户的协同过滤（userCF）向用户推荐相似用户感兴趣的物品。在为一名用户推荐物品时，首先找到与该用户相似度最高的n个用户，根据共现矩阵计算这些用户对每个物品的感兴趣程度，再将各个物品的得分进行排序，选择得分最高的一系列物品进行推荐。</p>
-<p>以上总结了userCF的总体逻辑，但关于用户相似度的计算排序的过程需要可量化的方式。以下进行详细介绍。</p>
-<h2 id="用户相似度计算">用户相似度计算</h2>
-<p>我们可用共现矩阵中的行向量表示相应用户的用户向量（共现矩阵行向量中的每个值表示了该用户对一个物品的感兴趣程度），这样计算用户相似度便转化为了计算向量相似度，两个向量之间常⽤的相似度计算⽅法有如下⼏种。</p>
-<h3 id="余弦相似度">余弦相似度</h3>
-<p>余弦相似度衡量了用户向量i和用户向量j之间的夹角大小，夹角越小则相似度越大。
-<span class="math display">\[
-\begin{equation}
-sim(i,j)=cos(i,j)= \frac{i·j}{||i||·||j||}  
-\end{equation}
-\]</span></p>
-<h3 id="皮尔逊相关系数">皮尔逊相关系数</h3>
-<p>皮尔逊相关系数使用用户平均分对各独立评分进行修正，减小用户评分偏置的影响。
-<span class="math display">\[
-sim(i,j)=\frac{\sum_{p∈P}(R_{i,p}-\overline{R_i})(R_{j,p}-\overline{R_j})}{\sqrt{\sum_{p∈P}(R_{i,p}-\overline{R_i})^2}\sqrt{\sum_{p∈P}(R_{j,p}-\overline{R_j})^2}}
-\]</span> 其中， <span class="math inline">\(R_{i,p}\)</span>
-代表⽤户i对物品p的评分。 <span
-class="math inline">\(\overline{R_i}\)</span>
-代表⽤户i对所有物品的平均评分，P代表所有物品的集合。</p>
-<p>以上使用的是用户平均分，同理也可引入物品平均分，不再赘述。</p>
-<h2 id="最终结果排序">最终结果排序</h2>
-<p>一般利⽤⽤户相似度和相似⽤户的评价的加权平均获得⽬标⽤户的评价预测。
-<span class="math display">\[
-R_{u,p}=\frac{\sum_{s∈S}(w_{u,s}·R_{s,p})}{\sum_{s∈S}w_{u,s}}
-\]</span> 其中 <span class="math inline">\(w_{u,s}\)</span>
-表示用户u和用户s的相似度。</p>
-<p>获得用户p对各个物品的评价预测后，将这些得分进行排序即可得到推荐列表。</p>
-<p>userCF存在以下缺点：</p>
-<ul>
-<li>互联网应用场景下用户数往往非常大，而存储用户相似度矩阵需要n^2的空间复杂度。</li>
-<li>用户的历史数据向量往往非常稀疏，对于只有⼏次购买或者点击⾏为的⽤户来说，找到相似⽤户的准确度⾮常低。</li>
-</ul>
-<h1 id="基于物品的协同过滤">基于物品的协同过滤</h1>
-<p>基于物品的协同过滤（ItemCF）通过计算共现矩阵中物品列向量的相似度得到物品之间的相似矩阵，再找到⽤户的历史正反馈物品的相似物品进⾏进⼀步排序和推荐。</p>
-<p>ItemCF的具体步骤如下：</p>
-<ul>
-<li>基于历史数据构建共现矩阵（用户为行，物品为列）</li>
-<li>计算两两列向量（即物品向量）的相似性，构建物品相似度矩阵</li>
-<li>利用物品相似度矩阵，针对目标用户历史正反馈物品查找TOP K个物品</li>
-<li>对于相似物品集合中的物品，利用相似度分值进行排序</li>
-</ul>
-<p>如果一个物品与多个历史正反馈物品相似，则相似度需要累加： <span
-class="math display">\[
-R_{u,p}=\sum_{h∈H}(w_{p,h}·R_{u,h})
-\]</span>
-其中H是目标用户的正反馈物品集合，权重w为物品间相似度，R是用户对物品的已有评分。</p>
-<h2 id="swing模型">Swing模型</h2>
-<p>Swing模型和ItemCF十分相似，仅在物品相似度的计算上有所不同。Swing模型的相似度计算方式如下：
-<span class="math display">\[
-sim(i_1,i_2)=\sum_{u_1∈v}\sum_{u_2∈v}\frac{1}{α+overlap(u_1,u_2)}
-\]</span>
-其中w_1为喜欢物品i_1的用户集合，v为w_1和w_2的交集，overlap计算两个用户喜欢的物品交集的大小，α为参数。</p>
-<p>这个相似度计算公式下，v越大两个物品的相似度也越大，引入overlap是为了削弱“小圈子”的影响，例如当两个人同属一个微信群，则被转发到该群的所有链接都可能被两个人同时点开，即便这些链接毫不相关。</p>
-<h1 id="总结">总结</h1>
-<ul>
-<li><p>UserCF基于⽤户相似度进⾏推荐，使其具备更强的社交特性。⽤户能够快速得知与⾃⼰兴趣相似的⼈最近喜欢的是什么，即使某个兴趣点以前不在⾃⼰的兴趣范围内，也有可能通过“朋友”的动态快速更新⾃⼰的推荐列表。这样的特点使其⾮常适⽤于新闻推荐场景。</p></li>
-<li><p>ItemCF更适⽤于兴趣变化较为稳定的应⽤，⽤户在⼀个时间段内更倾向于寻找⼀类商品，这时利⽤物品相似度为其推荐相关物品是契合⽤户动机的
-，例如电商和视频推荐。</p></li>
-</ul>
-<p>协同过滤是⼀个⾮常直观、可解释性很强的模型，但它并不具备较强的泛化能⼒。热门的物品具有很强的头部效应，容易跟⼤量物品产⽣相似性；⽽尾部的物品由于特征向量稀疏，很少与其他物品产⽣相似性，导致很少被推荐。</p>
-<p>另外，协同过滤仅利⽤⽤户和物品的交互信息，⽆法有效地引⼊⽤户年龄、性别、商品描述、商品分类、当前时间等⼀系列⽤户特征、物品特征和上下⽂特征。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E5%90%91%E9%87%8F%E5%8F%AC%E5%9B%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E5%90%91%E9%87%8F%E5%8F%AC%E5%9B%9E/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="矩阵补充">矩阵补充</h1>
-<h2 id="模型训练">模型训练</h2>
-<p>矩阵补充模型首先通过两个Embedding矩阵W_1、W_2将用户向量和物品向量映射成低维向量a_u和b_i，再将二者求内积得到用户u对物品i的预估兴趣分数。</p>
-<p>训练的目标函数为： <span class="math display">\[
-\min_{A,B}\sum_{(u,i,y)∈Ω}(y-&lt;a_u,b_i&gt;)^2
-\]</span>
-其中y是用户u对物品i的真实兴趣分数。该目标函数的目的是最小化预估兴趣分数和真实兴趣分数的距离，以此训练Embedding矩阵W_1、W_2。训练后，我们便可使用&lt;a_u,b_i&gt;作为兴趣分数来补充共现矩阵中没有产生过交互的用户和物品。</p>
-<h2 id="线上服务">线上服务</h2>
-<p>训练得到用户和物品的embedding，将embedding的结果存储到key-value表，用户的key-value表中key为用户id，value为embedding后的向量。</p>
-<p>线上服务过程如下：</p>
-<ul>
-<li>把用户id作为key查询用户的向量，记作a。</li>
-<li>最邻近查找：查找用户最有可能感兴趣的k个物品，作为召回结果。
-<ul>
-<li>第i号物品的embedding向量记作b_i。</li>
-<li>内积&lt;a,b_i&gt;是用户对第i号物品兴趣的预估。</li>
-<li>返回内积最大的k个物品。</li>
-</ul></li>
-</ul>
-<p>但是矩阵补充实际效果并不好，原因如下：</p>
-<ul>
-<li>为利用物品、用户属性信息。</li>
-<li>负样本选取方式不对。</li>
-<li>内积不如余弦相似度，平方损失函数不如交叉熵损失。</li>
-</ul>
-<h1 id="双塔模型">双塔模型</h1>
-<p>双塔模型（two-tower）也叫 DSSM，是推荐系统中最重要的召回通道。</p>
-<p>双塔模型有两个塔：用户塔、物品塔。两个塔各输出一个向量，作为用户、物品的表征。两个向量的余弦相似度作为对兴趣的预估。</p>
-<figure>
-<img src="用户塔.png" alt="用户塔" />
-<figcaption aria-hidden="true">用户塔</figcaption>
-</figure>
-<figure>
-<img src="物品塔.png" alt="物品塔" />
-<figcaption aria-hidden="true">物品塔</figcaption>
-</figure>
-<h2 id="模型训练-1">模型训练</h2>
-<p>将物品样本分为正样本（用户感兴趣的物品）和负样本（用户不感兴趣的物品）。</p>
-<ul>
-<li><p>Pointwise: 独立看待每个正样本、负样本，做简单的二元分类</p></li>
-<li><p>Pairwise: 每次取一个正样本、一个负样本</p></li>
-<li><p>Listwise: 每次取一个正样本、多个负样本</p></li>
-</ul>
-<h3 id="pointwise训练">Pointwise训练</h3>
-<p>工业界一般使用这种方法。</p>
-<p>把召回看作二分类任务：</p>
-<ul>
-<li>对于正样本，鼓励cos(a,b)接近+1。</li>
-<li>对于负样本，鼓励cos(a,b)接近-1。</li>
-</ul>
-<p>其中a为用户的表征，b为物品的表征。正负样本数量通常控制在1:2或1:3。</p>
-<h3 id="pairwise训练">Pairwise训练</h3>
-<p>Pairwise每次取一个正样本、一个负样本。基本想法是要鼓励cos(a,b+)大于cos(a,b-)，b+是正样本的表征，b-是负样本的表征。</p>
-<p>损失函数：</p>
-<ul>
-<li><p>Triplet hinge loss <span class="math display">\[
-L(a,b+,b-)=\max\{0,cos(a,b-)+m-cos(a,b+)\}
-\]</span></p>
-<ul>
-<li><p>如果cos(a,b+)大于cos(a,b-)+m，则没有损失</p></li>
-<li><p>否则，损失等于cos(a,b-)+m-cos(a,b+)</p></li>
-</ul></li>
-<li><p>Triplet logistic loss <span class="math display">\[
-L(a,b+,b-)=log(1+exp[σ·(cos(a,b-)-cos(a,b+))])
-\]</span> σ大于0的超参数。</p></li>
-</ul>
-<h3 id="listwise训练">Listwise训练</h3>
-<p>Listwise每次取一个正样本、多个负样本。这些物品样本与用户表征的余弦相似度经过softmax后，要使正样本尽可能大（接近1），使负样本尽可能小（接近0）。损失函数使用交叉熵损失。</p>
-<figure>
-<img src="listwise训练.png" alt="listwise训练" />
-<figcaption aria-hidden="true">listwise训练</figcaption>
-</figure>
-<h2 id="正负样本">正负样本</h2>
-<h2 id="模型应用">模型应用</h2>
-<p>双塔模型训练完成后，通过两个步骤投入实际应用：</p>
-<ul>
-<li><p><strong>离线存储</strong>：用物品塔计算每个物品的特征向量<strong>b</strong>，把&lt;特征向量<strong>b</strong>,物品ID&gt;保存到向量数据库用作最近邻查找。</p></li>
-<li><p><strong>线上召回</strong>：需要推荐时，调用用户塔线上计算用户向量<strong>a</strong>，并用<strong>a</strong>作为query查询向量数据库，查找和<strong>a</strong>余弦相似度最高的k个物品向量，返回这k个物品ID。</p></li>
-</ul>
-<p>之所以存储物品向量而线上计算用户向量，是因为：</p>
-<ul>
-<li>每次召回只用到一个用户向量，而用到大量物品向量，线上计算物品向量代价过大。</li>
-<li>用户特征变化较快，而物品特征相对稳定，离线存储用户向量不利于推荐效果。</li>
-</ul>
-<p>模型需要定期做更新，分为全量更新（天级别）和增量更新（实时）：</p>
-<ul>
-<li><strong>全量更新</strong>：每天做一次全量更新，训练整个模型，包括embedding和全连接层。
-<ul>
-<li>将昨天的数据random shuffle。</li>
-<li>在昨天模型参数的基础上（不受增量更新影响），用昨天的数据训练1epoch。</li>
-<li>训练完成后发布新的用户塔和物品向量。</li>
-</ul></li>
-<li><strong>增量更新</strong>：做online learning更新模型参数，只更新ID
-Embedding。
-<ul>
-<li>用户兴趣会随时发生变化，因此需要及时更新模型。</li>
-<li>实时收集线上数据，做流式处理，生成TFRecord文件。</li>
-<li>对模型做online learning，增量更新ID Embedding参数。</li>
-<li>发布用户ID Embedding（推荐时使用用户ID查询用户ID
-Embedding），供用户塔在线上计算用户向量。</li>
-</ul></li>
-</ul>
-<p>全量更新不受一天中不同时段用户使用习惯差异的影响，随机打乱数据训练效果更好。而增量更新可以动态捕捉用户的兴趣变化。因此二者需要结合使用。</p>
-<h2 id="双塔模型自监督学习">双塔模型+自监督学习</h2>
-<p>双塔模型学不好低曝光物品的向量表征：</p>
-<ul>
-<li>推荐系统的头部效应严重
-<ul>
-<li>少部分物品占据大部分点击</li>
-<li>大部分物品点击次数不高</li>
-</ul></li>
-<li>高点击物品的表征学得好，长尾物品的表征学得不好。</li>
-</ul>
-<p>通过自监督学习做data
-augmentation可以更好地学习长尾物品的向量表征：</p>
-<ul>
-<li>对每个物品做特征两类特征变换，并通过物品塔得到两个特征向量b'和b''。</li>
-<li>对于同一个物品的两个特征向量<span
-class="math inline">\(b_i&#39;和b_i&#39;&#39;\)</span>应使其相似度高。</li>
-<li>对于不同物品的特征向量<span
-class="math inline">\(b_i&#39;和b_j&#39;&#39;\)</span>应使其相似度低。</li>
-</ul>
-<h3 id="特征变换">特征变换</h3>
-<p>对物品做特征变换时主要有几种方式：</p>
-<ul>
-<li><p><strong>Random
-Mask</strong>：随机选取一些离散特征（比如类目），把它们遮住。例如：</p>
-<ul>
-<li>某物品的类目特征是u={数码，摄影}。</li>
-<li>mask后的类目特征变成u'={default}。</li>
-</ul></li>
-<li><p><strong>Dropout</strong>：随机丢弃某个多值离散特征50%的值。</p>
-<ul>
-<li>多值离散特征：可以有多个取值的特征，例如类目。</li>
-<li>例如某个物品的类目特征u={数码，摄影} dropout后变成了u'={美妆}。</li>
-</ul></li>
-<li><p><strong>互补特征(complementary)</strong>：</p>
-<ul>
-<li>假设物品一个有4种特征：{ID，类目，关键词，城市}。</li>
-<li>随机分成两组：{ID，关键词}和{类目，城市}。</li>
-<li>由{ID，default，关键词，default}计算得到物品表征1。</li>
-<li>由{default，类目，default，城市}计算得到物品表征2。</li>
-<li>应使物品表征1和物品表征2尽可能相似。</li>
-</ul></li>
-<li><p><strong>Mask一组关联的特征</strong></p>
-<ul>
-<li><p>离线计算特征两两之间的关联，用互信息（mutual information）衡量：
-<span class="math display">\[
-MI(u,v)=\sum_{u∈U}\sum_{v∈V}p(u,v)·log \frac{p(u,v)}{p(u)·p(v)}
-\]</span>
-其中p(u)表示某特征取值为u的概率，p(u,v)表示某两个特征分别取值u、v的概率。</p></li>
-<li><p>设一共有k种特征，则两两之间的MI构成k×k矩阵。</p></li>
-<li><p>随机选一个特征作为种子，mask种子及其相关的k/2种特征。</p></li>
-<li><p>效果好但成本高。</p></li>
-</ul></li>
-</ul>
-<h3 id="训练模型">训练模型</h3>
-<p>首先对点击做随机抽样，得到n对用户-物品二元组，作为一个batch训练双塔。这种方式下热门物品抽到的概率更高。</p>
-<p>接着从全体物品中<strong>均匀</strong>抽样，得到m个物品，作为一个batch，用来训练物品塔。这种方式下所有物品被抽到概率相同。对这些物品做两类特征变换，物品塔输出两组向量：<span
-class="math inline">\(b_1&#39;,b_2&#39;,···,b_m&#39;和b_1&#39;&#39;,b_2&#39;&#39;,···,b_m&#39;&#39;\)</span>。</p>
-<p>如图，取第一组中的向量<span
-class="math inline">\(b_i&#39;\)</span>，分别与第二组中的向量取余弦，要使正样本的余弦值尽可能接近1，其余尽可能接近0。使用交叉熵损失函数。</p>
-<figure>
-<img src="训练模型.png" alt="训练模型" />
-<figcaption aria-hidden="true">训练模型</figcaption>
-</figure>
-<p>如此得到了第i个物品的损失函数： <span class="math display">\[
-L_{self}[i]=-log(\frac{exp(cos(b_i&#39;,b_i&#39;&#39;))}{\sum_{j=1}^{m}exp(cos(b_i&#39;,b_j&#39;&#39;))})
-\]</span> 对m个物品的损失取平均作为自监督学习的损失： <span
-class="math display">\[
-loss_{self}=\frac{1}{m}\sum_{i=1}^{m}L_{self}[i]
-\]</span>
-双塔模型的损失和自监督学习的损失共同构成整个模型的损失函数，其中超参数α用来调节自监督的作用：
-<span class="math display">\[
-loss=\frac{1}{n}\sum_{i=1}^{n}L_{main}[i]+α·\frac{1}{m}\sum_{j=1}^{m}L_{self}[j]
-\]</span></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%86%B7%E5%90%AF%E5%8A%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E7%89%A9%E5%93%81%E5%86%B7%E5%90%AF%E5%8A%A8/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
+      <time title="Created: 2024-10-07 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-07T00:00:00+08:00">2024-10-07</time>
     </span>
 
   
@@ -1018,7 +533,7 @@ class="math inline">\(f(发布时间/目标时间，已有曝光/目标曝光)\)
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/06/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1036,7 +551,7 @@ class="math inline">\(f(发布时间/目标时间，已有曝光/目标曝光)\)
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/" class="post-title-link" itemprop="url">Untitled</a>
+          <a href="/2024/10/06/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/" class="post-title-link" itemprop="url">推荐算法丨物品多样性</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1047,7 +562,7 @@ class="math inline">\(f(发布时间/目标时间，已有曝光/目标曝光)\)
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
+      <time title="Created: 2024-10-06 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-06T00:00:00+08:00">2024-10-06</time>
     </span>
 
   
@@ -1061,7 +576,7 @@ class="math inline">\(f(发布时间/目标时间，已有曝光/目标曝光)\)
     
     <div class="post-body" itemprop="articleBody">
           <p>在做推荐时，除了考虑用户是否对物品感兴趣，还要考虑推荐物品的<strong>多样性</strong>。如果多样性做得好，可以显著提升推荐系统的核心业务指标。因此，在做完精排后，还需要结合物品的多样性指标进行<strong>重排</strong>，以选出最终的推荐物品。</p>
-<p>物品相似性有两种度量方法：</p>
+<p>物品<strong>相似性</strong>有两种度量方法：</p>
 <ul>
 <li>基于<strong>物品属性标签</strong>，例如根据一级类目、二级类目、品牌计算相似度：
 <ul>
@@ -1228,7 +743,7 @@ class="math display">\[
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/04/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1246,7 +761,7 @@ class="math display">\[
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/" class="post-title-link" itemprop="url">Untitled</a>
+          <a href="/2024/10/04/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">推荐算法丨排序</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1257,155 +772,7 @@ class="math display">\[
       </span>
       <span class="post-meta-item-text">Posted on</span>
 
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="因式分解机fm">因式分解机FM</h1>
-<p>线性模型对输入的特征取加权和，作为对目标的预估。如果先做特征交叉，再用线性模型，通常可以取得更好的效果。如果做二阶特征交叉，那么参数量为O(特征数量平方)，计算量大，而且容易造成过拟合。因式分解机（Factorized
-Machine, FM）用低秩矩阵分解的方式降低参数量，加速计算。</p>
-<p>若有x个特征，则线性模型可表示为： <span class="math display">\[
-p = b+\sum_{i=1}^dw_ix_i
-\]</span> 加入二阶交叉特征： <span class="math display">\[
-p=b+\sum_{i=1}^dw_ix_i+\sum_{i=1}^d\sum_{j=i+1}^ju_{ij}x_ix_j
-\]</span>
-引入特征交叉后，模型表达能力更强，也能取得更好的效果。但同时，直接加入二阶交叉特征引入了O(d^2)级别的参数量，大大提高了计算量。</p>
-<p>相比于直接训练一个d×d的矩阵作为交叉项的参数，因式分解机只训练一个d×k的矩阵V(k&lt;&lt;d)，将该矩阵第i列和第j列的内积作为交叉项<span
-class="math inline">\(x_ix_j\)</span>的参数： <span
-class="math display">\[
-p=b+\sum_{i=1}^dw_ix_i+\sum_{i=1}^d\sum_{j=i+1}^jv_i^Tv_jx_ix_j
-\]</span>
-如此一来，参数量便大大减小。任何可以用线性模型（比如线性回归、逻辑回归）解决的问题，都可以用
-FM 解决。但当前FM已经不常使用了。</p>
-<h1 id="深度交叉网络dcn">深度交叉网络DCN</h1>
-<p>深度交叉网络（Deep &amp; Cross Networks,
-DCN）用来代替简单的全连接网络，可以用于召回双塔模型、粗排三塔模型、精排模型。DCN
-由一个<strong>深度网络</strong>和一个<strong>交叉网络</strong>组成，交叉网络的基本组成单元是<strong>交叉层</strong>。</p>
-<figure>
-<img src="交叉层.png" alt="交叉层" />
-<figcaption aria-hidden="true">交叉层</figcaption>
-</figure>
-<p>一个交叉层做了如下运算： <span class="math display">\[
-x_{i+1}=x_0⊙(W_ix_i+b_i)+x_i
-\]</span>
-其中⊙为哈达玛积运算，即按位置相乘。一个交叉网络可以由多个交叉层叠加而成，类似ResNet。</p>
-<p>深度交叉网络由一个深度网络和一个交叉网络组成：</p>
-<figure>
-<img src="深度交叉网络.png" alt="深度交叉网络" />
-<figcaption aria-hidden="true">深度交叉网络</figcaption>
-</figure>
-<p>特征向量经过全连接网络和交叉网络后分别得到一个向量，两个向量合并再输入一个全连接层得到最终的输出。</p>
-<p>深度交叉网络可以用来代替召回、排序模型中的神经网络，如双塔模型中的用户塔物品塔，且往往能取得更好的效果，得到工业界的广泛认可。</p>
-<h1 id="lhuc网络结构">LHUC网络结构</h1>
-<p>LHUC 的起源是语音识别，后来被应用到推荐系统，LHUC
-可以用于<strong>精排</strong>。快手将其称为
-PPNet，现在已经在业界广泛落地。</p>
-<figure>
-<img src="推荐系统中的LHUC模型.png" alt="推荐系统中的LHUC模型" />
-<figcaption aria-hidden="true">推荐系统中的LHUC模型</figcaption>
-</figure>
-<p>LHUC的模型结构如上图所示。模型的输入为用户特征和物品特征，输出为一个向量。需要注意的是，图中的两个神经网络由多个全连接层和一个**2*sigmoid<strong>激活函数组成，将最终的结果数值大小限定到</strong>(0,2)<strong>范围内。这样可以在和其他向量做哈达玛积后，</strong>放大某些数值，缩小某些数值**，具体放大哪些缩小哪些则受用户特征影响。</p>
-<p>将LHUC用于推荐系统，门控神经网络（2 x sigmoid）的梯度不要传递到用户ID
-embedding特征，需要对其做 stop gradient。</p>
-<p>LHUC模型原来用来做语音识别，输入分别为语音信号和说话者的特征，根据说话者的特征对语音信号的输出进行调节。</p>
-<h1 id="fibinet">FiBiNet</h1>
-<p>学习FiBiNet需要先了解SENet和Bilinear Cross。</p>
-<h2 id="senet">SENet</h2>
-<p>SENet
-是计算机视觉中的一种技术，可以用在推荐系统中对特征做<strong>动态加权</strong>。</p>
-<figure>
-<img src="SENet.PNG" alt="SENet" />
-<figcaption aria-hidden="true">SENet</figcaption>
-</figure>
-<p>假设有m个特征向量（这些向量的长度可不同），对这些向量做变换得到一个m维向量。将该m维向量作为权重对原来的特征向量做加权，得到新的特征向量。SENet的作用在于对离散特征做field-wise加权，放大或削弱某些特征的作用。比如用户ID
-Embbedding是64维向量，则这64个元素算一个field，获得相同的权重。m个特征向量即m个fields。</p>
-<h2 id="bilinear-cross">Bilinear Cross</h2>
-<p>Bilinear
-Cross用于做Field间特征交叉，即将两个fields做交叉得到新的特征。Field间特征交叉通常有以下几种方式。</p>
-<ul>
-<li><strong>内积</strong>：将两个特征向量做内积得到一个实数。如果有m个离散特征，就会得到m^2个实数。</li>
-<li><strong>哈达玛积</strong>：将两个特征向量做哈达玛积得到一个向量。如果有m个离散特征，就会得到m^2个向量。内积和哈达玛积都要求向量维度相同。</li>
-<li><strong>Bilinear Cross</strong>：
-<ul>
-<li>内积：<span
-class="math inline">\(f_{ij}=x_i^TW_{ij}x_j\)</span>。如果有m个fields则需要<span
-class="math inline">\(m^2/2\)</span>个参数矩阵，参数量非常大，因此只能人工指定一些重要的、相关的特征做交叉。</li>
-<li>哈达玛积：<span
-class="math inline">\(f_{ij}=x_i⊙(W_{ij}x_j)\)</span>。如果有m个fields则会产生m^2个向量，往往也是人工指定一些特征做交叉。</li>
-</ul></li>
-</ul>
-<h2 id="fibinet-1">FiBiNet</h2>
-<p>FiBiNet结合了以上两种技术。</p>
-<figure>
-<img src="FiBiNet.PNG" alt="FiBiNet" />
-<figcaption aria-hidden="true">FiBiNet</figcaption>
-</figure>
-<p>传统的模型中，离散特征经过embedding后直接和连续特征拼起来作为神经网络的输入。FiBi加入了SENet和Bilinear，具体如上图，其中Bilinear输出的是几个交叉后的向量，再将这些向量做拼接得到一个高维向量。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/10/09/%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
+      <time title="Created: 2024-10-04 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-04T00:00:00+08:00">2024-10-04</time>
     </span>
 
   
@@ -1600,6 +967,646 @@ p_{finish}=\frac{预估完播率}{f(视频长度)}
 <li>对每个物品交叉塔都需要做推理，而且因为统计特征会随时变化，交叉塔的输出向量不能缓存。因此交叉塔会做得足够小（往往只有一层）。</li>
 <li>模型上层同样对每个物品都要做一次推理，因此该模型的推理大部分计算量在模型上层。</li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/04/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E8%A1%8C%E4%B8%BA%E5%BA%8F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/04/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E8%A1%8C%E4%B8%BA%E5%BA%8F%E5%88%97/" class="post-title-link" itemprop="url">推荐算法丨行为序列</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-10-04 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-04T00:00:00+08:00">2024-10-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="lastn">LastN</h1>
+<p>LastN，即用户最近 n
+次点击、点赞、收藏、转发等行为是推荐系统中重要的特征，可以帮助召回和排序变得更精准。</p>
+<p>用户的LastN序列是用户最近交互过的N个物品，将这些物品的ID
+embedding成向量并取平均得到一个向量，作为用户的一种特征，和其他特征一起输入神经网络。</p>
+<p>这种方法适用于双塔模型、三塔模型、精排模型。</p>
+<p>在实践中，可以用点击、点赞、收藏等的LastN序列分别生成一个特征向量，再把这些向量拼接起来。除了使用物品ID，还可以使用物品其他特征做embedding，再和ID的embedding拼接起来。</p>
+<h1 id="din模型">DIN模型</h1>
+<p>DIN模型是对LastN序列建模的一种方法，效果优于简单的平均。DIN
+的本质是注意力机制。</p>
+<p>DIN采用了加权平均代替普通平均，权重是候选物品向量与LastN物品向量的相似度。</p>
+<p>DIN模型只用于精排模型，而不用于双塔模型、三塔模型。这是因为双塔模型中物品表征离线存储，用户塔无法看到候选物品特征。</p>
+<h1 id="sim模型">SIM模型</h1>
+<p>DIN模型的计算量受N影响，因此N的规模不能太大，一般只能为几百，导致模型无法看到用户的长期兴趣。</p>
+<p>SIM模型的目标是保留用户的长期行为序列，而且计算量不会过大。</p>
+<p>SIM模型对DIN做出改进：</p>
+<ul>
+<li>DIN对LastN向量做加权平均，权重是相似度。</li>
+<li>如果某LastN物品与候选物品差异很大，则权重接近零。</li>
+<li>可以快速排除掉与候选物品无关的LastN物品，降低注意层的计算量。</li>
+</ul>
+<p>SIM的步骤如下：</p>
+<p><strong>查找</strong>：</p>
+<ul>
+<li>Hard Search：保留LastN物品中与候选物品类目相同的。</li>
+<li>Soft
+Search：最近邻查找，将候选物品向量作为query查找LastN中k个相似度最高的。</li>
+<li>前者更快，后者效果更好。一般用前者就行。</li>
+</ul>
+<p><strong>注意力机制</strong>：</p>
+<ul>
+<li>将DIN中的LastN向量换成TopK向量即可。</li>
+<li>SIM记录用户的长期行为，LastN可能存在很久之前的交互，因此可以加入时间信息：
+<ul>
+<li>用户与某个LastN物品的交互时刻距今为δ；</li>
+<li>对δ做离散化，在做embedding，变成向量<strong>d</strong>；</li>
+<li>将物品向量<strong>x</strong>和时间向量<strong>d</strong>拼接在一起，作为一个LastN物品的表征。</li>
+</ul></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/" class="post-title-link" itemprop="url">推荐算法丨特征交叉</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-10-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-02T00:00:00+08:00">2024-10-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="因式分解机fm">因式分解机FM</h1>
+<p>线性模型对输入的特征取加权和，作为对目标的预估。如果先做特征交叉，再用线性模型，通常可以取得更好的效果。如果做二阶特征交叉，那么参数量为O(特征数量平方)，计算量大，而且容易造成过拟合。因式分解机（Factorized
+Machine, FM）用低秩矩阵分解的方式降低参数量，加速计算。</p>
+<p>若有x个特征，则线性模型可表示为： <span class="math display">\[
+p = b+\sum_{i=1}^dw_ix_i
+\]</span> 加入二阶交叉特征： <span class="math display">\[
+p=b+\sum_{i=1}^dw_ix_i+\sum_{i=1}^d\sum_{j=i+1}^ju_{ij}x_ix_j
+\]</span>
+引入特征交叉后，模型表达能力更强，也能取得更好的效果。但同时，直接加入二阶交叉特征引入了O(d^2)级别的参数量，大大提高了计算量。</p>
+<p>相比于直接训练一个d×d的矩阵作为交叉项的参数，因式分解机只训练一个d×k的矩阵V(k&lt;&lt;d)，将该矩阵第i列和第j列的内积作为交叉项<span
+class="math inline">\(x_ix_j\)</span>的参数： <span
+class="math display">\[
+p=b+\sum_{i=1}^dw_ix_i+\sum_{i=1}^d\sum_{j=i+1}^jv_i^Tv_jx_ix_j
+\]</span>
+如此一来，参数量便大大减小。任何可以用线性模型（比如线性回归、逻辑回归）解决的问题，都可以用
+FM 解决。但当前FM已经不常使用了。</p>
+<h1 id="深度交叉网络dcn">深度交叉网络DCN</h1>
+<p>深度交叉网络（Deep &amp; Cross Networks,
+DCN）用来代替简单的全连接网络，可以用于召回双塔模型、粗排三塔模型、精排模型。DCN
+由一个<strong>深度网络</strong>和一个<strong>交叉网络</strong>组成，交叉网络的基本组成单元是<strong>交叉层</strong>。</p>
+<figure>
+<img src="交叉层.png" alt="交叉层" />
+<figcaption aria-hidden="true">交叉层</figcaption>
+</figure>
+<p>一个交叉层做了如下运算： <span class="math display">\[
+x_{i+1}=x_0⊙(W_ix_i+b_i)+x_i
+\]</span>
+其中⊙为哈达玛积运算，即按位置相乘。一个交叉网络可以由多个交叉层叠加而成，类似ResNet。</p>
+<p>深度交叉网络由一个深度网络和一个交叉网络组成：</p>
+<figure>
+<img src="深度交叉网络.png" alt="深度交叉网络" />
+<figcaption aria-hidden="true">深度交叉网络</figcaption>
+</figure>
+<p>特征向量经过全连接网络和交叉网络后分别得到一个向量，两个向量合并再输入一个全连接层得到最终的输出。</p>
+<p>深度交叉网络可以用来代替召回、排序模型中的神经网络，如双塔模型中的用户塔物品塔，且往往能取得更好的效果，得到工业界的广泛认可。</p>
+<h1 id="lhuc网络结构">LHUC网络结构</h1>
+<p>LHUC 的起源是语音识别，后来被应用到推荐系统，LHUC
+可以用于<strong>精排</strong>。快手将其称为
+PPNet，现在已经在业界广泛落地。</p>
+<figure>
+<img src="推荐系统中的LHUC模型.png" alt="推荐系统中的LHUC模型" />
+<figcaption aria-hidden="true">推荐系统中的LHUC模型</figcaption>
+</figure>
+<p>LHUC的模型结构如上图所示。模型的输入为用户特征和物品特征，输出为一个向量。需要注意的是，图中的两个神经网络由多个全连接层和一个**2*sigmoid<strong>激活函数组成，将最终的结果数值大小限定到</strong>(0,2)<strong>范围内。这样可以在和其他向量做哈达玛积后，</strong>放大某些数值，缩小某些数值**，具体放大哪些缩小哪些则受用户特征影响。</p>
+<p>将LHUC用于推荐系统，门控神经网络（2 x sigmoid）的梯度不要传递到用户ID
+embedding特征，需要对其做 stop gradient。</p>
+<p>LHUC模型原来用来做语音识别，输入分别为语音信号和说话者的特征，根据说话者的特征对语音信号的输出进行调节。</p>
+<h1 id="fibinet">FiBiNet</h1>
+<p>学习FiBiNet需要先了解SENet和Bilinear Cross。</p>
+<h2 id="senet">SENet</h2>
+<p>SENet
+是计算机视觉中的一种技术，可以用在推荐系统中对特征做<strong>动态加权</strong>。</p>
+<figure>
+<img src="SENet.PNG" alt="SENet" />
+<figcaption aria-hidden="true">SENet</figcaption>
+</figure>
+<p>假设有m个特征向量（这些向量的长度可不同），对这些向量做变换得到一个m维向量。将该m维向量作为权重对原来的特征向量做加权，得到新的特征向量。SENet的作用在于对离散特征做field-wise加权，放大或削弱某些特征的作用。比如用户ID
+Embbedding是64维向量，则这64个元素算一个field，获得相同的权重。m个特征向量即m个fields。</p>
+<h2 id="bilinear-cross">Bilinear Cross</h2>
+<p>Bilinear
+Cross用于做Field间特征交叉，即将两个fields做交叉得到新的特征。Field间特征交叉通常有以下几种方式。</p>
+<ul>
+<li><strong>内积</strong>：将两个特征向量做内积得到一个实数。如果有m个离散特征，就会得到m^2个实数。</li>
+<li><strong>哈达玛积</strong>：将两个特征向量做哈达玛积得到一个向量。如果有m个离散特征，就会得到m^2个向量。内积和哈达玛积都要求向量维度相同。</li>
+<li><strong>Bilinear Cross</strong>：
+<ul>
+<li>内积：<span
+class="math inline">\(f_{ij}=x_i^TW_{ij}x_j\)</span>。如果有m个fields则需要<span
+class="math inline">\(m^2/2\)</span>个参数矩阵，参数量非常大，因此只能人工指定一些重要的、相关的特征做交叉。</li>
+<li>哈达玛积：<span
+class="math inline">\(f_{ij}=x_i⊙(W_{ij}x_j)\)</span>。如果有m个fields则会产生m^2个向量，往往也是人工指定一些特征做交叉。</li>
+</ul></li>
+</ul>
+<h2 id="fibinet-1">FiBiNet</h2>
+<p>FiBiNet结合了以上两种技术。</p>
+<figure>
+<img src="FiBiNet.PNG" alt="FiBiNet" />
+<figcaption aria-hidden="true">FiBiNet</figcaption>
+</figure>
+<p>传统的模型中，离散特征经过embedding后直接和连续特征拼起来作为神经网络的输入。FiBi加入了SENet和Bilinear，具体如上图，其中Bilinear输出的是几个交叉后的向量，再将这些向量做拼接得到一个高维向量。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/01/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E5%90%91%E9%87%8F%E5%8F%AC%E5%9B%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/10/01/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E5%90%91%E9%87%8F%E5%8F%AC%E5%9B%9E/" class="post-title-link" itemprop="url">推荐算法丨向量召回</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-10-01 00:00:00" itemprop="dateCreated datePublished" datetime="2024-10-01T00:00:00+08:00">2024-10-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="矩阵补充">矩阵补充</h1>
+<h2 id="模型训练">模型训练</h2>
+<p>矩阵补充模型首先通过两个Embedding矩阵<span
+class="math inline">\(W_1、W_2\)</span>将用户向量和物品向量映射成低维向量<span
+class="math inline">\(a_u和b_i\)</span>，再将二者求内积得到用户u对物品i的预估兴趣分数。</p>
+<p>训练的目标函数为： <span class="math display">\[
+\min_{A,B}\sum_{(u,i,y)∈Ω}(y-&lt;a_u,b_i&gt;)^2
+\]</span>
+其中y是用户u对物品i的真实兴趣分数。该目标函数的目的是最小化预估兴趣分数和真实兴趣分数的距离，以此训练Embedding矩阵<span
+class="math inline">\(W_1、W_2\)</span>。训练后，我们便可使用<span
+class="math inline">\(&lt;a_u,b_i&gt;\)</span>作为兴趣分数来补充共现矩阵中没有产生过交互的用户和物品。</p>
+<h2 id="线上服务">线上服务</h2>
+<p>训练得到用户和物品的embedding，将embedding的结果存储到key-value表，用户的key-value表中key为用户id，value为embedding后的向量。</p>
+<p>线上服务过程如下：</p>
+<ul>
+<li>把用户id作为key查询用户的向量，记作a。</li>
+<li>最邻近查找：查找用户最有可能感兴趣的k个物品，作为召回结果。
+<ul>
+<li>第i号物品的embedding向量记作<span
+class="math inline">\(b_i\)</span>。</li>
+<li>内积<span
+class="math inline">\(&lt;a,b_i&gt;\)</span>是用户对第i号物品兴趣的预估。</li>
+<li>返回内积最大的k个物品。</li>
+</ul></li>
+</ul>
+<p>但是矩阵补充实际效果并不好，原因如下：</p>
+<ul>
+<li>为利用物品、用户属性信息。</li>
+<li>负样本选取方式不对。</li>
+<li>内积不如余弦相似度，平方损失函数不如交叉熵损失。</li>
+</ul>
+<h1 id="双塔模型">双塔模型</h1>
+<p>双塔模型（two-tower）也叫 DSSM，是推荐系统中最重要的召回通道。</p>
+<p>双塔模型有两个塔：用户塔、物品塔。两个塔各输出一个向量，作为用户、物品的表征。两个向量的余弦相似度作为对兴趣的预估。</p>
+<figure>
+<img src="用户塔.png" alt="用户塔" />
+<figcaption aria-hidden="true">用户塔</figcaption>
+</figure>
+<figure>
+<img src="物品塔.png" alt="物品塔" />
+<figcaption aria-hidden="true">物品塔</figcaption>
+</figure>
+<h2 id="模型训练-1">模型训练</h2>
+<p>将物品样本分为正样本（用户感兴趣的物品）和负样本（用户不感兴趣的物品）。</p>
+<ul>
+<li><p>Pointwise: 独立看待每个正样本、负样本，做简单的二元分类</p></li>
+<li><p>Pairwise: 每次取一个正样本、一个负样本</p></li>
+<li><p>Listwise: 每次取一个正样本、多个负样本</p></li>
+</ul>
+<h3 id="pointwise训练">Pointwise训练</h3>
+<p>工业界一般使用这种方法。</p>
+<p>把召回看作二分类任务：</p>
+<ul>
+<li>对于正样本，鼓励cos(a,b)接近+1。</li>
+<li>对于负样本，鼓励cos(a,b)接近-1。</li>
+</ul>
+<p>其中a为用户的表征，b为物品的表征。正负样本数量通常控制在1:2或1:3。</p>
+<h3 id="pairwise训练">Pairwise训练</h3>
+<p>Pairwise每次取一个正样本、一个负样本。基本想法是要鼓励cos(a,b+)大于cos(a,b-)，b+是正样本的表征，b-是负样本的表征。</p>
+<p>损失函数：</p>
+<ul>
+<li><p>Triplet hinge loss <span class="math display">\[
+L(a,b+,b-)=\max\{0,cos(a,b-)+m-cos(a,b+)\}
+\]</span></p>
+<ul>
+<li><p>如果cos(a,b+)大于cos(a,b-)+m，则没有损失</p></li>
+<li><p>否则，损失等于cos(a,b-)+m-cos(a,b+)</p></li>
+</ul></li>
+<li><p>Triplet logistic loss <span class="math display">\[
+L(a,b+,b-)=log(1+exp[σ·(cos(a,b-)-cos(a,b+))])
+\]</span> σ大于0的超参数。</p></li>
+</ul>
+<h3 id="listwise训练">Listwise训练</h3>
+<p>Listwise每次取一个正样本、多个负样本。这些物品样本与用户表征的余弦相似度经过softmax后，要使正样本尽可能大（接近1），使负样本尽可能小（接近0）。损失函数使用交叉熵损失。</p>
+<figure>
+<img src="listwise训练.png" alt="listwise训练" />
+<figcaption aria-hidden="true">listwise训练</figcaption>
+</figure>
+<h2 id="正负样本">正负样本</h2>
+<h2 id="模型应用">模型应用</h2>
+<p>双塔模型训练完成后，通过两个步骤投入实际应用：</p>
+<ul>
+<li><p><strong>离线存储</strong>：用物品塔计算每个物品的特征向量<strong>b</strong>，把&lt;特征向量<strong>b</strong>,物品ID&gt;保存到向量数据库用作最近邻查找。</p></li>
+<li><p><strong>线上召回</strong>：需要推荐时，调用用户塔线上计算用户向量<strong>a</strong>，并用<strong>a</strong>作为query查询向量数据库，查找和<strong>a</strong>余弦相似度最高的k个物品向量，返回这k个物品ID。</p></li>
+</ul>
+<p>之所以存储物品向量而线上计算用户向量，是因为：</p>
+<ul>
+<li>每次召回只用到一个用户向量，而用到大量物品向量，线上计算物品向量代价过大。</li>
+<li>用户特征变化较快，而物品特征相对稳定，离线存储用户向量不利于推荐效果。</li>
+</ul>
+<p>模型需要定期做更新，分为全量更新（天级别）和增量更新（实时）：</p>
+<ul>
+<li><strong>全量更新</strong>：每天做一次全量更新，训练整个模型，包括embedding和全连接层。
+<ul>
+<li>将昨天的数据random shuffle。</li>
+<li>在昨天模型参数的基础上（不受增量更新影响），用昨天的数据训练1epoch。</li>
+<li>训练完成后发布新的用户塔和物品向量。</li>
+</ul></li>
+<li><strong>增量更新</strong>：做online learning更新模型参数，只更新ID
+Embedding。
+<ul>
+<li>用户兴趣会随时发生变化，因此需要及时更新模型。</li>
+<li>实时收集线上数据，做流式处理，生成TFRecord文件。</li>
+<li>对模型做online learning，增量更新ID Embedding参数。</li>
+<li>发布用户ID Embedding（推荐时使用用户ID查询用户ID
+Embedding），供用户塔在线上计算用户向量。</li>
+</ul></li>
+</ul>
+<p>全量更新不受一天中不同时段用户使用习惯差异的影响，随机打乱数据训练效果更好。而增量更新可以动态捕捉用户的兴趣变化。因此二者需要结合使用。</p>
+<h2 id="双塔模型自监督学习">双塔模型+自监督学习</h2>
+<p>双塔模型学不好低曝光物品的向量表征：</p>
+<ul>
+<li>推荐系统的头部效应严重
+<ul>
+<li>少部分物品占据大部分点击</li>
+<li>大部分物品点击次数不高</li>
+</ul></li>
+<li>高点击物品的表征学得好，长尾物品的表征学得不好。</li>
+</ul>
+<p>通过自监督学习做data
+augmentation可以更好地学习长尾物品的向量表征：</p>
+<ul>
+<li>对每个物品做特征两类特征变换，并通过物品塔得到两个特征向量b'和b''。</li>
+<li>对于同一个物品的两个特征向量<span
+class="math inline">\(b_i&#39;和b_i&#39;&#39;\)</span>应使其相似度高。</li>
+<li>对于不同物品的特征向量<span
+class="math inline">\(b_i&#39;和b_j&#39;&#39;\)</span>应使其相似度低。</li>
+</ul>
+<h3 id="特征变换">特征变换</h3>
+<p>对物品做特征变换时主要有几种方式：</p>
+<ul>
+<li><p><strong>Random
+Mask</strong>：随机选取一些离散特征（比如类目），把它们遮住。例如：</p>
+<ul>
+<li>某物品的类目特征是u={数码，摄影}。</li>
+<li>mask后的类目特征变成u'={default}。</li>
+</ul></li>
+<li><p><strong>Dropout</strong>：随机丢弃某个多值离散特征50%的值。</p>
+<ul>
+<li>多值离散特征：可以有多个取值的特征，例如类目。</li>
+<li>例如某个物品的类目特征u={数码，摄影} dropout后变成了u'={美妆}。</li>
+</ul></li>
+<li><p><strong>互补特征(complementary)</strong>：</p>
+<ul>
+<li>假设物品一个有4种特征：{ID，类目，关键词，城市}。</li>
+<li>随机分成两组：{ID，关键词}和{类目，城市}。</li>
+<li>由{ID，default，关键词，default}计算得到物品表征1。</li>
+<li>由{default，类目，default，城市}计算得到物品表征2。</li>
+<li>应使物品表征1和物品表征2尽可能相似。</li>
+</ul></li>
+<li><p><strong>Mask一组关联的特征</strong></p>
+<ul>
+<li><p>离线计算特征两两之间的关联，用互信息（mutual information）衡量：
+<span class="math display">\[
+MI(u,v)=\sum_{u∈U}\sum_{v∈V}p(u,v)·log \frac{p(u,v)}{p(u)·p(v)}
+\]</span>
+其中p(u)表示某特征取值为u的概率，p(u,v)表示某两个特征分别取值u、v的概率。</p></li>
+<li><p>设一共有k种特征，则两两之间的MI构成k×k矩阵。</p></li>
+<li><p>随机选一个特征作为种子，mask种子及其相关的k/2种特征。</p></li>
+<li><p>效果好但成本高。</p></li>
+</ul></li>
+</ul>
+<h3 id="训练模型">训练模型</h3>
+<p>首先对点击做随机抽样，得到n对用户-物品二元组，作为一个batch训练双塔。这种方式下热门物品抽到的概率更高。</p>
+<p>接着从全体物品中<strong>均匀</strong>抽样，得到m个物品，作为一个batch，用来训练物品塔。这种方式下所有物品被抽到概率相同。对这些物品做两类特征变换，物品塔输出两组向量：<span
+class="math inline">\(b_1&#39;,b_2&#39;,···,b_m&#39;和b_1&#39;&#39;,b_2&#39;&#39;,···,b_m&#39;&#39;\)</span>。</p>
+<p>如图，取第一组中的向量<span
+class="math inline">\(b_i&#39;\)</span>，分别与第二组中的向量取余弦，要使正样本的余弦值尽可能接近1，其余尽可能接近0。使用交叉熵损失函数。</p>
+<figure>
+<img src="训练模型.png" alt="训练模型" />
+<figcaption aria-hidden="true">训练模型</figcaption>
+</figure>
+<p>如此得到了第i个物品的损失函数： <span class="math display">\[
+L_{self}[i]=-log(\frac{exp(cos(b_i&#39;,b_i&#39;&#39;))}{\sum_{j=1}^{m}exp(cos(b_i&#39;,b_j&#39;&#39;))})
+\]</span> 对m个物品的损失取平均作为自监督学习的损失： <span
+class="math display">\[
+loss_{self}=\frac{1}{m}\sum_{i=1}^{m}L_{self}[i]
+\]</span>
+双塔模型的损失和自监督学习的损失共同构成整个模型的损失函数，其中超参数α用来调节自监督的作用：
+<span class="math display">\[
+loss=\frac{1}{n}\sum_{i=1}^{n}L_{main}[i]+α·\frac{1}{m}\sum_{j=1}^{m}L_{self}[j]
+\]</span></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/09/20/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/09/20/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/" class="post-title-link" itemprop="url">推荐算法丨协同过滤</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-09-20 00:00:00" itemprop="dateCreated datePublished" datetime="2024-09-20T00:00:00+08:00">2024-09-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>“协同过滤”就是协同⼤家的反馈、评价和意见⼀起对海量的信息进⾏过滤，从中筛选出⽬标⽤户可能感兴趣的信息的推荐过程。</p>
+<ul>
+<li><strong>共现矩阵</strong>：用横坐标表示物品，纵坐标表示用户，矩阵元素值表示用户对物品的感兴趣程度。</li>
+</ul>
+<h1 id="基于用户的协同过滤">基于用户的协同过滤</h1>
+<p>基于用户的协同过滤（userCF）向用户推荐相似用户感兴趣的物品。在为一名用户推荐物品时，首先找到与该用户相似度最高的n个用户，根据共现矩阵计算这些用户对每个物品的感兴趣程度，再将各个物品的得分进行排序，选择得分最高的一系列物品进行推荐。</p>
+<p>以上总结了userCF的总体逻辑，但关于用户相似度的计算排序的过程需要可量化的方式。以下进行详细介绍。</p>
+<h2 id="用户相似度计算">用户相似度计算</h2>
+<p>我们可用共现矩阵中的行向量表示相应用户的用户向量（共现矩阵行向量中的每个值表示了该用户对一个物品的感兴趣程度），这样计算用户相似度便转化为了计算向量相似度，两个向量之间常⽤的相似度计算⽅法有如下⼏种。</p>
+<h3 id="余弦相似度">余弦相似度</h3>
+<p>余弦相似度衡量了用户向量i和用户向量j之间的夹角大小，夹角越小则相似度越大。
+<span class="math display">\[
+\begin{equation}
+sim(i,j)=cos(i,j)= \frac{i·j}{||i||·||j||}  
+\end{equation}
+\]</span></p>
+<h3 id="皮尔逊相关系数">皮尔逊相关系数</h3>
+<p>皮尔逊相关系数使用用户平均分对各独立评分进行修正，减小用户评分偏置的影响。
+<span class="math display">\[
+sim(i,j)=\frac{\sum_{p∈P}(R_{i,p}-\overline{R_i})(R_{j,p}-\overline{R_j})}{\sqrt{\sum_{p∈P}(R_{i,p}-\overline{R_i})^2}\sqrt{\sum_{p∈P}(R_{j,p}-\overline{R_j})^2}}
+\]</span> 其中， <span class="math inline">\(R_{i,p}\)</span>
+代表⽤户i对物品p的评分。 <span
+class="math inline">\(\overline{R_i}\)</span>
+代表⽤户i对所有物品的平均评分，P代表所有物品的集合。</p>
+<p>以上使用的是用户平均分，同理也可引入物品平均分，不再赘述。</p>
+<h2 id="最终结果排序">最终结果排序</h2>
+<p>一般利⽤⽤户相似度和相似⽤户的评价的加权平均获得⽬标⽤户的评价预测。
+<span class="math display">\[
+R_{u,p}=\frac{\sum_{s∈S}(w_{u,s}·R_{s,p})}{\sum_{s∈S}w_{u,s}}
+\]</span> 其中 <span class="math inline">\(w_{u,s}\)</span>
+表示用户u和用户s的相似度。</p>
+<p>获得用户p对各个物品的评价预测后，将这些得分进行排序即可得到推荐列表。</p>
+<p>userCF存在以下缺点：</p>
+<ul>
+<li>互联网应用场景下用户数往往非常大，而存储用户相似度矩阵需要n^2的空间复杂度。</li>
+<li>用户的历史数据向量往往非常稀疏，对于只有⼏次购买或者点击⾏为的⽤户来说，找到相似⽤户的准确度⾮常低。</li>
+</ul>
+<h1 id="基于物品的协同过滤">基于物品的协同过滤</h1>
+<p>基于物品的协同过滤（ItemCF）通过计算共现矩阵中物品列向量的相似度得到物品之间的相似矩阵，再找到⽤户的历史正反馈物品的相似物品进⾏进⼀步排序和推荐。</p>
+<p>ItemCF的具体步骤如下：</p>
+<ul>
+<li>基于历史数据构建共现矩阵（用户为行，物品为列）</li>
+<li>计算两两列向量（即物品向量）的相似性，构建物品相似度矩阵</li>
+<li>利用物品相似度矩阵，针对目标用户历史正反馈物品查找TOP K个物品</li>
+<li>对于相似物品集合中的物品，利用相似度分值进行排序</li>
+</ul>
+<p>如果一个物品与多个历史正反馈物品相似，则相似度需要累加： <span
+class="math display">\[
+R_{u,p}=\sum_{h∈H}(w_{p,h}·R_{u,h})
+\]</span>
+其中H是目标用户的正反馈物品集合，权重w为物品间相似度，R是用户对物品的已有评分。</p>
+<h2 id="swing模型">Swing模型</h2>
+<p>Swing模型和ItemCF十分相似，仅在物品相似度的计算上有所不同。Swing模型的相似度计算方式如下：
+<span class="math display">\[
+sim(i_1,i_2)=\sum_{u_1∈v}\sum_{u_2∈v}\frac{1}{α+overlap(u_1,u_2)}
+\]</span> 其中w_1为喜欢物品i_1的用户集合，v为<span
+class="math inline">\(w_1\)</span>和<span
+class="math inline">\(w_2\)</span>的交集，overlap计算两个用户喜欢的物品交集的大小，α为参数。</p>
+<p>这个相似度计算公式下，v越大两个物品的相似度也越大，引入overlap是为了削弱“小圈子”的影响，例如当两个人同属一个微信群，则被转发到该群的所有链接都可能被两个人同时点开，即便这些链接毫不相关。</p>
+<h1 id="总结">总结</h1>
+<ul>
+<li><p>UserCF基于⽤户相似度进⾏推荐，使其具备更强的社交特性。⽤户能够快速得知与⾃⼰兴趣相似的⼈最近喜欢的是什么，即使某个兴趣点以前不在⾃⼰的兴趣范围内，也有可能通过“朋友”的动态快速更新⾃⼰的推荐列表。这样的特点使其⾮常适⽤于新闻推荐场景。</p></li>
+<li><p>ItemCF更适⽤于兴趣变化较为稳定的应⽤，⽤户在⼀个时间段内更倾向于寻找⼀类商品，这时利⽤物品相似度为其推荐相关物品是契合⽤户动机的
+，例如电商和视频推荐。</p></li>
+</ul>
+<p>协同过滤是⼀个⾮常直观、可解释性很强的模型，但它并不具备较强的泛化能⼒。热门的物品具有很强的头部效应，容易跟⼤量物品产⽣相似性；⽽尾部的物品由于特征向量稀疏，很少与其他物品产⽣相似性，导致很少被推荐。</p>
+<p>另外，协同过滤仅利⽤⽤户和物品的交互信息，⽆法有效地引⼊⽤户年龄、性别、商品描述、商品分类、当前时间等⼀系列⽤户特征、物品特征和上下⽂特征。</p>
 
       
     </div>
