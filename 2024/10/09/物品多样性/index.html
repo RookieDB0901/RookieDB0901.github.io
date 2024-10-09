@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rookiedb0901.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在做推荐时，除了考虑用户是否对物品感兴趣，还要考虑推荐物品的多样性。如果多样性做得好，可以显著提升推荐系统的核心业务指标。因此，在做完精排后，还需要结合物品的多样性指标进行重排，以选出最终的推荐物品。 物品相似性有两种度量方法：  基于物品属性标签，例如根据一级类目、二级类目、品牌计算相似度：  物品i：美妆、彩妆、香奈儿 物品j：美妆、香水、香奈儿 相似度：\(sim_1(i,j)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深夜食堂">
+<meta property="og:url" content="https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="在做推荐时，除了考虑用户是否对物品感兴趣，还要考虑推荐物品的多样性。如果多样性做得好，可以显著提升推荐系统的核心业务指标。因此，在做完精排后，还需要结合物品的多样性指标进行重排，以选出最终的推荐物品。 物品相似性有两种度量方法：  基于物品属性标签，例如根据一级类目、二级类目、品牌计算相似度：  物品i：美妆、彩妆、香奈儿 物品j：美妆、香水、香奈儿 相似度：\(sim_1(i,j)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-09T10:32:59.473Z">
+<meta property="article:modified_time" content="2024-10-06T04:58:42.859Z">
+<meta property="article:author" content="DB">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/","path":"2024/10/09/物品多样性/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mmr"><span class="nav-number">1.</span> <span class="nav-text">MMR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dpp"><span class="nav-number">2.</span> <span class="nav-text">DPP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E5%B9%B3%E5%BD%A2%E4%BD%93"><span class="nav-number">2.1.</span> <span class="nav-text">超平形体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%88%97%E5%BC%8F%E7%82%B9%E8%BF%87%E7%A8%8Bdpp"><span class="nav-number">2.2.</span> <span class="nav-text">行列式点过程DPP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E8%A7%84%E5%88%99%E7%BA%A6%E6%9D%9F"><span class="nav-number">4.</span> <span class="nav-text">业务规则约束</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">DB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在做推荐时，除了考虑用户是否对物品感兴趣，还要考虑推荐物品的<strong>多样性</strong>。如果多样性做得好，可以显著提升推荐系统的核心业务指标。因此，在做完精排后，还需要结合物品的多样性指标进行<strong>重排</strong>，以选出最终的推荐物品。</p>
+<p>物品相似性有两种度量方法：</p>
+<ul>
+<li>基于<strong>物品属性标签</strong>，例如根据一级类目、二级类目、品牌计算相似度：
+<ul>
+<li>物品i：美妆、彩妆、香奈儿</li>
+<li>物品j：美妆、香水、香奈儿</li>
+<li>相似度：<span
+class="math inline">\(sim_1(i,j)=1,sim_2(i,j)=0,sim_3(i,j)=1\)</span></li>
+<li>对三个相似度求加权和，权重由人为规定</li>
+</ul></li>
+<li>基于<strong>物品向量表征</strong>
+<ul>
+<li>使用基于内容的向量表征。利用nlp和cv算法提取物品特征。可以使用CLIP方法。</li>
+<li>不使用双塔模型学到的物品向量，因为推荐系统头部现象很严重，曝光和点击都集中在少数物品，双塔模型学不好新物品和长尾物品的向量表征。</li>
+</ul></li>
+</ul>
+<p>在推荐的链路上，在粗排和精排的<strong>后处理</strong>阶段，综合排序模型打分和多样性分数做选择。</p>
+<ul>
+<li>粗排和精排用多目标模型对物品做pointwise打分。</li>
+<li>对于物品i，模型输出点击率、交互率的预估，融合成分数<span
+class="math inline">\(reward_i\)</span>。</li>
+<li>后处理阶段从n个物品选出k个，既要求总分高，也需要有多样性。</li>
+</ul>
+<h1 id="mmr">MMR</h1>
+<p>Maximal Marginal Relevance
+(MMR)来自于搜索算法，根据精排打分和物品相似度，从 n 个物品中选出 k
+个价值高、且多样性好的物品。</p>
+<p>MMR多样性算法的步骤如下：</p>
+<ul>
+<li><p>已选中的物品S初始化为空集，未选中的物品R初始化为全集{1,···,n}。</p></li>
+<li><p>选择精排分数<span
+class="math inline">\(reward_i\)</span>最高的物品，从集合R移到S。</p></li>
+<li><p>做k-1轮循环：</p>
+<ul>
+<li><p>计算未选中物品集合R中所有物品的分数<span
+class="math inline">\(\{MR_i\}_{i∈R}\)</span>。，其中： <span
+class="math display">\[
+MR_i=θ·reward_i-(1-θ)·\max_{j∈S}sim(i,j)
+\]</span></p></li>
+<li><p>选出分数最高的物品，将其从R移到S。</p></li>
+</ul></li>
+</ul>
+<h1 id="dpp">DPP</h1>
+<p>行列式点过程 (determinantal point process, DPP)
+是一种经典的机器学习方法，是目前推荐系统重排多样性公认的最好方法。</p>
+<h2 id="超平形体">超平形体</h2>
+<p>一组向量<span
+class="math inline">\(v_1,···,v_k∈R^d\)</span>可以确定一个<strong>k维超平行体</strong>：
+<span class="math display">\[
+P(v_1,···,v_k)=\{α_1v_1+···+α_kv_k|0≤α_1,···,α_k≤1\}
+\]</span></p>
+<ul>
+<li><p>要求k≤d，比如d=3维空间中有k=2维平行四边形。</p></li>
+<li><p>如果v_1,···,v_k线性相关，则体积vol(P)=0。</p></li>
+</ul>
+<p>我们可以借助k维超平行体的体积来<strong>衡量物品多样性</strong>：</p>
+<ul>
+<li>给定k个物品，把他们表征维单位向量<span
+class="math inline">\(v_1,···,v_k∈R^d（d≥k）\)</span>。</li>
+<li>用超平行体的体积衡量物品的多样性，体积介于0和1之间。</li>
+<li>如果k个单位向量两两正交，则体积最大化，vol=1。</li>
+</ul>
+<p>关于k维超平行体的体积，有如下计算方法：</p>
+<ul>
+<li>将k个向量作为矩阵<span
+class="math inline">\(V∈R^{d×k}\)</span>的列向量。</li>
+<li>若d≥k，则行列式与体积满足：<span
+class="math inline">\(det(V^TV)=vol(P(v_1,···,v_k))^2\)</span></li>
+</ul>
+<h2 id="行列式点过程dpp">行列式点过程DPP</h2>
+<p>基于以上原理，DPP用行列式来衡量物品多样性，其目标函数可写为： <span
+class="math display">\[
+\mathop{\arg\max}_{S:|S|=k} \ \ log \ det(V_S^TV_S)
+\]</span> Hulu的论文将DPP应用在推荐系统，使用物品相似度来调节物品得分：
+<span class="math display">\[
+\mathop{\arg\max}_{S:|S|=k} \ \ θ·(\sum_{j∈S}reward_j)+(1-θ)·log \
+det(V_S^TV_S)
+\]</span> 我们令k×k矩阵<span
+class="math inline">\(A_S=V_S^TV_S\)</span>。设A为n×n矩阵，它的(i,j)元素为<span
+class="math inline">\(a_{i,j}=v_i^Tv_j\)</span>。给定向量<span
+class="math inline">\(v_1,···,v_n∈R^d\)</span>，需要<span
+class="math inline">\(O(n^2d)\)</span>的时间计算A。<span
+class="math inline">\(A_S\)</span>为A的一个子矩阵。如果i,j∈S,则<span
+class="math inline">\(a_{ij}\)</span>是<span
+class="math inline">\(A_s\)</span>的一个元素。那么，DPP得分可以写成：
+<span class="math display">\[
+\mathop{\arg\max}_{S:|S|=k} \ \ θ·(\sum_{j∈S}reward_j)+(1-θ)·log \
+det(A_S)
+\]</span>
+DPP是个组合优化问题，要求从{1,···,n}中选出一个大小为k的子集S。通常用贪心算法来近似求解DPP。用S表示已选中的物品，R表示未选中的物品，则每一轮从R中选择一个物品i，满足：
+<span class="math display">\[
+\mathop{\arg\max}_{i∈R} \ \ θ·reward_i+(1-θ)·log \ det(A_{S∪\{i\}})
+\]</span>
+也就是说，我们所选择的i，既要价值尽可能高，又要使i加入后物品多样性尽可能高。</p>
+<p>但是，要求解这个问题需要计算行列式很多次，而计算行列式需要矩阵分解，代价很大。</p>
+<ul>
+<li>对于单个i，计算<span
+class="math inline">\(A_{S∪{i}}\)</span>的行列式需要<span
+class="math inline">\(O(|S|^3)\)</span>时间。</li>
+<li>对于所有的i∈R，计算行列式需要时间<span
+class="math inline">\(O(|S|^3·|R|)\)</span>。</li>
+<li>我们需要选出k个物品，因此复杂度为<span
+class="math inline">\(O(|S|^3·|R|·k)=O(nk^4)\)</span>。</li>
+<li>计算矩阵A的时间复杂度为<span
+class="math inline">\(O(n^2d)\)</span>，因此总时间复杂度为<span
+class="math inline">\(O(n^2d+nk^4)\)</span></li>
+</ul>
+<p>Hulu的论文设计了一种数值算法，仅需<span
+class="math inline">\(O(n^2d+nk^2)\)</span>的时间就可以从n个物品挑选出k个物品：</p>
+<ul>
+<li>Cholesky分解<span
+class="math inline">\(A_S=LL^T\)</span>，其中L是下三角矩阵。</li>
+<li><span class="math inline">\(A_S\)</span>的行列式为<span
+class="math inline">\(det(A_S)=det(L)^2=\prod_il^2_{ii}\)</span>。</li>
+<li>已知<span
+class="math inline">\(A_S=LL^T\)</span>，则可以快速求出所有<span
+class="math inline">\(A_{S∪\{i\}}\)</span>的Cholesky分解，进而求出其行列式。</li>
+</ul>
+<h1 id="滑动窗口">滑动窗口</h1>
+<p>在MMR中，我们每一轮都要选出一个物品i，使得： <span
+class="math display">\[
+\mathop{\arg\max}_{i∈R} \ \ θ·reward_i-(1-θ)·\max_{j∈S}sim(i,j)
+\]</span>
+这里的S指已选中物品的集合。当|S|很大时，很难找出物品i与S中的物品不相似了。即当|S|很大时，相似性sim(i,j)总是约等于1，导致MMR方法失效。</p>
+<p>可以使用<strong>滑动窗口</strong>：设置一个滑动窗口W，比如最近选中的10个物品，用W代替MMR公式中的S：
+<span class="math display">\[
+\mathop{\arg\max}_{i∈R} \ \ θ·reward_i-(1-θ)·\max_{j∈W}sim(i,j)
+\]</span>
+这种方案下，只考虑最近选中的物品，要求距离较近的物品相似度低，而距离较远的物品相似度可以较高。这也符合实践的需要，当间隔较远时，物品相似度高并不会影响用户体验。</p>
+<p>同样的，滑动窗口也可以应用到DPP，使用最近选中物品集合W代替S： <span
+class="math display">\[
+\mathop{\arg\max}_{i∈R} \ \ θ·reward_i+(1-θ)·log \ det(A_{W∪\{i\}})
+\]</span></p>
+<h1 id="业务规则约束">业务规则约束</h1>
+<p>在实际业务中往往有很多规则应用在重排阶段，这些规则和MMR、DPP等算法结合来满足用户的多样性体验。以小红书为例，可能会出现以下规则：</p>
+<ul>
+<li>最多连续出现k篇某种笔记（如图文笔记、视频笔记）。</li>
+<li>每k篇笔记最多出现1篇某种笔记（如运营推广笔记）。</li>
+<li>前t篇笔记最多出现k篇某种笔记（小红书前4篇笔记为首屏，更容易被用户看到）。</li>
+</ul>
+<p>这些业务规则可以和MMR和DPP结合，每一轮都先用规则排除掉R中的部分物品，从剩下的物品中做选择。例如前k篇笔记都是图文笔记，那么下一篇笔记要把图文笔记都排除掉。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>DB
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://rookiedb0901.github.io/2024/10/09/%E7%89%A9%E5%93%81%E5%A4%9A%E6%A0%B7%E6%80%A7/" title="">https://rookiedb0901.github.io/2024/10/09/物品多样性/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/09/%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/" rel="prev" title="">
+                  <i class="fa fa-angle-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/09/%E7%89%A9%E5%93%81%E5%86%B7%E5%90%AF%E5%8A%A8/" rel="next" title="">
+                   <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">DB</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

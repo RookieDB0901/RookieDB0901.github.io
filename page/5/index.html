@@ -143,7 +143,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -165,6 +165,562 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/03/C-map&multimap%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ map容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-03 00:36:31" itemprop="dateCreated datePublished" datetime="2022-11-03T00:36:31+08:00">2022-11-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>map/multimap属于关联式容器，底层结构是用二叉树实现。 -
+map中所有元素都是pair -
+pair中第一个元素为key（键值），起到索引作用，第二个元素为value（实值） -
+所有元素都会根据元素的键值自动排序 优点： - 可以根据key值快速找到value值
+map和multimap区别： - map不允许容器中有重复key值元素 -
+multimap允许容器中有重复key值元素 ## map构造和赋值 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">map&lt;T1, T2&gt; mp; <span class="comment">//map默认构造函数:</span></span><br><span class="line"><span class="built_in">map</span>(<span class="type">const</span> map &amp;mp); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">map&amp; <span class="keyword">operator</span>=(<span class="type">const</span> map &amp;mp); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> ##
+map大小和交换 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的数目</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">swap</span>(st); <span class="comment">//交换两个集合容器</span></span><br></pre></td></tr></table></figure> ## map插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(key); <span class="comment">//删除容器中值为key的元素。</span></span><br></pre></td></tr></table></figure> ##
+map查找和统计 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## map容器排序
+map容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``map&lt;<span class="type">int</span>, <span class="type">int</span>, MyCompare&gt; m;``</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-set&multiset%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/02/C-set&multiset%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ set容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-02 23:56:31" itemprop="dateCreated datePublished" datetime="2022-11-02T23:56:31+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>set/multiset属于关联式容器，所有元素都会在插入时自动被排序，底层结构是用红黑树实现的。
+set和multiset区别：</p>
+<ul>
+<li>set不可以插入重复数据，而multiset可以</li>
+<li>set插入数据的同时会返回插入结果，表示插入是否成功</li>
+<li>multiset不会检测数据，因此可以插入重复数据 ## set构造和赋值
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造：</span></span><br><span class="line">set&lt;T&gt; st; <span class="comment">//默认构造函数：</span></span><br><span class="line"><span class="built_in">set</span>(<span class="type">const</span> set &amp;st); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值：</span></span><br><span class="line">set&amp; <span class="keyword">operator</span>=(<span class="type">const</span> set &amp;st); <span class="comment">//重载等号操作符</span></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">## set大小和交换</span><br><span class="line">``` C++</span><br><span class="line">size(); //返回容器中元素的数目</span><br><span class="line">empty(); //判断容器是否为空</span><br><span class="line">swap(st); //交换两个集合容器</span><br></pre></td></tr></table></figure> ## set插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">insert</span>(elem); <span class="comment">//在容器中插入元素。</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//清除所有元素</span></span><br><span class="line"><span class="built_in">erase</span>(pos); <span class="comment">//删除pos迭代器所指的元素，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(beg, end); <span class="comment">//删除区间[beg,end)的所有元素 ，返回下一个元素的迭代器。</span></span><br><span class="line"><span class="built_in">erase</span>(elem); <span class="comment">//删除容器中值为elem的元素。</span></span><br></pre></td></tr></table></figure> ##
+set查找和统计 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(key); <span class="comment">//查找key是否存在,若存在，返回该键的元素的迭代器；若不存在，返回set.end();</span></span><br><span class="line"><span class="built_in">count</span>(key); <span class="comment">//统计key的元素个数</span></span><br></pre></td></tr></table></figure> ## pair对组创建
+成对出现的数据，利用对组可以返回两个数 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pair&lt;type, type&gt; <span class="title">p</span> <span class="params">( value1, value2 )</span></span>;</span><br><span class="line">pair&lt;type, type&gt; p = <span class="built_in">make_pair</span>( value1, value2 );</span><br></pre></td></tr></table></figure> ## set容器排序
+set容器默认排序规则为从小到大，可通过仿函数改变排序规则：
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyCompare</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> v1, <span class="type">int</span> v2)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> v1 &gt; v2;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line">创建：``set&lt;<span class="type">int</span>,MyCompare&gt; s2;``</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/02/C-stack%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ stack&queue容器函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-02 23:30:55" itemprop="dateCreated datePublished" datetime="2022-11-02T23:30:55+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>stack：栈 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">stack&lt;T&gt; stk; <span class="comment">//stack采用模板类实现， stack对象的默认构造形式</span></span><br><span class="line"><span class="built_in">stack</span>(<span class="type">const</span> stack &amp;stk); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">stack&amp; <span class="keyword">operator</span>=(<span class="type">const</span> stack &amp;stk); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//向栈顶添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从栈顶移除第一个元素</span></span><br><span class="line"><span class="built_in">top</span>(); <span class="comment">//返回栈顶元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure> queue：队列 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数：</span></span><br><span class="line">queue&lt;T&gt; que; <span class="comment">//queue采用模板类实现，queue对象的默认构造形式</span></span><br><span class="line"><span class="built_in">queue</span>(<span class="type">const</span> queue &amp;que); <span class="comment">//拷贝构造函数</span></span><br><span class="line"><span class="comment">//赋值操作：</span></span><br><span class="line">queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> queue &amp;que); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="comment">//数据存取：</span></span><br><span class="line"><span class="built_in">push</span>(elem); <span class="comment">//往队尾添加元素</span></span><br><span class="line"><span class="built_in">pop</span>(); <span class="comment">//从队头移除第一个元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素</span></span><br><span class="line"><span class="comment">//大小操作：</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断堆栈是否为空</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回栈的大小</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-list%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/02/C-list%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ list容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-02 18:06:21" itemprop="dateCreated datePublished" datetime="2022-11-02T18:06:21+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>list：链表 链表的组成：链表由一系列结点组成
+结点的组成：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域
+STL中的链表是一个双向循环链表 list的优点： -
+采用动态存储分配，不会造成内存浪费和溢出 -
+链表执行插入和删除操作十分方便，修改指针即可，不需要移动大量元素
+list的缺点： - 链表灵活，但是空间(指针域) 和 时间（遍历）额外耗费较大
+List有一个重要的性质，插入操作和删除操作都不会造成原有list迭代器的失效，这在vector是不成立的
+## list构造函数 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list&lt;T&gt; lst; <span class="comment">//list采用采用模板类实现,对象的默认构造形式：</span></span><br><span class="line"><span class="built_in">list</span>(beg,end); <span class="comment">//构造函数将[beg, end)区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(n,elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">list</span>(<span class="type">const</span> list &amp;lst); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## list赋值和交换 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br><span class="line">list&amp; <span class="keyword">operator</span>=(<span class="type">const</span> list &amp;lst); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">swap</span>(lst); <span class="comment">//将lst与本身的元素互换。</span></span><br></pre></td></tr></table></figure> ##
+list大小操作 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">resize</span>(num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br></pre></td></tr></table></figure> ## list插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(elem);<span class="comment">//在容器尾部加入一个元素</span></span><br><span class="line"><span class="built_in">pop_back</span>();<span class="comment">//删除容器中最后一个元素</span></span><br><span class="line"><span class="built_in">push_front</span>(elem);<span class="comment">//在容器开头插入一个元素</span></span><br><span class="line"><span class="built_in">pop_front</span>();<span class="comment">//从容器开头移除第一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(pos,elem);<span class="comment">//在pos位置插elem元素的拷贝，返回新数据的位置。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,n,elem);<span class="comment">//在pos位置插入n个elem数据，无返回值。</span></span><br><span class="line"><span class="built_in">insert</span>(pos,beg,end);<span class="comment">//在pos位置插入[beg,end)区间的数据，无返回值。</span></span><br><span class="line"><span class="built_in">clear</span>();<span class="comment">//移除容器的所有数据</span></span><br><span class="line"><span class="built_in">erase</span>(beg,end);<span class="comment">//删除[beg,end)区间的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">erase</span>(pos);<span class="comment">//删除pos位置的数据，返回下一个数据的位置。</span></span><br><span class="line"><span class="built_in">remove</span>(elem);<span class="comment">//删除容器中所有与elem值匹配的元素。</span></span><br></pre></td></tr></table></figure> ##
+list数据存取 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回第一个元素。</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回最后一个元素。</span></span><br></pre></td></tr></table></figure> ## list反转和排序 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reverse</span>(); <span class="comment">//反转链表</span></span><br><span class="line"><span class="built_in">sort</span>(); <span class="comment">//链表排序</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/02/C-vector%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ vector容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-02 18:06:21" itemprop="dateCreated datePublished" datetime="2022-11-02T18:06:21+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>vector数据结构和数组非常相似，也称为单端数组，不同之处在于数组是静态空间，而vector可以动态扩展，即：
+-
+vector并不会在原空间之后续接新空间，而是找更大的内存空间，然后将原数据拷贝新空间，释放原空间
+- vector容器的迭代器是支持随机访问的迭代器 ## vecotr构造函数
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt; v; <span class="comment">//采用模板实现类实现，默认构造函数</span></span><br><span class="line"><span class="built_in">vector</span>(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>()); <span class="comment">//将v[begin(), end())区间中的元素拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(n, elem); <span class="comment">//构造函数将n个elem拷贝给本身。</span></span><br><span class="line"><span class="built_in">vector</span>(<span class="type">const</span> vector &amp;vec); <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure> ## vector赋值 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&amp; <span class="keyword">operator</span>=(<span class="type">const</span> vector &amp;vec); <span class="comment">//重载等号操作符</span></span><br><span class="line"><span class="built_in">assign</span>(beg, end); <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。</span></span><br><span class="line"><span class="built_in">assign</span>(n, elem); <span class="comment">//将n个elem拷贝赋值给本身。</span></span><br></pre></td></tr></table></figure> ## vector容量和大小
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">empty</span>(); <span class="comment">//判断容器是否为空</span></span><br><span class="line"><span class="built_in">capacity</span>(); <span class="comment">//容器的容量</span></span><br><span class="line"><span class="built_in">size</span>(); <span class="comment">//返回容器中元素的个数</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num); <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line"><span class="built_in">resize</span>(<span class="type">int</span> num, elem); <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。</span></span><br><span class="line"><span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除</span></span><br></pre></td></tr></table></figure> ## vector插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">push_back</span>(ele); <span class="comment">//尾部插入元素ele</span></span><br><span class="line"><span class="built_in">pop_back</span>(); <span class="comment">//删除最后一个元素</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, ele); <span class="comment">//迭代器指向位置pos插入元素ele</span></span><br><span class="line"><span class="built_in">insert</span>(const_iterator pos, <span class="type">int</span> count,ele); <span class="comment">//迭代器指向位置pos插入count个元素ele</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator pos); <span class="comment">//删除迭代器指向的元素</span></span><br><span class="line"><span class="built_in">erase</span>(const_iterator start, const_iterator end); <span class="comment">//删除迭代器从start到end之间的元素</span></span><br><span class="line"><span class="built_in">clear</span>(); <span class="comment">//删除容器中所有元素</span></span><br></pre></td></tr></table></figure> ## vector数据存取
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">at</span>(<span class="type">int</span> idx); <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="keyword">operator</span>[]; <span class="comment">//返回索引idx所指的数据</span></span><br><span class="line"><span class="built_in">front</span>(); <span class="comment">//返回容器中第一个数据元素</span></span><br><span class="line"><span class="built_in">back</span>(); <span class="comment">//返回容器中最后一个数据元素</span></span><br></pre></td></tr></table></figure> ## vector预留空间 预留空间可减少动态扩展容量时的扩展次数
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">reserve</span>(<span class="type">int</span> len); <span class="comment">//容器预留len个元素长度，预留位置不初始化，元素不可访问。</span></span><br></pre></td></tr></table></figure> ## vector互换容器
+swap可以使两个容器互换，可以达到实用的收缩内存效果 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">swap</span>(vec); <span class="comment">// 将vec与本身的元素互换</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-String%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/02/C-String%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">C++ string容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-02 17:46:41" itemprop="dateCreated datePublished" datetime="2022-11-02T17:46:41+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>string是C++风格的字符串，本质上是个类 ## string构造函数
+构造函数原型： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>(); <span class="comment">//创建一个空的字符串 例如: string str;</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">const</span> <span class="type">char</span>* s); <span class="comment">//使用字符串s初始化</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">const</span> string&amp; str); <span class="comment">//使用一个string对象初始化另一个string对象</span></span><br><span class="line"><span class="built_in">string</span>(<span class="type">int</span> n, <span class="type">char</span> c); <span class="comment">//使用n个字符c初始化</span></span><br></pre></td></tr></table></figure> ## string赋值操作 赋值函数原型：
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">const</span> <span class="type">char</span>* s); <span class="comment">//char*类型字符串 赋值给当前的字符串</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">const</span> string &amp;s); <span class="comment">//把字符串s赋给当前的字符串</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>=(<span class="type">char</span> c); <span class="comment">//字符赋值给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>; <span class="comment">//把字符串s赋给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> n)</span></span>; <span class="comment">//把字符串s的前n个字符赋给当前的字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>; <span class="comment">//把字符串s赋给当前字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">assign</span><span class="params">(<span class="type">int</span> n, <span class="type">char</span> c)</span></span>; <span class="comment">//用n个字符c赋给当前字符串</span></span><br></pre></td></tr></table></figure> ## string字符串拼接 用于在字符串末尾拼接字符串
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> <span class="type">char</span>* str); <span class="comment">//重载+=操作符</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> <span class="type">char</span> c); <span class="comment">//重载+=操作符</span></span><br><span class="line">string&amp; <span class="keyword">operator</span>+=(<span class="type">const</span> string&amp; str); <span class="comment">//重载+=操作符</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span></span>; <span class="comment">//把字符串s连接到当前字符串结尾</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s, <span class="type">int</span> n)</span></span>; <span class="comment">//把字符串s的前n个字符连接到当前字符串结尾</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> string &amp;s)</span></span>; <span class="comment">//同operator+=(const string&amp; str)</span></span><br><span class="line"><span class="function">string&amp; <span class="title">append</span><span class="params">(<span class="type">const</span> string &amp;s, <span class="type">int</span> pos, <span class="type">int</span> n)</span></span>; <span class="comment">//字符串s中从pos开始的n个字符连接到字符串结尾</span></span><br></pre></td></tr></table></figure> ## string查找和替换 查找：查找指定字符串是否存在
+替换：在指定的位置替换字符串 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找str第一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找s第一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos, <span class="type">int</span> n)</span> <span class="type">const</span></span>; <span class="comment">//从pos位置查找s的前n个字符第一次位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">const</span> <span class="type">char</span> c, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找字符c第一次出现位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> string&amp; str, <span class="type">int</span> pos = npos)</span> <span class="type">const</span></span>; <span class="comment">//查找str最后一次位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos = npos)</span> <span class="type">const</span></span>; <span class="comment">//查找s最后一次出现位置,从pos开始查找</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* s, <span class="type">int</span> pos, <span class="type">int</span> n)</span> <span class="type">const</span></span>; <span class="comment">//从pos查找s的前n个字符最后一次位置</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">rfind</span><span class="params">(<span class="type">const</span> <span class="type">char</span> c, <span class="type">int</span> pos = <span class="number">0</span>)</span> <span class="type">const</span></span>; <span class="comment">//查找字符c最后一次出现位置</span></span><br><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n, <span class="type">const</span> string&amp; str)</span></span>; <span class="comment">//替换从pos开始n个字符为字符串str</span></span><br><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n,<span class="type">const</span> <span class="type">char</span>* s)</span></span>; <span class="comment">//替换从pos开始的n个字符为字符串s</span></span><br></pre></td></tr></table></figure> ## string字符串比较
+字符串之间通过ASCII码比较，一般用于比较是否相等 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> string &amp;s)</span> <span class="type">const</span></span>; <span class="comment">//与字符串s比较</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">compare</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *s)</span> <span class="type">const</span></span>; <span class="comment">//与字符串s比较</span></span><br></pre></td></tr></table></figure> ##
+字符串存取 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>&amp; <span class="keyword">operator</span>[](<span class="type">int</span> n); <span class="comment">//通过[]方式取字符</span></span><br><span class="line"><span class="function"><span class="type">char</span>&amp; <span class="title">at</span><span class="params">(<span class="type">int</span> n)</span></span>; <span class="comment">//通过at方法获取字符</span></span><br></pre></td></tr></table></figure> ## string插入和删除 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">const</span> <span class="type">char</span>* s)</span></span>; <span class="comment">//插入字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">const</span> string&amp; str)</span></span>; <span class="comment">//插入字符串</span></span><br><span class="line"><span class="function">string&amp; <span class="title">insert</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n, <span class="type">char</span> c)</span></span>; <span class="comment">//在指定位置插入n个字符c</span></span><br><span class="line"><span class="function">string&amp; <span class="title">erase</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> n = npos)</span></span>; <span class="comment">//删除从Pos开始的n个字符</span></span><br></pre></td></tr></table></figure> ## string子串
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">substr</span><span class="params">(<span class="type">int</span> pos = <span class="number">0</span>, <span class="type">int</span> n = npos)</span> <span class="type">const</span></span>; <span class="comment">//返回由pos开始的n个字符组成的字符串</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/02/C-%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/02/C-%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">C++模板</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-02 12:51:27" itemprop="dateCreated datePublished" datetime="2022-11-02T12:51:27+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="基本语法">基本语法</h2>
+<p>以置换函数为例： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用模板必须确定数据类型T，并能够推导出一致的类型</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mySwap</span><span class="params">(T&amp; a, T&amp; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 调用方式： -
+自动类型推导：<code>mySwap(a, b);</code> -
+显示指定类型：<code>mySwap&lt;int&gt;(a, b);</code> ## 隐式类型转换
+在调用函数时，若实参与形参数据类型不一致，实参根据形参类型进行转化（如char类型转化成对应的ASCII码）
+普通函数&amp;显示指定类型模板函数会发生隐式类型转换
+自动类型推导不会发生，会报错 ## 调用规则 - 优先调用普通函数 -
+可以通过空模板参数列表强制调用函数模板
+<code>myPrint&lt;&gt;(a,b);</code> - 函数模板可以发生重载 -
+如果函数模板更好匹配，优先调用模板
+比如函数模板不用发生隐式类型转换，而普通函数需要 -
+提供了函数模板，最好不要再提供普通函数 ## 具体化
+模板的通用性不是万能的，如以下代码： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a==b) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+如果传入的a和b是一个类，就无法实现了。
+可以通过具体化实现自定义类型的通用化 ： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">bool</span> <span class="title">ifEqual</span><span class="params">(person &amp;p1, person &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p1.name==p2.name &amp;&amp; p1.age==p2.age) return1;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 类模板 ###
+基本语法 template后面加类，如： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">NameType</span>, calss AgeType&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">Person</span>(NameType name, AgeType age)</span><br><span class="line">        &#123;</span><br><span class="line">                m_Name = name;</span><br><span class="line">                m_Age = age;</span><br><span class="line">        &#125;</span><br><span class="line">        NameType m_Name;</span><br><span class="line">        AgeType m_Age;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+调用：<code>Person&lt;string, int&gt; p1("name",age);</code> ###
+类模板注意事项 1. 类模板无法自动类型推导 2.
+类模板参数列表可以有默认参数，如：<code>template&lt;class NameType, calss AgeType = int&gt;</code>
+3. 类模板成员函数在调用时才会创建 ### 类模板对象作函数参数 1.
+指定传入类型：<code>void 函数名(类名&lt;数据类型1, 数据类型2&gt;&amp;对象名)</code>
+2. 参数模板化：<code>template&lt;class T1, class T2&gt;</code> 3.
+整个类模板化 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ### 类模板的继承 1.
+如果父类是类模板，子类继承时需要给定T类型，如：<code>calss son: public Base&lt;int&gt;</code>
+2. 如果想灵活指定父类T类型，子类也需要写成类模板 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, calss T2&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">son</span>: <span class="keyword">public</span> Base&lt;T2&gt;</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> ###
+类模板成员函数类外实现 以构造函数为例： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt; <span class="comment">//需要加上模板参数列表</span></span><br><span class="line">Person&lt;T1, T2&gt;::<span class="built_in">Person</span>(T1 name, T2 age)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Name = name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_Age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ###
+类模板分文件编写 -
+问题：类模板中成员函数创建时机是在调用阶段，导致分文件编写时链接不到 -
+解决： 方式1：直接包含.cpp源文件
+方式2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -414,324 +970,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/01/C++%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">C++类和对象-构造函数与析构函数</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-01 15:22:55" itemprop="dateCreated datePublished" datetime="2022-11-01T15:22:55+08:00">2022-11-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="构造函数与析构函数">构造函数与析构函数</h2>
-<p>构造函数形式为与类同名，用于初始化对象；
-析构函数形式为~类名()，用于清理对象 ## 默认构造函数
-默认构造函数没有参数，若没有自定义构造函数，则类自动提供一个空的默认构造函数。
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">person</span>()</span><br><span class="line">&#123;</span><br><span class="line">	m_age = <span class="number">0</span>;</span><br><span class="line">	m_height = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 自定义构造函数
-通过自定义构造函数来初始化对象，可以提供参数 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">person</span>(<span class="type">int</span> a, <span class="type">int</span> height)<span class="comment">//构造函数，实例化时自动调用，用于初始化  普通&amp;拷贝，无参&amp;有参。</span></span><br><span class="line">&#123;</span><br><span class="line">	m_age = a;</span><br><span class="line">	m_height = <span class="keyword">new</span> <span class="built_in">int</span>(height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-也可简写：<code>peoson(int a,int b):m_age(a),m_height(b)&#123;&#125;</code> ##
-拷贝构造函数 编译器默认提供，但若有属性在堆区则需要深拷贝 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">person</span>(<span class="type">const</span> person&amp; p)<span class="comment">//拷贝构造函数(默认提供)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//深拷贝(在堆区重新申请空间，进行拷贝操作，有属性在堆区开辟时需使用)</span></span><br><span class="line">	m_height = <span class="keyword">new</span> <span class="built_in">int</span>(*p.m_height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-使用深拷贝需要自定义析构函数进行清理 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~<span class="built_in">person</span>()<span class="comment">//析构函数，对象销毁前自动调用，用于清理（默认提供）</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (m_height != <span class="literal">NULL</span>)<span class="comment">//深拷贝析构</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">delete</span> m_height;</span><br><span class="line">		m_height = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/01/C++%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%BC%95%E7%94%A8/" class="post-title-link" itemprop="url">C++内存模型与引用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-01 15:22:45" itemprop="dateCreated datePublished" datetime="2022-11-01T15:22:45+08:00">2022-11-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="内存四区">内存四区</h2>
-<p>程序运行前就存在：代码区、全局区 程序运行后存在：栈区、堆区
-<strong>代码区</strong>：存放cpu执行的机器指令，共享的、只读的
-<strong>全局区</strong>：存放全局变量、静态变量、字符串常量，程序结束后系统自动释放
-<strong>栈区</strong>：存放函数参数、局部变量等，函数执行完后自动释放
-<strong>堆区</strong>：程序员分配释放，若不释放程序结束后系统自动释放。一般用new开辟,用delete释放：
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>* p = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">delete</span> p;</span><br><span class="line"><span class="type">int</span>* arr = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];  <span class="comment">//创建数组</span></span><br><span class="line"><span class="keyword">delete</span>[] arr;  </span><br></pre></td></tr></table></figure> ## 引用 采用 &amp;来生成一个引用 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> &amp;b = num;  <span class="comment">//引用必须初始化，且地址不可再更改</span></span><br></pre></td></tr></table></figure>
-常量引用：用来修饰形参，防止误操作 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; ref = num;  <span class="comment">//ref的值不可修改</span></span><br></pre></td></tr></table></figure>
-引用作参数，可修改实参： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(<span class="type">int</span>&amp; a, <span class="type">int</span>&amp; b)</span><span class="comment">//引用作参数，可修改实参</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/%E6%8C%87%E9%92%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/01/%E6%8C%87%E9%92%88/" class="post-title-link" itemprop="url">C++指针</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-01 10:23:25" itemprop="dateCreated datePublished" datetime="2022-11-01T10:23:25+08:00">2022-11-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一定义">一、定义</h2>
-<p>指针：用来存放<strong>变量地址</strong>（起始地址）的变量（间接访问）。
-引用操作符&amp;：获取一个变量的地址值；
-解引用操作符*：获取一个地址对应的数据； <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> *i_pointer = &amp;i; <span class="comment">//定义一个指针变量，32位下占4字节</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i); <span class="comment">//直接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, *i_pointer); <span class="comment">//间接访问，输出5</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i_pointer); <span class="comment">//输出i所在的地址</span></span><br></pre></td></tr></table></figure> ## 二、使用场景
-### 1.传递 函数定义时使用变量地址： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">void</span>(<span class="type">int</span> *j)</span><br><span class="line">&#123;</span><br><span class="line">      *j = <span class="number">5</span>; <span class="comment">//*j等价于变量i</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-函数调用时传递变量地址： <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">change</span>(&amp;i); <span class="comment">//j=&amp;i</span></span><br></pre></td></tr></table></figure> ### 2.偏移
-根据指针加减偏移量形成新的地址 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;<span class="comment">//数组名a存储了其起始地址</span></span><br><span class="line"><span class="type">int</span> *p;</span><br><span class="line">p = a;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)</span><br><span class="line">&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,*(p+i)); <span class="comment">//输出a[i]的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-数组名作为实参传递给子函数时，弱化为指针 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">change</span><span class="params">(<span class="type">char</span> *d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     *d = <span class="string">&#x27;H&#x27;</span>;</span><br><span class="line">      d[<span class="number">1</span>] = <span class="string">&#x27;E&#x27;</span>;</span><br><span class="line">      *(d+<span class="number">2</span>) = <span class="string">&#x27;L&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">      <span class="type">char</span> c[<span class="number">10</span>] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">      <span class="built_in">change</span>(c); <span class="comment">//变为HELlo</span></span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ##
-三、指针与动态内存申请malloc C头文件：stdlib.h <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> size=<span class="number">20</span>; <span class="comment">//需要申请的字节数</span></span><br><span class="line"><span class="type">char</span> *p;</span><br><span class="line">p = (<span class="type">char</span>*)<span class="built_in">malloc</span>(size); <span class="comment">//在堆区申请20字节空间，malloc返回无类型指针void*，需要强制转换</span></span><br><span class="line"><span class="built_in">strcpy</span>(p,<span class="string">&quot;malloc success&quot;</span>);</span><br><span class="line"><span class="built_in">puts</span>(p); <span class="comment">//输出malloc success</span></span><br><span class="line"><span class="built_in">free</span>(p); <span class="comment">//用完记得释放</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/01/Markdown%E7%9A%84%E4%B9%A6%E5%86%99/" class="post-title-link" itemprop="url">Markdown的书写</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-01 00:28:04" itemprop="dateCreated datePublished" datetime="2022-11-01T00:28:04+08:00">2022-11-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="标题">标题</h3>
-<p>#表示一级标题，##表示二级标题</p>
-<h3 id="代码块">代码块</h3>
-<p>代码块用三个反引号```括起来，譬如： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">``` c++</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="表格">表格</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">|姓名|年龄|成绩|         //用 | 分隔</span><br><span class="line">|:---|---:|:---:|            //：表示文字位置</span><br><span class="line">|张三|19|60|              </span><br></pre></td></tr></table></figure>
-<h3 id="分割线">分割线</h3>
-<p>三条短横<code>---</code>代表分割线</p>
-<h3 id="超链接">超链接</h3>
-<p><a href="url">链接描述</a>，如： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[百度](https://baidu.com)</span><br></pre></td></tr></table></figure></p>
-<h3 id="字体">字体</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*斜体*</span><br><span class="line"> **加粗**</span><br><span class="line"> ``行内代码`` </span><br><span class="line">&lt;u&gt;下划线&lt;/u&gt; </span><br></pre></td></tr></table></figure>
-<h3 id="插入图片">插入图片</h3>
-<figure>
-<img src="图片base64编码" alt="图片" />
-<figcaption aria-hidden="true">图片</figcaption>
-</figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

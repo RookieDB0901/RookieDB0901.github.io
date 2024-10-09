@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"rookiedb0901.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="“协同过滤”就是协同⼤家的反馈、评价和意见⼀起对海量的信息进⾏过滤，从中筛选出⽬标⽤户可能感兴趣的信息的推荐过程。  共现矩阵：用横坐标表示物品，纵坐标表示用户，矩阵元素值表示用户对物品的感兴趣程度。  基于用户的协同过滤 基于用户的协同过滤（userCF）向用户推荐相似用户感兴趣的物品。在为一名用户推荐物品时，首先找到与该用户相似度最高的n个用户，根据共现矩阵计算这些用户对每个物品的感">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深夜食堂">
+<meta property="og:url" content="https://rookiedb0901.github.io/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/index.html">
+<meta property="og:site_name" content="深夜食堂">
+<meta property="og:description" content="“协同过滤”就是协同⼤家的反馈、评价和意见⼀起对海量的信息进⾏过滤，从中筛选出⽬标⽤户可能感兴趣的信息的推荐过程。  共现矩阵：用横坐标表示物品，纵坐标表示用户，矩阵元素值表示用户对物品的感兴趣程度。  基于用户的协同过滤 基于用户的协同过滤（userCF）向用户推荐相似用户感兴趣的物品。在为一名用户推荐物品时，首先找到与该用户相似度最高的n个用户，根据共现矩阵计算这些用户对每个物品的感">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-09T10:32:59.481Z">
+<meta property="article:modified_time" content="2024-09-20T07:54:42.172Z">
+<meta property="article:author" content="DB">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://rookiedb0901.github.io/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://rookiedb0901.github.io/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/","path":"2024/10/09/协同过滤/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 深夜食堂</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">深夜食堂</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">基于用户的协同过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AE%A1%E7%AE%97"><span class="nav-number">1.1.</span> <span class="nav-text">用户相似度计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6"><span class="nav-number">1.1.1.</span> <span class="nav-text">余弦相似度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9A%AE%E5%B0%94%E9%80%8A%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">皮尔逊相关系数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">最终结果排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%A9%E5%93%81%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">基于物品的协同过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#swing%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Swing模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">DB</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-10-09 18:32:59" itemprop="dateCreated datePublished" datetime="2024-10-09T18:32:59+08:00">2024-10-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>“协同过滤”就是协同⼤家的反馈、评价和意见⼀起对海量的信息进⾏过滤，从中筛选出⽬标⽤户可能感兴趣的信息的推荐过程。</p>
+<ul>
+<li><strong>共现矩阵</strong>：用横坐标表示物品，纵坐标表示用户，矩阵元素值表示用户对物品的感兴趣程度。</li>
+</ul>
+<h1 id="基于用户的协同过滤">基于用户的协同过滤</h1>
+<p>基于用户的协同过滤（userCF）向用户推荐相似用户感兴趣的物品。在为一名用户推荐物品时，首先找到与该用户相似度最高的n个用户，根据共现矩阵计算这些用户对每个物品的感兴趣程度，再将各个物品的得分进行排序，选择得分最高的一系列物品进行推荐。</p>
+<p>以上总结了userCF的总体逻辑，但关于用户相似度的计算排序的过程需要可量化的方式。以下进行详细介绍。</p>
+<h2 id="用户相似度计算">用户相似度计算</h2>
+<p>我们可用共现矩阵中的行向量表示相应用户的用户向量（共现矩阵行向量中的每个值表示了该用户对一个物品的感兴趣程度），这样计算用户相似度便转化为了计算向量相似度，两个向量之间常⽤的相似度计算⽅法有如下⼏种。</p>
+<h3 id="余弦相似度">余弦相似度</h3>
+<p>余弦相似度衡量了用户向量i和用户向量j之间的夹角大小，夹角越小则相似度越大。
+<span class="math display">\[
+\begin{equation}
+sim(i,j)=cos(i,j)= \frac{i·j}{||i||·||j||}  
+\end{equation}
+\]</span></p>
+<h3 id="皮尔逊相关系数">皮尔逊相关系数</h3>
+<p>皮尔逊相关系数使用用户平均分对各独立评分进行修正，减小用户评分偏置的影响。
+<span class="math display">\[
+sim(i,j)=\frac{\sum_{p∈P}(R_{i,p}-\overline{R_i})(R_{j,p}-\overline{R_j})}{\sqrt{\sum_{p∈P}(R_{i,p}-\overline{R_i})^2}\sqrt{\sum_{p∈P}(R_{j,p}-\overline{R_j})^2}}
+\]</span> 其中， <span class="math inline">\(R_{i,p}\)</span>
+代表⽤户i对物品p的评分。 <span
+class="math inline">\(\overline{R_i}\)</span>
+代表⽤户i对所有物品的平均评分，P代表所有物品的集合。</p>
+<p>以上使用的是用户平均分，同理也可引入物品平均分，不再赘述。</p>
+<h2 id="最终结果排序">最终结果排序</h2>
+<p>一般利⽤⽤户相似度和相似⽤户的评价的加权平均获得⽬标⽤户的评价预测。
+<span class="math display">\[
+R_{u,p}=\frac{\sum_{s∈S}(w_{u,s}·R_{s,p})}{\sum_{s∈S}w_{u,s}}
+\]</span> 其中 <span class="math inline">\(w_{u,s}\)</span>
+表示用户u和用户s的相似度。</p>
+<p>获得用户p对各个物品的评价预测后，将这些得分进行排序即可得到推荐列表。</p>
+<p>userCF存在以下缺点：</p>
+<ul>
+<li>互联网应用场景下用户数往往非常大，而存储用户相似度矩阵需要n^2的空间复杂度。</li>
+<li>用户的历史数据向量往往非常稀疏，对于只有⼏次购买或者点击⾏为的⽤户来说，找到相似⽤户的准确度⾮常低。</li>
+</ul>
+<h1 id="基于物品的协同过滤">基于物品的协同过滤</h1>
+<p>基于物品的协同过滤（ItemCF）通过计算共现矩阵中物品列向量的相似度得到物品之间的相似矩阵，再找到⽤户的历史正反馈物品的相似物品进⾏进⼀步排序和推荐。</p>
+<p>ItemCF的具体步骤如下：</p>
+<ul>
+<li>基于历史数据构建共现矩阵（用户为行，物品为列）</li>
+<li>计算两两列向量（即物品向量）的相似性，构建物品相似度矩阵</li>
+<li>利用物品相似度矩阵，针对目标用户历史正反馈物品查找TOP K个物品</li>
+<li>对于相似物品集合中的物品，利用相似度分值进行排序</li>
+</ul>
+<p>如果一个物品与多个历史正反馈物品相似，则相似度需要累加： <span
+class="math display">\[
+R_{u,p}=\sum_{h∈H}(w_{p,h}·R_{u,h})
+\]</span>
+其中H是目标用户的正反馈物品集合，权重w为物品间相似度，R是用户对物品的已有评分。</p>
+<h2 id="swing模型">Swing模型</h2>
+<p>Swing模型和ItemCF十分相似，仅在物品相似度的计算上有所不同。Swing模型的相似度计算方式如下：
+<span class="math display">\[
+sim(i_1,i_2)=\sum_{u_1∈v}\sum_{u_2∈v}\frac{1}{α+overlap(u_1,u_2)}
+\]</span>
+其中w_1为喜欢物品i_1的用户集合，v为w_1和w_2的交集，overlap计算两个用户喜欢的物品交集的大小，α为参数。</p>
+<p>这个相似度计算公式下，v越大两个物品的相似度也越大，引入overlap是为了削弱“小圈子”的影响，例如当两个人同属一个微信群，则被转发到该群的所有链接都可能被两个人同时点开，即便这些链接毫不相关。</p>
+<h1 id="总结">总结</h1>
+<ul>
+<li><p>UserCF基于⽤户相似度进⾏推荐，使其具备更强的社交特性。⽤户能够快速得知与⾃⼰兴趣相似的⼈最近喜欢的是什么，即使某个兴趣点以前不在⾃⼰的兴趣范围内，也有可能通过“朋友”的动态快速更新⾃⼰的推荐列表。这样的特点使其⾮常适⽤于新闻推荐场景。</p></li>
+<li><p>ItemCF更适⽤于兴趣变化较为稳定的应⽤，⽤户在⼀个时间段内更倾向于寻找⼀类商品，这时利⽤物品相似度为其推荐相关物品是契合⽤户动机的
+，例如电商和视频推荐。</p></li>
+</ul>
+<p>协同过滤是⼀个⾮常直观、可解释性很强的模型，但它并不具备较强的泛化能⼒。热门的物品具有很强的头部效应，容易跟⼤量物品产⽣相似性；⽽尾部的物品由于特征向量稀疏，很少与其他物品产⽣相似性，导致很少被推荐。</p>
+<p>另外，协同过滤仅利⽤⽤户和物品的交互信息，⽆法有效地引⼊⽤户年龄、性别、商品描述、商品分类、当前时间等⼀系列⽤户特征、物品特征和上下⽂特征。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+    <div
+      class="social-share"
+      
+        data-sites="weibo,qq,wechat,tencent,douban,qzone,linkedin,diandian,facebook,twitter,google"
+      
+      
+        data-wechat-qrcode-title="share.title"
+      
+      
+        data-wechat-qrcode-helper="share.prompt"
+      
+    >
+    </div>
+  </div>
+  <script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js"></script>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>DB
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://rookiedb0901.github.io/2024/10/09/%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4/" title="">https://rookiedb0901.github.io/2024/10/09/协同过滤/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/09/%E5%90%91%E9%87%8F%E5%8F%AC%E5%9B%9E/" rel="prev" title="">
+                  <i class="fa fa-angle-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/09/%E8%A1%8C%E4%B8%BA%E5%BA%8F%E5%88%97/" rel="next" title="">
+                   <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">DB</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
