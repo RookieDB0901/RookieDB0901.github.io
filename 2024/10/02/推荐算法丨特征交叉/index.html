@@ -29,10 +29,10 @@
 <meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/%E4%BA%A4%E5%8F%89%E5%B1%82.png">
 <meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/%E6%B7%B1%E5%BA%A6%E4%BA%A4%E5%8F%89%E7%BD%91%E7%BB%9C.png">
 <meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84LHUC%E6%A8%A1%E5%9E%8B.png">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/SENet.PNG">
-<meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/FiBiNet.PNG">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/SENet.png">
+<meta property="og:image" content="https://rookiedb0901.github.io/2024/10/02/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B8%A8%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89/FiBiNet.png">
 <meta property="article:published_time" content="2024-10-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-10-09T11:14:07.028Z">
+<meta property="article:modified_time" content="2024-10-10T03:10:35.720Z">
 <meta property="article:author" content="DB">
 <meta property="article:tag" content="notes">
 <meta property="article:tag" content="推荐算法">
@@ -268,12 +268,12 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -384,7 +384,7 @@ embedding特征，需要对其做 stop gradient。</p>
 <p>SENet
 是计算机视觉中的一种技术，可以用在推荐系统中对特征做<strong>动态加权</strong>。</p>
 <figure>
-<img src="SENet.PNG" alt="SENet">
+<img src="SENet.png" alt="SENet">
 <figcaption aria-hidden="true">SENet</figcaption>
 </figure>
 <p>假设有m个特征向量（这些向量的长度可不同），对这些向量做变换得到一个m维向量。将该m维向量作为权重对原来的特征向量做加权，得到新的特征向量。SENet的作用在于对离散特征做field-wise加权，放大或削弱某些特征的作用。比如用户ID
@@ -404,7 +404,7 @@ Cross用于做Field间特征交叉，即将两个fields做交叉得到新的特�
 <h2 id="fibinet-1">FiBiNet</h2>
 <p>FiBiNet结合了以上两种技术。</p>
 <figure>
-<img src="FiBiNet.PNG" alt="FiBiNet">
+<img src="FiBiNet.png" alt="FiBiNet">
 <figcaption aria-hidden="true">FiBiNet</figcaption>
 </figure>
 <p>传统的模型中，离散特征经过embedding后直接和连续特征拼起来作为神经网络的输入。FiBi加入了SENet和Bilinear，具体如上图，其中Bilinear输出的是几个交叉后的向量，再将这些向量做拼接得到一个高维向量。</p>

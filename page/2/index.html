@@ -255,12 +255,12 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-count">55</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -277,6 +277,134 @@ mjx-container[display="true"] + br {
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/04/09/BART%E5%92%8CT5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/09/BART%E5%92%8CT5/" class="post-title-link" itemprop="url">BART和T5</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2024-04-09 00:00:00" itemprop="dateCreated datePublished" datetime="2024-04-09T00:00:00+08:00">2024-04-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>自回归(autoregressive)语言模型，如GPT，采用从左向右单向解码的方式，适用于自然语言生成（NLG）任务。非自回归(non-autoregressive)语言模型，如BERT，每个时刻的输出都可以充分利用双向信息，适用于自然语言理解（NLU）任务，但是在NLG上表现不佳。BERT采用transformer的编码器结构，GPT采用transformer的解码器结构，而BART和T5都采用了transformer的原始结构。</p>
+<h1 id="预训练">预训练</h1>
+<p>BART的预训练任务是带噪声的输入还原。BART共采用了两个预训练任务。</p>
+<ul>
+<li>Text
+Infilling。mask文本中30%的字符，每处mask掉span长度的字符，span长度服从λ
+=
+3的泊松分布。例如对于序列ABCDE，添加噪声后可能变成A_B_E，其中AB之间插入了一个span长度为0的mask，CD也替换成了mask。将加噪后的文本作为解码器输入，要求模型还原出文本。</li>
+<li>Sentence
+Permutation。根据标点符号将句子顺序打乱，并要求模型将句子顺序复原。</li>
+</ul>
+<p>除此之外作者还尝试了Token Masking、Token Deletion、Document
+Rotation等方法。经过对比实验Text
+Infilling更有助于模型效果提升，而Sentence
+permutation虽然提升不大，但作者假设模型规模提升后这个任务会有用。</p>
+<figure>
+<img src="BART.png" alt="BART">
+<figcaption aria-hidden="true">BART</figcaption>
+</figure>
+<p>T5使用两种任务，分为无监督和有监督。其中无监督任务也是Span级别的mask，不过输出不需要还原整句，只需要输出mask掉的tokens就可以，总共mask15%字符。有监督任务提升不大，这里不展开说明。</p>
+<h1 id="微调">微调</h1>
+<p>BART的微调方式如下图：</p>
+<ul>
+<li><p>左边是分类任务的微调方式，输入将会同时送入Encoder和Decoder，最终使用最后一个输出为文本表示。</p></li>
+<li><p>右边是翻译任务的微调方式，由于翻译任务的词表可能和模型词表不同，所以这里使用一个新的小型Encoder替换BART中的Embedding。</p></li>
+</ul>
+<figure>
+<img src="BART微调.png" alt="BART微调">
+<figcaption aria-hidden="true">BART微调</figcaption>
+</figure>
+<p>T5将分类任务和生成任务都视为生成式任务：</p>
+<figure>
+<img src="BART微调.png" alt="BART微调">
+<figcaption aria-hidden="true">BART微调</figcaption>
+</figure>
+<h1 id="效果比较">效果比较</h1>
+<p>对于理解任务，将两篇论文中实验结果整理为下表：</p>
+<figure>
+<img src="NLU效果比对.png" alt="NLU效果比对">
+<figcaption aria-hidden="true">NLU效果比对</figcaption>
+</figure>
+<p>对于生成任务，两个模型都在CNN/DailyMail上进行了实验</p>
+<figure>
+<img src="NLG效果比对.png" alt="NLG效果比对">
+<figcaption aria-hidden="true">NLG效果比对</figcaption>
+</figure>
+<p>综合比较来看，BART稍微好一些，尤其是在理解任务上。不过由于T5发布的模型比较大，参数量最多达到了11B，所以在GLUE和SuperGLUE上长期霸榜。</p>
+<h1 id="其他细节">其他细节</h1>
+<h2 id="位置编码">位置编码</h2>
+<p>Transformers使用Position Encoding，使用sinusoidal函数</p>
+<p>BERT和BART都换成了可学习的绝对位置嵌入</p>
+<p>T5改成了相对位置嵌入(relative position embeddings)</p>
+<h2 id="激活函数">激活函数</h2>
+<p>Transformer最开始使用ReLU，BERT和GPT都使用GELU，BART也同样采用GELU，不过T5还是使用了最初的ReLU。</p>
+<h2 id="模型大小">模型大小</h2>
+<p>BART-large：12encoder, 12decoder, 1024hidden</p>
+<p>T5-base：12encoder, 12decoder, 768 hidden, 220M parameters（2x
+bert-base）</p>
+<p>T5-large: 24encoder, 24decoder, 1024hidden, 770M parameters</p>
+<p>T5-large的模型大小是BART-large的两倍。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1184,105 +1312,6 @@ F(x)。通过这种设计，即使F(x)近似于零，信息也能顺利通过网
 <img src="部分预测结果.png" alt="部分预测结果">
 <figcaption aria-hidden="true">部分预测结果</figcaption>
 </figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2024/01/20/%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/01/20/%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96/" class="post-title-link" itemprop="url">机器学习丨数据获取</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-01-20 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-20T00:00:00+08:00">2024-01-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="数据集">数据集</h1>
-<h2 id="常见数据集">常见数据集</h2>
-<p>MNIST：手写数字</p>
-<p>ImageNet：百万级别的图片，主要来自google等图片搜索引擎（先用关键字搜索图片，再人工标注去除噪音）</p>
-<p>AudioSet：来自YouTube的声音切片</p>
-<p>Kinetics：来自YouTube的视频切片</p>
-<p>KITTI：无人驾驶数据集</p>
-<p>Amazon Review：Amazon产品评论</p>
-<p>SQuAD：Wikipedia收集的知识点做成问答对</p>
-<p>LibriSpeech：有声读物数据集（语音-文字）</p>
-<h2 id="数据集搜集渠道">数据集搜集渠道</h2>
-<p>paperswithcodes：整理了大量论文常见的数据集，并能看到在数据集上的榜单。学术数据集更加干净，但数量较少且往往规模较小，很难找到实际需要的。</p>
-<p>kaggle：竞赛数据集及用户提交的数据集。竞赛数据集更加贴近实际应用，但数量较少且主要集中在热点领域。</p>
-<p>tensorflow：带有数百个数据集</p>
-<p>huggingface：大量文本数据集</p>
-<p>AWS：超大规模原始数据。原始数据集十分灵活，但需要大量的工作去做预处理。</p>
-<h2 id="数据融合">数据融合</h2>
-<p>把不同来源的数据融合成一个数据集（table join）。</p>
-<p>按keys融合数据时，可能出现两张表keys不完全一致的的情况。</p>
-<ul>
-<li><p>inner join：选择两张表都有的keys</p></li>
-<li><p>left
-join：保留第一张表的所有keys，第二张表没有的keys对应项设为空值</p></li>
-</ul>
-<h2 id="数据生成">数据生成</h2>
-<p>当数据不够时，可以使用各种方法生成样本，例如：</p>
-<ul>
-<li>使用GANS生成图片</li>
-<li>数据增强：对原始图片做处理（例如拉伸、旋转等）形成新样本</li>
-<li>对文本进行back translation（中-英-中）</li>
-</ul>
 
       
     </div>
