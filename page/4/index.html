@@ -48,7 +48,119 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-</head>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
@@ -143,7 +255,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -165,6 +277,369 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E8%BF%90%E8%BE%93%E5%B1%82/" class="post-title-link" itemprop="url">计算机网络-运输层</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-16 20:56:28" itemprop="dateCreated datePublished" datetime="2022-11-16T20:56:28+08:00">2022-11-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>计算机网络中进行通信的真正实体是<strong>位于通信两端主机中的进程</strong>，如何为运行在不同主机上的应用进程提供直接的通信服务是运输层的任务（端到端）。
+-
+因特网的运输层为应用层提供了<strong>面向连接的TCP</strong>和<strong>无连接的UDP</strong>两种不同的运输协议；
+## 一、端口号、复用和分用
+端口号：TCP/IP体系的运输层使用端口号来区分应用层的不同应用进程。 -
+端口号用16比特表示，分为熟知端口号、登记端口号、短暂端口号； -
+端口号只具有本地意义； 复用和分用： - 发送方：UDP复用/TCP复用、IP复用；
+- 接收方：IP分用、UDP分用/TCP分用； ## 二、UDP和TCP的对比 <img
+src="对比.jpg" alt="UDP和TCP的对比" /> ## 三、TCP的流量控制和拥塞控制
+#### 流量控制
+如果发送方数据发送速度过快，接收方可能来不及接收，造成数据丢失，这时需要采用流量控制。
+利用<strong>滑动窗口</strong>机制可以很方便地在TCP连接上实现对发送方的流量控制：
+- TCP接收方利用自己接收窗口的大小来限制发送方发送窗口的大小； -
+TCP发送方收到接收方的零窗口通知后，启动<strong>持续计时器</strong>，持续计时器超时后发送<strong>零窗口探测报文</strong>。
+#### 拥塞控制
+某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变差，称为<strong>拥塞</strong>。
+TCP采用了四种拥塞控制算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。
+-
+发送方维护<strong>拥塞窗口cwnd</strong>变量：其值取决于网络的拥塞程度（当发生超时重传，则视为发生网络拥塞），并动态变化，发送方将拥塞窗口作为发送窗口swnd；
+-
+维护一个慢开始门限ssthresh：cwnd&lt;ssthresh使用慢开始算法，cwnd&gt;ssthresh时改用拥塞避免算法；
+-
+<strong>慢开始</strong>：cwnd初始值为1，发送方每收到一个确认报文段，将cwnd加1，cwnd呈指数增长；
+-
+<strong>拥塞避免</strong>：每个传输轮次结束后，cwnd加1，cwnd呈线性增长；
+-
+当遇到拥塞（超时重传），则ssthresh重置为当前cwnd的一半，cwnd减少为1，重新开始执行慢开始算法；
+-
+<strong>快重传</strong>：超时重传不一定由网络拥塞导致，<strong>错误启动慢开始算法</strong>，降低传输效率。快重传要求接收方收到数据<strong>立刻发送确认</strong>（包括失序报文段），发送方一旦收到<strong>3个连续的重复确认</strong>就将相应报文段<strong>立即重传</strong>，而<strong>不用等超时重传计时器超时</strong>。
+-
+<strong>快恢复</strong>：发送方收到3个重复确认，不启动慢开始算法，而是将ssthresh和cwnd调整为当前cwnd的一半，并开始执行拥塞避免算法；
+## 四、TCP超时重传时间的选择
+超时重传时间RTO的选择是TCP最复杂的问题之一。
+<strong>加权平均往返时间RTTs</strong>： - RTTs1 = RTT1； - 新的RTTs =
+(1-α) × 旧的RTTs + α × 新的RTT样本（指数平滑法） -
+已成为建议标准的α取值为0.125； <strong>超时重传时间RTO</strong>： -
+应略大于加权平均往返时间RTTs； - RFC6298建议使用的RTO = RTTs + 4 ×
+RTTd，RTTd1 = RTT1 ÷ 2，新的RTTd = (1-β) x 旧的RTTd + β × |RTTs -
+新的RTT样本|，β建议值为0.25； -
+只要报文段重传了，就不采用其往返时间RTT样本，并把RTO增大一些（如×2）；
+## 五、TCP可靠传输的实现
+TCP基于<strong>以字节为单位的滑动窗口</strong>来实现可靠传输。 -
+确认报文段包含接收窗口大小和希望接收到的起始字段，发送方据此构建发送窗口；
+-
+发送方在未收到接收方的确认时，可将发送窗口内还未发送的数据全部发送出去；
+- 接收方只接收序号落入发送窗口内的数据； -
+TCP通常将不按序到达的数据先临时存放在接收窗口中，等字节流缺少的字节收到后，再按序交付用户进程；
+- TCP要求接收方必须有累积确认和捎带确认机制，不应过分推迟发送确认； -
+TCP通信是全双工通信； ## 六、TCP的运输连接管理 TCP运输连接有三个阶段： -
+“三报文握手”建立TCP连接； - “四报文挥手”释放TCP连接； #### TCP的连接建立
+TCP连接建立要解决以下三个问题： - 使TCP双方能够确知对方的存在； -
+使TCP双方能够协商一些参数（如窗口最大值）； -
+使TCP双方能够对运输实体资源（如缓存大小、连接表中的项目等）进行分配；
+“三报文握手”过程： - TCP服务器进程创建传输控制块，进入监听状态； -
+TCP客户进程创建传输控制块，向TCP服务进程发送<strong>TCP连接请求报文段</strong>（SYN=1，seq=x，不能携带数据且需要消耗掉一个序号），进入同步已发送状态；（一握手）
+-
+TCP服务器进程发送<strong>TCP连接请求确认报文段</strong>（SYN=1，ACK=1，seq=y，ack=x+1，不能携带数据且需要消耗掉一个序号），进入同步已接收状态；（二握手）
+-
+TCP客户进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=x+1，ack=y+1，可携带数据，若未携带数据则不消耗序号），进入连接已建立状态；（三握手）
+- TCP服务器进程进入连接已建立状态； -
+若改为两挥手，则可能因TCP连接请求超时重传导致错误； <img
+src="三报文握手.jpg" alt="三报文握手" /> #### TCP的连接释放
+“四报文挥手”过程： -
+TCP客户进程发送<strong>TCP连接释放报文段</strong>（FIN=1，ACK=1，seq=u，ack=v，不携带数据也要消耗掉一个序号），并进入终止等待1状态；
+-
+TCP服务器进程发送一个<strong>普通的TCP确认报文段</strong>（ACK=1，seq=v，ack=u+1），并进入关闭等待状态（未传输完的数据会继续传输，持续一段时间）；
+- TCP客户进程收到后进入终止等待2状态； -
+TCP服务器进程数据发送完后，发送<strong>TCP释放报文段</strong>（FIN=1，ACK=1，seq=w，ack=u+1），并进入最后确认状态；
+-
+TCP用户进程发送<strong>普通的TCP确认报文段</strong>（ACK=1,seq=u+1，ack=w+1），并进入时间等待状态;
+- TCP服务器进程进入关闭状态； -
+TCP客户进程在2MSL（MSL为最长报文段寿命，建议值为2min，一般更小）的时间后进入关闭状态；
+<strong>保活计时器</strong>：TCP服务器进程每收到一次数据，就重新设置并启动保活计时器（2小时），保活计时器到时后，TCP服务器进程发送一个<strong>探测报文段</strong>，并每隔75秒发送一次。若连续10个探测报文段未被响应，则TCP服务器进程关闭连接。
+<img src="四报文挥手.jpg" alt="四报文挥手" /> ## 七、TCP报文段的首部格式
+<img src="TCP首部.jpg" alt="TCP报文段首部格式" />
+序号：指出本TCP报文段数据载荷的第一个字节的序号（循环）。
+确认号：指出期望收到<strong>对方</strong>下一个TCP报文段的数据载荷的第一个字节的序号，同时也是对之前收到的所有数据的确认，只有ACK=1才有效；
+数据偏移：即首部长度，指出TCP报文段的数据载荷部分的起始处距离TCP报文段起始处有多远，取值为首部字节数/4；
+保留：保留今后使用，置为0；
+SYN：在TCP<strong>连接建立时</strong>用来同步序号；
+FIN：用来释放TCP连接；
+RST：用来复位TCP连接，RST=1时表明连接出现异常，需要释放并重新建立连接；
+PSH：PSH=1时，接收方会将该报文段尽快上交应用进程；
+窗口：本报文段发送方的接收窗口；
+校验和：检查TCP报文段（首部+数据载荷）是否出现误码；
+紧急指针：URG=1时才有效，用来指明紧急数据的长度，紧急数据可插队到发送缓存的最前面；
+选项：用来增加TCP功能： - 最大报文段长度MSS选项：数据载荷部分最大长度；
+- 窗口扩大选项：为了扩大窗口（提高吞吐率）； -
+时间戳选项：用来计算RTT；用于处理序号超范围的情况，又称防止序号绕回PAWS；
+- 选择确认选项：实现选择确认功能；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 深夜食堂">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E7%BD%91%E7%BB%9C%E5%B1%82/" class="post-title-link" itemprop="url">计算机网络-网络层</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-16 13:44:41" itemprop="dateCreated datePublished" datetime="2022-11-16T13:44:41+08:00">2022-11-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>IPv4地址：给因特网上的每一台主机或路由器的每一个接口分配一个在全世界范围内唯一的32比特标识符。
+- 点分十进制表示方法：XXX.XXX.XXX.XXX； ## 一、历史发展 #### 1.
+分类编制的IPv4地址 分类： - A类：0开头，8位网络号+24位主机号 -
+B类：10开头，16位网络号+16位主机号 - C类：110开头，24位网络号+8位主机号
+- D类：1110开头，多播地址 - E类：1111开头，保留 注意事项： - 只有A； -
+主机号为“全0”的地址是<strong>网络地址</strong>，主机号为“全1”的地址是<strong>广播地址</strong>，
+不能分配给主机或路由器的各接口； -
+A类网络号0和127不可分配给主机或路由器的各接口； #### 2.
+划分子网的IPv4地址
+为新增网络申请新的网络号会浪费大量IP地址，借用主机号的一定位数来作为<strong>子网号</strong>，区分不同子网，以减少IP地址的浪费。
+-
+<strong>子网掩码</strong>：使用连续的比特1来对应网络号和子网号，连续的比特0来对应主机号。
+-
+将<strong>划分子网的IPv4地址</strong>与其相应的<strong>子网掩码</strong>进行逻辑<strong>与运算</strong>就可得到IPv4地址所在子网的网络地址；
+-
+可划分的子网数量由子网号位数决定，每个子网可分配的IP地址数量由主机号位数决定；
+#### 3. 无分类编制的IPv4地址
+无分类域间路由选择CIDR：消除了传统A/B/C类地址以及划分子网的概念。 -
+使用“斜线记法”，即在IPv4地址后面加上斜线“/”，在斜线后面写上网络前缀所占的比特数量；
+路由聚合（构造超网）：找共同前缀 -
+网络前缀越长，地址块越小，路由越具体； -
+<strong>最长前缀匹配</strong>：若路由器查表转发分组时发现有多条路可选，则选择网络前缀最长的那条；
+## 二、IPv4地址的应用 #### 1. IPv4地址的应用规划
+定长的子网掩码FLSM：使用<strong>同一个子网掩码</strong>来划分子网，所有子网的网络前缀长度一致，会造成IP地址的浪费。
+变长的子网掩码VLSM：使用<strong>不同的子网掩码</strong>来划分子网，每个子网所分配的IP地址数量可以不同，更加灵活。
+#### 2. IP数据报的发送和转发过程 主机发送IP数据报： -
+首先判断目的主机是否与自己在同一个网络（子网掩码）； -
+若在同一个网络，则直接交付，否则通过所在网络的默认网关（路由器）转发；
+路由器转发IP数据报： - 首先检查IP数据报首部是否出错； -
+根据IP数据报的目的地址在路由表中查找匹配的条目并通过相应接口转发； -
+路由表：记录各接口网络地址及子网掩码，若子网掩码和目的地址相与等于对应网络地址，则通过相应接口转发；
+#### 3. 静态路由配置与路由环路问题
+静态路由配置：用户或网络管理员使用路由i去相关指令给路由器人工配置路由表。一般用于小规模网络。
+-
+静态路由配置：目的网络+下一跳+类型（记录要到达目的网络下一跳需要转发到哪里）；
+-
+<strong>默认路由</strong>：因特网中网络众多，可以添加目的网络地址0.0.0.0（视为网络前缀长度为0的网络地址），没有记录的网络地址都将从这里转发；
+-
+<strong>特定主机路由</strong>：将特定主机的IP地址设为目的网络（视为网络前缀为32的网络地址）；
+- 转发时优先选择网络前缀最长的； 静态路由配置可能导致路由环路问题： -
+配置错误：会导致死循环，可以设置生存时间TTL字段； -
+聚合了不存在的网络：目的网络中实际IP地址数量小于最大IP地址数量，有部分IP地址不存在但会错误转发，可以添加黑洞路由解决；
+- 网络故障：可以将故障的IP地址设为黑洞路由； ## 三、路由选择协议
+动态路由选择：路由器通过<strong>路由选择协议</strong>自动获取路由信息。
+- 复杂开销大，能适应不同的网络状态，适用于大规模网络； -
+特点：自适应、分布式、分层次。
+分层次：内部网关协议IGP（IRP）和外部网关协议EGP（ERP）； <img src="路由选择协议.jpg" alt="路由选择协议"> 路由器的基本结构: -
+<strong>路由表</strong>：收到<strong>路由报文</strong>后，会将信息记录到路由表中；
+- 根据路由表得到易于查找的<strong>转发表</strong>； -
+收到<strong>数据分组</strong>后，则根据转发表查表转发； -
+<strong>路由选择处理机</strong>存储路由表，还会周期性地给其他路由器发送自己所知道的路由信息；
+- 缓存区：输入/输出缓冲区用来暂存分组； #### 1. RIP
+RIP要求自治系统AS内的每一个路由器都要维护从它自己到AS内其他每一个网络的距离记录。
+-
+基于距离向量，使用“跳数”来衡量距离，距离等于16相当于不可达，因此只适用于小型互联网；
+-
+RIP认为好的路由就是“距离短”的路由，即通过路由器数量最少的路由（不考虑传输速率）。
+-
+当到达同一目的网络有多条距离相等的路由时，可以进行<strong>等价负载均衡</strong>；
+RIP基本工作过程： -
+刚开始工作时，进知道自己到<strong>直连网络</strong>的距离为1； -
+每个路由器仅和相邻路由器<strong>周期性地交换并更新路由信息</strong>； -
+若干次交换更新后，每个路由器都知道<strong>到达本AS内各网络的最短距离</strong>和<strong>下一跳地址</strong>，称为“收敛”；
+RIP存在<strong>“坏消息传播得慢”</strong>的问题，可能导致<strong>路由环路</strong>。可以采用以下方法缓解：
+- 限制最大路径距离为15； -
+<strong>触发更新</strong>：当路由表发生变化就立即发送更新报文； -
+<strong>水平分割</strong>：让路由器记录收到某特定路由信息的接口，而不让同一路由信息再通过此接口反方向传送；
+#### 2.开放最短路径优先OSPF
+OSPF基于<strong>链路状态</strong>（即本路由器都和哪些路由器相邻以及相应链路的“代价”），使用了Dijkstra提出的最短路径算法<strong>SPF</strong>。
+- “代价”用来表示费用、距离、时延、带宽等； -
+每个使用OSPF的路由器都会产生<strong>链路状态通告LSA</strong>，包含<strong>直连网络的状态信息</strong>和<strong>邻居路由器的状态信息</strong>，并有一个“链路状态数据库LSDB”用于存储LSA；
+-
+LSA被封装在<strong>链路状态更新分组LSU</strong>中，采用<strong>洪泛法</strong>发送；
+- 各路由器的LSDB最终将达到一致； -
+各路由器基于LSDB进行<strong>最短路径优先SPF</strong>计算，构建各自的路由表；
+OSPF有以下五种分组类型： - 问候分组：用来发现和维护邻居路由器的可达性；
+- 数据库描述分组：发送给邻居路由器； -
+链路状态请求分组：发现链路状态缺失时向邻居路由器发送； -
+链路状态更新分组：洪泛发送； -
+链路状态确认分组：对链路状态更新分组的确认；
+OSPF在多点接入网络中路由器邻居关系的建立： -
+选举指定路由器DR和备用的指定路由器BDR； -
+所有的非DR/BDR只与DR/BDR建立邻居关系，非DR/BDR之间通过DR/BDR交换信息；
+为了使OSPF能够用于规模很大的网络，OSPF把一个自治系统再划分为若干个更小的范围，叫做<strong>区域</strong>。
+- 减少了整个网络上的通信量； #### 3. 边界网关协议BGP
+用于自治系统<strong>之间</strong>的路由选择，工作原理如下： -
+再配置BGP时，每个自治系统的管理员选择至少一个路由器作为该自治系统的<strong>“BGP发言人”</strong>；
+-
+不同自治系统的发言人通过建立<strong>TCP连接</strong>交换路由信息，使用TCP连接交换路由信息的两个BGP发言人称为对方的邻站或对等站；
+-
+BGP发言人交换<strong>网络可达性</strong>的信息，并根据所采用的策略从收到的路由信息中找出到达各自治系统<strong>较好的路由</strong>，即构造不存在贿赂的自治系统连通图（树形结构）；
+BGP-4有以下四种报文： -
+OPEN报文：用来与相邻的另一个BGP发言人<strong>建立关系</strong>； -
+UPDATE报文：用来发送<strong>通过某一路由的信息</strong>，以及列出要撤销的多条路由；
+- KEEPALIVE报文：周期性地证实<strong>邻站的连通性</strong>； -
+NOTIFICATION报文：发送<strong>检测到的错误</strong>； ##
+四、IPv4数据报的首部格式 <img src="IP数据报首部.jpg" alt="IP数据报首部"> 版本字段：表示IP协议版本，如IPv4；
+首部长度：取值为首部长度字节数/4；
+区分服务字段：根据不同取值获得不一样的服务质量，一般不用；
+总长度：IP数据报的字节数（包含首部）；
+标识：属于同一个数据报的各分片数据报具有相同标识（按计数器）；
+标志：3个比特，DF位表示允许分片，MF位表示后面是否还有分片，保留位为0；
+片偏移：分片数据报的数据载荷部分从原数据报的第几个字节开始（字节位置除以8，第一个分片为0）；
+生存时间TTL：每一跳-1，归零后丢弃，防止死循环；
+协议：表明数据部分是何种协议数据单元（如TCP、UDP、ISPF、IPv6）；
+首部检验和：用来检测首部在传输过程是否出现差错；
+可选字段：用来支持排错、测量及安全等措施，很少使用； ##
+五、网际控制报文协议
+为了更有效地转发IP数据报和提高交付成功的机会，在网际层使用了网际控制报文协议ICMP。
+-
+主机或路由器使用ICMP来发送<strong>差错报告报文</strong>和<strong>询问报文</strong>；
+- ICMP报文被封装在<strong>IP数据报</strong>中发送；
+ICMP差错报告报文共有五种： -
+终点不可达：当路由器或主机不能交付数据报时，就像源点发送终点不可达报文；
+-
+源点抑制：当路由器或主机由于拥塞而丢弃数据报时，就向源点发送源点抑制报文；
+- 时间超过：生存时间TTL字段减到0时发送； -
+参数问题：通过首部检验和字段发现首部字段出现误码时发送； -
+改变路由（重定向）：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发给另外的路由器；
+ICMP询问报文有以下两种： -
+回送请求和回答：用来<strong>测试目的站是否可达</strong>及了解有关状态；
+-
+时间戳请求和回答：请某个主机或路由器回答当前的日期和时间，用来进行时钟同步和测量时间；
+ICMP应用举例 - 分组网间探测PING：用来测试主机或路由器之间的连通性； -
+跟踪路由：用来测试IP数据报从源主机到达目的主机要经过哪些路由； ##
+六、虚拟专用网VPN和网络地址转换NAT
+<strong>虚拟专用网VPN</strong>：利用因特网作为本机构各专用网之间的通信载体。
+- 各主机地址使用私有地址（只能作为本地地址）； - 加密并通过路由器发送；
+-
+同一机构不同部门的内部网络构成的虚拟专用网称为内联网VPN，有时某些外部机构参加进来，称为外联网VPN；
+<strong>网络地址转换NAT</strong>：使用NAT路由器将私有地址转换成全球IP地址，缓解IPv4地址空间即将耗尽的问题。
+- 使用私有地址的主机发送IP数据报； -
+NAT路由器修改IP数据报的IP地址为全球IP地址； -
+记录私有地址和全球IP地址的对应关系，并转发IP数据报； -
+一个NAT路由器可连接多台主机； -
+NAT路由器接收外部发来的数据报，并根据转换表转发给主机； -
+可以利用运输层的端口号和IP地址一起进行转换，这样<strong>一个全球IP地址</strong>就可以使<strong>多个拥有本地地址的主机</strong>同时和因特网上的主机进行通信，称为<strong>网络地址与端口号转换NAPT</strong>；</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1200,336 +1675,6 @@ C-LOOK算法是C-SCAN的改进； ## 二、减少延迟时间的方法
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">操作系统-文件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-08 00:09:52" itemprop="dateCreated datePublished" datetime="2022-11-08T00:09:52+08:00">2022-11-08</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>文件是一组有意义的信息/数据集合。 ## 一、文件的逻辑结构 -
-逻辑结构：在<strong>用户</strong>看来，文件内部的数据应该是如何组织起来的。
--
-物理结构：在<strong>操作系统</strong>看来，文件的数据是如何存放在外存的。
-- 无结构文件：
-文件内部的数据由一系列二进制流或字符流组成，又称“流式文件”。 -
-有结构文件：由一组相似的记录组成，又称“记录式文件”
-以下介绍三种有结构文件。 #### 1. 顺序文件
-文件中的记录一个接一个地顺序排列（逻辑上）。各个记录在物理上可以<strong>顺序存储</strong>或<strong>链式存储</strong>。
-- 串结构：记录顺序与关键字无关。 - 顺序结构：记录按关键字顺序排列。
-链式存储：无法实现随机存取，每次只能从第一个记录开始依次往后查找。
-顺序存储（顺序文件一般指顺序存储的文件）： -
-可变长记录无法实现随机存取； -
-定长记录可以随机存取，记录长度为L，则第i个记录存放的相对位置是i*L；
--采用顺序结构的定长记录，还可以快速找到某关键字对应的记录； #### 2.
-索引文件 - 建立一张索引表，每条记录对应一个索引项； -
-索引表本身是定长记录的顺序文件，因此可以快速找到第i个记录对应的索引项；
-- 若索引表按关键字顺序排列，则可支持<strong>快速检索</strong>； -
-解决了顺序文件不方便增删记录的问题，同时让不定长记录文件实现随机存取，但索引表可能占据很多空间；
-#### 3. 索引顺序文件
-为文件建立一张索引表，<strong>每组记录</strong>对应一个索引表项。 ##
-二、文件目录 #### 1. 文件控制块
-文件控制块（FCB）：目录文件（可理解成文件夹）中的一条记录就是一个文件控制块。包含了：
-- 文件的基本信息：文件名、物理地址、逻辑地址、物理结构等； -
-存取控制信息：是否可读/可写、禁止访问的用户名单等； -
-使用信息：文件的建立时间、修改时间等；
-FCB实现了文件名和文件之间的<strong>映射</strong>，使用户（用户程序）可以实现“按名存取”。
-对目录的操作：搜索、创建文件、删除文件、显示文件、修改文件。 #### 2.
-目录结构
-<strong>单级目录结构</strong>：整个系统只建立一张目录表，每个文件占一个目录项；
-<strong>两级目录结构</strong>：分为主文件目录（MFD）和用户文件目录（UFD）；
-- 主文件目录记录用户名及相应用户文件存放文字； -
-用户不能对自己的文件进行分类，缺乏灵活性；
-<strong>多级目录结构（树形目录结构）</strong> - 相对路径 VS 绝对路径； -
-不便于实现<strong>文件的共享</strong>；
-<strong>无环图目录结构</strong>：在树形目录结构基础上，增加一些指向同一节点的有向边，形成有向无环图。
-- 为共享结点设置共享计数器，计数器为0才删除结点； -
-可以更方便地实现多个用户间的文件共享； #### 3. 索引节点（FCB的改进）
-对目录表进行瘦身，保留文件名+索引结点指针信息，其他描述信息全都放到指针指向的地址；
-- 减小了目录表所占空间； -
-提高了检索效率（一个磁盘块可以放入更多FCB，启动磁盘次数减少）； ##
-三、文件的物理结构
-该部分探讨文件数据应该怎么存放在外存中，可以理解成文件分配方式问题。
-和内存分页类似，磁盘中存储单元也会被分为一个个“块/磁盘块/物理块”。很多操作系统中，磁盘块的大小与内存块、页面的大小<strong>相同</strong>。
-- 文件的逻辑地址也可以表示为（逻辑块号，块内地址）；、 -
-操作系统为文件分配存储空间以块为单位； -
-操作系统负责从逻辑地址到物理地址的映射；
-这里介绍<strong>连续分配</strong>、<strong>链接分配</strong>、<strong>索引分配</strong>三种分配方式：
-#### 1.连续分配 连续分配要求每个文件在磁盘上占有一组连续的块。
-文件目录记录文件存放的<strong>起始块号</strong>和<strong>长度</strong>。
-- 物理块号=起始块号+逻辑块号； <strong>优点：</strong> -
-支持<strong>顺序访问</strong>和<strong>随机访问</strong>（直接访问）； -
-在<strong>顺序读/写</strong>时速度最快； <strong>缺点：</strong> -
-不方便扩展； - 存储空间利用率低，会产生难以利用的磁盘碎片；
-地址转换方式： #### 2.链接分配
-<strong>隐式链接</strong>：文件中除最后一个磁盘块，每个磁盘块都会保存指向下一个磁盘块的指针。
-- 只支持顺序访问，不支持随机访问； - 拓展方便； - 磁盘利用率高；
-<strong>显示链接</strong>：把用于链接文件各物理块的指针显示地存放在一张表中，即文件分配表（FAT）；
-- FAT中，每个物理块号都记录下一块的地址； -
-每个磁盘仅设置一张FAT，开机时将FAT读入内存； -
-每个文件的起始块号记录在目录项中； <strong>优点：</strong> -
-支持顺序访问，也支持随机访问（查询FAT表不需要读磁盘）； -
-不会产生外部碎片，也方便拓展； <strong>缺点：</strong> -
-文件分配表需要占据一定存储空间； #### 3.索引分配
-为<strong>每个文件</strong>建立一张索引表，索引表中记录了文件各个逻辑块对应的物理块（类似于页表）；
--
-索引表存放的磁盘称为<strong>索引块</strong>，文件数据存放的磁盘成为<strong>数据块</strong>；
-- FCB中记录索引块地址； - 支持随机访问、容易拓展；
-当一个磁盘块装不下整张索引表，可以采取以下三种解决方式： -
-链接方案：多个索引块链接起来存放； -
-多层索引：类似于多级页表，为索引表建立索引表，除了顶级索引表都可以离散存放；
--
-混合索引：顶级索引表中，既包含直接地址索引，又包含间接索引，使得对于小文件来说，访问一个数据块所需的读磁盘次数更少（<strong>为什么小文件需要多层索引？</strong>）；
-## 四、文件存储空间管理 对磁盘空闲空间的管理。 #### 1.
-存储空间的划分和初始块 物理磁盘划分为一个个文件卷（C盘、D盘、E盘等）；
-各个文件卷分为目录区（存放FCB、用于存储磁盘空间管理的信息）、文件区（存放文件数据）；</p>
-<p>加下来介绍4种存储空间管理方法： #### 2. 空闲表法
-记录每个空闲区间的起始位置和长度。 - 适用于连续分配方式； -
-可采用首次适应、最佳适应、最坏适应等算法为文件分配区间； #### 3.
-空闲链表法 <strong>空闲盘块链</strong>：以盘块为单位组成一条空闲链； -
-空闲盘块存储这下一个空闲盘块的指针； - 操作系统保存着链头、链尾指针；
-<strong>空闲盘区链</strong>：以盘区为单位组成一条空闲链； -
-操作系统保存着链头、链尾指针； -
-空闲盘区中的第一个盘块记录了盘区的长度、下一个盘区的指针； -
-离散分配、连续分配都适用，为一个文件分配多个盘块时效率更高； #### 4.
-位示图法
-每个二进制位对应一个盘块，位示图一般用连续的“字”表示，用（字号，位号）对应一个盘块。
-- 字号i = b/n，位号j = b%n，n表示字长，b表示盘块号； -
-注意盘块号、字号、位号从0开始还是从1开始； #### 5. 成组链接法
-文件卷的目录区设置一个磁盘块为“超级块”。 -
-超级块记录下一组空闲盘块数、每个空闲盘块号； -
-系统启动时超级块读入内存，并随着磁盘的超级块更新； -
-超级块的第一个磁盘块存放了下一组的信息； - 适用于大型操作系统；</p>
-<h2 id="五文件的基本操作">五、文件的基本操作</h2>
-<p><strong>创建文件</strong>（creat系统调用）： -
-在外存中找到文件所需空间； - 创建该文件对应的目录项；
-<strong>删除文件</strong>（delete系统调用）： - 找到文件名对应的目录项；
-- 回收文件占用的磁盘块； - 删除文件对应的目录项；
-<strong>打开文件</strong>（open系统调用）： - 找到文件名对应的目录项； -
-将目录项复制到内存的“打开文件表”中，并将打开文件表的索引号返回给用户； -
-每个进程有自己的打开文件表，系统也有一张总的打开文件表； -
-进程打开文件表特有属性：读写指针、访问权限（是否只读）； -
-系统打开文件表特有属性：打开计数器；
-<strong>关闭文件</strong>（close系统调用）： -
-将进程的打开文件表相应表项删除； - 回收分配给该文件的内存空间等资源； -
-系统打开文件表打开计数器-1，若count为0则删除对应表项；
-<strong>读文件</strong>（read系统调用）： -
-根据读指针、读入数据量、内存位置将文件数据从外存读入内存；
-<strong>写文件</strong>（write系统调用）： -
-根据读指针、读入数据量、内存位置将文件数据从内存写出外存； ##
-六、文件共享和文件保护 #### 1. 文件共享
-基于<strong>索引节点</strong>的共享方式（硬链接）： -
-每个用户的目录项指向同一个索引结点； - 索引结点中有链接技术count； -
-某用户删除文件时只删除目录项，count--，只有count==0才删除文件数据；
-基于<strong>符号链接</strong>的共享方式（软链接）: -
-在一个link型文件（如快捷方式）记录共享文件存放路径； -
-软连接访问共享文件需要查询多级目录，需要多次I/O操作，访问速度慢； ####
-2. 文件保护 <strong>口令保护</strong>： -
-为文件设置一个口令，用户访问时需提供口令； -
-开销小，但口令需存放系统中，不太安全； <strong>加密保护</strong>： -
-用一个密码对文件加密（如异或加密），需要提供相同密码才能正确解密； -
-安全性高，但加密解密需耗时； <strong>访问控制</strong>： -
-用访问控制表（ACL）记录不同用户的访问权限； -
-对文件访问类型可以分为：读/写/执行/删除 等； -
-实现灵活，可以实现复杂的文件保护功能；</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://rookiedb0901.github.io/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="DB">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 深夜食堂">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/06/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" class="post-title-link" itemprop="url">操作系统-虚拟内存</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2022-11-06 19:52:35" itemprop="dateCreated datePublished" datetime="2022-11-06T19:52:35+08:00">2022-11-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>传统存储方式特点 -
-<strong>一次性</strong>：作业必须一次性全部装入内存后才能开始运行； -
-<strong>驻留性</strong>：一旦作业装入内存，就会一直驻留在内存中，直至作业结束；
-局部性原理 - <strong>时间局部性</strong> - <strong>空间局部性</strong>
-## 虚拟内存 -
-基于局部性原理，在程序装入时，可以将程序中很快会用到的部分装入内存，暂时用不到的部分留在外存，就可以开始执行程序；
--
-在程序执行过程中，当<strong>访问的信息不在内存</strong>时，由操作系统负责将所需信息<strong>调入内存</strong>，然后继续执行程序；（<strong>请求调页/请求调段</strong>）
--
-若<strong>内存空间不够</strong>，由操作系统负责将内存中<strong>暂时用不到的信息</strong>换到外存；（<strong>页面置换/段置换</strong>）
-#### 虚拟内存容量
-虚拟内存最大容量：由计算机地址结构（CPU寻址范围决定），如32位计算机地址结构：2^32B=4GB；
-虚拟内存实际容量：min（内外存容量之和，CPU寻址范围）； #### 特征 -
-多次性； - 对换性； - 虚拟性； ## 请求分页管理方式 #### 请求页表 -
-内存块号 - 状态栏：表示页面是否已在内存中； -
-访问字段：记录最近被访问过几次，或记录上次访问的时间，供置换算法选择换出页面时参考；
-- 修改位：表示页面调入内存后是否被修改过； -
-外存地址：页面在外存中存放的位置； #### 缺页中断机构 -
-在请求分页系统中，当访问的页面不在内存（状态位为0）时，便产生一个缺页中断，由操作系统的缺页中断处理程序处理中断。
-- 此时缺页的进程阻塞，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。
--
-如果内存中有空闲块，则为进程分配一个空闲块，将所缺页面装入，并修改相应页表项；
--
-如果内存中没有空闲块，则由页面置换算法选择一个页面淘汰，若该页面被修改过则需写回外存；
-#### 地址变换机构 - 找到页表项时需检查页面是否在内存中； -
-若页面不在内存中，需请求调页； - 如内存空间不够，需换出页面； -
-页面调入内存后，需要修改相应页表项； ## 页面置换算法
-追求更小的缺页率（缺页次数/访问次数）。 #### 最佳置换算法
-每次选择以后永不使用，或长时间内不再被访问的页面淘汰，保证最低缺页率。
-操作系统无法预判，所以无法实现。 #### 先进先出置换算法（FIFO）
-每次淘汰<strong>最早进入内存</strong>的页面。FIFO会产生Belady异常。
-<strong>Belady异常</strong>：当为进程分配的物理块数增大时，缺页次数不减反增。
-#### 最近最久未使用置换算法（LRU）
-每次淘汰<strong>最近最久未使用</strong>的页面。用访问字段记录上次被访问以来经历的时间t。
-性能好，但实现困难、开销大。 #### 时钟置换算法（CLOCK）
-<strong>简单的CLOCK算法</strong>： -
-为每个页面设置一个访问位，通过链接指针链接成一个<strong>循环队列</strong>；
-- 一个页面被访问时，访问位设为1； -
-需要淘汰一个页面时，按队列顺序检查访问位，访问位为0则换出，访问位为1则设为0；
-简单的CLOCK算法仅考虑一个页面最近是否被访问过。事实上，只有被修改过的淘汰页面才需要写回外存，因此没有被修改过的页面应该优先淘汰，避免I/O操作。
-<strong>改进型的时钟置换算法</strong>：
--用（访问为，修改位）表示各页面状态； -
-第一轮：扫描找到第一个（0,0）页面用于替换，不修改任何标志位； -
-第二轮：若第一轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换，并将扫描过的访问位设为0；
--
-第三轮：若第二轮扫描失败，则继续扫描查找第一个（0,0）的帧用于替换，不修改任何标志位；
-- 第四轮：若第三轮扫描失败，则继续扫描查找第一个（0,1）的帧用于替换； ##
-页面分配策略 驻留集：指请求分页存储管理中给进程分配的物理块的集合。
-采用了虚拟存储技术的系统中，驻留集一般<strong>小于</strong>进程总大小。
-- 驻留集太小，换页频繁，开销大； - 驻留集太大，并发度小，资源利用率低；
-固定分配 VS 可变分配：驻留集大小是否可变； 局部置换 VS
-全局置换：是否可以将其他进程的物理块换出； -
-固定分配局部置换：很难在刚开始就为每个进程分配合理的物理块数量，灵活性差；
-- 可变分配全局置换：部分进程物理块被减少，导致缺页率过高； -
-可变分配局部置换：根据缺页的频率来动态调整进程物理块； #### 何时调入页面
--
-预调页策略：进程运行前预测不久之后可能访问到的页面，用于<strong>首次调入</strong>，由程序员指出；
--
-请求调页策略：进程<strong>运行期间</strong>发现缺页才将所缺页面调入内存，需要频繁的I/O操作；
-#### 从何处调入页面 外存分为文件区和对换区。 |对换区|文件区|
-|:---:|:---:| |读写速度快|读写速度慢| |连续分配|离散分配|
-|一般空间较小|一般空间较大| -
-对换区空间充足：进程运行前相关数据复制到对换区，页面调入、调出都在内存和对换区进行；
-- 对换区空间不足：不会被修改的数据直接从文件区调入； -
-UNIX方式：运行之前进程相关数据全部放在文件区，运行时内存换出的页面写回对换区；
-#### 工作集
-<strong>抖动（颠簸）现象</strong>：刚刚换出/换入的页面马上又要换入/换出，频繁缺页。
-工作集：在某段时间间隔里（窗口尺寸），进程实际访问页面的集合。
-一般驻留集大小不能小于工作集大小，否则容易频繁缺页。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1542,7 +1687,7 @@ UNIX方式：运行之前进程相关数据全部放在文件区，运行时内�
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2024</span>
+    <span itemprop="copyrightYear">2025</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1591,7 +1736,7 @@ UNIX方式：运行之前进程相关数据全部放在文件区，运行时内�
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
